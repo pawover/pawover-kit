@@ -4,6 +4,7 @@ import { useLatest } from "./useLatest";
 
 /**
  * 在组件卸载时执行的 Hook
+ * @reference https://ahooks.js.org/zh-CN/hooks/use-unmount
  *
  * @param {Func} effect 副作用函数
  */

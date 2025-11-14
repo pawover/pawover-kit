@@ -38,9 +38,6 @@ importers:
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
-      radashi:
-        specifier: ^12.7.0
-        version: 12.7.0
       react:
         specifier: ^19.2.0
         version: 19.2.0
@@ -790,10 +787,6 @@ packages:
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
-
-  radashi@12.7.0:
-    resolution: {integrity: sha512-rft1uBEcQ/LF1niygWFOGzQ1YbSEMY51YilitWsaMXZZwVNyUp2VGB7Y43ZhzJrD3IJw08l9d6Ada4rR6lGGrg==}
-    engines: {node: '>=16.0.0'}
 
   react-dom@19.2.0:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
@@ -1705,8 +1698,6 @@ snapshots:
   quansync@0.2.11: {}
 
   queue-microtask@1.2.3: {}
-
-  radashi@12.7.0: {}
 
   react-dom@19.2.0(react@19.2.0):
     dependencies:
