@@ -1,0 +1,90 @@
+{
+  "name": "@pawover/kit",
+  "author": "pawover<pawover@outlook.com>",
+  "description": "pawover's kit",
+  "license": "MIT",
+  "type": "module",
+  "version": "0.0.0-alpha.1",
+  "packageManager": "pnpm@10.20.0",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "keywords": [
+    "pawover",
+    "pawover-kit"
+  ],
+  "homepage": "https://github.com/pawover/pawover-kit#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pawover/pawover-kit.git"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/types/*.d.ts",
+      "import": "./dist/*.js",
+      "default": "./dist/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "public": "pnpm build && npm publish --access public",
+    "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
+    "check:types": "tsc --noEmit",
+    "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=eslint.cache.json --cache",
+    "check:format": "prettier --write \"**/*.{html,json}\" !.vscode/settings.json --cache-location=prettier.cache.json --cache",
+    "check:pack": "attw --pack .",
+    "clean": "pnpm clean:cache & pnpm clean:lib & pnpm clean:output",
+    "clean:cache": "rimraf -g **/*.cache.json **/auto-*.json **/auto-*.d.ts",
+    "clean:lib": "rimraf -g **/node_modules",
+    "clean:output": "rimraf dist",
+    "lib:up": "taze -I -r --exclude pnpm"
+  },
+  "devDependencies": {
+    "@pawover/eslint-rules": "0.0.0-alpha.3",
+    "@pawover/types": "0.0.0-alpha.6",
+    "@stylistic/eslint-plugin": "^5.5.0",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.4",
+    "ahooks": "^3.9.6",
+    "eslint": "^9.39.1",
+    "eslint-plugin-antfu": "^3.1.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2",
+    "radashi": "^12.7.0",
+    "react": "^19.2.0",
+    "rimraf": "^6.1.0",
+    "taze": "^19.9.0",
+    "type-fest": "^5.2.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vue": "^3.5.24"
+  },
+  "peerDependencies": {
+    "ahooks": ">=3.9.6",
+    "radashi": ">=12.7.0",
+    "react": ">=19.2.0",
+    "vue": ">=3.5.24"
+  },
+  "peerDependenciesMeta": {
+    "ahooks": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    }
+  }
+}
