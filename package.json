@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.2",
+  "version": "0.0.0-alpha.4",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -30,20 +30,10 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./enums/*": {
-      "types": "./dist/types/enums/*.d.ts",
-      "import": "./dist/enums/*.js",
-      "default": "./dist/enums/*.js"
-    },
-    "./utils/*": {
-      "types": "./dist/types/utils/*.d.ts",
-      "import": "./dist/utils/*.js",
-      "default": "./dist/utils/*.js"
-    },
-    "./hooks/*": {
-      "types": "./dist/types/hooks/*.d.ts",
-      "import": "./dist/hooks/*.js",
-      "default": "./dist/hooks/*.js"
+    "./hooks/react/*": {
+      "types": "./dist/types/hooks/react/*.d.ts",
+      "import": "./dist/hooks/react/*.js",
+      "default": "./dist/hooks/react/*.js"
     }
   },
   "scripts": {
