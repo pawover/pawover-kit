@@ -8,6 +8,6 @@
     "declarationDir": "dist/types",
     "types": ["@pawover/types"]
   },
-  "include": ["*.config.ts", "*.d.ts", "src/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

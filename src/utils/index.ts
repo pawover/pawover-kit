@@ -1,8 +1,9 @@
-export * from "./array";
-export * from "./clone";
-export * from "./object";
-export * from "./string";
-export * from "./to";
-export * from "./tree";
-export * from "./typeof";
+export * from "./tree/index.js";
+
+export * from "./array.js";
+export * from "./clone.js";
+export * from "./object.js";
+export * from "./string.js";
+export * from "./to.js";
+export * from "./typeof.js";
 

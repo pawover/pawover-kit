@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.7",
+  "version": "0.0.0-alpha.10",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -20,7 +20,7 @@
   },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "files": [
     "dist"
   ],
@@ -30,10 +30,11 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./hooks/react/*": {
-      "types": "./dist/types/hooks/react/*.d.ts",
-      "import": "./dist/hooks/react/*.js",
-      "default": "./dist/hooks/react/*.js"
+    "./*": {
+      "types": "./dist/types/*.d.ts",
+      "import": "./dist/*.js",
+      "default": "./dist/*.js",
+      "require": "./dist/*.js"
     }
   },
   "scripts": {
@@ -41,17 +42,17 @@
     "public": "pnpm build && npm publish --access public",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
     "check:types": "tsc --noEmit",
-    "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=eslint.cache.json --cache",
-    "check:format": "prettier --write \"**/*.{html,json}\" !.vscode/settings.json --cache-location=prettier.cache.json --cache",
+    "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
+    "check:format": "prettier --write \"**/*.{html,json}\" !.vscode/settings.json --cache-location=.cache/prettier.cache.json --cache",
     "check:pack": "attw --pack .",
     "clean": "pnpm clean:cache & pnpm clean:lib & pnpm clean:output",
-    "clean:cache": "rimraf -g **/*.cache.json **/auto-*.json **/auto-*.d.ts",
+    "clean:cache": "rimraf -g **/.cache",
     "clean:lib": "rimraf -g **/node_modules",
     "clean:output": "rimraf dist",
     "lib:up": "taze -I -r --exclude pnpm"
   },
   "devDependencies": {
-    "@pawover/eslint-rules": "0.0.0-alpha.7",
+    "@pawover/eslint-rules": "0.0.0-alpha.8",
     "@pawover/types": "0.0.0-alpha.6",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@types/node": "^24.10.1",
@@ -67,12 +68,14 @@
     "type-fest": "^5.2.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.4",
-    "vue": "^3.5.24"
+    "vue": "^3.5.24",
+    "zod": "^4.1.12"
   },
   "peerDependencies": {
     "ahooks": ">=3.9.6",
     "react": ">=19.2.0",
-    "vue": ">=3.5.24"
+    "vue": ">=3.5.24",
+    "zod": ">=4.1.12"
   },
   "peerDependenciesMeta": {
     "ahooks": {
@@ -82,6 +85,9 @@
       "optional": true
     },
     "vue": {
+      "optional": true
+    },
+    "zod": {
       "optional": true
     }
   }
