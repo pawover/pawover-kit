@@ -1,3 +1,4 @@
+import type { Replace } from "type-fest";
 import { isString } from "./typeof";
 
 /**
@@ -43,10 +44,7 @@ export function stringInitialCase(value: string, type: "lower" | "upper") {
   });
 }
 
-export function stringToJson<R extends AnyObject = AnyObject, D extends R = R>(
-  data: string | null | undefined,
-  safeValue: D,
-): R {
+export function stringToJson<R extends AnyObject = AnyObject, D extends R = R>(data: string | null | undefined, safeValue: D): R {
   if (isString(data) && data) {
     try {
       const value = JSON.parse(data);
@@ -60,10 +58,7 @@ export function stringToJson<R extends AnyObject = AnyObject, D extends R = R>(
   }
 }
 
-export function stringToValues<T extends number | string = number>(
-  data: string | null | undefined,
-  valueType: "number" | "string" = "number",
-): T[] {
+export function stringToValues<T extends number | string = number>(data: string | null | undefined, valueType: "number" | "string" = "number"): T[] {
   if (isString(data) && data) {
     try {
       const values = data.split(",");
@@ -79,4 +74,8 @@ export function stringToValues<T extends number | string = number>(
   } else {
     return [];
   }
+}
+
+export function stringReplace<I extends string, S extends string, R extends string>(input: I, search: S, replacement: R) {
+  return input.replace(search, replacement) as Replace<I, S, R>;
 }

@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.6",
+  "version": "0.0.0-alpha.7",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -51,11 +51,11 @@
     "lib:up": "taze -I -r --exclude pnpm"
   },
   "devDependencies": {
-    "@pawover/eslint-rules": "0.0.0-alpha.3",
+    "@pawover/eslint-rules": "0.0.0-alpha.7",
     "@pawover/types": "0.0.0-alpha.6",
     "@stylistic/eslint-plugin": "^5.5.0",
     "@types/node": "^24.10.1",
-    "@types/react": "^19.2.4",
+    "@types/react": "^19.2.5",
     "ahooks": "^3.9.6",
     "eslint": "^9.39.1",
     "eslint-plugin-antfu": "^3.1.1",

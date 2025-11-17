@@ -65,9 +65,9 @@ export function objectAssign<O extends AnyObject>(obj: O, overrideObj: O): O {
     return obj ?? overrideObj ?? result;
   }
 
-  return Object.entries({ ...obj, ...overrideObj }).reduce((prev, [key, value]) => {
+  return objectEntries({ ...obj, ...overrideObj }).reduce((acc, [key, value]) => {
     return {
-      ...prev,
+      ...acc,
       [key]: (() => {
         if (isObject(obj[key])) {
           return objectAssign(obj[key], value);
@@ -89,12 +89,12 @@ export function objectPick<O extends AnyObject, K extends keyof O>(obj: O, keys:
     return obj;
   }
 
-  return keys.reduce((prev, curr) => {
+  return keys.reduce((acc, curr) => {
     if (curr in obj) {
-      prev[curr] = obj[curr];
+      acc[curr] = obj[curr];
     }
 
-    return prev;
+    return acc;
   }, result);
 }
 
@@ -163,4 +163,22 @@ export function enumEntries<E extends AnyObject>(enumeration: NonEmptyObject<E>)
   }
 
   return entries;
+}
+
+export function mapEntries<TKey extends PropertyKey, TValue, TNewKey extends PropertyKey, TNewValue>(
+  obj: UnknownObject<TKey, TValue>,
+  toEntry: (key: TKey, value: TValue) => [TNewKey, TNewValue],
+): UnknownObject<TNewKey, TNewValue> {
+  const defaultResult = {} as UnknownObject<TNewKey, TNewValue>;
+
+  if (!obj) {
+    return defaultResult;
+  }
+
+  return objectEntries(obj).reduce((acc, [key, value]) => {
+    const [newKey, newValue] = toEntry(key, value);
+    acc[newKey] = newValue;
+
+    return acc;
+  }, defaultResult);
 }
