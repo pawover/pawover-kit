@@ -25,8 +25,8 @@ interface ResponsiveHookOptions {
 }
 function useResponsive(options?: ResponsiveHookOptions) {
   const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
-  const { XS, SM, MD, LG, XL, XXL } = objectAssign(BREAK_POINT_TOKENS, breakPointTokens);
-  responsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
+  const tokens: BreakPointTokens = objectAssign(BREAK_POINT_TOKENS, breakPointTokens);
+  responsiveConfig = { xxl: tokens.XXL, xl: tokens.XL, lg: tokens.LG, md: tokens.MD, sm: tokens.SM, xs: tokens.XS };
 
   calculate();
 
@@ -52,7 +52,7 @@ function useResponsive(options?: ResponsiveHookOptions) {
     };
   }, []);
 
-  return { responsive, current, isCompact, breakPointTokens };
+  return { responsive, current, isCompact, breakPointTokens: tokens };
 }
 
 function resizeListener() {
