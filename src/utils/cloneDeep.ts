@@ -1,6 +1,6 @@
 import { isArray, isMap, isObject, isSet } from "./typeof";
 
-export interface CloningStrategy {
+interface CloningStrategy {
   cloneMap: <K, V>(parent: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T) => Map<K, V> | null;
   cloneSet: <T>(parent: Set<T>, track: (newParent: Set<T>) => Set<T>, clone: <T>(value: T) => T) => Set<T> | null;
   cloneArray: <T>(parent: readonly T[], track: (newParent: T[]) => T[], clone: <T>(value: T) => T) => T[] | null;
@@ -8,7 +8,7 @@ export interface CloningStrategy {
   cloneOther: <T>(parent: T, track: (newParent: T) => T, clone: <T>(value: T) => T) => T | null;
 }
 
-export const DefaultCloningStrategy: CloningStrategy = {
+const DefaultCloningStrategy: CloningStrategy = {
   cloneMap<K, V>(input: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T): Map<K, V> {
     const output = track(new Map());
     for (const [key, value] of input) {

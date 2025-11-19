@@ -1,8 +1,8 @@
-export { treeFilter } from "./treeFilter.js";
-export { treeFind } from "./treeFind.js";
-export { treeForEach } from "./treeForEach.js";
-export { treeMap } from "./treeMap.js";
+export { treeFilter } from "./treeFilter";
+export { treeFind } from "./treeFind";
+export { treeForEach } from "./treeForEach";
+export { treeMap } from "./treeMap";
 
-export { rowsToTree } from "./rowsToTree.js";
-export { treeToRows } from "./treeToRows.js";
+export { rowsToTree } from "./rowsToTree";
+export { treeToRows } from "./treeToRows";
 

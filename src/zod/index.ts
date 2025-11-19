@@ -1,4 +1,4 @@
-export * from "./primitive.js";
-export * from "./validator/input.js";
-export * from "./validator/societal.js";
+export * from "./primitive";
+export * from "./validator/input";
+export * from "./validator/societal";
 

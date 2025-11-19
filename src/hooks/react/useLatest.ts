@@ -1,6 +1,5 @@
 import { useRef } from "react";
 
-
 /**
  * 返回当前最新值的 Hook
  * @reference https://ahooks.js.org/zh-CN/hooks/use-latest
@@ -8,9 +7,12 @@ import { useRef } from "react";
  * @template T
  * @param {T} value
  */
-export function useLatest<T>(value: T) {
+function useLatest<T>(value: T) {
   const ref = useRef(value);
   ref.current = value;
 
   return ref;
 }
+
+export { useLatest };
+export default useLatest;

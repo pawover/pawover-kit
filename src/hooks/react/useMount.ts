@@ -11,7 +11,7 @@ type MountCallback = EffectCallback | AsyncFunc;
  *
  * @param {MountCallback} effect 副作用函数
  */
-export function useMount(effect: MountCallback) {
+function useMount(effect: MountCallback) {
   if (!isFunction(effect)) {
     console.error(`useMount expected parameter is a function, but got ${typeof effect}`);
   }
@@ -34,3 +34,6 @@ export function useMount(effect: MountCallback) {
     return result as ReturnType<EffectCallback>;
   }, []);
 }
+
+export { useMount };
+export default useMount;

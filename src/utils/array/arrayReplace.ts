@@ -1,0 +1,28 @@
+import { isFunction } from "../typeof";
+
+/**
+ * 数组项替换
+ * - 在给定的数组中，替换符合匹配函数结果的项目。只替换第一个匹配项。始终返回原始数组的副本。
+ *
+ * @param initialList 初始数组
+ * @param newItem 替换项
+ * @param match 匹配函数
+ */
+export function arrayReplace<T>(initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean): T[] {
+  if (!initialList) {
+    return [];
+  }
+  if (newItem === undefined || !isFunction(match)) {
+    return [...initialList];
+  }
+
+  for (let i = 0; i < initialList.length; i++) {
+    const item = initialList[i];
+
+    if (item !== undefined && match(item, i)) {
+      return [...initialList.slice(0, i), newItem, ...initialList.slice(i + 1, initialList.length)];
+    }
+  }
+
+  return [...initialList];
+}

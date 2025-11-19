@@ -7,7 +7,6 @@ interface RefObject<T> {
   isInitialized: boolean;
 }
 
-
 /**
  * useCreation
  * @reference https://ahooks.js.org/zh-CN/hooks/use-creation
@@ -16,7 +15,7 @@ interface RefObject<T> {
  * @param {() => T} factory
  * @param {DependencyList} deps
  */
-export function useCreation<T>(factory: () => T, deps: DependencyList) {
+function useCreation<T>(factory: () => T, deps: DependencyList) {
   const { current } = useRef<RefObject<T>>({ deps, result: undefined!, isInitialized: false });
 
   if (current.isInitialized === false || !isEqual(current.deps, deps)) {
@@ -27,3 +26,6 @@ export function useCreation<T>(factory: () => T, deps: DependencyList) {
 
   return current.result;
 }
+
+export { useCreation };
+export default useCreation;

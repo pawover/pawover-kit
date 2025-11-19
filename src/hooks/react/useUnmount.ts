@@ -8,7 +8,7 @@ import { useLatest } from "./useLatest";
  *
  * @param {Func} effect 副作用函数
  */
-export function useUnmount(effect: Func) {
+function useUnmount(effect: Func) {
   if (!isFunction(effect)) {
     console.error(`useUnmount expected parameter is a function, got ${typeof effect}`);
   }
@@ -22,3 +22,6 @@ export function useUnmount(effect: Func) {
     [],
   );
 }
+
+export { useUnmount };
+export default useUnmount;

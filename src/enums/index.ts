@@ -1,5 +1,25 @@
+export interface BreakPointTokens {
+  XS: number;
+  XSMin: number;
+  XSMax: number;
+  SM: number;
+  SMMin: number;
+  SMMax: number;
+  MD: number;
+  MDMin: number;
+  MDMax: number;
+  LG: number;
+  LGMin: number;
+  LGMax: number;
+  XL: number;
+  XLMin: number;
+  XLMax: number;
+  XXL: number;
+  XXLMin: number;
+}
+
 /** 屏幕响应断点 token 配置 */
-export const BREAK_POINT_TOKENS = {
+export const BREAK_POINT_TOKENS: BreakPointTokens = {
   XS: 576,
   XSMin: 576,
   XSMax: 767,
@@ -17,4 +37,4 @@ export const BREAK_POINT_TOKENS = {
   XLMax: 1919,
   XXL: 1920,
   XXLMin: 1920,
-} as const;
+};

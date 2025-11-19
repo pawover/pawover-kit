@@ -1,13 +1,13 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDir": ".",
     "baseUrl": ".",
     "checkJs": true,
     "outDir": "dist",
     "declarationDir": "dist/types",
     "types": ["@pawover/types"]
   },
-  "include": ["src/**/*"],
+  "include": ["*.config.ts", "src/**/*"],
   "exclude": ["node_modules"]
 }

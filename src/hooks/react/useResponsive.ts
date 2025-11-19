@@ -1,7 +1,7 @@
 import type { Breakpoint } from "@pawover/types";
 import { useEffect, useState } from "react";
-import { BREAK_POINT_TOKENS } from "src/enums";
-import { objectKeys } from "src/utils";
+import { BREAK_POINT_TOKENS, type BreakPointTokens } from "src/enums";
+import { objectAssign, objectKeys } from "src/utils";
 
 type Subscriber = () => void;
 type ResponsiveConfig = Record<Breakpoint, number>;
@@ -10,7 +10,7 @@ type ResponsiveValues = Record<Breakpoint, boolean>;
 const subscriberList = new Set<Subscriber>();
 const { XS, SM, MD, LG, XL, XXL } = BREAK_POINT_TOKENS;
 const defaultResponsiveValues: ResponsiveValues = { xxl: false, xl: false, lg: false, md: false, sm: false, xs: false };
-const responsiveConfig: ResponsiveConfig = Object.freeze({ xs: XS, sm: SM, md: MD, lg: LG, xl: XL, xxl: XXL });
+let responsiveConfig: ResponsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
 let responsiveValues: ResponsiveValues = { ...defaultResponsiveValues };
 
 interface ResponsiveHookOptions {
@@ -21,10 +21,12 @@ interface ResponsiveHookOptions {
    */
   compactBreakPoint?: Breakpoint;
   /** 屏幕响应断点 token 配置 */
-  // breakPointTokens?: Record<keyof typeof BREAK_POINT_TOKENS, number>;
+  breakPointTokens?: BreakPointTokens;
 }
-export function useResponsive(options?: ResponsiveHookOptions) {
-  const { compactBreakPoint = "xl" } = options || {};
+function useResponsive(options?: ResponsiveHookOptions) {
+  const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
+  const { XS, SM, MD, LG, XL, XXL } = objectAssign(BREAK_POINT_TOKENS, breakPointTokens);
+  responsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
 
   calculate();
 
@@ -50,7 +52,7 @@ export function useResponsive(options?: ResponsiveHookOptions) {
     };
   }, []);
 
-  return { responsive, current, isCompact };
+  return { responsive, current, isCompact, breakPointTokens };
 }
 
 function resizeListener() {
@@ -86,3 +88,6 @@ function calculate() {
     responsiveValues = newValues;
   }
 }
+
+export { useResponsive };
+export default useResponsive;
