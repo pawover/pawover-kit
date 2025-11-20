@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.16",
+  "version": "0.0.0-alpha.17",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -29,6 +29,7 @@
     ".": "./dist/index.js",
     "./enums": "./dist/enums.js",
     "./zod": "./dist/zod.js",
+    "./hooks-alova": "./dist/hooks-alova.js",
     "./hooks-react": "./dist/hooks-react.js",
     "./metadata.json": "./metadata.json",
     "./package.json": "./package.json"
@@ -48,6 +49,11 @@
     "clean:output": "rimraf dist",
     "lib:up": "taze -I -r --exclude pnpm"
   },
+  "dependencies": {
+    "alova": "^3.3.4",
+    "vue": "^3.5.24",
+    "zod": "^4.1.12"
+  },
   "devDependencies": {
     "@pawover/eslint-rules": "0.0.0-alpha.8",
     "@pawover/types": "0.0.0-alpha.6",
@@ -61,22 +67,23 @@
     "globals": "^16.5.0",
     "prettier": "^3.6.2",
     "radashi": "^12.7.0",
-    "react": "^19.2.0",
     "rimraf": "^6.1.0",
     "taze": "^19.9.0",
     "tsdown": "^0.16.5",
     "type-fest": "^5.2.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.46.4",
-    "vue": "^3.5.24",
-    "zod": "^4.1.12"
+    "typescript-eslint": "^8.46.4"
   },
   "peerDependencies": {
+    "alova": ">=3.3.4",
     "react": ">=19.2.0",
     "vue": ">=3.5.24",
     "zod": ">=4.1.12"
   },
   "peerDependenciesMeta": {
+    "alova": {
+      "optional": true
+    },
     "react": {
       "optional": true
     },

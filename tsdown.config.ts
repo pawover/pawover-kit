@@ -7,7 +7,6 @@ export default defineConfig([
       enums: "src/enums/index.ts",
       zod: "src/zod/index.ts",
     },
-    external: ["zod"],
     dts: true,
     target: "es2020",
     platform: "neutral",
@@ -15,9 +14,9 @@ export default defineConfig([
   },
   {
     entry: {
+      "hooks-alova": "src/hooks/alova/index.ts",
       "hooks-react": "src/hooks/react/index.ts",
     },
-    external: ["react"],
     dts: true,
     target: "es2020",
     platform: "browser",
