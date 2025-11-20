@@ -6,7 +6,6 @@ export default defineConfig([
       index: "src/utils/index.ts",
       enums: "src/enums/index.ts",
       zod: "src/zod/index.ts",
-      metadata: "src/metadata.ts",
     },
     external: ["zod"],
     dts: true,

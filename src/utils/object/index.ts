@@ -1,3 +1,4 @@
+export * from "./cloneDeep";
 export * from "./enumEntries";
 export * from "./enumKeys";
 export * from "./enumTypeCheck";

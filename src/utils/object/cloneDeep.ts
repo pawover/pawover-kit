@@ -1,4 +1,4 @@
-import { isArray, isMap, isObject, isSet } from "./typeof";
+import { isArray, isMap, isObject, isSet } from "../typeof";
 
 interface CloningStrategy {
   cloneMap: <K, V>(parent: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T) => Map<K, V> | null;

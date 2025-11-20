@@ -7,12 +7,10 @@ import { useRef } from "react";
  * @template T
  * @param {T} value
  */
-function useLatest<T>(value: T) {
+export function useLatest<T>(value: T) {
   const ref = useRef(value);
   ref.current = value;
 
   return ref;
 }
 
-export { useLatest };
-export default useLatest;

@@ -1,8 +1,7 @@
 export * from "./array";
-export * from "./cloneDeep";
+export * from "./function";
 export * from "./object";
 export * from "./string";
-export * from "./to";
 export * from "./tree";
 export * from "./typeof";
 

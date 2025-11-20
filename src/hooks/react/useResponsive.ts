@@ -23,7 +23,7 @@ interface ResponsiveHookOptions {
   /** 屏幕响应断点 token 配置 */
   breakPointTokens?: BreakPointTokens;
 }
-function useResponsive(options?: ResponsiveHookOptions) {
+export function useResponsive(options?: ResponsiveHookOptions) {
   const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
   const tokens: BreakPointTokens = objectAssign(BREAK_POINT_TOKENS, breakPointTokens);
   responsiveConfig = { xxl: tokens.XXL, xl: tokens.XL, lg: tokens.LG, md: tokens.MD, sm: tokens.SM, xs: tokens.XS };
@@ -89,5 +89,3 @@ function calculate() {
   }
 }
 
-export { useResponsive };
-export default useResponsive;
