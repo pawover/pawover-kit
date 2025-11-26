@@ -8,7 +8,7 @@ import { isArray, isFunction } from "../typeof";
  * @param mergeList 待合并数组
  * @param match 匹配函数
  */
-export function arrayMerge<T>(initialList: readonly T[], mergeList: readonly T[], match: (item: T) => unknown): T[] {
+export function arrayMerge<T>(initialList: readonly T[], mergeList: readonly T[], match?: (item: T) => unknown): T[] {
   if (!isArray(initialList)) {
     return [];
   }
@@ -16,7 +16,7 @@ export function arrayMerge<T>(initialList: readonly T[], mergeList: readonly T[]
     return [...initialList];
   }
   if (!isFunction(match)) {
-    return [...initialList];
+    return Array.from(new Set([...initialList, ...mergeList]));
   }
 
   const keys = new Map();

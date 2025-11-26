@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.17",
+  "version": "0.0.0-alpha.18",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
