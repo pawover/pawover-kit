@@ -1,6 +1,6 @@
 import type { Breakpoint } from "@pawover/types";
 import { useEffect, useState } from "react";
-import { BREAK_POINT_TOKENS, type BreakPointTokens } from "src/enums";
+import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
 import { objectAssign, objectKeys } from "src/utils";
 
 type Subscriber = () => void;
@@ -8,7 +8,7 @@ type ResponsiveConfig = Record<Breakpoint, number>;
 type ResponsiveValues = Record<Breakpoint, boolean>;
 
 const subscriberList = new Set<Subscriber>();
-const { XS, SM, MD, LG, XL, XXL } = BREAK_POINT_TOKENS;
+const { XS, SM, MD, LG, XL, XXL } = BREAK_POINT_TOKEN_ENUM;
 const defaultResponsiveValues: ResponsiveValues = { xxl: false, xl: false, lg: false, md: false, sm: false, xs: false };
 let responsiveConfig: ResponsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
 let responsiveValues: ResponsiveValues = { ...defaultResponsiveValues };
@@ -21,11 +21,11 @@ interface ResponsiveHookOptions {
    */
   compactBreakPoint?: Breakpoint;
   /** 屏幕响应断点 token 配置 */
-  breakPointTokens?: BreakPointTokens;
+  breakPointTokens?: BREAK_POINT_TOKEN_TYPE;
 }
 export function useResponsive(options?: ResponsiveHookOptions) {
   const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
-  const tokens: BreakPointTokens = objectAssign(BREAK_POINT_TOKENS, breakPointTokens);
+  const tokens: BREAK_POINT_TOKEN_TYPE = objectAssign(BREAK_POINT_TOKEN_ENUM, breakPointTokens);
   responsiveConfig = { xxl: tokens.XXL, xl: tokens.XL, lg: tokens.LG, md: tokens.MD, sm: tokens.SM, xs: tokens.XS };
 
   calculate();

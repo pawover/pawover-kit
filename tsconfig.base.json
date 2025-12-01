@@ -9,6 +9,7 @@
     "allowImportingTsExtensions": true,
     "allowUmdGlobalAccess": true,
     "allowJs": true,
+    "checkJs": true,
     "strict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -23,9 +24,6 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
-    "noEmit": false,
-    "emitDeclarationOnly": true,
-    "declaration": true,
     "useDefineForClassFields": true,
     "verbatimModuleSyntax": true
   }
