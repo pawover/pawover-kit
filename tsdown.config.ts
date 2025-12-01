@@ -5,6 +5,7 @@ export default defineConfig([
     entry: {
       index: "src/utils/index.ts",
       enums: "src/enums/index.ts",
+      vite: "src/vite/index.ts",
       zod: "src/zod/index.ts",
     },
     dts: true,

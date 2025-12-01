@@ -27,5 +27,4 @@ export * from "./isWeakMap";
 export * from "./isWeakSet";
 export * from "./isWebSocket";
 export * from "./isWindow";
-export * from "./types";
 
