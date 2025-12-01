@@ -51,11 +51,11 @@ const _filePathWindows = /^[a-z]:\\(?:\w+\\)*\w+\.\w+$/i;
 /** windows 文件路径 */
 export const filePathWindows = z.string().regex(_filePathWindows, { error: "路径格式错误" });
 
-const _dirPathLinux = /^\/(?:[^/]+\/)*$/;
+const _dirPathLinux = /^\/(?:[^\\/\s]+\/)*$/;
 /** linux 文件夹路径 */
 export const dirPathLinux = z.string().regex(_dirPathLinux, { error: "路径格式错误" });
 
-const _filePathLinux = /^\/(?:[^/]+\/)*[^/]+$/;
+const _filePathLinux = /^(\/$|\/(?:[^\\/\s]+\/)*[^\\/\s]+$)/;
 /** linux 文件路径 */
 export const filePathLinux = z.string().regex(_filePathLinux, { error: "路径格式错误" });
 
