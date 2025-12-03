@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.22",
+  "version": "0.0.0-alpha.23",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "alova": "^3.4.0",
+    "mathjs": "^15.1.0",
     "react": "^19.2.0",
     "vite": "^7.2.4",
     "vue": "^3.5.25",
@@ -79,6 +80,7 @@
   },
   "peerDependencies": {
     "alova": ">=3.3.0",
+    "mathjs": ">=15.1.0",
     "react": ">=19.2.0",
     "vite": ">=6.0",
     "vue": ">=3.5.0",
@@ -86,6 +88,9 @@
   },
   "peerDependenciesMeta": {
     "alova": {
+      "optional": true
+    },
+    "mathjs": {
       "optional": true
     },
     "react": {
