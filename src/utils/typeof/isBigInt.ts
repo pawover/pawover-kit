@@ -1,5 +1,3 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
-
-export function isBigInt<T extends bigint>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.bigInt;
+export function isBigInt(value: unknown): value is bigint {
+  return typeof value === "bigint";
 }

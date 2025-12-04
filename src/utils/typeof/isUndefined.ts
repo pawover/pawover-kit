@@ -1,5 +1,3 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
-
-export function isUndefined<T extends undefined>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.undefined;
+export function isUndefined(value: unknown): value is undefined {
+  return typeof value === "undefined";
 }

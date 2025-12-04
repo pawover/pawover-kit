@@ -1,5 +1,7 @@
+import { isDate, isRegExp } from ".";
+
 /**
- * 判断给定的值是否相等
+ * 检查给定的值是否相等
  * @reference https://github.com/radashi-org/radashi/blob/main/src/typed/isEqual.ts
  *
  * @param {T} x
@@ -9,10 +11,10 @@ export function isEqual<T>(x: T, y: T): boolean {
   if (Object.is(x, y)) {
     return true;
   }
-  if (x instanceof Date && y instanceof Date) {
+  if (isDate(x) && isDate(y)) {
     return x.getTime() === y.getTime();
   }
-  if (x instanceof RegExp && y instanceof RegExp) {
+  if (isRegExp(x) && isRegExp(y)) {
     return x.toString() === y.toString();
   }
   if (typeof x !== "object" || x === null || typeof y !== "object" || y === null) {

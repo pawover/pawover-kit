@@ -1,5 +1,5 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isWindow<T extends Window>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.window;
+export function isWindow(value: unknown): value is Window {
+  return resolvePrototypeString(value) === PROTOTYPE_TAGS.window;
 }

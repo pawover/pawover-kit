@@ -1,4 +1,4 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 /**
  * 判断是否为对象类型
@@ -7,12 +7,8 @@ import { prototypeStrings, resolvePrototypeString } from "./types";
  * @param value - 待检查值
  * @param prototypeCheck - 是否进行原型检查，默认 `true`
  */
-export function isObject<T extends Record<PropertyKey, unknown>>(value: unknown, prototypeCheck = true): value is T {
-  const checkValue = resolvePrototypeString(value) === prototypeStrings.object;
+export function isObject(value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
+  const check = resolvePrototypeString(value) === PROTOTYPE_TAGS.object;
 
-  if (prototypeCheck && checkValue) {
-    return Object.getPrototypeOf(value) === Object.prototype;
-  } else {
-    return checkValue;
-  }
+  return prototypeCheck ? check && Object.getPrototypeOf(value) === Object.prototype : check;
 }

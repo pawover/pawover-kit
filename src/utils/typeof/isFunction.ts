@@ -1,7 +1,17 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isFunction<T extends Func>(value: unknown): value is T {
-  const prototypeList: string[] = [prototypeStrings.function, prototypeStrings.generatorFunction, prototypeStrings.asyncFunction];
+export function isFunction(value: unknown): value is AnyFunction {
+  return typeof value === "function";
+}
 
-  return prototypeList.includes(resolvePrototypeString(value));
+export function isAsyncFunction(value: unknown): value is AnyAsyncFunction {
+  return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.asyncFunction;
+}
+
+export function isGeneratorFunction(value: unknown): value is AnyGeneratorFunction {
+  return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.generatorFunction;
+}
+
+export function isAsyncGeneratorFunction(value: unknown): value is AnyAsyncGeneratorFunction {
+  return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.asyncGeneratorFunction;
 }

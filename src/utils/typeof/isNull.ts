@@ -1,5 +1,3 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
-
-export function isNull<T extends null>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.null;
+export function isNull(value: unknown): value is null {
+  return value === null;
 }

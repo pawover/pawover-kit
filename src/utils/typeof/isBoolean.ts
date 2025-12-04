@@ -1,5 +1,3 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
-
-export function isBoolean<T extends boolean>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.boolean;
+export function isBoolean(value: unknown): value is boolean {
+  return typeof value === "boolean";
 }

@@ -2,7 +2,7 @@ import { useEffect, useRef, type EffectCallback } from "react";
 import { isFunction, isPromiseLike } from "src/utils";
 import { useLatest } from "./useLatest";
 
-type MountCallback = EffectCallback | AsyncFunc;
+type MountCallback = EffectCallback | AnyAsyncFunction;
 
 /**
  * 在组件初始化时执行的 Hook

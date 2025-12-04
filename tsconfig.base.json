@@ -15,6 +15,7 @@
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": false,
     "experimentalDecorators": true,
+    "erasableSyntaxOnly": true,
     "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,

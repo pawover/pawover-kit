@@ -1,5 +1,5 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isFile<T extends File>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.file;
+export function isFile(value: unknown): value is File {
+  return resolvePrototypeString(value) === PROTOTYPE_TAGS.file;
 }

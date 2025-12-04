@@ -1,5 +1,5 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isError<T extends Error>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.error;
+export function isError(value: unknown): value is Error {
+  return value instanceof Error || resolvePrototypeString(value) === PROTOTYPE_TAGS.error;
 }

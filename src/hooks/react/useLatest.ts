@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, type RefObject } from "react";
 
 /**
  * 返回当前最新值的 Hook
@@ -7,7 +7,7 @@ import { useRef } from "react";
  * @template T
  * @param {T} value
  */
-export function useLatest<T>(value: T) {
+export function useLatest<T>(value: T): RefObject<T> {
   const ref = useRef(value);
   ref.current = value;
 

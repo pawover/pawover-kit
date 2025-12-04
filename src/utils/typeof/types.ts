@@ -1,4 +1,4 @@
-export const prototypeStrings = {
+export const PROTOTYPE_TAGS = {
   string: "[object String]",
   number: "[object Number]",
   boolean: "[object Boolean]",
@@ -7,8 +7,9 @@ export const prototypeStrings = {
   bigInt: "[object BigInt]",
   symbol: "[object Symbol]",
   function: "[object Function]",
-  generatorFunction: "[object GeneratorFunction]",
   asyncFunction: "[object AsyncFunction]",
+  generatorFunction: "[object GeneratorFunction]",
+  asyncGeneratorFunction: "[object AsyncGeneratorFunction]",
   promise: "[object Promise]",
   null: "[object Null]",
   undefined: "[object Undefined]",
@@ -24,6 +25,20 @@ export const prototypeStrings = {
   webSocket: "[object WebSocket]",
   URLSearchParams: "[object URLSearchParams]",
 } as const;
+
+export const TYPED_ARRAY_TAGS = new Set([
+  "[object Int8Array]",
+  "[object Uint8Array]",
+  "[object Uint8ClampedArray]",
+  "[object Int16Array]",
+  "[object Uint16Array]",
+  "[object Int32Array]",
+  "[object Uint32Array]",
+  "[object Float32Array]",
+  "[object Float64Array]",
+  "[object BigInt64Array]",
+  "[object BigUint64Array]",
+]);
 
 export function resolvePrototypeString(value: unknown) {
   return Object.prototype.toString.call(value);

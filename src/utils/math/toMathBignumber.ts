@@ -1,6 +1,6 @@
 import type { BigNumber, MathJsInstance } from "mathjs";
 import { stringToNumber } from "../string/stringToNumber";
-import { isFalsy, isFalsyLike, isInfinity, isInfinityLike } from "../typeof";
+import { isFalsyLike, isInfinityLike } from "../typeof";
 
 /**
  * 将任意类型的值转换为 `math.bignumber`
@@ -12,7 +12,7 @@ import { isFalsy, isFalsyLike, isInfinity, isInfinityLike } from "../typeof";
 export function toMathBignumber(mathJsInstance: MathJsInstance, value: unknown, saveValue?: BigNumber | undefined): BigNumber {
   const errorValue = saveValue ?? mathJsInstance.bignumber(0);
 
-  if (isFalsy(value) || isFalsyLike(value) || isInfinity(value) || isInfinityLike(value)) {
+  if (isFalsyLike(value) || isInfinityLike(value)) {
     return errorValue;
   }
 

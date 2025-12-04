@@ -1,5 +1,5 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isURLSearchParams<T extends Window>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.URLSearchParams;
+export function isURLSearchParams(value: unknown): value is URLSearchParams {
+  return resolvePrototypeString(value) === PROTOTYPE_TAGS.URLSearchParams;
 }

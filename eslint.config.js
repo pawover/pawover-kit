@@ -89,6 +89,7 @@ export default defineConfig([
       ...eslintRules.typescript,
       ...eslintRules.stylistic,
       ...eslintRules.antfu,
+      "stylistic/operator-linebreak": [2, "after", { overrides: { "?": "ignore", ":": "ignore", "|": "before" } }],
     },
   },
 ]);

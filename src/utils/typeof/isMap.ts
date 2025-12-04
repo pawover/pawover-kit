@@ -1,5 +1,9 @@
-import { prototypeStrings, resolvePrototypeString } from "./types";
+import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
-export function isMap<T extends Map<unknown, unknown>>(value: unknown): value is T {
-  return resolvePrototypeString(value) === prototypeStrings.map;
+export function isMap(value: unknown): value is Map<unknown, unknown> {
+  return resolvePrototypeString(value) === PROTOTYPE_TAGS.map;
+}
+
+export function isWeakMap(value: unknown): value is WeakMap<AnyObject, unknown> {
+  return resolvePrototypeString(value) === PROTOTYPE_TAGS.weakMap;
 }
