@@ -24,6 +24,7 @@ export const PROTOTYPE_TAGS = {
   window: "[object Window]",
   webSocket: "[object WebSocket]",
   URLSearchParams: "[object URLSearchParams]",
+  blob: "[object Blob]",
 } as const;
 
 export const TYPED_ARRAY_TAGS = new Set([

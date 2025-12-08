@@ -1,5 +1,6 @@
 export * from "./isArray";
 export * from "./isBigInt";
+export * from "./isBlob";
 export * from "./isBoolean";
 export * from "./isClass";
 export * from "./isDate";

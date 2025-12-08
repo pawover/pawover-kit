@@ -13,7 +13,7 @@ const defaultResponsiveValues: ResponsiveValues = { xxl: false, xl: false, lg: f
 let responsiveConfig: ResponsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
 let responsiveValues: ResponsiveValues = { ...defaultResponsiveValues };
 
-interface ResponsiveHookOptions {
+export interface ResponsiveHookOptions {
   /**
    * 紧凑布局断点
    * - 低于此断点时使用紧凑布局

@@ -9,10 +9,10 @@ import { toMathBignumber } from "./toMathBignumber";
  * @param precision 精度
  * @param isFormat 是否格式化为字符串
  */
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number, isFormat?: true): string;
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: undefined, isFormat?: false): BigNumber;
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number, isFormat = true): string | BigNumber {
+export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: true): string;
+export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: false): BigNumber;
+export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat = true): string | BigNumber {
   const bigNumber = toMathBignumber(mathJsInstance, value);
 
-  return isFormat ? mathJsInstance.format(bigNumber, { notation: "fixed", precision }) : bigNumber;
+  return isFormat ? mathJsInstance.format(bigNumber, { notation: "fixed", precision: precision! }) : bigNumber;
 }
