@@ -6,12 +6,12 @@ const m2 = /[^a-zA-Z\u00C0-\u017F]/;
 /**
  * 首字母大小写
  */
-export function stringInitialCase(value: string, type: "lower" | "upper") {
-  if (!isString(value) || value.length === 0) {
-    return value;
+export function stringInitialCase(input: string, type: "lower" | "upper") {
+  if (!isString(input) || input.length === 0) {
+    return input;
   }
 
-  return value.replace(m1, (word) => {
+  return input.replace(m1, (word) => {
     // 单词含非字母字符（如.,'-等）→ 原样保留
     if (m2.test(word)) {
       return word;

@@ -1,8 +1,8 @@
 /**
  * 从字符串中提取数字
  */
-export function stringToNumber(value: string) {
-  const cleaned = value.replace(/[^0-9.-]/g, "");
+export function stringToNumber(input: string) {
+  const cleaned = input.replace(/[^0-9.-]/g, "");
   let isDecimal = false;
   let signCount = 0;
   let firstIndex = -1;
