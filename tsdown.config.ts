@@ -8,7 +8,9 @@ export default defineConfig([
       vite: "src/vite/index.ts",
       zod: "src/zod/index.ts",
     },
-    dts: true,
+    dts: {
+      resolve: ["radashi"],
+    },
     target: "es2020",
     platform: "neutral",
     tsconfig: "tsconfig.build.json",
@@ -18,7 +20,9 @@ export default defineConfig([
       "hooks-alova": "src/hooks/alova/index.ts",
       "hooks-react": "src/hooks/react/index.ts",
     },
-    dts: true,
+    dts: {
+      resolve: ["radashi"],
+    },
     target: "es2020",
     platform: "neutral",
     tsconfig: "tsconfig.build.json",

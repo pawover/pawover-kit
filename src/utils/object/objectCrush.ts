@@ -21,7 +21,7 @@ export type Crush<T> = T extends readonly (infer U)[]
     >
   >;
 
-export function objectCrush<T extends object>(value: T): Crush<T> {
+export function objectCrush<T extends UnknownObject>(value: T): Crush<T> {
   if (!value) {
     return {} as Crush<T>;
   }
