@@ -3,7 +3,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "moduleDetection": "force",
     "isolatedModules": true,
     "incremental": false,
     "allowImportingTsExtensions": true,
