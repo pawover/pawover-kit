@@ -27,4 +27,15 @@ export default defineConfig([
     platform: "neutral",
     tsconfig: "tsconfig.build.json",
   },
+  {
+    entry: {
+      "patches-fetchEventSource": "src/patches/fetchEventSource/index.ts",
+    },
+    dts: {
+      resolve: ["radashi"],
+    },
+    target: "es2020",
+    platform: "neutral",
+    tsconfig: "tsconfig.build.json",
+  },
 ]);

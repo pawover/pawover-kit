@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-alpha.28",
+  "version": "0.0.0-alpha.29",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -32,6 +32,7 @@
     "./zod": "./dist/zod.js",
     "./hooks-alova": "./dist/hooks-alova.js",
     "./hooks-react": "./dist/hooks-react.js",
+    "./patches-fetchEventSource": "./dist/patches-fetchEventSource.js",
     "./metadata.json": "./metadata.json",
     "./package.json": "./package.json"
   },

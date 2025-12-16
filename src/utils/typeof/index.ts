@@ -1,3 +1,4 @@
+export * from "./isAbortSignal";
 export * from "./isArray";
 export * from "./isBigInt";
 export * from "./isBlob";
@@ -16,6 +17,7 @@ export * from "./isNull";
 export * from "./isNumber";
 export * from "./isObject";
 export * from "./isPromise";
+export * from "./isReadableStream";
 export * from "./isRegExp";
 export * from "./isSet";
 export * from "./isString";
