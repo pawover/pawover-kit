@@ -1,10 +1,23 @@
-export function stringTemplate(input: string, data: Record<string, unknown>, regex = /\{\{(.+?)\}\}/g): string {
+import { isString } from "../typeof";
+
+/**
+ * 字符串模板替换
+ *
+ * @param input 待处理字符串
+ * @param template 模板对象
+ * @param regex 模板匹配正则
+ */
+export function stringTemplate(input: string, template: PlainObject, regex = /\{\{(.+?)\}\}/g) {
+  if (!isString(input) || !input.length) {
+    return "";
+  }
+
   let result = "";
   let from = 0;
   let match: RegExpExecArray | null;
 
   while ((match = regex.exec(input))) {
-    result += input.slice(from, match.index) + data[match[1]!];
+    result += input.slice(from, match.index) + template[match[1]!];
     from = regex.lastIndex;
   }
 

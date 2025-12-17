@@ -1,8 +1,8 @@
-import type { Breakpoint } from "@pawover/types";
 import { useEffect, useState } from "react";
 import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
 import { objectAssign, objectKeys } from "src/utils";
 
+type Breakpoint = "xxl" | "xl" | "lg" | "md" | "sm" | "xs";
 type Subscriber = () => void;
 type ResponsiveConfig = Record<Breakpoint, number>;
 type ResponsiveValues = Record<Breakpoint, boolean>;

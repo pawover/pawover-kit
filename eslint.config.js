@@ -3,7 +3,6 @@ import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginAntfu from "eslint-plugin-antfu";
 
 import { defineConfig } from "eslint/config";
-import globals from "globals";
 import eslintTs from "typescript-eslint";
 
 const plugins = {
@@ -61,7 +60,6 @@ export default defineConfig([
     files: ["**/*.{js,cjs,mjs}"],
     plugins: { ...plugins.stylistic, ...plugins.antfu },
     languageOptions: {
-      globals: { ...globals.browser, ...globals.es2020 },
       parserOptions: {
         ecmaFeatures: {
           jsx: false,

@@ -1,8 +1,18 @@
+import { isString } from "../typeof";
+
+const R1 = /[^0-9.-]/g;
+
 /**
- * 从字符串中提取数字
+ * 从字符串中提取数字字符串
+ *
+ * @param input 待处理字符串
  */
 export function stringToNumber(input: string) {
-  const cleaned = input.replace(/[^0-9.-]/g, "");
+  if (!isString(input) || !input.length) {
+    return "";
+  }
+
+  const cleaned = input.replace(R1, "");
   let isDecimal = false;
   let signCount = 0;
   let firstIndex = -1;

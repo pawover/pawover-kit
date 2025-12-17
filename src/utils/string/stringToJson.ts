@@ -1,15 +1,21 @@
 import { isString } from "../typeof";
 
+/**
+ * 处理 JSON 字符串
+ *
+ * @param input 待处理字符串
+ * @param safeValue 安全值
+ */
 export function stringToJson<R extends AnyObject = AnyObject, D extends R = R>(input: string | null | undefined, safeValue: D): R {
-  if (isString(input) && input) {
-    try {
-      const value = JSON.parse(input);
+  if (!isString(input) || !input.length) {
+    return safeValue;
+  }
 
-      return value;
-    } catch (error) {
-      return safeValue;
-    }
-  } else {
+  try {
+    const value = JSON.parse(input);
+
+    return value;
+  } catch (error) {
     return safeValue;
   }
 }

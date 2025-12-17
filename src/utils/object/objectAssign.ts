@@ -8,7 +8,7 @@ import { isObject } from "../typeof";
  * @param initial 初始对象
  * @param override 待合并对象
  */
-export function objectAssign<I extends UnknownObject, O extends UnknownObject>(initial: I, override: O): Assign<I, O> {
+export function objectAssign<I extends PlainObject, O extends PlainObject>(initial: I, override: O): Assign<I, O> {
   if (!isObject(initial) || !isObject(override)) {
     return (initial ?? override ?? {}) as Assign<I, O>;
   }

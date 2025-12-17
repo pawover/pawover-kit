@@ -15,7 +15,7 @@ export interface FetchEventSourceOptions extends Except<RequestInit, "headers"> 
    * The request headers.
    * FetchEventSource only supports the plain object format.
    */
-  headers?: UnknownObject | AnyFunction<unknown[], UnknownObject> | undefined;
+  headers?: PlainObject | AnyFunction<unknown[], PlainObject> | undefined;
 
   /**
    * Called when a response is received.

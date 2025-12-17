@@ -1,7 +1,7 @@
 import { objectEntries } from "./objectEntries";
 
-export function mapEntries<K extends PropertyKey, V, NK extends PropertyKey, NV>(obj: UnknownObject<K, V>, toEntry: (key: K, value: V) => [NK, NV]): UnknownObject<NK, NV> {
-  const defaultResult = {} as UnknownObject<NK, NV>;
+export function mapEntries<K extends PropertyKey, V, NK extends PropertyKey, NV>(obj: PlainObject<K, V>, toEntry: (key: K, value: V) => [NK, NV]): PlainObject<NK, NV> {
+  const defaultResult = {} as PlainObject<NK, NV>;
 
   if (!obj) {
     return defaultResult;

@@ -1,7 +1,7 @@
 import type { Simplify, UnionToIntersection } from "type-fest";
 import { isArray, isObject } from "../typeof";
 
-export type Crush<T> = T extends readonly (infer U)[]
+type Crush<T> = T extends readonly (infer U)[]
   ? Record<string, U extends object ? unknown : U>
   : Simplify<
     UnionToIntersection<
@@ -21,7 +21,7 @@ export type Crush<T> = T extends readonly (infer U)[]
     >
   >;
 
-export function objectCrush<T extends UnknownObject>(value: T): Crush<T> {
+export function objectCrush<T extends PlainObject>(value: T): Crush<T> {
   if (!value) {
     return {} as Crush<T>;
   }
