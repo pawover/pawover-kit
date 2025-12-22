@@ -26,7 +26,7 @@ export interface EventSourceMessage {
   data: string;
   /**
    * The delay to wait before reconnection.
-   * @symbol ms
+   * @unit ms
    */
   reconnectionDelay?: number | undefined;
 }

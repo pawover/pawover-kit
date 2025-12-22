@@ -52,7 +52,7 @@ export interface FetchEventSourceOptions extends Except<RequestInit, "headers"> 
 
   /**
    * The delay to wait before reconnection.
-   * @symbol ms
+   * @unit ms
    * @default 1000
    */
   reconnectionDelay?: number | undefined;
