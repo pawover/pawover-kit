@@ -1,11 +1,12 @@
 import type { ProxyOptions } from "vite";
 
+
 /**
  * 开发服务器反向代理配置
  *
  * @param proxyList 代理配置项
  */
-export function resolveViteProxy<L extends [string, string][]>(proxyList: L): Record<string, ProxyOptions> {
+export function resolveViteProxy<L extends [string, string][]>(proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
   const httpsRE = /^https:\/\//;
   const result: Record<string, ProxyOptions> = {};
 
@@ -21,6 +22,7 @@ export function resolveViteProxy<L extends [string, string][]>(proxyList: L): Re
         rewrite: (path) => path.replace(new RegExp(`^${prefix}`), ""),
         // https 需要开启 secure = false
         ...isHttps ? { secure: false } : {},
+        ...options,
       };
     }
   }
