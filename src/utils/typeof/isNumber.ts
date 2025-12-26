@@ -5,13 +5,7 @@
  * @param checkNaN - 是否排除 `NaN`，默认为 `true`
  */
 export function isNumber(value: unknown, checkNaN = true): value is number {
-  const isNum = typeof value === "number";
-
-  if (isNum && checkNaN) {
-    return isNaN(isNum);
-  }
-
-  return isNum;
+  return typeof value === "number" && (!checkNaN || !isNaN(value));
 }
 
 /**
