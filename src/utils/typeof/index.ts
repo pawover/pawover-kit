@@ -12,7 +12,6 @@ export * from "./isFile";
 export * from "./isFunction";
 export * from "./isIterable";
 export * from "./isMap";
-export * from "./isNaN";
 export * from "./isNull";
 export * from "./isNumber";
 export * from "./isObject";
