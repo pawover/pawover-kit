@@ -14,7 +14,7 @@ const R2 = /[^a-zA-Z\u00C0-\u017F]/;
  * @param caseType 大小写类型
  */
 export function stringInitialCase(input: string, caseType?: "lower" | "upper" | undefined) {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return "";
   }
 

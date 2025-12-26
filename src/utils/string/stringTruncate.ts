@@ -9,7 +9,7 @@ import { isPositiveInteger, isString } from "../typeof";
  * @param ellipsis 省略符，默认为 `...`
  */
 export function stringTruncate(input: string, maxLength: number, ellipsis = "...") {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return "";
   }
 

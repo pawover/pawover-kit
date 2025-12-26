@@ -10,7 +10,7 @@ import { isString } from "../typeof";
  * @param replacement 替换项
  */
 export function stringReplace<I extends string, S extends string, R extends string>(input: I, search: S, replacement: R) {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return "" as Replace<I, S, R>;
   }
 

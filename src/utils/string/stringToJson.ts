@@ -7,7 +7,7 @@ import { isString } from "../typeof";
  * @param safeValue 安全值
  */
 export function stringToJson<R extends AnyObject = AnyObject, D extends R = R>(input: string | null | undefined, safeValue: D): R {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return safeValue;
   }
 

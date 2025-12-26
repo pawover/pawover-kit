@@ -3,5 +3,8 @@ export * from "./stringReplace";
 export * from "./stringTemplate";
 export * from "./stringToJson";
 export * from "./stringToNumber";
+export * from "./stringToPosix";
 export * from "./stringToValues";
+export * from "./stringTrim";
+export * from "./stringTruncate";
 

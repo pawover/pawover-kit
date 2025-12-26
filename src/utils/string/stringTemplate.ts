@@ -8,7 +8,7 @@ import { isString } from "../typeof";
  * @param regex 模板匹配正则
  */
 export function stringTemplate(input: string, template: PlainObject, regex = /\{\{(.+?)\}\}/g) {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return "";
   }
 

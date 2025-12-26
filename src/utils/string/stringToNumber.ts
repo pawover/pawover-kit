@@ -8,7 +8,7 @@ const R1 = /[^0-9.-]/g;
  * @param input 待处理字符串
  */
 export function stringToNumber(input: string) {
-  if (!isString(input) || !input.length) {
+  if (!isString(input, true)) {
     return "";
   }
 
