@@ -4,8 +4,9 @@ import { isString } from "../typeof";
  * 将路径转换为 POSIX 风格
  *
  * @param input 待处理字符串
+ * @param removeLeadingSlash 是否移除开头斜杠，默认为 `false`
  */
-export function stringToPosix(input: string | null | undefined) {
+export function stringToPosix(input: string | null | undefined, removeLeadingSlash = false) {
   if (!isString(input, true)) {
     return "";
   }
@@ -17,7 +18,7 @@ export function stringToPosix(input: string | null | undefined) {
   // 3. 合并连续斜杠
   normalized = normalized.replace(/\/+/g, "/");
   // 4. 移除开头的斜杠
-  if (normalized.startsWith("/")) {
+  if (removeLeadingSlash && normalized.startsWith("/")) {
     normalized = normalized.substring(1);
   }
 
