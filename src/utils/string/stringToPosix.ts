@@ -11,13 +11,13 @@ export function stringToPosix(input: string | null | undefined, removeLeadingSla
     return "";
   }
 
-  // 1. 移除盘符（Windows）和开头的根路径（/ 或 \）
-  let normalized = input.replace(/^[A-Za-z]:[\\/]?/, "").replace(/^[\\/]+/, "");
+  // 1. 移除盘符（Windows）和开头的根路径（/ 或 \），将开头斜杠序列标准化为单个斜杠
+  let normalized = input.replace(/^[A-Za-z]:[\\/]?/, "").replace(/^[\\/]+/, "/");
   // 2. 替换所有反斜杠为正斜杠
   normalized = normalized.replace(/\\/g, "/");
   // 3. 合并连续斜杠
   normalized = normalized.replace(/\/+/g, "/");
-  // 4. 移除开头的斜杠
+  // 4. 移除开头斜杠
   if (removeLeadingSlash && normalized.startsWith("/")) {
     normalized = normalized.substring(1);
   }
