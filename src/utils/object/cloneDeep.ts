@@ -1,3 +1,4 @@
+import type { AnyObject } from "@pawover/types";
 import { isArray, isMap, isObject, isSet } from "../typeof";
 
 interface CloningStrategy {

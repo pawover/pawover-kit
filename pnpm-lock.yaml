@@ -28,11 +28,11 @@ importers:
         version: 4.2.1
     devDependencies:
       '@pawover/eslint-rules':
-        specifier: ^0.0.0-alpha.24
-        version: 0.0.0-alpha.24(@stylistic/eslint-plugin@5.6.1(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-antfu@3.1.1(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^0.0.0-alpha.26
+        version: 0.0.0-alpha.26(@stylistic/eslint-plugin@5.6.1(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-antfu@3.1.1(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
       '@pawover/types':
-        specifier: ^0.0.0-alpha.8
-        version: 0.0.0-alpha.8(@types/react@19.2.7)(typescript@5.9.3)
+        specifier: ^0.0.0-alpha.10
+        version: 0.0.0-alpha.10(@types/react@19.2.7)(typescript@5.9.3)
       '@stylistic/eslint-plugin':
         specifier: ^5.6.1
         version: 5.6.1(eslint@9.39.2(jiti@2.6.1))
@@ -66,6 +66,9 @@ importers:
       taze:
         specifier: ^19.9.2
         version: 19.9.2
+      ts-toolbelt:
+        specifier: ^9.6.0
+        version: 9.6.0
       tsdown:
         specifier: ^0.17.4
         version: 0.17.4(@arethetypeswrong/core@0.18.2)(typescript@5.9.3)(vue-tsc@3.2.1(typescript@5.9.3))
@@ -376,19 +379,19 @@ packages:
   '@oxc-project/types@0.101.0':
     resolution: {integrity: sha512-nuFhqlUzJX+gVIPPfuE6xurd4lST3mdcWOhyK/rZO0B9XWMKm79SuszIQEnSMmmDhq1DC8WWVYGVd+6F93o1gQ==}
 
-  '@pawover/eslint-rules@0.0.0-alpha.24':
-    resolution: {integrity: sha512-4XRQOgRbY3ksPipPZAlFQNUY86Ck8/JMiQ2hQ9TPp+UH/z0s8mR1nvLydQDNnqsone+l+YBfluhEjHtgfycPvg==}
+  '@pawover/eslint-rules@0.0.0-alpha.26':
+    resolution: {integrity: sha512-cuJTSSaLh686uOqvq2qmzp6DL8Ra9x9JXjJYhKigZURsjTbH41G7IblzJ07v7ZcDVsW7JvA8RVQAo9Uyc0b/DA==}
     engines: {node: '>=22.20.0'}
     peerDependencies:
-      '@eslint-react/eslint-plugin': ^2.3.5
-      '@stylistic/eslint-plugin': ^5.5.0
-      eslint: ^9.39.1
-      eslint-plugin-antfu: ^3.1.1
-      eslint-plugin-react-hooks: ^7.0.1
-      eslint-plugin-vue: ^10.5.1
-      globals: ^16.5.0
-      typescript: ^5.9.3
-      typescript-eslint: ^8.46.4
+      '@eslint-react/eslint-plugin': '>=2.3.5'
+      '@stylistic/eslint-plugin': '>=5.5.0'
+      eslint: '>=9.39.1'
+      eslint-plugin-antfu: '>=3.1.1'
+      eslint-plugin-react-hooks: '>=7.0.1'
+      eslint-plugin-vue: '>=10.5.1'
+      globals: '>=16.5.0'
+      typescript: '>=5.9.3'
+      typescript-eslint: '>=8.46.4'
     peerDependenciesMeta:
       '@eslint-react/eslint-plugin':
         optional: true
@@ -407,8 +410,8 @@ packages:
       typescript-eslint:
         optional: true
 
-  '@pawover/types@0.0.0-alpha.8':
-    resolution: {integrity: sha512-bR34YXZSCy8fDGBzxFsvy2xW6fwuWtsXVlWkYhjvQvTXFCmY73Z7PtOSmEMRXPc9lg6DwmVxRjgJLCzwXA0OYg==}
+  '@pawover/types@0.0.0-alpha.10':
+    resolution: {integrity: sha512-5IbdHNfhYUdKqLyoKUzX9ct0EX5KchinShdUGZIVJGBbBsLe5VW/nh5CY9XeoWQIJ5xlqhBdbigrc6J3o1ZI7w==}
     engines: {node: '>=22.20.0'}
     peerDependencies:
       '@types/react': '>=19.2.4'
@@ -1344,6 +1347,9 @@ packages:
     peerDependencies:
       typescript: '>=4.8.4'
 
+  ts-toolbelt@9.6.0:
+    resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
+
   tsdown@0.17.4:
     resolution: {integrity: sha512-z+kNuv1rwM1POQIufDUVrdNc/uGy0ueRVafCyDH39IdHxin4JXgB8DNGSPoqdIpcOpqUoRbNreK8NxENFmlhKw==}
     engines: {node: '>=20.19.0'}
@@ -1753,7 +1759,7 @@ snapshots:
 
   '@oxc-project/types@0.101.0': {}
 
-  '@pawover/eslint-rules@0.0.0-alpha.24(@stylistic/eslint-plugin@5.6.1(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-antfu@3.1.1(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
+  '@pawover/eslint-rules@0.0.0-alpha.26(@stylistic/eslint-plugin@5.6.1(eslint@9.39.2(jiti@2.6.1)))(eslint-plugin-antfu@3.1.1(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))(globals@16.5.0)(typescript-eslint@8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       eslint: 9.39.2(jiti@2.6.1)
     optionalDependencies:
@@ -1763,7 +1769,7 @@ snapshots:
       typescript: 5.9.3
       typescript-eslint: 8.50.1(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
 
-  '@pawover/types@0.0.0-alpha.8(@types/react@19.2.7)(typescript@5.9.3)':
+  '@pawover/types@0.0.0-alpha.10(@types/react@19.2.7)(typescript@5.9.3)':
     dependencies:
       typescript: 5.9.3
     optionalDependencies:
@@ -2690,6 +2696,8 @@ snapshots:
   ts-api-utils@2.1.0(typescript@5.9.3):
     dependencies:
       typescript: 5.9.3
+
+  ts-toolbelt@9.6.0: {}
 
   tsdown@0.17.4(@arethetypeswrong/core@0.18.2)(typescript@5.9.3)(vue-tsc@3.2.1(typescript@5.9.3)):
     dependencies:

@@ -1,3 +1,4 @@
+import type { PlainObject } from "@pawover/types";
 import { isString } from "../typeof";
 
 /**

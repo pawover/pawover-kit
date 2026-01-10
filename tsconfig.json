@@ -13,7 +13,7 @@
     "emitDeclarationOnly": false,
     "rootDir": ".",
     "baseUrl": ".",
-    "types": ["@pawover/types"]
+    "types": []
   },
   "include": ["*.config.ts", ".cache/*.d.ts", "*.d.ts", "src/**/*", "scripts"],
   "exclude": ["node_modules"]

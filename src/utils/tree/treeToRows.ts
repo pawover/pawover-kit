@@ -1,3 +1,4 @@
+import type { AnyObject } from "@pawover/types";
 import type { SetOptional } from "type-fest";
 import { treeForEach, type TreeForeachOptions } from "./treeForEach";
 import type { ChildrenKey } from "./types";

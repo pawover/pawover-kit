@@ -99,7 +99,6 @@ export function getLines(onLine: (line: Uint8Array, fieldLength: number) => void
           case CONTROL_CHARS_ENUM.CARRIAGE_RETURN:
             discardTrailingNewline = true;
 
-          // eslint-disable-next-line no-fallthrough
           case CONTROL_CHARS_ENUM.NEW_LINE:
             lineEnd = position;
             break;

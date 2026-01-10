@@ -1,23 +1,25 @@
-import type { NonEmptyObject } from "type-fest";
-import { enumTypeCheck } from "./enumTypeCheck";
-import { objectEntries } from "./objectEntries";
-import { objectKeys } from "./objectKeys";
-import { objectValues } from "./objectValues";
+import type { AnyObject, PlainObject } from "@pawover/types";
+import { objectEntries } from "..";
+import { isEnumeration } from "../typeof";
 
 /**
  * 返回枚举的属性的键/值数组
  *
  * @param enumeration 枚举
  */
-export function enumEntries<E extends AnyObject>(enumeration: NonEmptyObject<E>): [keyof E, E[keyof E]][] {
-  const e = enumTypeCheck(enumeration);
-  const keys = objectKeys(e) as [keyof E, ...(keyof E)[]];
-  const values = objectValues(e);
-  const entries = objectEntries(e);
-  const isTwoWayEnum = keys.every((k) => values.some((v) => `${v}` === k));
+export function enumEntries<E extends PlainObject>(enumeration: E): [keyof E, E[keyof E]][];
+export function enumEntries<E extends AnyObject>(enumeration: E): [keyof E, E[keyof E]][];
+export function enumEntries(enumeration: AnyObject) {
+  const [isEnum, isTwoWayEnum] = isEnumeration(enumeration);
+
+  if (!isEnum) {
+    throw Error("function enumEntries expected parameter is a enum, and requires at least one member");
+  }
+
+  const entries = objectEntries(enumeration);
 
   if (isTwoWayEnum) {
-    return entries.splice(keys.length / 2, keys.length / 2);
+    return entries.splice(entries.length / 2, entries.length / 2);
   }
 
   return entries;

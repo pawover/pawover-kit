@@ -2,7 +2,7 @@ import { defineConfig, type UserConfig } from "tsdown";
 
 const defaultUserConfig: UserConfig = {
   dts: {
-    resolve: ["radashi", "type-fest"],
+    resolve: ["radashi", "type-fest", "@pawover/types", "ts-toolbelt"],
   },
   target: "es2020",
   platform: "neutral",

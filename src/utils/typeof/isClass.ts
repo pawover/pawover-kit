@@ -1,3 +1,4 @@
+import type { AnyFunction, AnyObject } from "@pawover/types";
 import type { Class } from "type-fest";
 import { isAsyncFunction, isFunction } from ".";
 

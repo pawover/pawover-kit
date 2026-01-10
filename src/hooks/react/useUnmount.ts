@@ -1,3 +1,4 @@
+import type { AnyFunction } from "@pawover/types";
 import { useEffect } from "react";
 import { isFunction } from "src/utils";
 import { useLatest } from "./useLatest";

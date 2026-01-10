@@ -1,3 +1,4 @@
+import type { AnyObject, PlainObject } from "@pawover/types";
 import type { Simplify, UnionToIntersection } from "type-fest";
 import { isArray, isObject } from "../typeof";
 
@@ -21,8 +22,10 @@ type Crush<T> = T extends readonly (infer U)[]
     >
   >;
 
-export function objectCrush<T extends PlainObject>(value: T): Crush<T> {
-  if (!value) {
+export function objectCrush<T extends PlainObject>(plainObject: T): Crush<T>;
+export function objectCrush<T extends AnyObject>(anyObject: T): Crush<T>;
+export function objectCrush<T extends AnyObject>(obj: T): Crush<T> {
+  if (!obj) {
     return {} as Crush<T>;
   }
 
@@ -38,5 +41,5 @@ export function objectCrush<T extends PlainObject>(value: T): Crush<T> {
     return crushed;
   }
 
-  return crushReducer({} as Crush<T>, value, "");
+  return crushReducer({} as Crush<T>, obj, "");
 }

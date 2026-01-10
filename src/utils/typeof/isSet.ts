@@ -1,3 +1,4 @@
+import type { AnyObject } from "@pawover/types";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 export function isSet(value: unknown): value is Set<unknown> {

@@ -1,3 +1,4 @@
+import type { AnyAsyncFunction, AnyAsyncGeneratorFunction, AnyFunction, AnyGeneratorFunction } from "@pawover/types";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 export function isFunction(value: unknown): value is AnyFunction {

@@ -11,6 +11,7 @@ export const PROTOTYPE_TAGS = {
   file: "[object File]",
   function: "[object Function]",
   generatorFunction: "[object GeneratorFunction]",
+  iframe: "[object HTMLIFrameElement]",
   map: "[object Map]",
   null: "[object Null]",
   number: "[object Number]",

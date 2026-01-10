@@ -1,3 +1,5 @@
+import type { PlainObject } from "@pawover/types";
+
 /**
  * @param promise
  * @param errorExt 可以传递给err对象的其他信息

@@ -1,3 +1,4 @@
+import type { AnyObject } from "@pawover/types";
 import { isString } from "../typeof";
 
 /**

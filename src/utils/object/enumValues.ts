@@ -1,22 +1,28 @@
-import type { NonEmptyObject, UnionToTuple, ValueOf } from "type-fest";
-import { enumTypeCheck } from "./enumTypeCheck";
-import { objectKeys } from "./objectKeys";
-import { objectValues } from "./objectValues";
+import type { AnyObject, PlainObject } from "@pawover/types";
+import type { UnionToTuple, ValueOf } from "type-fest";
+import { objectValues } from "..";
+import { isEnumeration } from "../typeof";
 
 /**
  * 获取枚举所有属性的值
  *
  * @param enumeration 枚举
  */
-export function enumValues<E extends AnyObject>(enumeration: NonEmptyObject<E>): UnionToTuple<ValueOf<E>> {
-  const e = enumTypeCheck(enumeration);
-  const keys = objectKeys(e) as [keyof E, ...(keyof E)[]];
-  const values = objectValues(e);
-  const isTwoWayEnum = keys.every((k) => values.some((v) => `${v}` === k));
+export function enumValues<E extends PlainObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
+export function enumValues<E extends AnyObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
+export function enumValues(enumeration: AnyObject) {
+  const [isEnum, isTwoWayEnum] = isEnumeration(enumeration);
+
+  if (!isEnum) {
+    throw Error("function enumValues expected parameter is a enum, and requires at least one member");
+  }
+
+  const values = objectValues(enumeration);
 
   if (isTwoWayEnum) {
-    return values.splice(keys.length / 2, keys.length / 2) as UnionToTuple<ValueOf<E>>;
+    return values.splice(values.length / 2, values.length / 2);
   }
 
   return values;
 }
+

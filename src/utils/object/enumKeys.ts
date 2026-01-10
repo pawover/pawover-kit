@@ -1,21 +1,25 @@
-import type { NonEmptyObject } from "type-fest";
-import { enumTypeCheck } from "./enumTypeCheck";
-import { objectKeys } from "./objectKeys";
-import { objectValues } from "./objectValues";
+import type { AnyObject, PlainObject } from "@pawover/types";
+import { objectKeys } from "..";
+import { isEnumeration } from "../typeof";
 
 /**
  * 获取枚举所有属性的键
  *
  * @param enumeration 枚举
  */
-export function enumKeys<E extends AnyObject>(enumeration: NonEmptyObject<E>): [keyof E, ...(keyof E)[]] {
-  const e = enumTypeCheck(enumeration);
-  const keys = objectKeys(e) as [keyof E, ...(keyof E)[]];
-  const values = objectValues(e);
-  const isTwoWayEnum = keys.every((k) => values.some((v) => `${v}` === k));
+export function enumKeys<E extends PlainObject>(enumeration: E): (keyof E)[];
+export function enumKeys<E extends AnyObject>(enumeration: E): (keyof E)[];
+export function enumKeys(enumeration: AnyObject) {
+  const [isEnum, isTwoWayEnum] = isEnumeration(enumeration);
+
+  if (!isEnum) {
+    throw Error("function enumKeys expected parameter is a enum, and requires at least one member");
+  }
+
+  const keys = objectKeys(enumeration);
 
   if (isTwoWayEnum) {
-    return keys.splice(keys.length / 2, keys.length / 2) as [keyof E, ...(keyof E)[]];
+    return keys.splice(keys.length / 2, keys.length / 2);
   }
 
   return keys;
