@@ -13,9 +13,9 @@ export function objectPick(obj: object, keys: readonly string[]) {
     return obj;
   }
 
-  return keys.reduce((acc, curr) => {
-    if (curr in obj) {
-      acc[curr] = obj[curr];
+  return keys.reduce((acc, key) => {
+    if (key in obj) {
+      acc[key] = obj[key];
     }
 
     return acc;

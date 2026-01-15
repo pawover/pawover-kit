@@ -8,6 +8,7 @@ export * from "./objectCrush";
 export * from "./objectEntries";
 export * from "./objectInvert";
 export * from "./objectKeys";
+export * from "./objectOmit";
 export * from "./objectPick";
 export * from "./objectValues";
 
