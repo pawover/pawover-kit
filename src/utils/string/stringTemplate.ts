@@ -1,6 +1,8 @@
 import type { PlainObject } from "@pawover/types";
 import { isString } from "../typeof";
 
+const R1 = /\{\{(.+?)\}\}/g;
+
 /**
  * 字符串模板替换
  *
@@ -8,7 +10,7 @@ import { isString } from "../typeof";
  * @param template 模板对象
  * @param regex 模板匹配正则
  */
-export function stringTemplate(input: string, template: PlainObject, regex = /\{\{(.+?)\}\}/g) {
+export function stringTemplate(input: string, template: PlainObject, regex = R1) {
   if (!isString(input, true)) {
     return "";
   }
