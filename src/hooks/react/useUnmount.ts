@@ -7,7 +7,7 @@ import { useLatest } from "./useLatest";
  * 在组件卸载时执行的 Hook
  * @reference https://ahooks.js.org/zh-CN/hooks/use-unmount
  *
- * @param {AnyFunction} effect 副作用函数
+ * @param effect 副作用函数
  */
 export function useUnmount(effect: AnyFunction) {
   if (!isFunction(effect)) {
@@ -23,4 +23,3 @@ export function useUnmount(effect: AnyFunction) {
     [],
   );
 }
-

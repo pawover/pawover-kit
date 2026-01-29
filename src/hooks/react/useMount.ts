@@ -10,7 +10,7 @@ type MountCallback = EffectCallback | AnyAsyncFunction;
  * - 即使在严格模式下也只执行一次
  * @reference https://ahooks.js.org/hooks/use-mount
  *
- * @param {MountCallback} effect 副作用函数
+ * @param effect 副作用函数
  */
 export function useMount(effect: MountCallback) {
   if (!isFunction(effect)) {

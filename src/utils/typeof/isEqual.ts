@@ -4,8 +4,8 @@ import { isDate, isRegExp } from ".";
  * 检查给定的值是否相等
  * @reference https://github.com/radashi-org/radashi/blob/main/src/typed/isEqual.ts
  *
- * @param {T} x
- * @param {T} y
+ * @param x
+ * @param y
  */
 export function isEqual<T>(x: T, y: T): boolean {
   if (Object.is(x, y)) {

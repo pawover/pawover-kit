@@ -11,9 +11,8 @@ interface RefObject<T> {
  * useCreation
  * @reference https://ahooks.js.org/zh-CN/hooks/use-creation
  *
- * @template T
- * @param {() => T} factory
- * @param {DependencyList} deps
+ * @param factory
+ * @param deps
  */
 export function useCreation<T>(factory: () => T, deps: DependencyList) {
   const { current } = useRef<RefObject<T>>({ deps, result: undefined!, isInitialized: false });
