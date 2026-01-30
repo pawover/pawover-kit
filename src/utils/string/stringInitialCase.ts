@@ -10,8 +10,21 @@ const R2 = /[^a-zA-Z\u00C0-\u017F]/;
  * - 纯字母且非全大写时，首字母小写，其余保留
  * - 纯字母且非全大写时，首字母大写，其余保留
  *
+/**
+ * 字符串首字母大小写
+ * - 包含非西欧字母字符时，不处理
+ * - 纯字母且全大写时，不处理
+ * - 纯字母且非全大写时，首字母小写，其余保留
+ * - 纯字母且非全大写时，首字母大写，其余保留
+ *
  * @param input 待处理字符串
  * @param caseType 大小写类型
+ * @returns 处理后的字符串
+ * @example
+ * ```ts
+ * stringInitialCase("Hello", "lower"); // "hello"
+ * stringInitialCase("hello", "upper"); // "Hello"
+ * ```
  */
 export function stringInitialCase(input: string, caseType?: "lower" | "upper" | undefined) {
   if (!isString(input, true)) {

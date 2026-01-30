@@ -5,6 +5,12 @@ import { isString } from "../typeof";
  *
  * @param input 待处理字符串
  * @param charsToTrim 裁切字符，默认为 `" "`
+ * @returns 裁切后的字符串
+ * @example
+ * ```ts
+ * stringTrim("  hello  "); // "hello"
+ * stringTrim("__hello__", "_"); // "hello"
+ * ```
  */
 export function stringTrim(input: string | null | undefined, charsToTrim = " "): string {
   if (!isString(input, true)) {

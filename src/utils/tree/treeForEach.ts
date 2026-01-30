@@ -60,6 +60,20 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: 
   runQueue();
 }
 
+/**
+ * 遍历树节点
+ *
+ * @param tree 树结构数据
+ * @param callback 回调函数
+ * @param options 配置项
+ * @example
+ * ```ts
+ * const tree = [{ id: 1, children: [{ id: 2 }] }];
+ * const ids: number[] = [];
+ * treeForEach(tree, (node) => ids.push(node.id));
+ * // ids: [1, 2] (pre-order default)
+ * ```
+ */
 export function treeForEach<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
   const traversalMethod = strategies[strategy];

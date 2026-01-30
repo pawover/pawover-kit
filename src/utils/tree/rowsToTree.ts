@@ -14,6 +14,20 @@ export interface RowsToTreeOptions<
 
 /**
  * 行结构 转 树结构
+ * - 将平铺的数组转换为树形结构
+ *
+ * @param rows 行数据数组
+ * @param options 配置项
+ * @returns 树结构数组
+ * @example
+ * ```ts
+ * const rows = [
+ *   { id: 1, parentId: null },
+ *   { id: 2, parentId: 1 },
+ * ];
+ * rowsToTree(rows);
+ * // [{ id: 1, parentId: null, children: [{ id: 2, parentId: 1 }] }]
+ * ```
  */
 export function rowsToTree<
   T extends AnyObject = AnyObject,

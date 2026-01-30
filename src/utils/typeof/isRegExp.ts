@@ -1,8 +1,15 @@
-import { isBoolean, isFunction, isObject, isString } from ".";
+import { isBoolean } from "./isBoolean";
+import { isFunction } from "./isFunction";
+import { isString } from "./isString";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
+/**
+ * 检查 value 是否为 RegExp
+ * @param value 待检查值
+ * @returns 是否为 RegExp
+ */
 export function isRegExp(value: unknown): value is RegExp {
-  if (!isObject(value)) {
+  if (typeof value !== "object" || value === null) {
     return false;
   }
 

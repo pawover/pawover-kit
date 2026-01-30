@@ -8,6 +8,13 @@ import { isFalsyLike, isInfinityLike } from "../typeof";
  * @param mathJsInstance mathJs 实例
  * @param value 任意类型的值
  * @param saveValue 安全值
+ * @returns 转换后的 BigNumber
+ * @example
+ * ```ts
+ * import { create, all } from "mathjs";
+ * const math = create(all);
+ * toMathBignumber(math, "0.1");
+ * ```
  */
 export function toMathBignumber(mathJsInstance: MathJsInstance, value: unknown, saveValue?: BigNumber | undefined): BigNumber {
   const errorValue = saveValue ?? mathJsInstance.bignumber(0);

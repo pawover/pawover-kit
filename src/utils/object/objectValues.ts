@@ -3,6 +3,13 @@ import type { Split, UnionToTuple, ValueOf } from "type-fest";
 
 /**
  * 返回对象可枚举属性的值的数组
+ *
+ * @param value 对象
+ * @returns 值数组
+ * @example
+ * ```ts
+ * objectValues({ a: 1, b: 2 }); // [1, 2]
+ * ```
  */
 export function objectValues<S extends string>(string: S): Split<S, "">;
 export function objectValues<A extends ArrayLike<unknown>>(array: A): A;

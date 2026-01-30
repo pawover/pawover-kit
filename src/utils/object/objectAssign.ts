@@ -8,6 +8,13 @@ import { isObject } from "../typeof";
  *
  * @param initial 初始对象
  * @param override 待合并对象
+ * @returns 合并后的新对象
+ * @example
+ * ```ts
+ * const base = { a: 1, b: { c: 2 } };
+ * const override = { b: { d: 3 } };
+ * objectAssign(base, override); // { a: 1, b: { c: 2, d: 3 } }
+ * ```
  */
 export function objectAssign<I extends PlainObject, O extends PlainObject>(initial: I, override: O): Assign<I, O>;
 export function objectAssign<I extends AnyObject, O extends AnyObject>(initial: I, override: O): Assign<I, O>;

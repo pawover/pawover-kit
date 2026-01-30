@@ -3,8 +3,18 @@ import { isString } from "../typeof";
 /**
  * 将路径转换为 POSIX 风格
  *
+/**
+ * 将路径转换为 POSIX 风格
+ * - 统一使用正斜杠
+ * - 处理 Windows 盘符
+ *
  * @param input 待处理字符串
  * @param removeLeadingSlash 是否移除开头斜杠，默认为 `false`
+ * @returns 转换后的路径
+ * @example
+ * ```ts
+ * stringToPosix("C:\\Windows\\System32"); // "/Windows/System32"
+ * ```
  */
 export function stringToPosix(input: string | null | undefined, removeLeadingSlash = false) {
   if (!isString(input, true)) {

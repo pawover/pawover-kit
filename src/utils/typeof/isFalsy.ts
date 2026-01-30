@@ -1,6 +1,11 @@
 import { isNaN, isNull, isUndefined } from ".";
 
-export function isFalsy(value: unknown): boolean {
+/**
+ * 检查 value 是否为 Falsy 值 (false, 0, "", null, undefined, NaN)
+ * @param value 待检查值
+ * @returns 是否为 Falsy
+ */
+export function isFalsy(value: unknown): value is false | 0 | "" | null | undefined {
   if (isNaN(value) || isNull(value) || isUndefined(value)) {
     return true;
   }

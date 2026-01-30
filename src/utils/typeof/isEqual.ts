@@ -1,13 +1,17 @@
 import { isDate, isRegExp } from ".";
 
 /**
- * 检查给定的值是否相等
- * @reference https://github.com/radashi-org/radashi/blob/main/src/typed/isEqual.ts
+ * 深度比较两个值是否相等
  *
- * @param x
- * @param y
+ * @param value 待比较值 A
+ * @param other 待比较值 B
+ * @returns 是否相等
+ * @example
+ * ```ts
+ * isEqual({ a: 1 }, { a: 1 }); // true
+ * ```
  */
-export function isEqual<T>(x: T, y: T): boolean {
+export function isEqual(x: unknown, y: unknown): boolean {
   if (Object.is(x, y)) {
     return true;
   }

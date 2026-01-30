@@ -6,7 +6,13 @@ import { isEnumeration } from "../typeof";
 /**
  * 获取枚举所有属性的值
  *
- * @param enumeration 枚举
+ * @param enumeration 枚举对象
+ * @returns 值数组
+ * @example
+ * ```ts
+ * enum A { k = "v" }
+ * enumValues(A); // ["v"]
+ * ```
  */
 export function enumValues<E extends PlainObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
 export function enumValues<E extends AnyObject>(enumeration: E): UnionToTuple<ValueOf<E>>;

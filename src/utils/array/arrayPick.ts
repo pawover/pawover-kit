@@ -7,6 +7,13 @@ import { isArray, isFunction } from "../typeof";
  * @param initialList 初始数组
  * @param filter filter 函数
  * @param mapper map 函数
+ * @returns 处理后的新数组
+ * @example
+ * ```ts
+ * const list = [1, 2, 3, 4];
+ * arrayPick(list, (n) => n % 2 === 0); // [2, 4]
+ * arrayPick(list, (n) => n % 2 === 0, (n) => n * 2); // [4, 8]
+ * ```
  */
 export function arrayPick<T, K = T>(initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {
   if (!isArray(initialList)) {

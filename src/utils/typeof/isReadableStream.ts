@@ -1,4 +1,5 @@
-import { isFunction, isObject } from "../index";
+import { isFunction } from "./isFunction";
+import { isObject } from "./isObject";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 /**
@@ -9,6 +10,11 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * - Resistant to basic forgery, but not 100% secure in all polyfill scenarios.
  *
  * ⚠️ Note: In older Node.js (<18) or with non-compliant polyfills, this may return false positives or negatives.
+ */
+/**
+ * 检查 value 是否为 ReadableStream
+ * @param value 待检查值
+ * @returns 是否为 ReadableStream
  */
 export function isReadableStream(value: unknown): value is ReadableStream {
   // Modern environments (Chrome 52+, Firefox 57+, Safari 10.1+, Node.js 18+)

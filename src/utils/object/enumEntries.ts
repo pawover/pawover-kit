@@ -5,7 +5,13 @@ import { isEnumeration } from "../typeof";
 /**
  * 返回枚举的属性的键/值数组
  *
- * @param enumeration 枚举
+ * @param enumeration 枚举对象
+ * @returns 键值对数组
+ * @example
+ * ```ts
+ * enum A { k = "v" }
+ * enumEntries(A); // [["k", "v"]]
+ * ```
  */
 export function enumEntries<E extends PlainObject>(enumeration: E): [keyof E, E[keyof E]][];
 export function enumEntries<E extends AnyObject>(enumeration: E): [keyof E, E[keyof E]][];

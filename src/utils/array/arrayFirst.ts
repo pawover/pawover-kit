@@ -5,6 +5,12 @@ import { isArray } from "../typeof";
  *
  * @param initialList 初始数组
  * @param saveValue 安全值
+ * @returns 数组第一项，如果为空则返回安全值
+ * @example
+ * ```ts
+ * arrayFirst([1, 2]); // 1
+ * arrayFirst([], 0); // 0
+ * ```
  */
 export function arrayFirst<T>(initialList: readonly T[]): T | undefined;
 export function arrayFirst<T>(initialList: readonly T[], saveValue: T): T;

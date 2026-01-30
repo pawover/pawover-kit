@@ -6,6 +6,11 @@ import { isArray } from "../typeof";
  *
  * @param initialList 初始数组
  * @param size 分割尺寸，默认 `10`
+ * @returns 切分后的二维数组
+ * @example
+ * ```ts
+ * arraySplit([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+ * ```
  */
 export function arraySplit<T>(initialList: readonly T[], size = 10): T[][] {
   if (!isArray(initialList)) {

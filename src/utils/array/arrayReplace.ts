@@ -7,6 +7,11 @@ import { isFunction } from "../typeof";
  * @param initialList 初始数组
  * @param newItem 替换项
  * @param match 匹配函数
+ * @returns 替换后的新数组
+ * @example
+ * ```ts
+ * arrayReplace([1, 2, 3], 4, (n) => n === 2); // [1, 4, 3]
+ * ```
  */
 export function arrayReplace<T>(initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean): T[] {
   if (!initialList) {

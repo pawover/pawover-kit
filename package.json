@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-beta.16",
+  "version": "0.0.0-beta.17",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -38,6 +38,7 @@
   },
   "scripts": {
     "build": "tsdown && pnpm build:metadata",
+    "test": "vitest",
     "build:metadata": "node scripts/metadata.ts",
     "public": "pnpm build && npm publish --access public",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
@@ -52,33 +53,34 @@
     "lib:up": "taze -I -r --exclude pnpm"
   },
   "dependencies": {
-    "alova": "^3.4.1",
+    "alova": "^3.5.0",
     "mathjs": "^15.1.0",
-    "react": "^19.2.3",
+    "react": "^19.2.4",
     "vite": "^7.3.1",
     "vue": "^3.5.27",
-    "zod": "^4.3.5"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@pawover/eslint-rules": "^0.0.0-beta.1",
     "@pawover/types": "^0.0.0-alpha.10",
-    "@stylistic/eslint-plugin": "^5.7.0",
+    "@stylistic/eslint-plugin": "^5.7.1",
     "@types/fs-extra": "^11.0.4",
-    "@types/node": "^25.0.9",
-    "@types/react": "^19.2.8",
+    "@types/node": "^25.1.0",
+    "@types/react": "^19.2.10",
     "eslint": "^9.39.2",
     "eslint-plugin-antfu": "^3.1.3",
     "fs-extra": "^11.3.3",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "radashi": "^12.7.1",
     "rimraf": "^6.1.2",
     "taze": "^19.9.2",
     "ts-toolbelt": "^9.6.0",
     "tsdown": "^0.17.4",
-    "type-fest": "^5.4.1",
+    "type-fest": "^5.4.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.1",
-    "vue-tsc": "^3.2.2"
+    "typescript-eslint": "^8.54.0",
+    "vitest": "^4.0.18",
+    "vue-tsc": "^3.2.4"
   },
   "peerDependencies": {
     "alova": ">=3.3.0",

@@ -82,7 +82,18 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: 
 
 
 /**
- * 查找树节点，找到第一个返回非空值的节点
+ * 查找树节点
+ * - 返回第一个回调返回 true 的节点
+ *
+ * @param tree 树结构数据
+ * @param callback 回调函数
+ * @param options 配置项
+ * @returns 找到的节点，未找到则返回 undefined
+ * @example
+ * ```ts
+ * const tree = [{ id: 1, children: [{ id: 2 }] }];
+ * treeFind(tree, (node) => node.id === 2); // { id: 2, ... }
+ * ```
  */
 export function treeFind<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;

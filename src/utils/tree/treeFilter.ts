@@ -109,6 +109,22 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: 
 
 const strategies = { pre: preImpl, post: postImpl, breadth: breadthImpl };
 
+/**
+ * 过滤树节点
+ * - 返回新的树结构，包含所有回调返回 true 的节点
+ * - 如果父节点被过滤，则其子节点也会被过滤 (pre 策略下)
+ *
+ * @param tree 树结构数据
+ * @param callback 回调函数
+ * @param options 配置项 (childrenKey, strategy等)
+ * @returns 过滤后的树结构数组
+ * @example
+ * ```ts
+ * const tree = [{ id: 1, visible: true, children: [{ id: 2, visible: false }] }];
+ * treeFilter(tree, (node) => node.visible);
+ * // [{ id: 1, visible: true, children: [] }]
+ * ```
+ */
 export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
 export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T, callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T;
 export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeFilterCallback<T>, options: TreeFilterOptions<T, CK> = {}): T | T[] {

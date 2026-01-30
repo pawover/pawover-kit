@@ -22,6 +22,18 @@ type Crush<T> = T extends readonly (infer U)[]
     >
   >;
 
+/**
+ * 压平对象
+ * - 将多层级的对象转换为单层级的对象，键名使用点号连接
+ *
+ * @param plainObject 平面对象
+ * @returns 压平后的对象
+ * @example
+ * ```ts
+ * const obj = { a: { b: 1 } };
+ * objectCrush(obj); // { "a.b": 1 }
+ * ```
+ */
 export function objectCrush<T extends PlainObject>(plainObject: T): Crush<T>;
 export function objectCrush<T extends AnyObject>(anyObject: T): Crush<T>;
 export function objectCrush<T extends AnyObject>(obj: T): Crush<T> {

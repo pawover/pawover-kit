@@ -5,7 +5,17 @@ const R1 = /[^0-9.-]/g;
 /**
  * 从字符串中提取数字字符串
  *
+/**
+ * 从字符串中提取数字字符串
+ * - 移除非数字字符，保留符号和小数点
+ *
  * @param input 待处理字符串
+ * @returns 提取出的数字字符串
+ * @example
+ * ```ts
+ * stringToNumber("$1,234.56"); // "1234.56"
+ * stringToNumber("abc-123"); // "-123"
+ * ```
  */
 export function stringToNumber(input: string) {
   if (!isString(input, true)) {

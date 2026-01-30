@@ -6,6 +6,12 @@ import { isPositiveInteger } from "../typeof";
  *
  * @param maxWidth - 移动设备最大宽度（默认 768px）
  * @param dpi - 标准 DPI 基准（默认 160）
+ * @returns 是否为移动设备
+ * @example
+ * ```ts
+ * // 假设 window.innerWidth = 500
+ * isMobile(); // true
+ * ```
  */
 export function isMobile(maxWidth = 768, dpi = 160) {
   if (typeof window === "undefined" || !isPositiveInteger(maxWidth)) {
@@ -20,8 +26,14 @@ export function isMobile(maxWidth = 768, dpi = 160) {
  *
  * @param maxWidth - 移动设备最大宽度（默认 768px）
  * @param dpi - 标准 DPI 基准（默认 160）
+ * @returns 是否为 iOS 移动设备 (iPhone/iPad/iPod 且非平板)
+ * @example
+ * ```ts
+ * // UA contains iPhone
+ * isIOSMobile(); // true
+ * ```
  */
-export function isISOMobile(maxWidth = 768, dpi = 160) {
+export function isIOSMobile(maxWidth = 768, dpi = 160) {
   if (typeof navigator === "undefined" || !navigator.userAgent || !isPositiveInteger(maxWidth)) {
     return false;
   }

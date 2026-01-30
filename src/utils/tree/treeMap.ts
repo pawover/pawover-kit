@@ -89,6 +89,21 @@ function breadthImpl<R extends AnyObject, T extends AnyObject, CK extends string
   return runQueue();
 }
 
+/**
+ * 映射树节点
+ * - 返回新的树结构，保持层级关系
+ *
+ * @param tree 树结构数据
+ * @param callback 回调函数 (返回映射后的节点内容)
+ * @param options 配置项
+ * @returns 映射后的树结构数组
+ * @example
+ * ```ts
+ * const tree = [{ id: 1, val: 10, children: [{ id: 2, val: 20 }] }];
+ * treeMap(tree, (node) => ({ ...node, val: node.val * 2 }));
+ * // [{ id: 1, val: 20, children: [{ id: 2, val: 40 }] }]
+ * ```
+ */
 export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];
 export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T, callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>;
 export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeMapCallback<R, T>, options: TreeMapOptions<T, CK> = {}): TreeLike<R, CK> | TreeLike<R, CK>[] {

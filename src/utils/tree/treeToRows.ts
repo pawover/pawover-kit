@@ -7,6 +7,17 @@ type TreeToRowsOptions<T extends AnyObject, CK extends string = ChildrenKey> = T
 
 /**
  * 树结构 转 行结构
+ * - 将树形结构扁平化为数组
+ *
+ * @param tree 树结构数据 (单个节点或节点数组)
+ * @param options 配置项
+ * @returns 扁平化后的数组
+ * @example
+ * ```ts
+ * const tree = [{ id: 1, children: [{ id: 2 }] }];
+ * treeToRows(tree);
+ * // [{ id: 1, children: undefined }, { id: 2, children: undefined }]
+ * ```
  */
 export function treeToRows<
   T extends AnyObject,

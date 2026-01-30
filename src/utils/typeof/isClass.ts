@@ -1,6 +1,6 @@
 import type { AnyFunction, AnyObject } from "@pawover/types";
 import type { Class } from "type-fest";
-import { isAsyncFunction, isFunction } from ".";
+import { isAsyncFunction, isFunction } from "./isFunction";
 
 function isConstructable(fn: unknown): boolean {
   try {
@@ -13,6 +13,18 @@ function isConstructable(fn: unknown): boolean {
   }
 }
 
+/**
+ * 检查 value 是否为 Class
+ *
+ * @param value 待检查值
+ * @returns 是否为 Class
+ * @example
+ * ```ts
+ * class A {}
+ * isClass(A); // true
+ * isClass(() => {}); // false
+ * ```
+ */
 export function isClass(value: unknown): value is Class<AnyObject> {
   return (
     isFunction(value) &&

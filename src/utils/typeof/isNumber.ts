@@ -3,6 +3,13 @@
  *
  * @param value 待检查值
  * @param checkNaN 是否排除 `NaN`，默认为 `true`
+ * @returns 是否为 number
+ * @example
+ * ```ts
+ * isNumber(1); // true
+ * isNumber(NaN); // false (default)
+ * isNumber(NaN, false); // true
+ * ```
  */
 export function isNumber(value: unknown, checkNaN = true): value is number {
   return typeof value === "number" && (!checkNaN || !isNaN(value));
@@ -12,6 +19,7 @@ export function isNumber(value: unknown, checkNaN = true): value is number {
  * 检查 value 是否为 NaN
  *
  * @param value 待检查值
+ * @returns 是否为 NaN
  */
 export function isNaN(value: unknown): value is number {
   return Number.isNaN(value);
@@ -22,6 +30,7 @@ export function isNaN(value: unknown): value is number {
  *
  * @param value 待检查值
  * @param safeCheck 是否附加安全数检查
+ * @returns 是否为整数
  */
 export function isInteger(value: unknown, safeCheck = true): value is number {
   const check = Number.isInteger(value);

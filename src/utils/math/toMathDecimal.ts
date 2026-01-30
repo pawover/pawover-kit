@@ -8,6 +8,11 @@ import { toMathBignumber } from "./toMathBignumber";
  * @param value 任意类型的值
  * @param precision 精度
  * @param isFormat 是否格式化为字符串
+ * @returns 格式化后的字符串或 BigNumber
+ * @example
+ * ```ts
+ * toMathDecimal(math, 0.12345, 2); // "0.12"
+ * ```
  */
 export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: true): string;
 export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: false): BigNumber;

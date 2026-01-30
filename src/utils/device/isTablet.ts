@@ -6,6 +6,12 @@ import { isPositiveInteger } from "../typeof";
  * @param minWidth - 平板最小宽度（默认 768px）
  * @param maxWidth - 平板最大宽度（默认 1200px）
  * @param dpi - 标准 DPI 基准（默认 160）
+ * @returns 是否为平板设备
+ * @example
+ * ```ts
+ * // 假设 window.innerWidth = 1000
+ * isTablet(); // true
+ * ```
  */
 export function isTablet(minWidth = 768, maxWidth = 1200, dpi = 160) {
   if (typeof window === "undefined" || !isPositiveInteger(minWidth) || !isPositiveInteger(maxWidth)) {

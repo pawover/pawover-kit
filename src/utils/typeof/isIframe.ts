@@ -1,5 +1,10 @@
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
+/**
+ * 检查 value 是否为 HTMLIFrameElement
+ * @param value 待检查值
+ * @returns 是否为 HTMLIFrameElement
+ */
 export function isIframe(value: unknown): value is HTMLIFrameElement {
   if (typeof window === "undefined") {
     return false;
