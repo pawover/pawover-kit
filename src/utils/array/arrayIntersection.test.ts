@@ -6,10 +6,16 @@ describe("arrayIntersection", () => {
     expect(arrayIntersection([1, 2, 3], [2, 3, 4])).toEqual([2, 3]);
   });
 
-  it("应该返回对象的交集 (使用 match)", () => {
+  it("应该返回对象的交集 (使用 match 函数)", () => {
     const list1 = [{ id: 1 }, { id: 2 }];
     const list2 = [{ id: 2 }, { id: 3 }];
     expect(arrayIntersection(list1, list2, (x) => x.id)).toEqual([{ id: 2 }]);
+  });
+
+  it("应该返回对象的交集 (使用 match 函数，保留重复元素)", () => {
+    const list1 = [{ id: 1 }, { id: 2 }, { id: 2 }];
+    const list2 = [{ id: 2 }, { id: 3 }];
+    expect(arrayIntersection(list1, list2, (x) => x.id)).toEqual([{ id: 2 }, { id: 2 }]);
   });
 
   it("没有 match 函数时使用 Set 比较", () => {

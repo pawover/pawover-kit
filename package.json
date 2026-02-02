@@ -4,7 +4,7 @@
   "description": "pawover's kit",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-beta.17",
+  "version": "0.0.0-beta.18",
   "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=22.20.0"
@@ -37,8 +37,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsdown && pnpm build:metadata",
     "test": "vitest",
+    "build": "tsdown && pnpm build:metadata",
     "build:metadata": "node scripts/metadata.ts",
     "public": "pnpm build && npm publish --access public",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",

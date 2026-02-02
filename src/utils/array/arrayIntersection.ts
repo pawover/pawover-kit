@@ -15,23 +15,20 @@ import { isArray, isFunction } from "../typeof";
  * ```
  */
 export function arrayIntersection<T>(initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
-  if (!isArray(initialList) && !isArray(diffList)) {
+  if (!isArray(initialList) || !isArray(diffList)) {
     return [];
   }
-  if ((!isArray(initialList) || !initialList.length) || (!isArray(diffList) || !diffList.length)) {
+  if (!initialList.length || !diffList.length) {
     return [];
   }
+
   if (!isFunction(match)) {
-    const arraySet = new Set(diffList);
+    const diffSet = new Set(diffList);
 
-    return Array.from(new Set(initialList.filter((item) => arraySet.has(item))));
+    return initialList.filter((item) => diffSet.has(item));
   }
 
-  const map = new Map<unknown, boolean>();
+  const diffKeys = new Set(diffList.map((item) => match(item)));
 
-  diffList.forEach((item) => {
-    map.set(match(item), true);
-  });
-
-  return initialList.filter((a) => map.get(match(a)));
+  return initialList.filter((item) => diffKeys.has(match(item)));
 }
