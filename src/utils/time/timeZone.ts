@@ -7,7 +7,7 @@
  * getTimeZone(); // { UTC: "UTC+8", timeZone: "Asia/Shanghai" }
  * ```
  */
-export function getTimeZone() {
+export function getTimeZone () {
   const hour = 0 - new Date().getTimezoneOffset() / 60;
 
   return {

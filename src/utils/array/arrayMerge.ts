@@ -21,7 +21,7 @@ import { isArray, isFunction } from "../typeof";
  * // [{ id: 1, val: "a" }, { id: 2, val: "new" }] -> id:3 被忽略
  * ```
  */
-export function arrayMerge<T>(initialList: readonly T[], mergeList: readonly T[], match?: (item: T) => unknown): T[] {
+export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[], match?: (item: T) => unknown): T[] {
   if (!isArray(initialList)) {
     return [];
   }

@@ -8,7 +8,7 @@ export type TreeFilterInnerOption<T extends AnyObject, CK extends string = Child
 export type TreeFilterCallback<T extends AnyObject> = (row: T, meta: BaseCallbackMeta<T>) => boolean;
 
 // 前置遍历
-function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
+function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
   const result = callback(row, options);
   if (!result) {
     return undefined;
@@ -27,7 +27,7 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, c
 }
 
 // 子节点优先遍历
-function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
+function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const children = row[finalChildrenKey] as T[] | undefined;
   let newChildren: T[] | undefined;
@@ -46,7 +46,7 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, 
 }
 
 // 广度优先遍历
-function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
+function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
   const queue: QueueItem<T, CK>[] = [{ queueRow: row, queueOptions: options }];
   const resultCache = new WeakMap<T, boolean>();
   const newNodeCache = new WeakMap<T, T>();
@@ -125,9 +125,9 @@ const strategies = { pre: preImpl, post: postImpl, breadth: breadthImpl };
  * // [{ id: 1, visible: true, children: [] }]
  * ```
  */
-export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
-export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T, callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T;
-export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeFilterCallback<T>, options: TreeFilterOptions<T, CK> = {}): T | T[] {
+export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
+export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T, callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T;
+export function treeFilter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeFilterCallback<T>, options: TreeFilterOptions<T, CK> = {}): T | T[] {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
   const traversalMethod = strategies[strategy];
   const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };

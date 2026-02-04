@@ -14,7 +14,7 @@ import { objectEntries } from "./objectEntries";
  * mapEntries(obj, (k, v) => [k, v * 2]); // { a: 2, b: 4 }
  * ```
  */
-export function mapEntries<K extends PropertyKey, V, NK extends PropertyKey, NV>(obj: PlainObject<K, V>, toEntry: (key: K, value: V) => [NK, NV]): PlainObject<NK, NV> {
+export function mapEntries<K extends PropertyKey, V, NK extends PropertyKey, NV> (obj: PlainObject<K, V>, toEntry: (key: K, value: V) => [NK, NV]): PlainObject<NK, NV> {
   const defaultResult = {} as PlainObject<NK, NV>;
 
   if (!obj) {

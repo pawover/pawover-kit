@@ -2,7 +2,7 @@
  * 检查 value 是否为 number 类型
  *
  * @param value 待检查值
- * @param checkNaN 是否排除 `NaN`，默认为 `true`
+ * @param NaNCheck 是否排除 `NaN`，默认为 `true`
  * @returns 是否为 number
  * @example
  * ```ts
@@ -11,8 +11,8 @@
  * isNumber(NaN, false); // true
  * ```
  */
-export function isNumber(value: unknown, checkNaN = true): value is number {
-  return typeof value === "number" && (!checkNaN || !isNaN(value));
+export function isNumber (value: unknown, NaNCheck = true): value is number {
+  return typeof value === "number" && (!NaNCheck || !isNaN(value));
 }
 
 /**
@@ -21,7 +21,7 @@ export function isNumber(value: unknown, checkNaN = true): value is number {
  * @param value 待检查值
  * @returns 是否为 NaN
  */
-export function isNaN(value: unknown): value is number {
+export function isNaN (value: unknown): value is number {
   return Number.isNaN(value);
 }
 
@@ -32,7 +32,7 @@ export function isNaN(value: unknown): value is number {
  * @param safeCheck 是否附加安全数检查
  * @returns 是否为整数
  */
-export function isInteger(value: unknown, safeCheck = true): value is number {
+export function isInteger (value: unknown, safeCheck = true): value is number {
   const check = Number.isInteger(value);
 
   return safeCheck ? check && Number.isSafeInteger(value) : check;
@@ -45,7 +45,7 @@ export function isInteger(value: unknown, safeCheck = true): value is number {
  * @param value 待检查值
  * @param safeCheck 是否附加安全数检查
  */
-export function isPositiveInteger(value: unknown, safeCheck = true): value is number {
+export function isPositiveInteger (value: unknown, safeCheck = true): value is number {
   return isInteger(value, safeCheck) && value > 0;
 }
 
@@ -56,7 +56,7 @@ export function isPositiveInteger(value: unknown, safeCheck = true): value is nu
  * @param value 待检查值
  * @param safeCheck 是否附加安全数检查
  */
-export function isNegativeInteger(value: unknown, safeCheck = true): value is number {
+export function isNegativeInteger (value: unknown, safeCheck = true): value is number {
   return isInteger(value, safeCheck) && value < 0;
 }
 
@@ -66,7 +66,7 @@ export function isNegativeInteger(value: unknown, safeCheck = true): value is nu
  *
  * @param value 待检查值
  */
-export function isInfinity(value: unknown): value is number {
+export function isInfinity (value: unknown): value is number {
   return isNumber(value) && (Number.POSITIVE_INFINITY === value || Number.NEGATIVE_INFINITY === value);
 }
 
@@ -76,7 +76,7 @@ export function isInfinity(value: unknown): value is number {
  *
  * @param value 待检查值
  */
-export function isInfinityLike(value: unknown): boolean {
+export function isInfinityLike (value: unknown): boolean {
   const check = isInfinity(value);
 
   if (check) {

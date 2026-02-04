@@ -13,7 +13,7 @@ import { isFunction } from "../typeof";
  * arrayReplace([1, 2, 3], 4, (n) => n === 2); // [1, 4, 3]
  * ```
  */
-export function arrayReplace<T>(initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean): T[] {
+export function arrayReplace<T> (initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean): T[] {
   if (!initialList) {
     return [];
   }

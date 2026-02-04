@@ -12,9 +12,9 @@ import { isArray } from "../typeof";
  * arrayLast([], 0); // 0
  * ```
  */
-export function arrayLast<T>(initialList: readonly T[]): T | undefined;
-export function arrayLast<T>(initialList: readonly T[], saveValue: T): T;
-export function arrayLast<T>(initialList: readonly T[], saveValue?: T): T | undefined {
+export function arrayLast<T> (initialList: readonly T[]): T | undefined;
+export function arrayLast<T> (initialList: readonly T[], saveValue: T): T;
+export function arrayLast<T> (initialList: readonly T[], saveValue?: T): T | undefined {
   if (!isArray(initialList) || initialList.length === 0) {
     return saveValue;
   }

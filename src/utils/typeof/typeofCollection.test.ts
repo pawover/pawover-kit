@@ -32,7 +32,7 @@ describe("typeof collection", () => {
     expect(isIterable(new Set())).toBe(true);
     expect(isIterable(new Map())).toBe(true);
     // Generator function invocation returns iterable iterator
-    function *gen() {}
+    function *gen () {}
     expect(isIterable(gen())).toBe(true);
 
     expect(isIterable({})).toBe(false);

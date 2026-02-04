@@ -11,7 +11,7 @@ import { isArray } from "../typeof";
  * arrayUnzip([[1, "a"], [2, "b"]]); // [[1, 2], ["a", "b"]]
  * ```
  */
-export function arrayUnzip<T>(arrays: readonly (readonly T[])[]): T[][] {
+export function arrayUnzip<T> (arrays: readonly (readonly T[])[]): T[][] {
   if (!isArray(arrays) || !arrays.length) {
     return [];
   }
@@ -37,11 +37,11 @@ export function arrayUnzip<T>(arrays: readonly (readonly T[])[]): T[][] {
  * arrayZip([1, 2], ["a", "b"]); // [[1, "a"], [2, "b"]]
  * ```
  */
-export function arrayZip<T1, T2, T3, T4, T5>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
-export function arrayZip<T1, T2, T3, T4>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[]): [T1, T2, T3, T4][];
-export function arrayZip<T1, T2, T3>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[]): [T1, T2, T3][];
-export function arrayZip<T1, T2>(array1: readonly T1[], array2: readonly T2[]): [T1, T2][];
-export function arrayZip(): [];
-export function arrayZip<T>(...arrays: (readonly T[])[]): T[][] {
+export function arrayZip<T1, T2, T3, T4, T5> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
+export function arrayZip<T1, T2, T3, T4> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[]): [T1, T2, T3, T4][];
+export function arrayZip<T1, T2, T3> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[]): [T1, T2, T3][];
+export function arrayZip<T1, T2> (array1: readonly T1[], array2: readonly T2[]): [T1, T2][];
+export function arrayZip (): [];
+export function arrayZip<T> (...arrays: (readonly T[])[]): T[][] {
   return arrayUnzip(arrays);
 }

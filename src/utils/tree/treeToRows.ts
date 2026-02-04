@@ -23,7 +23,7 @@ export function treeToRows<
   T extends AnyObject,
   CK extends string = ChildrenKey,
   R extends AnyObject = SetOptional<T, CK>,
->(tree: T | T[], options: TreeToRowsOptions<T, CK> = {}): R[] {
+> (tree: T | T[], options: TreeToRowsOptions<T, CK> = {}): R[] {
   const { childrenKey = "children" } = options;
   const result: R[] = [];
 

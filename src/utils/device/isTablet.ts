@@ -13,7 +13,7 @@ import { isPositiveInteger } from "../typeof";
  * isTablet(); // true
  * ```
  */
-export function isTablet(minWidth = 768, maxWidth = 1200, dpi = 160) {
+export function isTablet (minWidth = 768, maxWidth = 1200, dpi = 160) {
   if (typeof window === "undefined" || !isPositiveInteger(minWidth) || !isPositiveInteger(maxWidth)) {
     return false;
   }

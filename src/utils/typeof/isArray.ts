@@ -12,7 +12,7 @@ type TypedArray = | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Ui
  * isArray([]); // true
  * ```
  */
-export function isArray(value: unknown): value is unknown[] {
+export function isArray (value: unknown): value is unknown[] {
   return Array.isArray(value);
 }
 
@@ -26,6 +26,6 @@ export function isArray(value: unknown): value is unknown[] {
  * isTypedArray(new Int8Array()); // true
  * ```
  */
-export function isTypedArray(value: unknown): value is TypedArray {
+export function isTypedArray (value: unknown): value is TypedArray {
   return typeof value === "object" && value !== null && TYPED_ARRAY_TAGS.has(resolvePrototypeString(value));
 }

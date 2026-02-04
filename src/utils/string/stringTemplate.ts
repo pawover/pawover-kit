@@ -18,7 +18,7 @@ const R1 = /\{\{(.+?)\}\}/g;
  * stringTemplate("Hello {{name}}", { name: "World" }); // "Hello World"
  * ```
  */
-export function stringTemplate(input: string, template: PlainObject, regex = R1) {
+export function stringTemplate (input: string, template: PlainObject, regex = R1) {
   if (!isString(input, true)) {
     return "";
   }

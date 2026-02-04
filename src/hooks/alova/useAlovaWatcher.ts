@@ -16,7 +16,7 @@ interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends Watch
   onComplete?: CompleteHandler<AG, Args>;
 }
 
-export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = any[]>(
+export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
   watchingStates: AG["StatesExport"]["Watched"][],
   hookConfig: HookConfig<AG, Args> = {},

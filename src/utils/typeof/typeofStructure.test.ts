@@ -26,8 +26,8 @@ describe("typeof structure", () => {
   it("isFunction and variants", () => {
     const fn = () => {};
     const asyncFn = async () => {};
-    const genFn = function *genFn() {};
-    const asyncGenFn = async function *asyncGenFn() {};
+    const genFn = function *genFn () {};
+    const asyncGenFn = async function *asyncGenFn () {};
 
     expect(isFunction(fn)).toBe(true);
     expect(isAsyncFunction(asyncFn)).toBe(true);

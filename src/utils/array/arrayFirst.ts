@@ -12,9 +12,9 @@ import { isArray } from "../typeof";
  * arrayFirst([], 0); // 0
  * ```
  */
-export function arrayFirst<T>(initialList: readonly T[]): T | undefined;
-export function arrayFirst<T>(initialList: readonly T[], saveValue: T): T;
-export function arrayFirst<T>(initialList: readonly T[], saveValue?: T): T | undefined {
+export function arrayFirst<T> (initialList: readonly T[]): T | undefined;
+export function arrayFirst<T> (initialList: readonly T[], saveValue: T): T;
+export function arrayFirst<T> (initialList: readonly T[], saveValue?: T): T | undefined {
   if (!isArray(initialList) || initialList.length === 0) {
     return saveValue;
   }

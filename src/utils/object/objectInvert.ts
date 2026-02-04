@@ -17,9 +17,9 @@ import { objectEntries } from "./objectEntries";
  * objectInvert(obj); // { "1": "a", 2: "b" }
  * ```
  */
-export function objectInvert<const O extends Record<keyof O, PropertyKey>>(plainObject: O): Object.Invert<O>;
-export function objectInvert<const O extends AnyObject>(anyObject: O): Object.Invert<O>;
-export function objectInvert(obj: AnyObject) {
+export function objectInvert<const O extends Record<keyof O, PropertyKey>> (plainObject: O): Object.Invert<O>;
+export function objectInvert<const O extends AnyObject> (anyObject: O): Object.Invert<O>;
+export function objectInvert (obj: AnyObject) {
   const result = {} as Object.Invert<AnyObject>;
 
   if (!isObject(obj)) {

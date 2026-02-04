@@ -9,7 +9,7 @@ export type TreeFindCallback<T extends AnyObject> = (row: T, meta: BaseCallbackM
 const strategies = { pre: preImpl, post: postImpl, breadth: breadthImpl };
 
 // 前置深度优先遍历
-function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
+function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
   const callbackResult = callback(row, options);
   if (callbackResult) {
     return row;
@@ -31,7 +31,7 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, c
 }
 
 // 后置深度优先遍历
-function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
+function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const children = row[finalChildrenKey] as T[] | undefined;
   if (isArray(children)) {
@@ -53,7 +53,7 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, 
 }
 
 // 广度优先遍历
-function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
+function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
   const queue: QueueItem<T, CK>[] = [{ queueRow: row, queueOptions: options }];
   const runQueue = (): T | undefined => {
     if (queue.length === 0) {
@@ -95,7 +95,7 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: 
  * treeFind(tree, (node) => node.id === 2); // { id: 2, ... }
  * ```
  */
-export function treeFind<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
+export function treeFind<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
   const traversalMethod = strategies[strategy];
   const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };

@@ -13,7 +13,7 @@ import { isPositiveInteger } from "../typeof";
  * isMobile(); // true
  * ```
  */
-export function isMobile(maxWidth = 768, dpi = 160) {
+export function isMobile (maxWidth = 768, dpi = 160) {
   if (typeof window === "undefined" || !isPositiveInteger(maxWidth)) {
     return false;
   }
@@ -33,7 +33,7 @@ export function isMobile(maxWidth = 768, dpi = 160) {
  * isIOSMobile(); // true
  * ```
  */
-export function isIOSMobile(maxWidth = 768, dpi = 160) {
+export function isIOSMobile (maxWidth = 768, dpi = 160) {
   if (typeof navigator === "undefined" || !navigator.userAgent || !isPositiveInteger(maxWidth)) {
     return false;
   }

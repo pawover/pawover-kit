@@ -12,9 +12,9 @@ import { isArray, isObject } from "../typeof";
  * objectPick({ a: 1, b: 2 }, ["a"]); // { a: 1 }
  * ```
  */
-export function objectPick<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Pick<O, K>;
-export function objectPick<O extends AnyObject, K extends keyof O>(anyObject: O, keys: readonly K[]): Pick<O, K>;
-export function objectPick(obj: object, keys: readonly string[]) {
+export function objectPick<O extends PlainObject, K extends keyof O> (plainObject: O, keys: readonly K[]): Pick<O, K>;
+export function objectPick<O extends AnyObject, K extends keyof O> (anyObject: O, keys: readonly K[]): Pick<O, K>;
+export function objectPick (obj: object, keys: readonly string[]) {
   const result = {} as PlainObject;
 
   if (!isObject(obj)) {

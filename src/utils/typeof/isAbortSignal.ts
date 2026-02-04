@@ -5,6 +5,6 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 AbortSignal
  */
-export function isAbortSignal(value: unknown): value is AbortSignal {
+export function isAbortSignal (value: unknown): value is AbortSignal {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.abortSignal;
 }

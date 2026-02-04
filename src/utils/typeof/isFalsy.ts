@@ -5,7 +5,7 @@ import { isNaN, isNull, isUndefined } from ".";
  * @param value 待检查值
  * @returns 是否为 Falsy
  */
-export function isFalsy(value: unknown): value is false | 0 | "" | null | undefined {
+export function isFalsy (value: unknown): value is false | 0 | "" | null | undefined {
   if (isNaN(value) || isNull(value) || isUndefined(value)) {
     return true;
   }
@@ -13,7 +13,7 @@ export function isFalsy(value: unknown): value is false | 0 | "" | null | undefi
   return value === false || value === 0 || value === 0n || value === "";
 }
 
-export function isFalsyLike(value: unknown): boolean {
+export function isFalsyLike (value: unknown): boolean {
   if (isFalsy(value)) {
     return true;
   }

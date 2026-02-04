@@ -35,7 +35,7 @@ export function rowsToTree<
   R = TreeLike<T, CK>,
   RK extends string = RowKey,
   PK extends string = ParentIdKey,
->(rows: T[], options?: RowsToTreeOptions<RK, PK, CK> | undefined): R[] {
+> (rows: T[], options?: RowsToTreeOptions<RK, PK, CK> | undefined): R[] {
   const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children" } = options || {};
   const result: R[] = [];
   const map = new Map<PropertyKey, T>();

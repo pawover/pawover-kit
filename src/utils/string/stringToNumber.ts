@@ -17,7 +17,7 @@ const R1 = /[^0-9.-]/g;
  * stringToNumber("abc-123"); // "-123"
  * ```
  */
-export function stringToNumber(input: string) {
+export function stringToNumber (input: string) {
   if (!isString(input, true)) {
     return "";
   }

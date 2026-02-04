@@ -14,9 +14,9 @@ import { isArray, isNull, isUndefined } from "../typeof";
  * arrayCast(null, false); // [null]
  * ```
  */
-export function arrayCast<T>(candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
-export function arrayCast<T>(candidate: T | T[] | null | undefined, checkEmpty?: false): T[];
-export function arrayCast<T>(candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
+export function arrayCast<T> (candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
+export function arrayCast<T> (candidate: T | T[] | null | undefined, checkEmpty?: false): T[];
+export function arrayCast<T> (candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
   if (checkEmpty && (isUndefined(candidate) || isNull(candidate))) {
     return [];
   }

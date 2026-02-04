@@ -69,7 +69,7 @@ export interface FetchEventSourceOptions extends Except<RequestInit, "headers"> 
  * `@microsoft/fetch-event-source` 的修补版本
  * @see https://github.com/Azure/fetch-event-source
  */
-export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceOptions | undefined) {
+export function fetchEventSource (input: RequestInfo, options?: FetchEventSourceOptions | undefined) {
   const {
     headers: inputHeaders,
     isKeepConnect: inputIsKeepConnect,
@@ -94,7 +94,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
       requestHeaders["accept"] = EVENT_STREAM_CONTENT_TYPE;
     }
 
-    function onVisibilityChange() {
+    function onVisibilityChange () {
       // close existing request on every visibility change
       curRequestController.abort();
       if (!document?.hidden) {
@@ -107,7 +107,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
       document.addEventListener("visibilitychange", onVisibilityChange);
     }
 
-    function dispose() {
+    function dispose () {
       if (typeof document !== "undefined" && !isKeepConnect) {
         document.removeEventListener("visibilitychange", onVisibilityChange);
       }
@@ -115,7 +115,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
       curRequestController.abort();
     }
 
-    function onSignalAbort() {
+    function onSignalAbort () {
       dispose();
       // don't waste time constructing/logging errors
       resolve();
@@ -126,7 +126,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
       signal.addEventListener("abort", onSignalAbort);
     }
 
-    async function create() {
+    async function create () {
       if (curRequestController) {
         curRequestController.abort();
       }
@@ -160,7 +160,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
           }
         }
 
-        function onId(id: string) {
+        function onId (id: string) {
           if (id) {
             // store the id and send it back on the next retry:
             requestHeaders[LAST_EVENT_ID] = id;
@@ -169,7 +169,7 @@ export function fetchEventSource(input: RequestInfo, options?: FetchEventSourceO
             delete requestHeaders[LAST_EVENT_ID];
           }
         }
-        function onReconnect(delay: number) {
+        function onReconnect (delay: number) {
           reconnectionDelay = delay;
         }
 

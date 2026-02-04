@@ -15,9 +15,9 @@ import { isArray, isFunction } from "../typeof";
  * arrayPick(list, (n) => n % 2 === 0, (n) => n * 2); // [4, 8]
  * ```
  */
-export function arrayPick<const T>(initialList: readonly T[], filter: (row: T, index: number) => boolean): T[];
-export function arrayPick<const T, K = T>(initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper: ((row: T, index: number) => K)): K[];
-export function arrayPick<const T, K = T>(initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {
+export function arrayPick<const T> (initialList: readonly T[], filter: (row: T, index: number) => boolean): T[];
+export function arrayPick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper: ((row: T, index: number) => K)): K[];
+export function arrayPick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {
   if (!isArray(initialList)) {
     return [];
   }

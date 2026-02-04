@@ -13,9 +13,9 @@ import { isEnumeration } from "../typeof";
  * enumKeys(A); // ["k"]
  * ```
  */
-export function enumKeys<E extends PlainObject>(enumeration: E): (keyof E)[];
-export function enumKeys<E extends AnyObject>(enumeration: E): (keyof E)[];
-export function enumKeys(enumeration: AnyObject) {
+export function enumKeys<E extends PlainObject> (enumeration: E): (keyof E)[];
+export function enumKeys<E extends AnyObject> (enumeration: E): (keyof E)[];
+export function enumKeys (enumeration: AnyObject) {
   const [isEnum, isTwoWayEnum] = isEnumeration(enumeration);
 
   if (!isEnum) {

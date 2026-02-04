@@ -9,7 +9,7 @@ export type TreeForeachCallback<T extends AnyObject> = (row: T, meta: BaseCallba
 const strategies = { pre: preImpl, post: postImpl, breadth: breadthImpl };
 
 // 前置遍历
-function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
+function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
   callback(row, options);
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const children = row[finalChildrenKey] as T[] | undefined;
@@ -23,7 +23,7 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, c
 }
 
 // 后置遍历
-function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
+function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const children = row[finalChildrenKey] as T[] | undefined;
 
@@ -37,7 +37,7 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, 
 }
 
 // 广度优先遍历
-function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
+function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
   const queue: QueueItem<T, CK>[] = [{ queueRow: row, queueOptions: options }];
   const runQueue = () => {
     if (queue.length === 0) {
@@ -74,7 +74,7 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey>(row: 
  * // ids: [1, 2] (pre-order default)
  * ```
  */
-export function treeForEach<T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
+export function treeForEach<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
   const traversalMethod = strategies[strategy];
   const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };

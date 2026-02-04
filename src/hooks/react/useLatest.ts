@@ -6,7 +6,7 @@ import { useRef, type RefObject } from "react";
  *
  * @param value
  */
-export function useLatest<T>(value: T): RefObject<T> {
+export function useLatest<T> (value: T): RefObject<T> {
   const ref = useRef(value);
   ref.current = value;
 

@@ -13,7 +13,7 @@ import { toMathBignumber } from "./toMathBignumber";
  * toMathEvaluate(math, "a + b", { a: 1, b: 2 }); // "3"
  * ```
  */
-export function toMathEvaluate(mathJsInstance: MathJsInstance, expr: MathExpression | Matrix, scope?: Record<string, BigNumber>): string {
+export function toMathEvaluate (mathJsInstance: MathJsInstance, expr: MathExpression | Matrix, scope?: Record<string, BigNumber>): string {
   const evaluateValue = `${mathJsInstance.evaluate(expr, scope || {})}`;
 
   return mathJsInstance.format(toMathBignumber(mathJsInstance, evaluateValue), { notation: "fixed" });

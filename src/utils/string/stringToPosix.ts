@@ -16,7 +16,7 @@ import { isString } from "../typeof";
  * stringToPosix("C:\\Windows\\System32"); // "/Windows/System32"
  * ```
  */
-export function stringToPosix(input: string | null | undefined, removeLeadingSlash = false) {
+export function stringToPosix (input: string | null | undefined, removeLeadingSlash = false) {
   if (!isString(input, true)) {
     return "";
   }

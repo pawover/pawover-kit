@@ -18,7 +18,7 @@ interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends Reque
   onComplete?: CompleteHandler<AG, Args>;
 }
 
-export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = any[]>(
+export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
   hookConfig?: HookConfig<AG, Args> | undefined,
 ) {
@@ -31,7 +31,7 @@ export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = a
       config.onBeforeRequest?.(context);
 
       if (middleware) {
-        async function run() {
+        async function run () {
           await next();
         }
         await middleware?.(context, run);

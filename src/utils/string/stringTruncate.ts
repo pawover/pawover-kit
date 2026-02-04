@@ -14,7 +14,7 @@ import { isPositiveInteger, isString } from "../typeof";
  * stringTruncate("hello world", 8); // "hello..."
  * ```
  */
-export function stringTruncate(input: string, maxLength: number, ellipsis = "...") {
+export function stringTruncate (input: string, maxLength: number, ellipsis = "...") {
   if (!isString(input, true)) {
     return "";
   }

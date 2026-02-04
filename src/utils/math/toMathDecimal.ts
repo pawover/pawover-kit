@@ -14,9 +14,9 @@ import { toMathBignumber } from "./toMathBignumber";
  * toMathDecimal(math, 0.12345, 2); // "0.12"
  * ```
  */
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: true): string;
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: false): BigNumber;
-export function toMathDecimal(mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat = true): string | BigNumber {
+export function toMathDecimal (mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: true): string;
+export function toMathDecimal (mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: false): BigNumber;
+export function toMathDecimal (mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat = true): string | BigNumber {
   const bigNumber = toMathBignumber(mathJsInstance, value);
 
   return isFormat ? mathJsInstance.format(bigNumber, { notation: "fixed", precision: precision! }) : bigNumber;

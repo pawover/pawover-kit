@@ -14,7 +14,7 @@ interface RefObject<T> {
  * @param factory
  * @param deps
  */
-export function useCreation<T>(factory: () => T, deps: DependencyList) {
+export function useCreation<T> (factory: () => T, deps: DependencyList) {
   const { current } = useRef<RefObject<T>>({ deps, result: undefined!, isInitialized: false });
 
   if (current.isInitialized === false || !isEqual(current.deps, deps)) {

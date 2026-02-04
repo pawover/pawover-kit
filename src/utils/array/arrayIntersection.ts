@@ -14,7 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayIntersection([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 2 }]
  * ```
  */
-export function arrayIntersection<T>(initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
+export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
   if (!isArray(initialList) || !isArray(diffList)) {
     return [];
   }

@@ -26,7 +26,7 @@ const R2 = /[^a-zA-Z\u00C0-\u017F]/;
  * stringInitialCase("hello", "upper"); // "Hello"
  * ```
  */
-export function stringInitialCase(input: string, caseType?: "lower" | "upper" | undefined) {
+export function stringInitialCase (input: string, caseType?: "lower" | "upper" | undefined) {
   if (!isString(input, true)) {
     return "";
   }

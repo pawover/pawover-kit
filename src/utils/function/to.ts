@@ -13,7 +13,7 @@ import type { PlainObject } from "@pawover/types";
  * console.log(data);
  * ```
  */
-export function to<T, U = Error>(promise: Readonly<Promise<T>>, errorExt?: PlainObject): Promise<[U, undefined] | [null, T]> {
+export function to<T, U = Error> (promise: Readonly<Promise<T>>, errorExt?: PlainObject): Promise<[U, undefined] | [null, T]> {
   return promise
     .then<[null, T]>((data: T) => [null, data])
     .catch<[U, undefined]>((err: U) => {

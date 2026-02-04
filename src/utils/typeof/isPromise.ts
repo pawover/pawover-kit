@@ -7,7 +7,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 Promise
  */
-export function isPromise(value: unknown): value is Promise<unknown> {
+export function isPromise (value: unknown): value is Promise<unknown> {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.promise;
 }
 
@@ -16,6 +16,6 @@ export function isPromise(value: unknown): value is Promise<unknown> {
  * @param value 待检查值
  * @returns 是否为 PromiseLike
  */
-export function isPromiseLike(value: unknown): value is PromiseLike<unknown> {
+export function isPromiseLike (value: unknown): value is PromiseLike<unknown> {
   return isPromise(value) || (isObject(value) && isFunction(value["then"]));
 }

@@ -16,7 +16,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 ReadableStream
  */
-export function isReadableStream(value: unknown): value is ReadableStream {
+export function isReadableStream (value: unknown): value is ReadableStream {
   // Modern environments (Chrome 52+, Firefox 57+, Safari 10.1+, Node.js 18+)
   if (resolvePrototypeString(value) === PROTOTYPE_TAGS.readableStream) {
     return true;

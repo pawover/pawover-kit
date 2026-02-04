@@ -1,5 +1,5 @@
 import type { AnyAsyncFunction } from "@pawover/types";
-import { useEffect, useRef, type EffectCallback } from "react";
+import { useEffect, type EffectCallback } from "react";
 import { isFunction, isPromiseLike } from "src/utils";
 import { useLatest } from "./useLatest";
 
@@ -12,20 +12,20 @@ type MountCallback = EffectCallback | AnyAsyncFunction;
  *
  * @param effect 副作用函数
  */
-export function useMount(effect: MountCallback) {
+export function useMount (effect: MountCallback) {
   if (!isFunction(effect)) {
     console.error(`useMount expected parameter is a function, but got ${typeof effect}`);
   }
 
-  const isMountedRef = useRef(false);
+  let isMounted = false;
   const effectRef = useLatest(effect);
 
   useEffect(() => {
-    if (isMountedRef.current) {
+    if (isMounted) {
       return;
     }
 
-    isMountedRef.current = true;
+    isMounted = true;
     const result = effectRef.current?.();
     // If fn returns a Promise, don't return it as cleanup function
     if (isPromiseLike(result)) {

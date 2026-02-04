@@ -5,7 +5,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 HTMLIFrameElement
  */
-export function isIframe(value: unknown): value is HTMLIFrameElement {
+export function isIframe (value: unknown): value is HTMLIFrameElement {
   if (typeof window === "undefined") {
     return false;
   }
@@ -13,7 +13,7 @@ export function isIframe(value: unknown): value is HTMLIFrameElement {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.iframe;
 }
 
-export function isInIframe() {
+export function isInIframe () {
   if (typeof window === "undefined") {
     return false;
   }

@@ -5,6 +5,6 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 WebSocket
  */
-export function isWebSocket(value: unknown): value is WebSocket {
+export function isWebSocket (value: unknown): value is WebSocket {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.webSocket;
 }

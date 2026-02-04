@@ -1,6 +1,8 @@
+import eslintPluginReact from "@eslint-react/eslint-plugin";
 import eslintRules from "@pawover/eslint-rules";
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginAntfu from "eslint-plugin-antfu";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 
 import { defineConfig } from "eslint/config";
 import eslintTs from "typescript-eslint";
@@ -14,6 +16,15 @@ const plugins = {
   },
   antfu: {
     antfu: eslintPluginAntfu,
+  },
+  react: {
+    "react": eslintPluginReact.configs.all.plugins["@eslint-react"],
+    "react-dom": eslintPluginReact.configs.all.plugins["@eslint-react/dom"],
+    "react-rsc": eslintPluginReact.configs.all.plugins["@eslint-react/rsc"],
+    "react-web-api": eslintPluginReact.configs.all.plugins["@eslint-react/web-api"],
+    "react-hooks": eslintPluginReactHooks,
+    "react-hooks-extra": eslintPluginReact.configs.all.plugins["@eslint-react/hooks-extra"],
+    "react-naming-convention": eslintPluginReact.configs.all.plugins["@eslint-react/naming-convention"],
   },
 };
 const GLOB_EXCLUDE = [
@@ -74,7 +85,7 @@ export default defineConfig([
   },
   {
     files: ["**/*.{ts,cts,mts,tsx}"],
-    plugins: { ...plugins.ts, ...plugins.stylistic, ...plugins.antfu },
+    plugins: { ...plugins.ts, ...plugins.react, ...plugins.stylistic, ...plugins.antfu },
     languageOptions: {
       parser: eslintTs.parser,
       parserOptions: {
@@ -85,6 +96,8 @@ export default defineConfig([
     rules: {
       ...eslintRules.javascript,
       ...eslintRules.typescript,
+      ...eslintRules.react,
+      ...eslintRules.reactRefresh,
       ...eslintRules.stylistic,
       ...eslintRules.antfu,
     },

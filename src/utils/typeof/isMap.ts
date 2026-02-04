@@ -6,7 +6,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 Map
  */
-export function isMap(value: unknown): value is Map<unknown, unknown> {
+export function isMap (value: unknown): value is Map<unknown, unknown> {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.map;
 }
 
@@ -15,6 +15,6 @@ export function isMap(value: unknown): value is Map<unknown, unknown> {
  * @param value 待检查值
  * @returns 是否为 WeakMap
  */
-export function isWeakMap(value: unknown): value is WeakMap<AnyObject, unknown> {
+export function isWeakMap (value: unknown): value is WeakMap<AnyObject, unknown> {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.weakMap;
 }

@@ -18,7 +18,7 @@ interface Metadata {
     react: string[];
   };
 }
-async function generateMetadata() {
+async function generateMetadata () {
   try {
     const metadata: Metadata = {
       index: Object.keys(moduleIndex),

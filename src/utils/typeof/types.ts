@@ -44,6 +44,6 @@ export const TYPED_ARRAY_TAGS = new Set([
   "[object BigUint64Array]",
 ]);
 
-export function resolvePrototypeString(value: unknown) {
+export function resolvePrototypeString (value: unknown) {
   return Object.prototype.toString.call(value);
 }

@@ -14,7 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayDifference([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 1 }]
  * ```
  */
-export function arrayDifference<T>(initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
+export function arrayDifference<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
   if (!isArray(initialList) && !isArray(diffList)) {
     return [];
   }

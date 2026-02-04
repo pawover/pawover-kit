@@ -18,7 +18,7 @@ import { isString } from "../typeof";
  * stringReplace("hello world", "world", "context"); // "hello context"
  * ```
  */
-export function stringReplace<I extends string, S extends string, R extends string>(input: I, search: S, replacement: R) {
+export function stringReplace<I extends string, S extends string, R extends string> (input: I, search: S, replacement: R) {
   if (!isString(input, true)) {
     return "" as Replace<I, S, R>;
   }

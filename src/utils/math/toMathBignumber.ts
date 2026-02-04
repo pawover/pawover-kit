@@ -16,7 +16,7 @@ import { isFalsyLike, isInfinityLike } from "../typeof";
  * toMathBignumber(math, "0.1");
  * ```
  */
-export function toMathBignumber(mathJsInstance: MathJsInstance, value: unknown, saveValue?: BigNumber | undefined): BigNumber {
+export function toMathBignumber (mathJsInstance: MathJsInstance, value: unknown, saveValue?: BigNumber | undefined): BigNumber {
   const errorValue = saveValue ?? mathJsInstance.bignumber(0);
 
   if (isFalsyLike(value) || isInfinityLike(value)) {

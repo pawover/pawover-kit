@@ -14,7 +14,7 @@ import { isInfinity, isNumber } from "../typeof";
  * isWithinInterval(1, [1, 10], false); // false
  * ```
  */
-export function isWithinInterval(input: number, interval: [number, number], includeLeft = true, includeRight = false) {
+export function isWithinInterval (input: number, interval: [number, number], includeLeft = true, includeRight = false) {
   if (!isNumber(input)) {
     throw new Error("params [input] mast be a number.");
   }

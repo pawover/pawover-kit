@@ -14,7 +14,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * isObject(new Date(), false); // true (is object type)
  * ```
  */
-export function isObject(value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
+export function isObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
   const check = resolvePrototypeString(value) === PROTOTYPE_TAGS.object;
 
   return prototypeCheck ? check && Object.getPrototypeOf(value) === Object.prototype : check;

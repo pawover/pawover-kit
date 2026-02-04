@@ -5,6 +5,6 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 Error
  */
-export function isError(value: unknown): value is Error {
+export function isError (value: unknown): value is Error {
   return value instanceof Error || resolvePrototypeString(value) === PROTOTYPE_TAGS.error;
 }

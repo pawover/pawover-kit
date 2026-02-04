@@ -12,7 +12,7 @@ import { isString } from "../typeof";
  * stringTrim("__hello__", "_"); // "hello"
  * ```
  */
-export function stringTrim(input: string | null | undefined, charsToTrim = " "): string {
+export function stringTrim (input: string | null | undefined, charsToTrim = " "): string {
   if (!isString(input, true)) {
     return "";
   }

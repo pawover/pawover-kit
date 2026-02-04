@@ -11,7 +11,7 @@ import { isDate, isRegExp } from ".";
  * isEqual({ a: 1 }, { a: 1 }); // true
  * ```
  */
-export function isEqual(x: unknown, y: unknown): boolean {
+export function isEqual (x: unknown, y: unknown): boolean {
   if (Object.is(x, y)) {
     return true;
   }

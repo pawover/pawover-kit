@@ -2,62 +2,73 @@ import type { AnyObject } from "@pawover/types";
 import { isArray, isDate, isMap, isObject, isSet } from "../typeof";
 
 interface CloningStrategy {
-  cloneMap: <K, V>(parent: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T) => Map<K, V> | null;
-  cloneSet: <T>(parent: Set<T>, track: (newParent: Set<T>) => Set<T>, clone: <T>(value: T) => T) => Set<T> | null;
-  cloneDate: (parent: Date, track: (newParent: Date) => Date, clone: <T>(value: T) => T) => Date | null;
-  cloneArray: <T>(parent: readonly T[], track: (newParent: T[]) => T[], clone: <T>(value: T) => T) => T[] | null;
-  cloneObject: <T extends AnyObject>(parent: T, track: (newParent: T) => T, clone: <T>(value: T) => T) => T | null;
-  cloneOther: <T>(parent: T, track: (newParent: T) => T, clone: <T>(value: T) => T) => T | null;
+  cloneMap: typeof cloneMap;
+  cloneSet: typeof cloneSet;
+  cloneDate: typeof cloneDate;
+  cloneArray: typeof cloneArray;
+  cloneObject: typeof cloneObject;
+  cloneOther: typeof cloneOther;
 }
 
-const DefaultCloningStrategy: CloningStrategy = {
-  cloneMap<K, V>(input: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T): Map<K, V> {
-    const output = track(new Map());
-    for (const [key, value] of input) {
-      output.set(key, clone(value));
-    }
-
-    return output;
-  },
-  cloneSet<T>(input: Set<T>, track: (newParent: Set<T>) => Set<T>, clone: <T>(value: T) => T): Set<T> {
-    const output = track(new Set());
-    for (const value of input) {
-      output.add(clone(value));
-    }
-
-    return output;
-  },
-  cloneDate(input: Date, track: (newParent: Date) => Date): Date {
-    return track(new Date(input));
-  },
-  cloneArray<T>(input: readonly T[], track: (newParent: T[]) => T[], clone: <T>(value: T) => T): T[] {
-    // Use .forEach for correct handling of sparse arrays
-    const output = track(new Array(input.length));
-    input.forEach((value, index) => {
-      output[index] = clone(value);
-    });
-
-    return output;
-  },
-  cloneObject<T extends AnyObject>(input: T, track: (newParent: T) => T, clone: <T>(value: T) => T): T {
-    const output = track(Object.create(Object.getPrototypeOf(input)));
-    for (const key of Reflect.ownKeys(input)) {
-      // By copying the property descriptors, we preserve computed
-      // properties and non-enumerable properties.
-      const descriptor = Object.getOwnPropertyDescriptor(input, key)!;
-      if ("value" in descriptor) {
-        descriptor.value = clone(descriptor.value);
-      }
-      Object.defineProperty(output, key, descriptor);
-    }
-
-    return output;
-  },
-  cloneOther<T>(input: T, track: (newParent: T) => T): T {
-    return track(input);
-  },
+const defaultCloneStrategy = {
+  cloneMap,
+  cloneSet,
+  cloneDate,
+  cloneArray,
+  cloneObject,
+  cloneOther,
 };
 
+function cloneMap<K, V> (input: Map<K, V>, track: (newParent: Map<K, V>) => Map<K, V>, clone: <T>(value: T) => T): Map<K, V> {
+  const output = track(new Map());
+  for (const [key, value] of input) {
+    output.set(key, clone(value));
+  }
+
+  return output;
+}
+
+function cloneSet<T> (input: Set<T>, track: (newParent: Set<T>) => Set<T>, clone: <T>(value: T) => T): Set<T> {
+  const output = track(new Set());
+  for (const value of input) {
+    output.add(clone(value));
+  }
+
+  return output;
+}
+
+function cloneDate (input: Date, track: (newParent: Date) => Date): Date {
+  return track(new Date(input));
+}
+
+function cloneArray<T> (input: readonly T[], track: (newParent: T[]) => T[], clone: <T>(value: T) => T): T[] {
+  // Use .forEach for correct handling of sparse arrays
+  const output = track(new Array(input.length));
+  input.forEach((value, index) => {
+    output[index] = clone(value);
+  });
+
+  return output;
+}
+
+function cloneObject<T extends AnyObject> (input: T, track: (newParent: T) => T, clone: <T>(value: T) => T): T {
+  const output = track(Object.create(Object.getPrototypeOf(input)));
+  for (const key of Reflect.ownKeys(input)) {
+    // By copying the property descriptors, we preserve computed
+    // properties and non-enumerable properties.
+    const descriptor = Object.getOwnPropertyDescriptor(input, key)!;
+    if ("value" in descriptor) {
+      descriptor.value = clone(descriptor.value);
+    }
+    Object.defineProperty(output, key, descriptor);
+  }
+
+  return output;
+}
+
+function cloneOther<T> (input: T, track: (newParent: T) => T): T {
+  return track(input);
+}
 
 /**
  * 深度拷贝对象
@@ -76,8 +87,8 @@ const DefaultCloningStrategy: CloningStrategy = {
  * ```
  * @reference https://github.com/radashi-org/radashi/blob/main/src/object/cloneDeep.ts
  */
-export function cloneDeep<T extends AnyObject>(root: T, customStrategy?: Partial<CloningStrategy>): T {
-  const strategy = { ...DefaultCloningStrategy, ...customStrategy };
+export function cloneDeep<T extends AnyObject> (root: T, customStrategy?: Partial<CloningStrategy>): T {
+  const strategy = { ...defaultCloneStrategy, ...customStrategy };
 
   const tracked = new Map<unknown, unknown>();
   const track = (parent: unknown, newParent: unknown) => {
@@ -100,7 +111,7 @@ export function cloneDeep<T extends AnyObject>(root: T, customStrategy?: Partial
             ? strategy.cloneMap
             : isSet(parent)
               ? strategy.cloneSet
-              : isDate(parent)
+              : isDate(parent, false)
                 ? strategy.cloneDate
                 : strategy.cloneOther
     ) as (newParent: unknown, track: (newParent: unknown) => unknown, clone: (value: unknown) => unknown) => unknown;
@@ -108,7 +119,7 @@ export function cloneDeep<T extends AnyObject>(root: T, customStrategy?: Partial
     const newParent = cloneParent(parent, track.bind(null, parent), clone);
     if (!newParent) {
       // Use the default strategy if null is returned.
-      return cloneDeep(parent, DefaultCloningStrategy);
+      return cloneDeep(parent, defaultCloneStrategy);
     }
 
     tracked.set(parent, newParent);

@@ -9,13 +9,12 @@ type Crush<T> = T extends readonly (infer U)[]
       keyof T extends infer Prop
         ? Prop extends keyof T
           ? T[Prop] extends infer Value
-            ?
-                  | ([Extract<Value, object>] extends [never] ? never : Record<string, unknown>)
-                  | ([Exclude<Value, object>] extends [never]
-                    ? never
-                    : [Extract<Value, object>] extends [never]
-                      ? { [P in Prop]: Value }
-                      : Record<string, unknown>)
+            ? | ([Extract<Value, object>] extends [never] ? never : Record<string, unknown>)
+            | ([Exclude<Value, object>] extends [never]
+              ? never
+              : [Extract<Value, object>] extends [never]
+                ? { [P in Prop]: Value }
+                : Record<string, unknown>)
             : never
           : never
         : never
@@ -34,14 +33,14 @@ type Crush<T> = T extends readonly (infer U)[]
  * objectCrush(obj); // { "a.b": 1 }
  * ```
  */
-export function objectCrush<T extends PlainObject>(plainObject: T): Crush<T>;
-export function objectCrush<T extends AnyObject>(anyObject: T): Crush<T>;
-export function objectCrush<T extends AnyObject>(obj: T): Crush<T> {
+export function objectCrush<T extends PlainObject> (plainObject: T): Crush<T>;
+export function objectCrush<T extends AnyObject> (anyObject: T): Crush<T>;
+export function objectCrush<T extends AnyObject> (obj: T): Crush<T> {
   if (!obj) {
     return {} as Crush<T>;
   }
 
-  function crushReducer(crushed: Crush<T>, value: unknown, path: string) {
+  function crushReducer (crushed: Crush<T>, value: unknown, path: string) {
     if (isObject(value) || isArray(value)) {
       for (const [prop, propValue] of Object.entries(value)) {
         crushReducer(crushed, propValue, path ? `${path}.${prop}` : prop);

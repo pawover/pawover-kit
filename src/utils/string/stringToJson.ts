@@ -16,7 +16,7 @@ import { isString } from "../typeof";
  * stringToJson('invalid', {}); // {}
  * ```
  */
-export function stringToJson<D extends AnyObject = AnyObject>(input: string | null | undefined, safeValue: D): D {
+export function stringToJson<D extends AnyObject = AnyObject> (input: string | null | undefined, safeValue: D): D {
   if (!isString(input, true)) {
     return safeValue;
   }

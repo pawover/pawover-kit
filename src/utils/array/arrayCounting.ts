@@ -16,7 +16,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayCounting(users, (u) => u.group); // { A: 2, B: 1 }
  * ```
  */
-export function arrayCounting<T, K extends PropertyKey>(initialList: readonly T[], match: (row: T) => K): Record<string, number> {
+export function arrayCounting<T, K extends PropertyKey> (initialList: readonly T[], match: (row: T) => K): Record<string, number> {
   if (!isArray(initialList) || !isFunction(match)) {
     return {};
   }

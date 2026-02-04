@@ -23,7 +23,7 @@ export interface ResponsiveHookOptions {
   /** 屏幕响应断点 token 配置 */
   breakPointTokens?: BREAK_POINT_TOKEN_TYPE;
 }
-export function useResponsive(options?: ResponsiveHookOptions) {
+export function useResponsive (options?: ResponsiveHookOptions) {
   const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
   const tokens: BREAK_POINT_TOKEN_TYPE = objectAssign(BREAK_POINT_TOKEN_ENUM, breakPointTokens);
   responsiveConfig = { xxl: tokens.XXL, xl: tokens.XL, lg: tokens.LG, md: tokens.MD, sm: tokens.SM, xs: tokens.XS };
@@ -55,7 +55,7 @@ export function useResponsive(options?: ResponsiveHookOptions) {
   return { responsive, current, isCompact, breakPointTokens: tokens };
 }
 
-function resizeListener() {
+function resizeListener () {
   const oldInfo = responsiveValues;
   calculate();
 
@@ -67,13 +67,13 @@ function resizeListener() {
     subscriber();
   }
 }
-function addListener() {
+function addListener () {
   window.addEventListener("resize", resizeListener);
 }
-function removeListener() {
+function removeListener () {
   window.removeEventListener("resize", resizeListener);
 }
-function calculate() {
+function calculate () {
   const width = window.innerWidth;
   const newValues = { ...defaultResponsiveValues };
   let shouldUpdate = false;

@@ -14,10 +14,10 @@ import type { Range } from "../../types/index.type";
  * objectKeys({ a: 1, b: 2 }); // ["a", "b"]
  * ```
  */
-export function objectKeys<const S extends string>(string: S): UnionToTuple<Range<0, Split<S, "">["length"]>>;
-export function objectKeys<const A extends ArrayLike<unknown>>(array: A): UnionToTuple<Range<0, A["length"]>>;
-export function objectKeys<O extends PlainObject>(plainObject: O): `${Extract<keyof O, string | number>}`[];
-export function objectKeys<O extends AnyObject>(anyObject: O): `${Extract<keyof O, string | number>}`[];
-export function objectKeys(value: object) {
+export function objectKeys<const S extends string> (string: S): UnionToTuple<Range<0, Split<S, "">["length"]>>;
+export function objectKeys<const A extends ArrayLike<unknown>> (array: A): UnionToTuple<Range<0, A["length"]>>;
+export function objectKeys<O extends PlainObject> (plainObject: O): `${Extract<keyof O, string | number>}`[];
+export function objectKeys<O extends AnyObject> (anyObject: O): `${Extract<keyof O, string | number>}`[];
+export function objectKeys (value: object) {
   return Object.keys(value);
 }

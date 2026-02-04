@@ -6,7 +6,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 Function
  */
-export function isFunction(value: unknown): value is AnyFunction {
+export function isFunction (value: unknown): value is AnyFunction {
   return typeof value === "function";
 }
 
@@ -15,7 +15,7 @@ export function isFunction(value: unknown): value is AnyFunction {
  * @param value 待检查值
  * @returns 是否为 AsyncFunction
  */
-export function isAsyncFunction(value: unknown): value is AnyAsyncFunction {
+export function isAsyncFunction (value: unknown): value is AnyAsyncFunction {
   return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.asyncFunction;
 }
 
@@ -24,7 +24,7 @@ export function isAsyncFunction(value: unknown): value is AnyAsyncFunction {
  * @param value 待检查值
  * @returns 是否为 GeneratorFunction
  */
-export function isGeneratorFunction(value: unknown): value is AnyGeneratorFunction {
+export function isGeneratorFunction (value: unknown): value is AnyGeneratorFunction {
   return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.generatorFunction;
 }
 
@@ -33,6 +33,6 @@ export function isGeneratorFunction(value: unknown): value is AnyGeneratorFuncti
  * @param value 待检查值
  * @returns 是否为 AsyncGeneratorFunction
  */
-export function isAsyncGeneratorFunction(value: unknown): value is AnyAsyncGeneratorFunction {
+export function isAsyncGeneratorFunction (value: unknown): value is AnyAsyncGeneratorFunction {
   return isFunction(value) && resolvePrototypeString(value) === PROTOTYPE_TAGS.asyncGeneratorFunction;
 }

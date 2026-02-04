@@ -11,6 +11,6 @@
  * isString("", true); // false
  * ```
  */
-export function isString(value: unknown, checkEmpty = false): value is string {
+export function isString (value: unknown, checkEmpty = false): value is string {
   return typeof value === "string" && (!checkEmpty || !!value.length);
 }

@@ -6,7 +6,7 @@ import type { ProxyOptions } from "vite";
  *
  * @param proxyList 代理配置项
  */
-export function resolveViteProxy<L extends [string, string][]>(proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
+export function resolveViteProxy<L extends [string, string][]> (proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
   const httpsRE = /^https:\/\//;
   const result: Record<string, ProxyOptions> = {};
 

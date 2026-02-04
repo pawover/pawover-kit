@@ -15,9 +15,9 @@ import { isString } from "../typeof";
  * stringToValues("a-b-c", "string", "-"); // ["a", "b", "c"]
  * ```
  */
-export function stringToValues(input: string | null | undefined, valueType?: "number" | undefined, splitSymbol?: string | undefined): number[];
-export function stringToValues(input: string | null | undefined, valueType: "string", splitSymbol?: string | undefined): string[];
-export function stringToValues(input: string | null | undefined, valueType: "number" | "string" = "number", splitSymbol = ","): (number | string)[] {
+export function stringToValues (input: string | null | undefined, valueType?: "number" | undefined, splitSymbol?: string | undefined): number[];
+export function stringToValues (input: string | null | undefined, valueType: "string", splitSymbol?: string | undefined): string[];
+export function stringToValues (input: string | null | undefined, valueType: "number" | "string" = "number", splitSymbol = ","): (number | string)[] {
   if (!isString(input, true)) {
     return [];
   }

@@ -5,6 +5,6 @@ import type { AnyObject } from "@pawover/types";
  * @param value 待检查值
  * @returns 是否为 Iterable
  */
-export function isIterable(value: unknown): value is { [Symbol.iterator]: () => Iterator<unknown> } {
+export function isIterable (value: unknown): value is { [Symbol.iterator]: () => Iterator<unknown> } {
   return !!value && typeof (value as AnyObject)[Symbol.iterator] === "function";
 }

@@ -11,7 +11,7 @@ export type TreeMapCallback<R extends AnyObject, T extends AnyObject> = (row: T,
 const strategies = { pre: preImpl, post: postImpl, breadth: breadthImpl };
 
 // 前置遍历
-function preImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
+function preImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const result = callback(row, options);
   const children = row[finalChildrenKey] as T[] | undefined;
@@ -26,7 +26,7 @@ function preImpl<R extends AnyObject, T extends AnyObject, CK extends string = C
 }
 
 // 子节点优先遍历
-function postImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
+function postImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
   const finalChildrenKey = getFinalChildrenKey(row, options, options);
   const children = row[finalChildrenKey] as T[] | undefined;
   let newChildren: TreeLike<R, CK>[] | undefined;
@@ -41,7 +41,7 @@ function postImpl<R extends AnyObject, T extends AnyObject, CK extends string = 
 }
 
 // 广度优先遍历
-function breadthImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
+function breadthImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
   const queue: QueueItem<T, CK>[] = [{ queueRow: row, queueOptions: options }];
   const cache = new WeakMap<T, TreeLike<R, CK>>();
   const childrenKeyCache = new WeakMap<T, CK>();
@@ -104,9 +104,9 @@ function breadthImpl<R extends AnyObject, T extends AnyObject, CK extends string
  * // [{ id: 1, val: 20, children: [{ id: 2, val: 40 }] }]
  * ```
  */
-export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];
-export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T, callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>;
-export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T | T[], callback: TreeMapCallback<R, T>, options: TreeMapOptions<T, CK> = {}): TreeLike<R, CK> | TreeLike<R, CK>[] {
+export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];
+export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T, callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>;
+export function treeMap<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeMapCallback<R, T>, options: TreeMapOptions<T, CK> = {}): TreeLike<R, CK> | TreeLike<R, CK>[] {
   const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
   const traversalMethod = strategies[strategy];
   const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };

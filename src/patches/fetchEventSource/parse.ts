@@ -37,7 +37,7 @@ export interface EventSourceMessage {
  * @param onChunk A function that will be called on each new byte chunk in the stream.
  * @returns A promise that will be resolved when the stream closes.
  */
-export async function getBytes(stream: ReadableStream<Uint8Array> | AsyncIterable<Uint8Array>, onChunk: (array: Uint8Array) => void) {
+export async function getBytes (stream: ReadableStream<Uint8Array> | AsyncIterable<Uint8Array>, onChunk: (array: Uint8Array) => void) {
   if (isReadableStream(stream)) {
     const reader = stream.getReader();
     let result: ReadableStreamReadResult<Uint8Array>;
@@ -57,14 +57,14 @@ export async function getBytes(stream: ReadableStream<Uint8Array> | AsyncIterabl
  * @param onLine A function that will be called on each new EventSource line.
  * @returns A function that should be called for each incoming byte chunk.
  */
-export function getLines(onLine: (line: Uint8Array, fieldLength: number) => void) {
+export function getLines (onLine: (line: Uint8Array, fieldLength: number) => void) {
   let buffer: Uint8Array | undefined;
   let position: number; // current read position
   let fieldLength: number; // length of the `field` portion of the line
   let discardTrailingNewline = false;
 
   // return a function that can process each incoming byte chunk:
-  return function onChunk(arr: Uint8Array) {
+  return function onChunk (arr: Uint8Array) {
     if (buffer === undefined) {
       buffer = arr;
       position = 0;
@@ -138,7 +138,7 @@ export function getLines(onLine: (line: Uint8Array, fieldLength: number) => void
  * @param onMessage A function that will be called on each message.
  * @returns A function that should be called for each incoming line buffer.
  */
-export function getMessages(
+export function getMessages (
   onMessage?: (message: EventSourceMessage) => void,
   onId?: (id: string) => void,
   onReconnect?: (delay: number) => void,
@@ -147,7 +147,7 @@ export function getMessages(
   let message = createMessage();
 
   // return a function that can process each incoming line buffer:
-  return function onLine(line: Uint8Array, fieldLength: number) {
+  return function onLine (line: Uint8Array, fieldLength: number) {
     if (line.length === 0) {
       // If the data buffer's last character is a U+000A LINE FEED (LF) character, then remove the last character from the data buffer.
       if (message.data.endsWith("\n")) {
@@ -197,7 +197,7 @@ export function getMessages(
   };
 }
 
-function concat(a: Uint8Array, b: Uint8Array) {
+function concat (a: Uint8Array, b: Uint8Array) {
   const res = new Uint8Array(a.length + b.length);
   res.set(a);
   res.set(b, a.length);
@@ -205,7 +205,7 @@ function concat(a: Uint8Array, b: Uint8Array) {
   return res;
 }
 
-function createMessage(): EventSourceMessage {
+function createMessage (): EventSourceMessage {
   // data, event, and id must be initialized to empty strings:
   // https://html.spec.whatwg.org/multipage/server-sent-events.html#event-stream-interpretation
   // retry should be initialized to undefined so we return a consistent shape

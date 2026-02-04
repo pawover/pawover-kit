@@ -14,9 +14,9 @@ import { isEnumeration } from "../typeof";
  * enumValues(A); // ["v"]
  * ```
  */
-export function enumValues<E extends PlainObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
-export function enumValues<E extends AnyObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
-export function enumValues(enumeration: AnyObject) {
+export function enumValues<E extends PlainObject> (enumeration: E): UnionToTuple<ValueOf<E>>;
+export function enumValues<E extends AnyObject> (enumeration: E): UnionToTuple<ValueOf<E>>;
+export function enumValues (enumeration: AnyObject) {
   const [isEnum, isTwoWayEnum] = isEnumeration(enumeration);
 
   if (!isEnum) {

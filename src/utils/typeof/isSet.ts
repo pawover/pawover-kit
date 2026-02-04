@@ -6,7 +6,7 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @param value 待检查值
  * @returns 是否为 Set
  */
-export function isSet(value: unknown): value is Set<unknown> {
+export function isSet (value: unknown): value is Set<unknown> {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.set;
 }
 
@@ -15,6 +15,6 @@ export function isSet(value: unknown): value is Set<unknown> {
  * @param value 待检查值
  * @returns 是否为 WeakSet
  */
-export function isWeakSet(value: unknown): value is WeakSet<AnyObject> {
+export function isWeakSet (value: unknown): value is WeakSet<AnyObject> {
   return resolvePrototypeString(value) === PROTOTYPE_TAGS.weakSet;
 }

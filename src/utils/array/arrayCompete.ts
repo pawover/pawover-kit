@@ -14,7 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayCompete(list, (a, b) => (a < b ? a : b)); // 1
  * ```
  */
-export function arrayCompete<T>(initialList: readonly T[], match: (a: T, b: T) => T): T | null {
+export function arrayCompete<T> (initialList: readonly T[], match: (a: T, b: T) => T): T | null {
   if (!isArray(initialList) || initialList.length === 0 || !isFunction(match)) {
     return null;
   }
