@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
-import { objectAssign, objectKeys } from "src/utils";
+import { arrayZipToObject, objectAssign, objectKeys } from "src/utils";
+import type { TupleToUnion } from "type-fest";
 
-type Breakpoint = "xxl" | "xl" | "lg" | "md" | "sm" | "xs";
+type Breakpoint = TupleToUnion<typeof tuple>;
 type Subscriber = () => void;
 type ResponsiveConfig = Record<Breakpoint, number>;
 type ResponsiveValues = Record<Breakpoint, boolean>;
 
+const tuple = ["xxxl", "xxl", "xl", "lg", "md", "sm", "xs"] as const;
+const TUPLE = ["XXXL", "XXL", "XL", "LG", "MD", "SM", "XS"] as const;
 const subscriberList = new Set<Subscriber>();
-const { XS, SM, MD, LG, XL, XXL } = BREAK_POINT_TOKEN_ENUM;
-const defaultResponsiveValues: ResponsiveValues = { xxl: false, xl: false, lg: false, md: false, sm: false, xs: false };
-let responsiveConfig: ResponsiveConfig = { xxl: XXL, xl: XL, lg: LG, md: MD, sm: SM, xs: XS };
+const defaultResponsiveValues: ResponsiveValues = arrayZipToObject(tuple, tuple.map(() => false));
+let responsiveConfig: ResponsiveConfig = arrayZipToObject(tuple, TUPLE.map((t) => BREAK_POINT_TOKEN_ENUM[t]));
 let responsiveValues: ResponsiveValues = { ...defaultResponsiveValues };
 
 export interface ResponsiveHookOptions {
@@ -26,7 +28,7 @@ export interface ResponsiveHookOptions {
 export function useResponsive (options?: ResponsiveHookOptions) {
   const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
   const tokens: BREAK_POINT_TOKEN_TYPE = objectAssign(BREAK_POINT_TOKEN_ENUM, breakPointTokens);
-  responsiveConfig = { xxl: tokens.XXL, xl: tokens.XL, lg: tokens.LG, md: tokens.MD, sm: tokens.SM, xs: tokens.XS };
+  responsiveConfig = arrayZipToObject(tuple, TUPLE.map((t) => tokens[t]));
 
   calculate();
 
