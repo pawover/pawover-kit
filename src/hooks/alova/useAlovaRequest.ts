@@ -12,32 +12,29 @@ import {
 } from "alova/client";
 
 interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends RequestHookConfig<AG, Args> {
-  onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, Args>) => void)|undefined;
+  onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, Args>) => void) | undefined;
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
   onComplete?: CompleteHandler<AG, Args> | undefined;
 }
 
-let isExecuted = (false);
-
 export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
   hookConfig?: HookConfig<AG, Args> | undefined,
 ) {
-  const config = hookConfig || {};
-  config.immediate ??= true;
+  const config = { ...hookConfig, immediate: hookConfig?.immediate ?? true };
+  let isBeforeExecuted = false;
+  let isMiddlewareExecuted = false;
 
   if (config.onBeforeRequest) {
     const middleware = config.middleware;
     config.middleware = async (context, next) => {
-      !isExecuted && config.onBeforeRequest?.(context);
-      isExecuted = true;
+      !isBeforeExecuted && config.onBeforeRequest?.(context);
+      isBeforeExecuted = true;
 
-      if (middleware) {
-        async function run () {
-          await next();
-        }
-        await middleware?.(context, run);
+      if (middleware && !isMiddlewareExecuted) {
+        isMiddlewareExecuted = true;
+        await middleware?.(context, next);
       } else {
         await next();
       }

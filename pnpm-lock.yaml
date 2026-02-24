@@ -31,8 +31,8 @@ importers:
         specifier: ^2.13.0
         version: 2.13.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
       '@pawover/eslint-rules':
-        specifier: ^0.0.0-beta.2
-        version: 0.0.0-beta.2(@eslint-react/eslint-plugin@2.13.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(@stylistic/eslint-plugin@5.9.0(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-antfu@3.2.2(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))(globals@16.5.0)(react@19.2.4)(typescript-eslint@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
+        specifier: ^0.0.0-beta.5
+        version: 0.0.0-beta.5(@eslint-react/eslint-plugin@2.13.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(@stylistic/eslint-plugin@5.9.0(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-antfu@3.2.2(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))(react@19.2.4)(typescript-eslint@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)
       '@pawover/types':
         specifier: ^0.0.0-alpha.10
         version: 0.0.0-alpha.10(@types/react@19.2.14)(typescript@5.9.3)
@@ -481,17 +481,16 @@ packages:
   '@oxc-project/types@0.101.0':
     resolution: {integrity: sha512-nuFhqlUzJX+gVIPPfuE6xurd4lST3mdcWOhyK/rZO0B9XWMKm79SuszIQEnSMmmDhq1DC8WWVYGVd+6F93o1gQ==}
 
-  '@pawover/eslint-rules@0.0.0-beta.2':
-    resolution: {integrity: sha512-+0W6QAgSFsmxVZtWQIC8HvQYUR7S3smBRbsZU3LQYzKVvdfYKRSD2FChvilN5w5xewnecJs72NrihTxIAUH9lQ==}
+  '@pawover/eslint-rules@0.0.0-beta.5':
+    resolution: {integrity: sha512-wGbwj8ci7zWPzgfthKi9sE0r9C9ubLvcsNBV03uoWxrSCehoW5W1v8I4Ckltyvth7QZwUT7GReO1AN/koGTR5Q==}
     engines: {node: '>=22.20.0'}
     peerDependencies:
-      '@eslint-react/eslint-plugin': '>=2.3.5'
-      '@stylistic/eslint-plugin': '>=5.5.0'
-      eslint: '>=9.39.1'
-      eslint-plugin-antfu: '>=3.1.1'
+      '@eslint-react/eslint-plugin': '>=2.13.0'
+      '@stylistic/eslint-plugin': '>=5.9.0'
+      eslint: ^9.0.0 || ^10.0.0
+      eslint-plugin-antfu: '>=3.2.2'
       eslint-plugin-react-hooks: '>=7.0.1'
-      eslint-plugin-vue: '>=10.5.1'
-      globals: '>=16.5.0'
+      eslint-plugin-vue: '>=10.8.0'
       react: '>=19.2.0'
       typescript: '>=5.9.3'
       typescript-eslint: '>=8.46.4'
@@ -505,8 +504,6 @@ packages:
       eslint-plugin-react-hooks:
         optional: true
       eslint-plugin-vue:
-        optional: true
-      globals:
         optional: true
       react:
         optional: true
@@ -1271,10 +1268,6 @@ packages:
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
-    engines: {node: '>=18'}
-
-  globals@16.5.0:
-    resolution: {integrity: sha512-c/c15i26VrJ4IRt5Z89DnIzCGDn9EcebibhAOjw5ibqEHsE1wLUgkPn9RDmNcUKyU87GeaL633nyJ+pplFR2ZQ==}
     engines: {node: '>=18'}
 
   graceful-fs@4.2.11:
@@ -2296,7 +2289,7 @@ snapshots:
 
   '@oxc-project/types@0.101.0': {}
 
-  '@pawover/eslint-rules@0.0.0-beta.2(@eslint-react/eslint-plugin@2.13.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(@stylistic/eslint-plugin@5.9.0(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-antfu@3.2.2(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))(globals@16.5.0)(react@19.2.4)(typescript-eslint@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
+  '@pawover/eslint-rules@0.0.0-beta.5(@eslint-react/eslint-plugin@2.13.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(@stylistic/eslint-plugin@5.9.0(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-antfu@3.2.2(eslint@9.39.3(jiti@2.6.1)))(eslint-plugin-react-hooks@7.0.1(eslint@9.39.3(jiti@2.6.1)))(eslint@9.39.3(jiti@2.6.1))(react@19.2.4)(typescript-eslint@8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(typescript@5.9.3)':
     dependencies:
       eslint: 9.39.3(jiti@2.6.1)
     optionalDependencies:
@@ -2304,7 +2297,6 @@ snapshots:
       '@stylistic/eslint-plugin': 5.9.0(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-antfu: 3.2.2(eslint@9.39.3(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.3(jiti@2.6.1))
-      globals: 16.5.0
       react: 19.2.4
       typescript: 5.9.3
       typescript-eslint: 8.56.1(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)
@@ -3114,9 +3106,6 @@ snapshots:
       path-scurry: 2.0.2
 
   globals@14.0.0: {}
-
-  globals@16.5.0:
-    optional: true
 
   graceful-fs@4.2.11: {}
 
