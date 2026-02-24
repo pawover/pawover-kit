@@ -2,17 +2,16 @@
 
 import type { AlovaGenerics, Method } from "alova";
 import {
+  usePagination,
   type AlovaFrontMiddlewareContext,
-  type AlovaMethodHandler,
   type CompleteHandler,
   type ErrorHandler,
-  type RequestHookConfig,
+  type PaginationHookConfig,
   type SuccessHandler,
-  useRequest,
 } from "alova/client";
 
-interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends RequestHookConfig<AG, Args> {
-  onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, Args>) => void)|undefined;
+interface HookConfig<AG extends AlovaGenerics, L extends any[], Args extends any[]> extends PaginationHookConfig<AG, L> {
+  onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, any[]>) => void) | undefined;
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
   onComplete?: CompleteHandler<AG, Args> | undefined;
@@ -20,9 +19,9 @@ interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends Reque
 
 let isExecuted = (false);
 
-export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = any[]> (
-  methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
-  hookConfig?: HookConfig<AG, Args> | undefined,
+export function useAlovaPagination<AG extends AlovaGenerics, L extends any[], Args extends any[]> (
+  methodHandler: (page: number, pageSize: number, ...args: Args) => Method<AG>,
+  hookConfig?: HookConfig<AG, L, Args> | undefined,
 ) {
   const config = hookConfig || {};
   config.immediate ??= true;
@@ -44,7 +43,7 @@ export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = a
     };
   }
 
-  const exposure = useRequest(methodHandler, config);
+  const exposure = usePagination(methodHandler, config);
 
   if (config.onSuccess) {
     exposure.onSuccess(config.onSuccess);

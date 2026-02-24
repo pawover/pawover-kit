@@ -11,9 +11,9 @@ import {
 } from "alova/client";
 
 interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args> {
-  onSuccess?: SuccessHandler<AG, Args>;
-  onError?: ErrorHandler<AG, Args>;
-  onComplete?: CompleteHandler<AG, Args>;
+  onSuccess?: SuccessHandler<AG, Args> | undefined;
+  onError?: ErrorHandler<AG, Args> | undefined;
+  onComplete?: CompleteHandler<AG, Args> | undefined;
 }
 
 export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = any[]> (
