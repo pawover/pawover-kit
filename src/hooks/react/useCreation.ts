@@ -25,4 +25,3 @@ export function useCreation<T> (factory: () => T, deps: DependencyList) {
 
   return current.result;
 }
-

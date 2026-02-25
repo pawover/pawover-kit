@@ -25,4 +25,3 @@ export * from "./isUndefined";
 export * from "./isURLSearchParams";
 export * from "./isWebSocket";
 export * from "./isWindow";
-

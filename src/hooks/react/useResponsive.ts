@@ -90,4 +90,3 @@ function calculate () {
     responsiveValues = newValues;
   }
 }
-

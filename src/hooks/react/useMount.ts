@@ -35,4 +35,3 @@ export function useMount (effect: MountCallback) {
     return result as ReturnType<EffectCallback>;
   }, []);
 }
-

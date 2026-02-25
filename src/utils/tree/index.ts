@@ -5,4 +5,3 @@ export { treeMap } from "./treeMap";
 
 export { rowsToTree } from "./rowsToTree";
 export { treeToRows } from "./treeToRows";
-

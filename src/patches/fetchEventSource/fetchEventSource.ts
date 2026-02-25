@@ -183,7 +183,7 @@ export function fetchEventSource (input: RequestInfo, options?: FetchEventSource
           // if we haven't aborted the request ourselves:
           try {
             // check if we need to retry:
-            const delay = await onerror?.(error) ?? reconnectionDelay;
+            const delay = (await onerror?.(error)) ?? reconnectionDelay;
             clearTimeout(reconnectionTimer);
             reconnectionTimer = setTimeout(create, delay);
           } catch (innerError) {

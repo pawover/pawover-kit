@@ -31,4 +31,3 @@ export function enumValues (enumeration: AnyObject) {
 
   return values;
 }
-

@@ -1,6 +1,5 @@
 import { isString } from "../typeof";
 
-
 /**
  * 字符串分割为数组
  * - 按指定分隔符分割字符串，并转换类型

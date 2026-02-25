@@ -38,7 +38,7 @@ export function isIOSMobile (maxWidth = 768, dpi = 160) {
     return false;
   }
 
-  const isIOS = (/iPhone|iPad|iPod/i).test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   return isIOS && !isTablet(maxWidth, 1200, dpi);
 }

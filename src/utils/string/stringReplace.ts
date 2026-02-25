@@ -23,6 +23,5 @@ export function stringReplace<I extends string, S extends string, R extends stri
     return "" as Replace<I, S, R>;
   }
 
-
   return input.replace(search, replacement) as Replace<I, S, R>;
 }

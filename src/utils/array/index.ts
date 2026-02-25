@@ -12,4 +12,3 @@ export * from "./arrayReplace";
 export * from "./arraySplit";
 export * from "./arrayZip";
 export * from "./arrayZipToObject";
-

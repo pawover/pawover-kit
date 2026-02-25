@@ -12,4 +12,3 @@ export function useLatest<T> (value: T): RefObject<T> {
 
   return ref;
 }
-

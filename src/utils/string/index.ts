@@ -7,4 +7,3 @@ export * from "./stringToPosix";
 export * from "./stringToValues";
 export * from "./stringTrim";
 export * from "./stringTruncate";
-

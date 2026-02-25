@@ -8,4 +8,3 @@ export * from "./string";
 export * from "./time";
 export * from "./tree";
 export * from "./typeof";
-

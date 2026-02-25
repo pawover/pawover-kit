@@ -1,6 +1,5 @@
 import type { ProxyOptions } from "vite";
 
-
 /**
  * 开发服务器反向代理配置
  *

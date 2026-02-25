@@ -20,7 +20,7 @@ export function objectAssign<I extends PlainObject, O extends PlainObject> (init
 export function objectAssign<I extends AnyObject, O extends AnyObject> (initial: I, override: O): Assign<I, O>;
 export function objectAssign (initial: AnyObject, override: AnyObject) {
   if (!isObject(initial) || !isObject(override)) {
-    return (initial ?? override ?? {});
+    return initial ?? override ?? {};
   }
 
   const proto = Object.getPrototypeOf(initial);
