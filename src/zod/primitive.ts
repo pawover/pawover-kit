@@ -39,3 +39,9 @@ export const any = z.any();
 export const unknown = z.unknown();
 
 export const never = z.never();
+
+export const propertyKey = z.union([string, number, symbol]);
+
+export const anyObject = z.record(propertyKey, any);
+
+export const plainObject = z.record(propertyKey, unknown);

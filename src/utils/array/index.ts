@@ -9,6 +9,7 @@ export * from "./arrayLast";
 export * from "./arrayMerge";
 export * from "./arrayPick";
 export * from "./arrayReplace";
+export * from "./arrayReplaceMove";
 export * from "./arraySplit";
 export * from "./arrayZip";
 export * from "./arrayZipToObject";
