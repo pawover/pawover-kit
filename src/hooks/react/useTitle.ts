@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 import { isBrowser } from "../../utils";
 import { useUnmount } from "./useUnmount";
 
-interface TitleHookConfig {
+interface TitleHookOptions {
   isRestoreOnUnmount?: boolean;
 }
-export function useTitle (title: string, config?: TitleHookConfig | undefined) {
+export function useTitle (title: string, options?: TitleHookOptions | undefined) {
   if (!isBrowser()) {
     return;
   }
@@ -17,7 +17,7 @@ export function useTitle (title: string, config?: TitleHookConfig | undefined) {
   }, [title]);
 
   useUnmount(() => {
-    if (config?.isRestoreOnUnmount) {
+    if (options?.isRestoreOnUnmount) {
       document.title = titleRef.current;
     }
   });

@@ -14,7 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayIntersection([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 2 }]
  * ```
  */
-export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
+export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
   if (!isArray(initialList) || !isArray(diffList)) {
     return [];
   }
@@ -28,7 +28,7 @@ export function arrayIntersection<T> (initialList: readonly T[], diffList: reado
     return initialList.filter((item) => diffSet.has(item));
   }
 
-  const diffKeys = new Set(diffList.map((item) => match(item)));
+  const diffKeys = new Set(diffList.map((item, index) => match(item, index)));
 
-  return initialList.filter((item) => diffKeys.has(match(item)));
+  return initialList.filter((item, index) => diffKeys.has(match(item, index)));
 }

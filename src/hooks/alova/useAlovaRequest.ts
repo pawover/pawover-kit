@@ -11,7 +11,7 @@ import {
   useRequest,
 } from "alova/client";
 
-interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends RequestHookConfig<AG, Args> {
+interface HookOptions<AG extends AlovaGenerics, Args extends any[]> extends RequestHookConfig<AG, Args> {
   onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, Args>) => void) | undefined;
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
@@ -20,16 +20,16 @@ interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends Reque
 
 export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
-  hookConfig?: HookConfig<AG, Args> | undefined,
+  hookOptions?: HookOptions<AG, Args> | undefined,
 ) {
-  const config = { ...hookConfig, immediate: hookConfig?.immediate ?? true };
+  const options = { ...hookOptions, immediate: hookOptions?.immediate ?? true };
   let isBeforeExecuted = false;
   let isMiddlewareExecuted = false;
 
-  if (config.onBeforeRequest) {
-    const middleware = config.middleware;
-    config.middleware = async (context, next) => {
-      !isBeforeExecuted && config.onBeforeRequest?.(context);
+  if (options.onBeforeRequest) {
+    const middleware = options.middleware;
+    options.middleware = async (context, next) => {
+      !isBeforeExecuted && options.onBeforeRequest?.(context);
       isBeforeExecuted = true;
 
       if (middleware && !isMiddlewareExecuted) {
@@ -41,16 +41,16 @@ export function useAlovaRequest<AG extends AlovaGenerics, Args extends any[] = a
     };
   }
 
-  const exposure = useRequest(methodHandler, config);
+  const exposure = useRequest(methodHandler, options);
 
-  if (config.onSuccess) {
-    exposure.onSuccess(config.onSuccess);
+  if (options.onSuccess) {
+    exposure.onSuccess(options.onSuccess);
   }
-  if (config.onError) {
-    exposure.onError(config.onError);
+  if (options.onError) {
+    exposure.onError(options.onError);
   }
-  if (config.onComplete) {
-    exposure.onComplete(config.onComplete);
+  if (options.onComplete) {
+    exposure.onComplete(options.onComplete);
   }
 
   return exposure;

@@ -20,12 +20,7 @@ type PositionType = "start" | "end" | number;
  * arrayReplaceMove([1, 2, 3, 4], 5, (n) => n === 2); // [1, 3, 4, 5]
  * ```
  */
-export function arrayReplaceMove<const T> (
-  initialList: readonly T[],
-  newItem: T,
-  match: (row: T, index: number) => boolean,
-  position?: PositionType,
-): T[] {
+export function arrayReplaceMove<const T> (initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean, position?: PositionType): T[] {
   if (!isArray(initialList)) {
     return [];
   }

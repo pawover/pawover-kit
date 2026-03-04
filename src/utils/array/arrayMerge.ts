@@ -21,7 +21,7 @@ import { isArray, isFunction } from "../typeof";
  * // [{ id: 1, val: "a" }, { id: 2, val: "new" }] -> id:3 被忽略
  * ```
  */
-export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[], match?: (item: T) => unknown): T[] {
+export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[], match?: (item: T, index: number) => unknown): T[] {
   if (!isArray(initialList)) {
     return [];
   }
@@ -33,12 +33,12 @@ export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[
   }
 
   const keys = new Map();
-  for (const item of mergeList) {
-    keys.set(match(item), item);
-  }
+  mergeList.forEach((item, index) => {
+    keys.set(match(item, index), item);
+  });
 
-  return initialList.map((prevItem) => {
-    const key = match(prevItem);
+  return initialList.map((prevItem, index) => {
+    const key = match(prevItem, index);
 
     return keys.has(key) ? keys.get(key)! : prevItem;
   });

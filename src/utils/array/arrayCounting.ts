@@ -16,13 +16,13 @@ import { isArray, isFunction } from "../typeof";
  * arrayCounting(users, (u) => u.group); // { A: 2, B: 1 }
  * ```
  */
-export function arrayCounting<T, K extends PropertyKey> (initialList: readonly T[], match: (row: T) => K): Record<string, number> {
+export function arrayCounting<T, K extends PropertyKey> (initialList: readonly T[], match: (row: T, index: number) => K): Record<string, number> {
   if (!isArray(initialList) || !isFunction(match)) {
     return {};
   }
 
-  return initialList.reduce<Record<string, number>>((prev, curr) => {
-    const id = match(curr).toString();
+  return initialList.reduce<Record<string, number>>((prev, curr, index) => {
+    const id = match(curr, index).toString();
     prev[id] = (prev[id] ?? 0) + 1;
 
     return prev;

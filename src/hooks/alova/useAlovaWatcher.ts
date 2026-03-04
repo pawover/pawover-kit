@@ -10,7 +10,7 @@ import {
   useWatcher,
 } from "alova/client";
 
-interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args> {
+interface HookOptions<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args> {
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
   onComplete?: CompleteHandler<AG, Args> | undefined;
@@ -19,19 +19,19 @@ interface HookConfig<AG extends AlovaGenerics, Args extends any[]> extends Watch
 export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
   watchingStates: AG["StatesExport"]["Watched"][],
-  hookConfig: HookConfig<AG, Args> = {},
+  hookOptions: HookOptions<AG, Args> = {},
 ) {
-  const config = hookConfig || {};
-  const exposure = useWatcher(methodHandler, watchingStates, config);
+  const options = hookOptions || {};
+  const exposure = useWatcher(methodHandler, watchingStates, options);
 
-  if (config.onSuccess) {
-    exposure.onSuccess(config.onSuccess);
+  if (options.onSuccess) {
+    exposure.onSuccess(options.onSuccess);
   }
-  if (config.onError) {
-    exposure.onError(config.onError);
+  if (options.onError) {
+    exposure.onError(options.onError);
   }
-  if (config.onComplete) {
-    exposure.onComplete(config.onComplete);
+  if (options.onComplete) {
+    exposure.onComplete(options.onComplete);
   }
 
   return exposure;

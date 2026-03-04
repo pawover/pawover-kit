@@ -12,13 +12,13 @@ import { isArray } from "../typeof";
  * arrayFork([1, 2, 3, 4], (n) => n % 2 === 0); // [[2, 4], [1, 3]]
  * ```
  */
-export function arrayFork<T> (initialList: readonly T[], match: (item: T) => boolean): [T[], T[]] {
+export function arrayFork<T> (initialList: readonly T[], match: (row: T, index: number) => boolean): [T[], T[]] {
   const forked: [T[], T[]] = [[], []];
 
   if (isArray(initialList)) {
-    for (const item of initialList) {
-      forked[match(item) ? 0 : 1].push(item);
-    }
+    initialList.forEach((item, index) => {
+      forked[match(item, index) ? 0 : 1].push(item);
+    });
   }
 
   return forked;

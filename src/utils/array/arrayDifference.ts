@@ -14,7 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayDifference([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 1 }]
  * ```
  */
-export function arrayDifference<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T) => unknown): T[] {
+export function arrayDifference<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
   if (!isArray(initialList) && !isArray(diffList)) {
     return [];
   }
@@ -32,9 +32,9 @@ export function arrayDifference<T> (initialList: readonly T[], diffList: readonl
 
   const map = new Map<unknown, boolean>();
 
-  diffList.forEach((item) => {
-    map.set(match(item), true);
+  diffList.forEach((item, index) => {
+    map.set(match(item, index), true);
   });
 
-  return initialList.filter((a) => !map.get(match(a)));
+  return initialList.filter((item, index) => !map.get(match(item, index)));
 }
