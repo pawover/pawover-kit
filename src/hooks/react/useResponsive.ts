@@ -2,7 +2,7 @@ import type { AnyFunction } from "@pawover/types";
 import { arrayZipToObject, objectAssign, objectKeys, stringToUpperCase, objectMapEntries, isEqual } from "../../utils";
 import { useMemo, useState, useLayoutEffect } from "react";
 import type { TupleToUnion } from "type-fest";
-import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
+import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "../../enums";
 
 type Breakpoint = TupleToUnion<typeof BREAK_POINTS>;
 type ResponsiveValues = Record<Breakpoint, boolean>;

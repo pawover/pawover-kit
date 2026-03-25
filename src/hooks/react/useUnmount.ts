@@ -1,6 +1,6 @@
 import type { AnyFunction } from "@pawover/types";
 import { useEffect } from "react";
-import { isFunction } from "src/utils";
+import { isFunction } from "../../utils";
 import { useLatest } from "./useLatest";
 
 /**
@@ -15,7 +15,7 @@ export function useUnmount (effect: AnyFunction) {
   useEffect(
     () => () => {
       if (!isFunction(effectRef.current)) {
-        console.error(`useUnmount expected parameter is a function, but got ${typeof effectRef.current}`);
+        console.error(`[useUnmount] Expected parameter to be a function, but got ${typeof effectRef.current}. This effect will not execute.`);
 
         return;
       }

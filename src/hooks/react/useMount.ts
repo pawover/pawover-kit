@@ -1,5 +1,5 @@
 import { useEffect, useRef, type EffectCallback } from "react";
-import { isFunction, isPromise } from "src/utils";
+import { isFunction, isPromise } from "../../utils";
 import { useLatest } from "./useLatest";
 import type { AnyAsyncFunction } from "@pawover/types";
 

@@ -1,6 +1,4 @@
-import { isBoolean } from "./isBoolean";
-import { isFunction } from "./isFunction";
-import { isString } from "./isString";
+import { isBoolean, isFunction, isString } from "..";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 /**

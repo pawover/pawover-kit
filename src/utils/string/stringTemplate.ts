@@ -1,5 +1,5 @@
 import type { PlainObject } from "@pawover/types";
-import { isString } from "../typeof"; // 假设 isString 来自这里
+import { isString } from "../typeof";
 
 const R1 = /\{\{(.+?)\}\}/g;
 

@@ -1,5 +1,5 @@
 import type { BigNumber, MathJsInstance } from "mathjs";
-import { stringToNumber } from "../string/stringToNumber";
+import { stringToNumber } from "../string";
 import { isFalsyLike, isInfinityLike } from "../typeof";
 
 /**

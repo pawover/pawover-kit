@@ -1,5 +1,4 @@
-import { isFunction } from "./isFunction";
-import { isObject } from "./isObject";
+import { isFunction, isObject } from "..";
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 /**

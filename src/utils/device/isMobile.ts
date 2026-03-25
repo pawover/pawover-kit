@@ -1,4 +1,4 @@
-import { isTablet } from ".";
+import { isTablet } from "./isTablet";
 import { isPositiveInteger } from "../typeof";
 
 /**

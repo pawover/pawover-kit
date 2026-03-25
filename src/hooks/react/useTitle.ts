@@ -21,7 +21,7 @@ export function useTitle (title: string, options?: TitleHookOptions | undefined)
 
   useEffect(() => {
     if (!isString(title)) {
-      console.error(`useTitle expected title is a string, but got ${typeof title}`);
+      console.error(`[useTitle] Expected parameter to be a string, but got ${typeof title}. This effect will not execute.`);
 
       return;
     }

@@ -1,5 +1,5 @@
 import { useRef, type DependencyList } from "react";
-import { isEqual } from "src/utils";
+import { isEqual } from "../../utils";
 
 interface RefObject<T> {
   deps: DependencyList;

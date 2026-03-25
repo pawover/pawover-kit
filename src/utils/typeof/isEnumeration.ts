@@ -28,8 +28,7 @@ export function isEnumeration (enumeration: PlainObject): [boolean, boolean] {
 
   // 区分 "原始枚举键" 和 "反向映射产生的数值键"
   for (const key of keys) {
-    // 正则 /^\d+$/ 匹配纯数字字符串，如 "0", "1", "123"
-    // 注意：这只会匹配键名，不会匹配值
+    // 正则 /^\d+$/ 匹配纯数字字符串键名，如 "0", "1", "123"
     if (/^\d+$/.test(key)) {
       numericKeys.push(key);
     } else {
@@ -37,12 +36,12 @@ export function isEnumeration (enumeration: PlainObject): [boolean, boolean] {
     }
   }
 
-  // 必须有原始的枚举成员（即键名不能全是数字）
+  // 必须有原始的枚举成员
   if (originalKeys.length === 0) {
     return [false, false];
   }
 
-  // 5. 检查原始枚举成员的值
+  // 检查原始枚举成员的值
   let valueType: "string" | "number" | null = null;
   const values: (string | number)[] = [];
 
@@ -75,10 +74,8 @@ export function isEnumeration (enumeration: PlainObject): [boolean, boolean] {
 
   // 如果 numericKeys.length === 0 说明没有反向映射键
   if (numericKeys.length > 0) {
-    // 如果存在数值键，说明可能是 TS 数字枚举编译后的结果
-    // 此时必须满足严格的双向映射规则：
-
-    // 数值键数量必须等于原始键数量
+    // 如果存在数值键，说明可能是 TS 数字枚举
+    // 此时必须满足严格的双向映射规则：数值键数量必须等于原始键数量
     if (numericKeys.length !== originalKeys.length) {
       return [false, false];
     }

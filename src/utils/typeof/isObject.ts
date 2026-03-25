@@ -11,8 +11,8 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * ```ts
  * isObject({}); // true
  * isObject([]); // false
- * isObject(new Date()); // false (because prototype is not Object.prototype)
- * isObject(new Date(), false); // true (is object type)
+ * isObject(new Date()); // false
+ * isObject(new Date(), false); // true
  * isObject(Object.create(null)) // false
  * isObject(Object.create(null), false) // true
  * ```
