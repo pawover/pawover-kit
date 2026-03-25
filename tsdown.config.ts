@@ -11,9 +11,10 @@ export default defineConfig([
       "hooks-react": "src/hooks/react/index.ts",
       "patches-fetchEventSource": "src/patches/fetchEventSource/index.ts",
     },
-    dts: {
-      resolve: ["radashi", "lodash-es", "type-fest", "@pawover/types", "ts-toolbelt"],
+    deps: {
+      alwaysBundle: ["lodash-es"],
     },
+    dts: true,
     target: "es2020",
     platform: "neutral",
     tsconfig: "tsconfig.build.json",

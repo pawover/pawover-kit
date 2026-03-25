@@ -1,4 +1,3 @@
-/* eslint-disable stylistic/quote-props */
 import { describe, it, expect } from "vitest";
 import { arrayCounting } from "./arrayCounting";
 
