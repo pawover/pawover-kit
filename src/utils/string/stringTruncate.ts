@@ -1,6 +1,5 @@
-import { isPositiveInteger, isString } from "../typeof";
+import { isString, isInteger } from "../typeof";
 
-/**
 /**
  * 截取字符串
  * - 支持自定义省略符，不会截断在汉字中间（因为JS字符串本身按字符处理）
@@ -19,15 +18,26 @@ export function stringTruncate (input: string, maxLength: number, ellipsis = "..
     return "";
   }
 
-  if (!isPositiveInteger(maxLength)) {
+  // 将字符串转换为码位数组，以正确处理多字节字符
+  const codePoints = Array.from(input);
+
+  if (!isInteger(maxLength) || maxLength < 0) {
     return input;
   }
 
-  if (input.length <= maxLength) {
+  // 如果整个字符串（以码位计数）都短于或等于最大长度，则返回原字符串
+  if (codePoints.length <= maxLength) {
     return input;
   }
 
-  const truncated = input.slice(0, maxLength - ellipsis.length);
+  // 计算可用于原始内容的码位数量
+  const availableLength = maxLength - ellipsis.length;
 
-  return truncated.length > 0 ? truncated + ellipsis : "";
+  if (availableLength <= 0) {
+    return "";
+  }
+
+  const truncated = codePoints.slice(0, availableLength).join("");
+
+  return truncated + ellipsis;
 }

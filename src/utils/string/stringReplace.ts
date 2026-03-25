@@ -5,10 +5,6 @@ import { isString } from "../typeof";
  * 字符串替换
  * - 替换第一个匹配项
  *
-/**
- * 字符串替换
- * - 替换第一个匹配项
- *
  * @param input 待处理字符串
  * @param search 匹配项
  * @param replacement 替换项

@@ -1,25 +1,60 @@
-import { describe, expect, it } from "vitest";
+/* eslint-disable stylistic/quote-props */
+import { describe, it, expect } from "vitest";
 import { arrayCounting } from "./arrayCounting";
 
 describe("arrayCounting", () => {
-  it("应该统计基础类型出现次数", () => {
-    const list = ["a", "b", "a", "c"];
-    expect(arrayCounting(list, (x) => x)).toEqual({ a: 2, b: 1, c: 1 });
+  it("should return an empty object if the list is not an array", () => {
+    expect(arrayCounting(null as any, () => "")).toEqual({});
+    expect(arrayCounting(undefined as any, () => "")).toEqual({});
+    expect(arrayCounting("not-an-array" as any, () => "")).toEqual({});
   });
 
-  it("应该统计对象属性出现次数", () => {
-    const users = [{ id: 1, group: "A" }, { id: 2, group: "B" }, { id: 3, group: "A" }];
-    expect(arrayCounting(users, (u) => u.group)).toEqual({ A: 2, B: 1 });
+  it("should return an empty object if the match function is not a function", () => {
+    expect(arrayCounting([1], null as any)).toEqual({});
+    expect(arrayCounting([1], undefined as any)).toEqual({});
+    expect(arrayCounting([1], "not-a-function" as any)).toEqual({});
   });
 
-  it("应该处理空数组", () => {
-    expect(arrayCounting([], (x) => x)).toEqual({});
+  it("should count occurrences based on string identity", () => {
+    const list = ["a", "b", "a", "c", "a"];
+    const result = arrayCounting(list, (x) => x);
+    expect(result).toEqual({ a: 3, b: 1, c: 1 });
   });
 
-  it("参数无效时应返回空对象", () => {
-    // @ts-expect-error 测试非法参数
-    expect(arrayCounting(null, (x) => x)).toEqual({});
-    // @ts-expect-error 测试非法参数
-    expect(arrayCounting([], null)).toEqual({});
+  it("should count occurrences based on a property of objects", () => {
+    const users = [
+      { id: 1, group: "A" },
+      { id: 2, group: "B" },
+      { id: 3, group: "A" },
+      { id: 4, group: "C" },
+      { id: 5, group: "B" },
+    ];
+    const result = arrayCounting(users, (u) => u.group);
+    expect(result).toEqual({ A: 2, B: 2, C: 1 });
+  });
+
+  it("should work with numeric keys returned by the match function", () => {
+    const numbers = [1, 2, 3, 1, 2, 1];
+    const result = arrayCounting(numbers, (num) => num);
+    // Keys are converted to strings by .toString()
+    expect(result).toEqual({ "1": 3, "2": 2, "3": 1 });
+  });
+
+  it("should pass the index to the match function", () => {
+    const list = ["a", "b", "c"];
+    const result = arrayCounting(list, (item, index) => `key_${index}`);
+    expect(result).toEqual({ key_0: 1, key_1: 1, key_2: 1 });
+  });
+
+  it("should handle falsy values returned by the match function", () => {
+    const list = ["a", "b", "c"];
+    // @ts-ignore: Testing edge case where match returns 0, which is a valid PropertyKey
+    const result = arrayCounting(list, (item, index) => index > 1 ? 0 : item);
+    expect(result).toEqual({ a: 1, b: 1, "0": 1 });
+  });
+
+  it("should return an empty object for an empty array", () => {
+    const result = arrayCounting([], (x) => x);
+    expect(result).toEqual({});
   });
 });

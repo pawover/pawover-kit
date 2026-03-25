@@ -1,92 +1,64 @@
-import { useEffect, useState } from "react";
-import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
-import { arrayZipToObject, objectAssign, objectKeys } from "src/utils";
+import type { AnyFunction } from "@pawover/types";
+import { arrayZipToObject, objectAssign, objectKeys, stringToUpperCase, objectMapEntries, isEqual } from "../../utils";
+import { useMemo, useState, useLayoutEffect } from "react";
 import type { TupleToUnion } from "type-fest";
+import { BREAK_POINT_TOKEN_ENUM, type BREAK_POINT_TOKEN_TYPE } from "src/enums";
 
-type Breakpoint = TupleToUnion<typeof tuple>;
-type Subscriber = () => void;
-type ResponsiveConfig = Record<Breakpoint, number>;
+type Breakpoint = TupleToUnion<typeof BREAK_POINTS>;
 type ResponsiveValues = Record<Breakpoint, boolean>;
 
-const tuple = ["xxxl", "xxl", "xl", "lg", "md", "sm", "xs"] as const;
-const TUPLE = ["XXXL", "XXL", "XL", "LG", "MD", "SM", "XS"] as const;
-const subscriberList = new Set<Subscriber>();
-const defaultResponsiveValues: ResponsiveValues = arrayZipToObject(tuple, tuple.map(() => false));
-let responsiveConfig: ResponsiveConfig = arrayZipToObject(tuple, TUPLE.map((t) => BREAK_POINT_TOKEN_ENUM[t]));
-let responsiveValues: ResponsiveValues = { ...defaultResponsiveValues };
+const SUBSCRIBER_SET = new Set<AnyFunction>();
+const BREAK_POINTS = ["xxxl", "xxl", "xl", "lg", "md", "sm", "xs"] as const;
+const DEFAULT_VALUES: ResponsiveValues = Object.freeze(arrayZipToObject(BREAK_POINTS, false));
+let responsiveValues: ResponsiveValues = { ...DEFAULT_VALUES };
+let responsiveTokens: BREAK_POINT_TOKEN_TYPE = BREAK_POINT_TOKEN_ENUM;
 
 export interface ResponsiveHookOptions {
-  /**
-   * 紧凑布局断点
-   * - 低于此断点时使用紧凑布局
-   * @default "xl"
-   */
-  compactBreakPoint?: Breakpoint;
   /** 屏幕响应断点 token 配置 */
   breakPointTokens?: BREAK_POINT_TOKEN_TYPE;
 }
-export function useResponsive (options?: ResponsiveHookOptions) {
-  const { compactBreakPoint = "xl", breakPointTokens = {} } = options || {};
-  const tokens: BREAK_POINT_TOKEN_TYPE = objectAssign(BREAK_POINT_TOKEN_ENUM, breakPointTokens);
-  responsiveConfig = arrayZipToObject(tuple, TUPLE.map((t) => tokens[t]));
+export function useResponsive (options?: ResponsiveHookOptions | undefined) {
+  const { breakPointTokens = {} } = options || {};
+  const tokens = useMemo(() => objectAssign(BREAK_POINT_TOKEN_ENUM, breakPointTokens), [breakPointTokens]);
+  const [responsive, setResponsive] = useState<ResponsiveValues>(() => calculateResponsive(tokens));
+  const current = objectKeys(DEFAULT_VALUES).find((key) => responsive[key] === true) || "xs";
 
-  calculate();
-
-  const [responsive, setResponsive] = useState<ResponsiveValues>(responsiveValues);
-  const isCompact = !responsive[compactBreakPoint];
-  const current = objectKeys(defaultResponsiveValues).find((key) => responsive[key] === true) || "xs";
-
-  useEffect(() => {
-    addListener();
+  useLayoutEffect(() => {
+    responsiveTokens = tokens;
+    window.addEventListener("resize", resizeListener);
 
     const subscriber = () => {
       setResponsive(responsiveValues);
     };
 
-    subscriberList.add(subscriber);
+    SUBSCRIBER_SET.add(subscriber);
 
     return () => {
-      subscriberList.delete(subscriber);
+      SUBSCRIBER_SET.delete(subscriber);
 
-      if (subscriberList.size === 0) {
-        removeListener();
+      if (!SUBSCRIBER_SET.size) {
+        window.removeEventListener("resize", resizeListener);
       }
     };
-  }, []);
+  }, [tokens]);
 
-  return { responsive, current, isCompact, breakPointTokens: tokens };
+  return { responsive, current, breakPointTokens: tokens };
 }
 
 function resizeListener () {
-  const oldInfo = responsiveValues;
-  calculate();
+  const newValues = calculateResponsive(responsiveTokens);
 
-  if (oldInfo === responsiveValues) {
-    return;
-  }
+  if (!isEqual(responsiveValues, newValues)) {
+    responsiveValues = newValues;
 
-  for (const subscriber of subscriberList) {
-    subscriber();
-  }
-}
-function addListener () {
-  window.addEventListener("resize", resizeListener);
-}
-function removeListener () {
-  window.removeEventListener("resize", resizeListener);
-}
-function calculate () {
-  const width = window.innerWidth;
-  const newValues = { ...defaultResponsiveValues };
-  let shouldUpdate = false;
-
-  for (const key of objectKeys(responsiveConfig)) {
-    newValues[key] = width >= responsiveConfig[key];
-    if (newValues[key] !== responsiveValues[key]) {
-      shouldUpdate = true;
+    for (const subscriber of SUBSCRIBER_SET) {
+      subscriber();
     }
   }
-  if (shouldUpdate) {
-    responsiveValues = newValues;
-  }
+}
+
+function calculateResponsive (tokens: BREAK_POINT_TOKEN_TYPE) {
+  const config = arrayZipToObject(BREAK_POINTS, BREAK_POINTS.map((t) => tokens[stringToUpperCase(t)]));
+
+  return objectMapEntries(DEFAULT_VALUES, (key) => [key, window.innerWidth >= config[key]]);
 }

@@ -10,6 +10,7 @@ export * from "./isEqual";
 export * from "./isError";
 export * from "./isFalsy";
 export * from "./isFunction";
+export * from "./isIframe";
 export * from "./isIterable";
 export * from "./isMap";
 export * from "./isNull";

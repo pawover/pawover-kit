@@ -1,43 +1,69 @@
-import { describe, expect, it } from "vitest";
+import { describe, it, expect } from "vitest";
 import { to } from "./to";
 
 describe("to", () => {
-  it("Promise resolve 时应返回 [null, data]", async () => {
-    const p = Promise.resolve("success");
-    const [err, data] = await to(p);
+  it("should resolve with [null, data] for a successful promise", async () => {
+    const [err, data] = await to(Promise.resolve("success"));
     expect(err).toBeNull();
     expect(data).toBe("success");
   });
 
-  it("Promise reject 时应返回 [err, undefined]", async () => {
-    const error = new Error("fail");
-    const p = Promise.reject(error);
-    const [err, data] = await to(p);
-    expect(err).toBe(error);
+  it("should reject with [error, undefined] for a failed promise", async () => {
+    const testError = new Error("Something went wrong");
+    const [err, data] = await to(Promise.reject(testError));
+
     expect(data).toBeUndefined();
+    expect(err).toBe(testError);
   });
 
-  it("带有 errorExt 时应合并错误信息", async () => {
-    const p = Promise.reject({ msg: "fail" });
-    const [err, _] = await to(p, { type: "network" });
-    expect(err).toEqual({ msg: "fail", type: "network" });
+  it("should return a default error if rejected with a falsy value", async () => {
+    const [err, data] = await to(Promise.reject(null));
+    expect(data).toBeUndefined();
+    expect(err).toBeInstanceOf(Error);
+    expect((err as Error).message).toBe("defaultError");
   });
 
-  it("当 reject 是 Error 对象且带有 errorExt 时，测试属性保留情况", async () => {
-    const error = new Error("fail");
-    // @ts-expect-error force assign property for testing
-    error.code = 500;
+  it("should extend the error object with errorExt properties", async () => {
+    const originalError = new Error("Original message");
+    originalError.name = "TestError";
+    const extension = { code: 500, source: "api" };
 
-    // 当前实现：{ ...err, ...errorExt }
-    // 对于 Error 对象，spread 操作不会复制 message 和 stack (因为它们不可枚举)
-    // 但会复制 code (如果它是可枚举的)
+    const [err, data] = await to(Promise.reject(originalError), extension);
 
-    const [err, _] = await to(Promise.reject(error), { extra: true });
+    expect(data).toBeUndefined();
+    expect(err).toMatchObject({
+      message: "Original message",
+      name: "TestError",
+      code: 500,
+      source: "api",
+    });
+  });
 
-    // 验证：Error 属性是否保留
-    // @ts-expect-error test
-    expect(err.message).toBe("fail");
-    // @ts-expect-error test
-    expect(err.extra).toBe(true);
+  it("should extend a non-Error object with errorExt properties", async () => {
+    const originalError = { message: "Custom error", status: 400 };
+    const extension = { timestamp: Date.now(), path: "/test" };
+
+    const [err, data] = await to(Promise.reject(originalError), extension);
+
+    expect(data).toBeUndefined();
+    expect(err).toMatchObject({
+      message: "Custom error",
+      status: 400,
+      timestamp: expect.any(Number),
+      path: "/test",
+    });
+  });
+
+  it("should allow errorExt to override properties of the original error", async () => {
+    const originalError = new Error("Original message");
+    const extension = { message: "Overridden message", customProp: "added" };
+
+    const [err, data] = await to(Promise.reject(originalError), extension);
+
+    expect(data).toBeUndefined();
+    expect(err).toMatchObject({
+      message: "Overridden message", // Overridden by errorExt
+      customProp: "added", // Added from errorExt
+    });
   });
 });

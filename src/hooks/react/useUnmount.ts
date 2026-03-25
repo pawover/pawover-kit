@@ -10,16 +10,17 @@ import { useLatest } from "./useLatest";
  * @param effect 副作用函数
  */
 export function useUnmount (effect: AnyFunction) {
-  if (!isFunction(effect)) {
-    console.error(`useUnmount expected parameter is a function, got ${typeof effect}`);
-  }
-
   const effectRef = useLatest(effect);
 
   useEffect(
     () => () => {
+      if (!isFunction(effectRef.current)) {
+        console.error(`useUnmount expected parameter is a function, but got ${typeof effectRef.current}`);
+
+        return;
+      }
       effectRef.current?.();
     },
-    [],
+    [effectRef],
   );
 }

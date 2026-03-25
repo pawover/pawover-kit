@@ -1,4 +1,5 @@
 import type { PlainObject } from "@pawover/types";
+import type { LiteralUnion } from "type-fest";
 
 /**
  *将 Promise 转换为 `[err, result]` 格式，方便 async/await 错误处理
@@ -18,14 +19,26 @@ export function to<T, U = Error> (promise: Readonly<Promise<T>>, errorExt?: Plai
     .then<[null, T]>((data: T) => [null, data])
     .catch<[U, undefined]>((err: U) => {
       if (errorExt) {
-        const parsedError = { ...err, ...errorExt };
+        const parsedError: Record<LiteralUnion<"message" | "name" | "stack", string>, unknown> = { name: "", message: "", stack: "" };
 
         if (err instanceof Error) {
-          (parsedError as Record<string, unknown>)["message"] = err.message;
-          (parsedError as Record<string, unknown>)["stack"] = err.stack;
+          parsedError.message = err.message;
+          parsedError.name = err.name;
+          parsedError.stack = err.stack;
+
+          // 将 err 的其他自有属性也复制过来
+          Object.getOwnPropertyNames(err).forEach((key) => {
+            if (!(key in parsedError)) {
+              parsedError[key] = (err as Record<string, unknown>)[key];
+            }
+          });
+        } else {
+          Object.assign(parsedError, err);
         }
 
-        return [parsedError, undefined];
+        Object.assign(parsedError, errorExt);
+
+        return [parsedError as U, undefined];
       }
 
       const defaultError = err ? err : new Error("defaultError");

@@ -1,7 +1,7 @@
 import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
 
 /**
- * 判断是否为对象类型
+ * 判断是否为普通对象类型
  * - 可选是否检查原型为 `Object.prototype`，防止原型链污染
  *
  * @param value 待检查值
@@ -10,8 +10,11 @@ import { PROTOTYPE_TAGS, resolvePrototypeString } from "./types";
  * @example
  * ```ts
  * isObject({}); // true
+ * isObject([]); // false
  * isObject(new Date()); // false (because prototype is not Object.prototype)
  * isObject(new Date(), false); // true (is object type)
+ * isObject(Object.create(null)) // false
+ * isObject(Object.create(null), false) // true
  * ```
  */
 export function isObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {

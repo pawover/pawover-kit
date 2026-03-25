@@ -17,5 +17,5 @@ export function isPromise (value: unknown): value is Promise<unknown> {
  * @returns 是否为 PromiseLike
  */
 export function isPromiseLike (value: unknown): value is PromiseLike<unknown> {
-  return isPromise(value) || (isObject(value) && isFunction(value["then"]));
+  return isPromise(value) || (isObject(value, false) && isFunction(value["then"]));
 }

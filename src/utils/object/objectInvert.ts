@@ -1,11 +1,12 @@
-import type { AnyObject } from "@pawover/types";
-import type { Object } from "ts-toolbelt";
+import type { AnyFunction, AnyObject } from "@pawover/types";
 import { isNumber, isObject, isString, isSymbol } from "../typeof";
 import { objectEntries } from "./objectEntries";
 
-/**
- * 尽可能地交换对象的键和值
- *
+type IntersectOf<U> = (U extends unknown ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
+type ComputeRaw<A> = A extends AnyFunction ? A : { [K in keyof A]: A[K] } & unknown;
+type _Invert<O extends Record<PropertyKey, PropertyKey>> = ComputeRaw<IntersectOf<{ [K in keyof O]: Record<O[K], K> }[keyof O]>>;
+type Invert<O extends Record<keyof O, PropertyKey>> = O extends unknown ? _Invert<O> : never;
+
 /**
  * 尽可能地交换对象的键和值
  *
@@ -17,10 +18,10 @@ import { objectEntries } from "./objectEntries";
  * objectInvert(obj); // { "1": "a", 2: "b" }
  * ```
  */
-export function objectInvert<const O extends Record<keyof O, PropertyKey>> (plainObject: O): Object.Invert<O>;
-export function objectInvert<const O extends AnyObject> (anyObject: O): Object.Invert<O>;
+export function objectInvert<const O extends Record<keyof O, PropertyKey>> (plainObject: O): Invert<O>;
+export function objectInvert<const O extends AnyObject> (anyObject: O): Invert<O>;
 export function objectInvert (obj: AnyObject) {
-  const result = {} as Object.Invert<AnyObject>;
+  const result = {} as Invert<AnyObject>;
 
   if (!isObject(obj)) {
     return result;

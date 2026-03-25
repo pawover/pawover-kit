@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray, isFunction } from "../typeof";
 
 /**
@@ -13,6 +14,7 @@ import { isArray, isFunction } from "../typeof";
  * ```ts
  * // 基础合并去重
  * arrayMerge([1, 2], [2, 3]); // [1, 2, 3]
+ * arrayMerge([], [1, 2, 3]); // [1, 2, 3]
  *
  * // 按条件更新
  * const source = [{ id: 1, val: "a" }, { id: 2, val: "b" }];
@@ -21,7 +23,9 @@ import { isArray, isFunction } from "../typeof";
  * // [{ id: 1, val: "a" }, { id: 2, val: "new" }] -> id:3 被忽略
  * ```
  */
-export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[], match?: (item: T, index: number) => unknown): T[] {
+export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[]): T[];
+export function arrayMerge<T, D = T> (initialList: readonly T[], mergeList: readonly D[], match: MatchFunction<T>): T[];
+export function arrayMerge<T> (initialList: readonly T[], mergeList: readonly T[], match?: MatchFunction<T>): T[] {
   if (!isArray(initialList)) {
     return [];
   }

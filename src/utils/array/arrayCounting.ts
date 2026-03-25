@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray, isFunction } from "../typeof";
 
 /**
@@ -16,7 +17,7 @@ import { isArray, isFunction } from "../typeof";
  * arrayCounting(users, (u) => u.group); // { A: 2, B: 1 }
  * ```
  */
-export function arrayCounting<T, K extends PropertyKey> (initialList: readonly T[], match: (row: T, index: number) => K): Record<string, number> {
+export function arrayCounting<T, K extends PropertyKey> (initialList: readonly T[], match: MatchFunction<T, K>): Record<string, number> {
   if (!isArray(initialList) || !isFunction(match)) {
     return {};
   }

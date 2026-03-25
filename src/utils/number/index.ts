@@ -1,1 +1,1 @@
-export * from "./isWithinInterval";
+export * from "./numberWithin";

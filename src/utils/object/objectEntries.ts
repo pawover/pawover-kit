@@ -1,5 +1,5 @@
 import type { AnyObject, PlainObject } from "@pawover/types";
-import type { Split } from "type-fest";
+import type { Except, Split } from "type-fest";
 import type { TupleToEntries, TupleToGroups } from "../../types/index.type";
 
 /**
@@ -14,8 +14,8 @@ import type { TupleToEntries, TupleToGroups } from "../../types/index.type";
  */
 export function objectEntries<const S extends string> (string: S): TupleToEntries<Split<S, "">>;
 export function objectEntries<const A extends readonly unknown[]> (array: A): TupleToGroups<A>;
-export function objectEntries<const O extends PlainObject> (plainObject: O): [string & keyof O, O[keyof O]][];
-export function objectEntries<const O extends AnyObject> (anyObject: O): [string & keyof O, O[keyof O]][];
+export function objectEntries<const O extends PlainObject> (plainObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
+export function objectEntries<const O extends AnyObject> (anyObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
 export function objectEntries (value: object) {
   return Object.entries(value) as unknown;
 }

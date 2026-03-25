@@ -2,7 +2,7 @@
  * 检查 value 是否为 string 类型
  *
  * @param value 待检查值
- * @param checkEmpty 是否排除空字符串
+ * @param checkEmpty 是否检查空字符串
  * @returns 是否为字符串
  * @example
  * ```ts

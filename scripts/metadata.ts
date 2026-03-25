@@ -1,7 +1,6 @@
 /* eslint-disable antfu/no-import-dist */
 
 import fse from "fs-extra";
-import * as moduleEnums from "../dist/enums.js";
 import * as moduleHooksAlova from "../dist/hooks-alova.js";
 import * as moduleHooksReact from "../dist/hooks-react.js";
 import * as moduleIndex from "../dist/index.js";
@@ -12,7 +11,6 @@ interface Metadata {
   index: string[];
   vite: string[];
   zod: string[];
-  enums: string[];
   hooks: {
     alova: string[];
     react: string[];
@@ -24,7 +22,6 @@ async function generateMetadata () {
       index: Object.keys(moduleIndex),
       vite: Object.keys(moduleVite),
       zod: Object.keys(moduleZod),
-      enums: Object.keys(moduleEnums),
       hooks: {
         alova: Object.keys(moduleHooksAlova),
         react: Object.keys(moduleHooksReact),

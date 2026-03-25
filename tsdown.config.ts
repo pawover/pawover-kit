@@ -12,7 +12,7 @@ export default defineConfig([
       "patches-fetchEventSource": "src/patches/fetchEventSource/index.ts",
     },
     dts: {
-      resolve: ["radashi", "type-fest", "@pawover/types", "ts-toolbelt"],
+      resolve: ["radashi", "lodash-es", "type-fest", "@pawover/types", "ts-toolbelt"],
     },
     target: "es2020",
     platform: "neutral",

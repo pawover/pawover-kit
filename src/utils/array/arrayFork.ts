@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray } from "../typeof";
 
 /**
@@ -12,7 +13,7 @@ import { isArray } from "../typeof";
  * arrayFork([1, 2, 3, 4], (n) => n % 2 === 0); // [[2, 4], [1, 3]]
  * ```
  */
-export function arrayFork<T> (initialList: readonly T[], match: (row: T, index: number) => boolean): [T[], T[]] {
+export function arrayFork<T> (initialList: readonly T[], match: MatchFunction<T, boolean>): [T[], T[]] {
   const forked: [T[], T[]] = [[], []];
 
   if (isArray(initialList)) {

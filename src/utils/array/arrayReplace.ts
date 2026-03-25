@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray, isFunction } from "../typeof";
 
 /**
@@ -14,19 +15,21 @@ import { isArray, isFunction } from "../typeof";
  * arrayReplace([1, 2, 3], 4, (n) => n === 2); // [1, 4, 3]
  * ```
  */
-export function arrayReplace<const T> (initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean): T[] {
+export function arrayReplace<const T> (initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>): T[];
+export function arrayReplace<const T, K extends T> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): T[];
+export function arrayReplace<const T, K> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[];
+export function arrayReplace<const T, K> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[] {
   if (!isArray(initialList) || !initialList.length) {
     return [];
   }
-  if (newItem === undefined || !isFunction(match)) {
+  if (!isFunction(match)) {
     return [...initialList];
   }
 
   for (let i = 0; i < initialList.length; i++) {
-    const item = initialList[i];
-
-    if (item !== undefined && match(item, i)) {
-      return [...initialList.slice(0, i), newItem, ...initialList.slice(i + 1, initialList.length)];
+    const item = initialList[i]!;
+    if (match(item, i)) {
+      return [...initialList.slice(0, i), newItem, ...initialList.slice(i + 1, initialList.length)] as (T | K)[];
     }
   }
 

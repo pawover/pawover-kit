@@ -29,7 +29,7 @@ export function isNaN (value: unknown): value is number {
  * 检查 value 是否为整数
  *
  * @param value 待检查值
- * @param safeCheck 是否附加安全数检查
+ * @param safeCheck 是否附加安全整数检查
  * @returns 是否为整数
  */
 export function isInteger (value: unknown, safeCheck = true): value is number {
@@ -43,7 +43,7 @@ export function isInteger (value: unknown, safeCheck = true): value is number {
  * - 此函数中 `0` 不被视为正整数
  *
  * @param value 待检查值
- * @param safeCheck 是否附加安全数检查
+ * @param safeCheck 是否附加安全整数检查
  */
 export function isPositiveInteger (value: unknown, safeCheck = true): value is number {
   return isInteger(value, safeCheck) && value > 0;
@@ -54,7 +54,7 @@ export function isPositiveInteger (value: unknown, safeCheck = true): value is n
  * - 此函数中 `0` 不被视为负整数
  *
  * @param value 待检查值
- * @param safeCheck 是否附加安全数检查
+ * @param safeCheck 是否附加安全整数检查
  */
 export function isNegativeInteger (value: unknown, safeCheck = true): value is number {
   return isInteger(value, safeCheck) && value < 0;

@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray, isFunction } from "../typeof";
 
 /**
@@ -14,7 +15,9 @@ import { isArray, isFunction } from "../typeof";
  * arrayIntersection([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 2 }]
  * ```
  */
-export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
+export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[]): T[];
+export function arrayIntersection<T, D = T> (initialList: readonly T[], diffList: readonly D[], match: MatchFunction<T>): T[];
+export function arrayIntersection<T> (initialList: readonly T[], diffList: readonly T[], match?: MatchFunction<T>): T[] {
   if (!isArray(initialList) || !isArray(diffList)) {
     return [];
   }

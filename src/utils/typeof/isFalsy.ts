@@ -18,5 +18,5 @@ export function isFalsyLike (value: unknown): boolean {
     return true;
   }
 
-  return typeof value === "string" && (value === "null" || value === "undefined" || value === "NaN" || value === "false" || value === "0" || value === "0n");
+  return typeof value === "string" && (value === "null" || value === "undefined" || value === "NaN" || value === "false" || value === "0" || value === "-0" || value === "0n");
 }

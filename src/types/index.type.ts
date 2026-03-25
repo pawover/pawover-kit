@@ -13,3 +13,4 @@ type Groups<L extends AnyArray, LN extends AnyArray = [], D extends number[] = [
     1: LN;
   }[Any.Extends<L, AnyArray<never>>];
 export type TupleToGroups<L extends AnyArray> = Groups<L> extends infer X ? Any.Cast<X, AnyArray> : never;
+export type MatchFunction<T, R = unknown> = (row: T, index: number) => R;

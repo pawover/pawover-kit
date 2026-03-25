@@ -1,3 +1,3 @@
-export * from "./toMathBignumber";
-export * from "./toMathDecimal";
-export * from "./toMathEvaluate";
+export * from "./mathToBignumber";
+export * from "./mathToDecimal";
+export * from "./mathToEvaluate";

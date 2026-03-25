@@ -1,4 +1,4 @@
-import { isArray } from "../typeof";
+import { isArray, isPositiveInteger } from "../typeof";
 
 /**
  * 数组切分
@@ -12,8 +12,11 @@ import { isArray } from "../typeof";
  * arraySplit([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
  * ```
  */
-export function arraySplit<T> (initialList: readonly T[], size = 10): T[][] {
+export function arraySplit<T> (initialList: readonly T[], size: number = 10): T[][] {
   if (!isArray(initialList)) {
+    return [];
+  }
+  if (!isPositiveInteger(size, false)) {
     return [];
   }
 

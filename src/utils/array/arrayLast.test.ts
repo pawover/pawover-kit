@@ -1,22 +1,32 @@
-import { describe, expect, it } from "vitest";
+import { describe, it, expect } from "vitest";
 import { arrayLast } from "./arrayLast";
 
 describe("arrayLast", () => {
-  it("应该返回数组最后一项", () => {
+  it("should return the last element when the array has items", () => {
     expect(arrayLast([1, 2, 3])).toBe(3);
+    expect(arrayLast(["a", "b", "c"])).toBe("c");
+    expect(arrayLast([null, "present"])).toBe("present");
+    expect(arrayLast(["present", undefined])).toBeUndefined();
   });
 
-  it("数组为空时应该返回 undefined (不提供 saveValue)", () => {
-    // eslint-disable-next-line
+  it("should return undefined when the array is empty and no saveValue is provided", () => {
     expect(arrayLast([])).toBeUndefined();
   });
 
-  it("数组为空时应该返回 saveValue", () => {
-    expect(arrayLast([], 100)).toBe(100);
+  it("should return the saveValue when the array is empty", () => {
+    expect(arrayLast([], "default")).toBe("default");
+    expect(arrayLast([], 42)).toBe(42);
+    expect(arrayLast([], null)).toBeNull();
+    expect(arrayLast([], undefined)).toBeUndefined();
   });
 
-  it("如果输入不是数组应该返回 saveValue", () => {
-    // @ts-expect-error 测试非法参数
-    expect(arrayLast(null, 99)).toBe(99);
+  it("should return undefined when the list is not an array and no saveValue is provided", () => {
+    expect(arrayLast(null as any)).toBeUndefined();
+    expect(arrayLast(undefined as any)).toBeUndefined();
+  });
+
+  it("should return the saveValue when the list is not an array", () => {
+    expect(arrayLast(null as any, "fallback")).toBe("fallback");
+    expect(arrayLast(undefined as any, 0)).toBe(0);
   });
 });

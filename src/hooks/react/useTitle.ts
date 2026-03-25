@@ -1,23 +1,37 @@
 import { useEffect, useRef } from "react";
-import { isBrowser } from "../../utils";
+import { isBrowser, isString } from "../../utils";
 import { useUnmount } from "./useUnmount";
 
 interface TitleHookOptions {
+  /** 件卸载时是否恢复原始标题 */
   isRestoreOnUnmount?: boolean;
 }
-export function useTitle (title: string, options?: TitleHookOptions | undefined) {
-  if (!isBrowser()) {
-    return;
-  }
 
-  const titleRef = useRef(document.title);
+/**
+ * 设置页面标题
+ * - 轻量级，适用于无路由库时设置页面标题
+ * - 多个 `useTitle` 实例会互相干扰，需在顶层组件使用
+ * - 无法处理 `document.title` 固有的竞态问题
+ *
+ * @param title 页面标题
+ * @param options 配置选项
+ */
+export function useTitle (title: string, options?: TitleHookOptions | undefined) {
+  const titleRef = useRef(isBrowser() ? document.title : "");
 
   useEffect(() => {
-    document.title = title;
+    if (!isString(title)) {
+      console.error(`useTitle expected title is a string, but got ${typeof title}`);
+
+      return;
+    }
+    if (isBrowser()) {
+      document.title = title;
+    }
   }, [title]);
 
   useUnmount(() => {
-    if (options?.isRestoreOnUnmount) {
+    if (isBrowser() && options?.isRestoreOnUnmount) {
       document.title = titleRef.current;
     }
   });

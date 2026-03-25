@@ -1,3 +1,4 @@
+import type { MatchFunction } from "../../types/index.type";
 import { isArray, isFunction, isPositiveInteger } from "../typeof";
 
 type PositionType = "start" | "end" | number;
@@ -20,14 +21,14 @@ type PositionType = "start" | "end" | number;
  * arrayReplaceMove([1, 2, 3, 4], 5, (n) => n === 2); // [1, 3, 4, 5]
  * ```
  */
-export function arrayReplaceMove<const T> (initialList: readonly T[], newItem: T, match: (row: T, index: number) => boolean, position?: PositionType): T[] {
+export function arrayReplaceMove<const T> (initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>, position?: PositionType): T[] {
   if (!isArray(initialList)) {
     return [];
   }
   if (!initialList.length) {
     return [newItem];
   }
-  if (newItem === undefined || !isFunction(match)) {
+  if (!isFunction(match)) {
     return [...initialList];
   }
 
@@ -35,7 +36,7 @@ export function arrayReplaceMove<const T> (initialList: readonly T[], newItem: T
   const matchIndex = initialList.findIndex(match);
 
   if (matchIndex !== -1) {
-    result.splice(matchIndex, 1) as (typeof newItem)[];
+    result.splice(matchIndex, 1);
   }
 
   if (position === "start") {
