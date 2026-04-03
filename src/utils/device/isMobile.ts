@@ -1,4 +1,3 @@
-import { isTablet } from "./isTablet";
 import { isPositiveInteger } from "../typeof";
 
 /**
@@ -18,7 +17,28 @@ export function isMobile (maxWidth = 768, dpi = 160) {
     return false;
   }
 
-  return !isTablet(maxWidth, 1200, dpi);
+  const width = window.innerWidth;
+
+  if (width >= maxWidth) {
+    return false;
+  }
+
+  try {
+    // 检查屏幕尺寸
+    const widthPx = window.screen.width;
+    const heightPx = window.screen.height;
+    const DPR = window.devicePixelRatio || 1;
+    const DPI = dpi * DPR;
+
+    const widthInch = widthPx / DPI;
+    const heightInch = heightPx / DPI;
+    const screenInches = Math.sqrt(widthInch ** 2 + heightInch ** 2);
+
+    return screenInches < 7.0;
+  } catch {
+    // 降级：仅用宽度判断
+    return true;
+  }
 }
 
 /**
@@ -26,7 +46,7 @@ export function isMobile (maxWidth = 768, dpi = 160) {
  *
  * @param maxWidth - 移动设备最大宽度（默认 768px）
  * @param dpi - 标准 DPI 基准（默认 160）
- * @returns 是否为 iOS 移动设备 (iPhone/iPad/iPod 且非平板)
+ * @returns 是否为 iOS 移动设备 (iPhone/iPod)
  * @example
  * ```ts
  * // UA contains iPhone
@@ -34,11 +54,11 @@ export function isMobile (maxWidth = 768, dpi = 160) {
  * ```
  */
 export function isIOSMobile (maxWidth = 768, dpi = 160) {
-  if (typeof navigator === "undefined" || !navigator.userAgent || !isPositiveInteger(maxWidth)) {
+  if (typeof navigator === "undefined" || !navigator.userAgent) {
     return false;
   }
 
   const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-  return isIOS && !isTablet(maxWidth, 1200, dpi);
+  return isIOS && isMobile(maxWidth, dpi);
 }

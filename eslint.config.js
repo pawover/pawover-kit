@@ -126,6 +126,8 @@ export default defineConfig([
       "ts/no-array-constructor": 0,
       "ts/no-confusing-void-expression": 0,
       "ts/no-explicit-any": 0,
+      "ts/no-misused-spread": 0,
+      "ts/no-require-imports": 0,
       "ts/no-unused-expressions": 0,
       "ts/no-unused-vars": 0,
     },

@@ -5,17 +5,27 @@ import { playwright } from "@vitest/browser-playwright";
 export default defineConfig({
   plugins: [react()],
   test: {
-    globals: true,
-    environment: "jsdom",
-    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "json", "html"],
-    },
-    browser: {
-      enabled: true,
-      provider: playwright(),
-      instances: [{ browser: "chromium" }],
-    },
+    projects: [
+      {
+        extends: true,
+        test: {
+          environment: "happy-dom",
+          include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
+          exclude: ["src/utils/typeof/isIframe.test.ts"],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
+          },
+        },
+      },
+      {
+        extends: true,
+        test: {
+          environment: "node",
+          include: ["src/utils/typeof/isIframe.test.ts"],
+        },
+      },
+    ],
   },
 });

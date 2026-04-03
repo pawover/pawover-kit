@@ -1,4 +1,3 @@
-// useLatest.test.tsx
 import { renderHook } from "vitest-browser-react";
 import { describe, it, expect } from "vitest";
 import React from "react"; // ✅ StrictMode 必需

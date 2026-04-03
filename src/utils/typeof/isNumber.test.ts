@@ -151,7 +151,7 @@ describe("isInfinity", () => {
     expect(isInfinity(1)).toBe(false);
     expect(isInfinity(-1)).toBe(false);
     expect(isInfinity(1.79e308)).toBe(false); // 这会导致 Infinity，但本身不是 Infinity 常量
-    expect(isInfinity(Number.MAX_VALUE * 2)).toBe(false); // 这也会变成 Infinity，但比较的是原始值
+    expect(isInfinity(Number.MAX_VALUE * 2)).toBe(true); // 这也会变成 Infinity
     expect(isInfinity(NaN)).toBe(false);
     expect(isInfinity("Infinity")).toBe(false); // 字符串 'Infinity' 不是 Infinity 值
     expect(isInfinity(undefined)).toBe(false);

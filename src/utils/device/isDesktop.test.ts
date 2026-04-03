@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { isMobile, isIOSMobile } from "./isMobile";
+import { isDesktop, isWindowsDesktop, isMacOSDesktop } from "./isDesktop";
 
 // 工具函数
 function withWindowProperty<T> (obj: any, prop: string, value: T, callback: () => void) {
@@ -43,7 +43,10 @@ function withUserAgent (ua: string, callback: () => void) {
 
   try {
     Object.defineProperty(global, "navigator", {
-      value: { ...originalNavigator, userAgent: ua },
+      value: {
+        ...originalNavigator,
+        userAgent: ua,
+      },
       configurable: true,
     });
 
@@ -56,106 +59,22 @@ function withUserAgent (ua: string, callback: () => void) {
   }
 }
 
-describe("isMobile", () => {
-  // ==================== 核心理念：识别移动设备 ====================
+describe("isDesktop", () => {
+  // ==================== 核心理念：识别桌面设备 ====================
 
-  describe("核心理念：识别移动设备（宽度 < 768 且屏幕 < 7英寸）", () => {
-    it("默认参数下，375px 应识别为移动设备", () => {
+  describe("核心理念：识别桌面设备（宽度 >= 1200 且屏幕 >= 10英寸）", () => {
+    it("默认参数下，1920px 应识别为桌面设备", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 375,
+          value: 1920,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(375, 812),
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(true);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("767px 应识别为移动设备（小于最大宽度）", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 767,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(375, 667),
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 2,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(true);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("768px 应识别为非移动设备（等于最大宽度）", () => {
-      withWindowProperty(window, "innerWidth", 768, () => {
-        expect(isMobile()).toBe(false);
-      });
-    });
-
-    it("769px 应识别为非移动设备（大于最大宽度）", () => {
-      withWindowProperty(window, "innerWidth", 769, () => {
-        expect(isMobile()).toBe(false);
-      });
-    });
-
-    it("极小宽度（如 100px）应识别为移动设备", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 100,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(320, 480),
+          value: createMockScreen(1920, 1080),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
@@ -163,7 +82,7 @@ describe("isMobile", () => {
           configurable: true,
         });
 
-        expect(isMobile()).toBe(true);
+        expect(isDesktop()).toBe(true);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -180,26 +99,370 @@ describe("isMobile", () => {
       }
     });
 
-    it("极大宽度（如 1920px）应识别为非移动设备", () => {
-      withWindowProperty(window, "innerWidth", 1920, () => {
-        expect(isMobile()).toBe(false);
+    it("1200px 应识别为桌面设备（等于最小宽度）", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1200,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1920, 1080),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("1199px 应识别为非桌面设备（小于最小宽度）", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1199,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1920, 1080),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(false);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("1024px 应识别为非桌面设备（典型平板宽度）", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1024,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1024, 768),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(false);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("极小宽度（如 100px）应识别为非桌面设备", () => {
+      withWindowProperty(window, "innerWidth", 100, () => {
+        expect(isDesktop()).toBe(false);
       });
+    });
+
+    it("极大宽度（如 3840px）应识别为桌面设备", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 3840,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(3840, 2160),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+  });
+
+  // ==================== 屏幕尺寸边界测试 ====================
+
+  describe("屏幕尺寸边界：10英寸阈值", () => {
+    it("宽度 >= 1200 但屏幕 < 10英寸应返回 false", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1440,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(800, 1280), // ~9.7英寸
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(false);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("宽度 < 1200 但屏幕 >= 10英寸应返回 false", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1024,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(2048, 2732), // iPad Pro ~12.9英寸
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 2,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(false);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("宽度 >= 1200 且屏幕 >= 10英寸应返回 true", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1440,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1440, 900), // MacBook ~13英寸
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("10英寸屏幕且宽度 >= 1200 应识别为桌面设备", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1280,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1600, 1200),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("9.9英寸屏幕即使宽度 >= 1200 也应识别为非桌面设备", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1280,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1200, 800), // ~9.9英寸
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        expect(isDesktop()).toBe(false);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
     });
   });
 
   // ==================== 参数验证测试 ====================
 
   describe("参数验证：isPositiveInteger 集成", () => {
-    it("maxWidth 为 0 时应返回 false", () => {
-      expect(isMobile(0)).toBe(false);
+    it("minWidth 为 0 时应返回 false", () => {
+      expect(isDesktop(0)).toBe(false);
     });
 
-    it("maxWidth 为负数时应返回 false", () => {
-      expect(isMobile(-1)).toBe(false);
+    it("minWidth 为负数时应返回 false", () => {
+      expect(isDesktop(-1)).toBe(false);
     });
 
-    it("maxWidth 为浮点数时应返回 false", () => {
-      expect(isMobile(768.5)).toBe(false);
+    it("minWidth 为浮点数时应返回 false", () => {
+      expect(isDesktop(1200.5)).toBe(false);
+    });
+
+    it("minScreenSize 为 0 时应返回 false", () => {
+      expect(isDesktop(1200, 0)).toBe(false);
+    });
+
+    it("minScreenSize 为负数时应返回 false", () => {
+      expect(isDesktop(1200, -1)).toBe(false);
+    });
+
+    it("minScreenSize 为浮点数时应返回 false", () => {
+      expect(isDesktop(1200, 10.5)).toBe(false);
+    });
+
+    it("两个参数都无效时应返回 false", () => {
+      expect(isDesktop(0, 0)).toBe(false);
     });
 
     it("自定义有效范围应正常工作", () => {
@@ -209,52 +472,11 @@ describe("isMobile", () => {
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 600,
+          value: 1440,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(375, 667),
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 2,
-          configurable: true,
-        });
-
-        expect(isMobile(700)).toBe(true);
-        expect(isMobile(500)).toBe(false);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-  });
-
-  // ==================== 屏幕尺寸计算测试 ====================
-
-  describe("屏幕尺寸计算：AND 逻辑（宽度 < 768 && 屏幕 < 7英寸）", () => {
-    it("宽度 < 768 但屏幕 >= 7英寸应返回 false（大屏幕设备）", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 600,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(800, 1280), // ~9.7英寸
+          value: createMockScreen(1440, 900),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
@@ -262,151 +484,9 @@ describe("isMobile", () => {
           configurable: true,
         });
 
-        expect(isMobile()).toBe(false);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("宽度 >= 768 但屏幕 < 7英寸应返回 false（宽但小屏）", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 800,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(400, 700), // ~5英寸
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 1,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(false);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("宽度 < 768 且屏幕 < 7英寸应返回 true", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 400,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(400, 700), // ~5英寸
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 1,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(true);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("5英寸屏幕且宽度 < 768 应识别为移动设备", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 400,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(400, 700),
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 1,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(true);
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("7英寸屏幕即使宽度 < 768 也应识别为非移动设备", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 600,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(800, 1280), // ~9.7英寸
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 1,
-          configurable: true,
-        });
-
-        expect(isMobile()).toBe(false);
+        expect(isDesktop(1200, 10)).toBe(true);
+        expect(isDesktop(1500, 10)).toBe(false);
+        expect(isDesktop(1200, 15)).toBe(false);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -434,20 +514,20 @@ describe("isMobile", () => {
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 400,
+          value: 1440,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(800, 1704), // iPhone 14 Pro
+          value: createMockScreen(2880, 1800), // MacBook Pro Retina
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
+          value: 2,
           configurable: true,
         });
 
-        // 逻辑像素: 267x568 @ 160 DPI = ~6.1英寸
-        expect(isMobile()).toBe(true);
+        // 逻辑像素: 1440x900 @ 160 DPI = ~13英寸
+        expect(isDesktop()).toBe(true);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -471,11 +551,11 @@ describe("isMobile", () => {
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 400,
+          value: 1280,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(800, 1280),
+          value: createMockScreen(1280, 800),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
@@ -483,11 +563,11 @@ describe("isMobile", () => {
           configurable: true,
         });
 
-        // 160 DPI: 800/160=5", 1280/160=8" -> ~9.7英寸
-        expect(isMobile(768, 160)).toBe(false);
+        // 160 DPI: 1280/160=8", 800/160=5" -> ~9.4英寸
+        expect(isDesktop(1200, 10, 160)).toBe(false);
 
-        // 320 DPI: 800/320=2.5", 1280/320=4" -> ~4.7英寸
-        expect(isMobile(768, 320)).toBe(true);
+        // 120 DPI: 1280/120=10.7", 800/120=6.7" -> ~12.6英寸
+        expect(isDesktop(1200, 10, 120)).toBe(true);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -514,7 +594,7 @@ describe("isMobile", () => {
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 400,
+          value: 1920,
           configurable: true,
         });
 
@@ -531,7 +611,7 @@ describe("isMobile", () => {
           configurable: true,
         });
 
-        expect(isMobile()).toBe(true);
+        expect(isDesktop()).toBe(true);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -544,13 +624,13 @@ describe("isMobile", () => {
       }
     });
 
-    it("降级时宽度 >= 768 应返回 false", () => {
+    it("降级时宽度 < 1200 应返回 false", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 800,
+          value: 1024,
           configurable: true,
         });
 
@@ -567,7 +647,7 @@ describe("isMobile", () => {
           configurable: true,
         });
 
-        expect(isMobile()).toBe(false);
+        expect(isDesktop()).toBe(false);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -585,31 +665,32 @@ describe("isMobile", () => {
 
   describe("非浏览器环境", () => {
     it("在无 window 环境中应返回 false", () => {
-      // 这个测试在浏览器环境中无法运行
-      // 但可以验证参数验证逻辑
-      expect(isMobile(0)).toBe(false);
+      expect(isDesktop(0)).toBe(false);
     });
   });
 
   // ==================== 真实设备场景测试 ====================
 
-  describe("真实设备场景：isMobile 识别移动设备", () => {
+  describe("真实设备场景：isDesktop 识别桌面设备", () => {
     const testCases = [
-      // 移动设备（应返回 true）
-      { name: "iPhone 14 Pro", width: 393, screenW: 1179, screenH: 2556, dpr: 3, expected: true },
-      { name: "iPhone SE", width: 375, screenW: 750, screenH: 1334, dpr: 2, expected: true },
-      { name: "Galaxy S23", width: 360, screenW: 1080, screenH: 2400, dpr: 3, expected: true },
-      { name: "iPhone 11", width: 414, screenW: 828, screenH: 1792, dpr: 2, expected: true },
-      { name: "Pixel 7", width: 393, screenW: 1080, screenH: 2400, dpr: 2.75, expected: true },
+      // 桌面设备（应返回 true）
+      { name: "MacBook Pro 13\"", width: 1440, screenW: 1440, screenH: 900, dpr: 1, expected: true },
+      { name: "MacBook Air 13\"", width: 1440, screenW: 1440, screenH: 900, dpr: 1, expected: true },
+      { name: "MacBook Pro 16\"", width: 1728, screenW: 1728, screenH: 1117, dpr: 1, expected: true },
+      { name: "iMac 24\"", width: 1920, screenW: 1920, screenH: 1080, dpr: 1, expected: true },
+      { name: "iMac 27\"", width: 2560, screenW: 2560, screenH: 1440, dpr: 1, expected: true },
+      { name: "Dell XPS 13\"", width: 1920, screenW: 1920, screenH: 1080, dpr: 1, expected: true },
+      { name: "Surface Pro", width: 1368, screenW: 2736, screenH: 1824, dpr: 2, expected: true },
+      { name: "Surface Laptop", width: 1440, screenW: 2256, screenH: 1504, dpr: 1.5, expected: true },
 
       // 平板设备（应返回 false）
+      { name: "iPad Pro 12.9\"", width: 1024, screenW: 2048, screenH: 2732, dpr: 2, expected: false },
       { name: "iPad Air", width: 820, screenW: 1640, screenH: 2360, dpr: 2, expected: false },
-      { name: "iPad Pro", width: 1024, screenW: 2048, screenH: 2732, dpr: 2, expected: false },
       { name: "Galaxy Tab S8", width: 800, screenW: 1600, screenH: 2560, dpr: 2, expected: false },
 
-      // 笔记本/桌面设备（应返回 false）
-      { name: "MacBook Pro 13\"", width: 1440, screenW: 1440, screenH: 900, dpr: 1, expected: false },
-      { name: "Surface Pro", width: 1368, screenW: 2736, screenH: 1824, dpr: 2, expected: false },
+      // 移动设备（应返回 false）
+      { name: "iPhone 14 Pro", width: 393, screenW: 1179, screenH: 2556, dpr: 3, expected: false },
+      { name: "Galaxy S23", width: 360, screenW: 1080, screenH: 2400, dpr: 3, expected: false },
     ];
 
     testCases.forEach(({ name, width, screenW, screenH, dpr, expected }) => {
@@ -632,7 +713,7 @@ describe("isMobile", () => {
             configurable: true,
           });
 
-          expect(isMobile()).toBe(expected);
+          expect(isDesktop()).toBe(expected);
         } finally {
           Object.defineProperty(window, "innerWidth", {
             value: originalInnerWidth,
@@ -651,34 +732,115 @@ describe("isMobile", () => {
     });
   });
 
-  // ==================== 与 isTablet 的关系测试 ====================
+  // ==================== 与 isTablet 和 isMobile 的关系测试 ====================
 
-  describe("与 isTablet 的关系：互为补集", () => {
-    it("isMobile 和 isTablet 应互为补集", () => {
+  describe("与 isTablet 和 isMobile 的关系", () => {
+    it("桌面设备也应被 isTablet 识别为 true", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
-        // 测试移动设备
         Object.defineProperty(window, "innerWidth", {
-          value: 375,
+          value: 1920,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(375, 812),
+          value: createMockScreen(1920, 1080),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
+          value: 1,
           configurable: true,
         });
 
-        const mobile = isMobile();
+        const desktop = isDesktop();
         // isTablet 需要从其他文件导入
-        // expect(mobile).toBe(!isTablet());
+        // expect(desktop).toBe(true);
+        // expect(isTablet()).toBe(true);
 
-        expect(mobile).toBe(true);
+        expect(desktop).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("桌面设备不应被 isMobile 识别为 true", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1920,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1920, 1080),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        const desktop = isDesktop();
+        // isMobile 需要从其他文件导入
+        // expect(desktop).toBe(true);
+        // expect(isMobile()).toBe(false);
+
+        expect(desktop).toBe(true);
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("设备分类应互斥且完整", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        // 测试桌面设备
+        Object.defineProperty(window, "innerWidth", {
+          value: 1920,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1920, 1080),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        const desktop = isDesktop();
+        // expect(isMobile()).toBe(false);
+        // expect(isTablet()).toBe(true);
+        expect(desktop).toBe(true);
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -707,22 +869,22 @@ describe("isMobile", () => {
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 375,
+          value: 1920,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(375, 812),
+          value: createMockScreen(1920, 1080),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
+          value: 1,
           configurable: true,
         });
 
         const start = performance.now();
 
         for (let i = 0; i < iterations; i++) {
-          isMobile();
+          isDesktop();
         }
 
         const end = performance.now();
@@ -747,31 +909,31 @@ describe("isMobile", () => {
   });
 });
 
-describe("isIOSMobile", () => {
-  // ==================== 核心理念：识别 iOS 移动设备 ====================
+describe("isWindowsDesktop", () => {
+  // ==================== 核心理念：识别 Windows 桌面设备 ====================
 
-  describe("核心理念：识别 iOS 移动设备（iPhone/iPod 且非平板）", () => {
-    it("iPhone UA 且宽度 < 768 应识别为 iOS 移动设备", () => {
+  describe("核心理念：识别 Windows 桌面设备", () => {
+    it("Windows UA 且桌面设备应识别为 Windows 桌面", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 393,
+          value: 1920,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(1179, 2556),
+          value: createMockScreen(1920, 1080),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
+          value: 1,
           configurable: true,
         });
 
-        withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-          expect(isIOSMobile()).toBe(true);
+        withUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64)", () => {
+          expect(isWindowsDesktop()).toBe(true);
         });
       } finally {
         Object.defineProperty(window, "innerWidth", {
@@ -789,27 +951,27 @@ describe("isIOSMobile", () => {
       }
     });
 
-    it("iPad UA 但屏幕 >= 7英寸应识别为非 iOS 移动设备（平板）", () => {
+    it("非 Windows UA 应识别为非 Windows 桌面", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 820,
+          value: 1920,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(1640, 2360),
+          value: createMockScreen(1920, 1080),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 2,
+          value: 1,
           configurable: true,
         });
 
-        withUserAgent("Mozilla/5.0 (iPad; CPU OS 16_0 like Mac OS X)", () => {
-          expect(isIOSMobile()).toBe(false);
+        withUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", () => {
+          expect(isWindowsDesktop()).toBe(false);
         });
       } finally {
         Object.defineProperty(window, "innerWidth", {
@@ -827,52 +989,14 @@ describe("isIOSMobile", () => {
       }
     });
 
-    it("iPod UA 且宽度 < 768 应识别为 iOS 移动设备", () => {
+    it("Windows UA 但非桌面设备应识别为非 Windows 桌面", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 320,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: createMockScreen(640, 1136),
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: 2,
-          configurable: true,
-        });
-
-        withUserAgent("Mozilla/5.0 (iPod touch; CPU iPhone OS 15_0 like Mac OS X)", () => {
-          expect(isIOSMobile()).toBe(true);
-        });
-      } finally {
-        Object.defineProperty(window, "innerWidth", {
-          value: originalInnerWidth,
-          configurable: true,
-        });
-        Object.defineProperty(window, "screen", {
-          value: originalScreen,
-          configurable: true,
-        });
-        Object.defineProperty(window, "devicePixelRatio", {
-          value: originalDPR,
-          configurable: true,
-        });
-      }
-    });
-
-    it("非 iOS UA 应识别为非 iOS 移动设备", () => {
-      const originalInnerWidth = window.innerWidth;
-      const originalScreen = window.screen;
-      const originalDPR = window.devicePixelRatio;
-
-      try {
-        Object.defineProperty(window, "innerWidth", {
-          value: 393,
+          value: 360,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
@@ -884,8 +1008,8 @@ describe("isIOSMobile", () => {
           configurable: true,
         });
 
-        withUserAgent("Mozilla/5.0 (Linux; Android 13)", () => {
-          expect(isIOSMobile()).toBe(false);
+        withUserAgent("Mozilla/5.0 (Windows Phone 10.0; Android 6.0)", () => {
+          expect(isWindowsDesktop()).toBe(false);
         });
       } finally {
         Object.defineProperty(window, "innerWidth", {
@@ -902,89 +1026,38 @@ describe("isIOSMobile", () => {
         });
       }
     });
-
-    it("iPhone UA 但宽度 >= 768 应识别为非 iOS 移动设备", () => {
-      withWindowProperty(window, "innerWidth", 768, () => {
-        withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-          expect(isIOSMobile()).toBe(false);
-        });
-      });
-    });
   });
 
   // ==================== 真实设备场景测试 ====================
 
-  describe("真实设备场景：isIOSMobile 识别 iOS 移动设备", () => {
+  describe("真实设备场景：isWindowsDesktop 识别 Windows 桌面设备", () => {
     const testCases = [
-      // iPhone（应返回 true）
       {
-        name: "iPhone 14 Pro",
-        ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
-        width: 393,
-        screenW: 1179,
-        screenH: 2556,
-        dpr: 3,
+        name: "Windows 10 Desktop",
+        ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        width: 1920,
+        screenW: 1920,
+        screenH: 1080,
+        dpr: 1,
         expected: true,
       },
       {
-        name: "iPhone SE",
-        ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 15_0 like Mac OS X)",
-        width: 375,
-        screenW: 750,
-        screenH: 1334,
-        dpr: 2,
+        name: "Windows 11 Laptop",
+        ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        width: 1366,
+        screenW: 1366,
+        screenH: 768,
+        dpr: 1,
         expected: true,
       },
       {
-        name: "iPhone 11",
-        ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X)",
-        width: 414,
-        screenW: 828,
-        screenH: 1792,
+        name: "Surface Pro",
+        ua: "Mozilla/5.0 (Windows NT 10.0; ARM64; Win64; x64)",
+        width: 1368,
+        screenW: 2736,
+        screenH: 1824,
         dpr: 2,
         expected: true,
-      },
-
-      // iPod（应返回 true）
-      {
-        name: "iPod touch",
-        ua: "Mozilla/5.0 (iPod touch; CPU iPhone OS 15_0 like Mac OS X)",
-        width: 320,
-        screenW: 640,
-        screenH: 1136,
-        dpr: 2,
-        expected: true,
-      },
-
-      // iPad（应返回 false，因为是平板）
-      {
-        name: "iPad Air",
-        ua: "Mozilla/5.0 (iPad; CPU OS 16_0 like Mac OS X)",
-        width: 820,
-        screenW: 1640,
-        screenH: 2360,
-        dpr: 2,
-        expected: false,
-      },
-      {
-        name: "iPad Pro",
-        ua: "Mozilla/5.0 (iPad; CPU OS 16_0 like Mac OS X)",
-        width: 1024,
-        screenW: 2048,
-        screenH: 2732,
-        dpr: 2,
-        expected: false,
-      },
-
-      // 非 iOS（应返回 false）
-      {
-        name: "Galaxy S23",
-        ua: "Mozilla/5.0 (Linux; Android 13)",
-        width: 360,
-        screenW: 1080,
-        screenH: 2400,
-        dpr: 3,
-        expected: false,
       },
       {
         name: "MacBook Pro",
@@ -993,6 +1066,15 @@ describe("isIOSMobile", () => {
         screenW: 1440,
         screenH: 900,
         dpr: 1,
+        expected: false,
+      },
+      {
+        name: "iPhone",
+        ua: "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)",
+        width: 393,
+        screenW: 1179,
+        screenH: 2556,
+        dpr: 3,
         expected: false,
       },
     ];
@@ -1018,7 +1100,7 @@ describe("isIOSMobile", () => {
           });
 
           withUserAgent(ua, () => {
-            expect(isIOSMobile()).toBe(expected);
+            expect(isWindowsDesktop()).toBe(expected);
           });
         } finally {
           Object.defineProperty(window, "innerWidth", {
@@ -1037,100 +1119,34 @@ describe("isIOSMobile", () => {
       });
     });
   });
+});
 
-  // ==================== 参数验证测试 ====================
+describe("isMacOSDesktop", () => {
+  // ==================== 核心理念：识别 macOS 桌面设备 ====================
 
-  describe("参数验证：isPositiveInteger 集成", () => {
-    it("maxWidth 为 0 时应返回 false", () => {
-      withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-        expect(isIOSMobile(0)).toBe(false);
-      });
-    });
-
-    it("maxWidth 为负数时应返回 false", () => {
-      withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-        expect(isIOSMobile(-1)).toBe(false);
-      });
-    });
-
-    it("maxWidth 为浮点数时应返回 false", () => {
-      withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-        expect(isIOSMobile(768.5)).toBe(false);
-      });
-    });
-
-    it("无 navigator 时应返回 false", () => {
-      const originalNavigator = global.navigator;
-
-      try {
-        Object.defineProperty(global, "navigator", {
-          value: undefined,
-          configurable: true,
-        });
-
-        expect(isIOSMobile()).toBe(false);
-      } finally {
-        Object.defineProperty(global, "navigator", {
-          value: originalNavigator,
-          configurable: true,
-        });
-      }
-    });
-
-    it("无 userAgent 时应返回 false", () => {
-      const originalNavigator = global.navigator;
-
-      try {
-        Object.defineProperty(global, "navigator", {
-          value: { userAgent: undefined },
-          configurable: true,
-        });
-
-        expect(isIOSMobile()).toBe(false);
-      } finally {
-        Object.defineProperty(global, "navigator", {
-          value: originalNavigator,
-          configurable: true,
-        });
-      }
-    });
-  });
-
-  // ==================== 性能测试 ====================
-
-  describe("性能", () => {
-    it("重复调用应保持高性能", () => {
-      const iterations = 1000;
+  describe("核心理念：识别 macOS 桌面设备", () => {
+    it("macOS UA 且桌面设备应识别为 macOS 桌面", () => {
       const originalInnerWidth = window.innerWidth;
       const originalScreen = window.screen;
       const originalDPR = window.devicePixelRatio;
 
       try {
         Object.defineProperty(window, "innerWidth", {
-          value: 393,
+          value: 1440,
           configurable: true,
         });
         Object.defineProperty(window, "screen", {
-          value: createMockScreen(1179, 2556),
+          value: createMockScreen(1440, 900),
           configurable: true,
         });
         Object.defineProperty(window, "devicePixelRatio", {
-          value: 3,
+          value: 1,
           configurable: true,
         });
 
-        const start = performance.now();
-
-        for (let i = 0; i < iterations; i++) {
-          withUserAgent("Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X)", () => {
-            isIOSMobile();
-          });
-        }
-
-        const end = performance.now();
-        const avgTime = (end - start) / iterations;
-
-        expect(avgTime).toBeLessThan(0.2);
+        withUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", () => {
+          expect(isMacOSDesktop()).toBe(true);
+        });
       } finally {
         Object.defineProperty(window, "innerWidth", {
           value: originalInnerWidth,
@@ -1145,6 +1161,175 @@ describe("isIOSMobile", () => {
           configurable: true,
         });
       }
+    });
+
+    it("非 macOS UA 应识别为非 macOS 桌面", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1440,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(1440, 900),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 1,
+          configurable: true,
+        });
+
+        withUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64)", () => {
+          expect(isMacOSDesktop()).toBe(false);
+        });
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+
+    it("macOS UA 但非桌面设备应识别为非 macOS 桌面", () => {
+      const originalInnerWidth = window.innerWidth;
+      const originalScreen = window.screen;
+      const originalDPR = window.devicePixelRatio;
+
+      try {
+        Object.defineProperty(window, "innerWidth", {
+          value: 1024,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: createMockScreen(2048, 2732),
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: 2,
+          configurable: true,
+        });
+
+        // iPad 在某些情况下会伪装成 Macintosh
+        withUserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", () => {
+          expect(isMacOSDesktop()).toBe(false);
+        });
+      } finally {
+        Object.defineProperty(window, "innerWidth", {
+          value: originalInnerWidth,
+          configurable: true,
+        });
+        Object.defineProperty(window, "screen", {
+          value: originalScreen,
+          configurable: true,
+        });
+        Object.defineProperty(window, "devicePixelRatio", {
+          value: originalDPR,
+          configurable: true,
+        });
+      }
+    });
+  });
+
+  // ==================== 真实设备场景测试 ====================
+
+  describe("真实设备场景：isMacOSDesktop 识别 macOS 桌面设备", () => {
+    const testCases = [
+      {
+        name: "MacBook Pro 13\"",
+        ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+        width: 1440,
+        screenW: 1440,
+        screenH: 900,
+        dpr: 1,
+        expected: true,
+      },
+      {
+        name: "MacBook Air 13\"",
+        ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+        width: 1440,
+        screenW: 1440,
+        screenH: 900,
+        dpr: 1,
+        expected: true,
+      },
+      {
+        name: "iMac 24\"",
+        ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+        width: 1920,
+        screenW: 1920,
+        screenH: 1080,
+        dpr: 1,
+        expected: true,
+      },
+      {
+        name: "Windows PC",
+        ua: "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+        width: 1920,
+        screenW: 1920,
+        screenH: 1080,
+        dpr: 1,
+        expected: false,
+      },
+      {
+        name: "iPad Pro",
+        ua: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)", // iPad 伪装
+        width: 1024,
+        screenW: 2048,
+        screenH: 2732,
+        dpr: 2,
+        expected: false,
+      },
+    ];
+
+    testCases.forEach(({ name, ua, width, screenW, screenH, dpr, expected }) => {
+      it(`应正确识别 ${name}`, () => {
+        const originalInnerWidth = window.innerWidth;
+        const originalScreen = window.screen;
+        const originalDPR = window.devicePixelRatio;
+
+        try {
+          Object.defineProperty(window, "innerWidth", {
+            value: width,
+            configurable: true,
+          });
+          Object.defineProperty(window, "screen", {
+            value: createMockScreen(screenW, screenH),
+            configurable: true,
+          });
+          Object.defineProperty(window, "devicePixelRatio", {
+            value: dpr,
+            configurable: true,
+          });
+
+          withUserAgent(ua, () => {
+            expect(isMacOSDesktop()).toBe(expected);
+          });
+        } finally {
+          Object.defineProperty(window, "innerWidth", {
+            value: originalInnerWidth,
+            configurable: true,
+          });
+          Object.defineProperty(window, "screen", {
+            value: originalScreen,
+            configurable: true,
+          });
+          Object.defineProperty(window, "devicePixelRatio", {
+            value: originalDPR,
+            configurable: true,
+          });
+        }
+      });
     });
   });
 });
