@@ -1,0 +1,82 @@
+{
+  "name": "@pawover/kit-hooks",
+  "author": {
+    "name": "pawover",
+    "email": "pawover@outlook.com",
+    "url": "https://github.com/pawover"
+  },
+  "description": "pawover's kit",
+  "license": "MIT",
+  "type": "module",
+  "version": "0.0.0-alpha.1",
+  "packageManager": "pnpm@10.28.2",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "keywords": [
+    "pawover",
+    "pawover-kit-hooks"
+  ],
+  "homepage": "https://github.com/pawover/pawover-kit/packages/hooks#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawover/pawover-kit.git"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./alova": {
+      "development": "./src/alova/index.ts",
+      "types": "./dist/alova.d.ts",
+      "import": "./dist/alova.js",
+      "default": "./dist/alova.js"
+    },
+    "./react": {
+      "development": "./src/react/index.ts",
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "default": "./dist/react.js"
+    }
+  },
+  "scripts": {
+    "build": "tsdown",
+    "build:metadata": "node scripts/metadata.ts",
+    "public": "npm publish --access public --tag alpha",
+    "check:pack": "attw --pack .",
+    "clean:lib": "rimraf node_modules",
+    "clean:output": "rimraf dist"
+  },
+  "devDependencies": {
+    "@pawover/kit-utils": "workspace:*",
+    "@pawover/types": "^0.0.1",
+    "@types/lodash-es": "^4.17.12",
+    "lodash-es": "^4.18.1",
+    "type-fest": "^5.6.0"
+  },
+  "peerDependencies": {
+    "@types/react": ">=19.2.14",
+    "alova": ">=3.3.0",
+    "react": ">=19.2.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "alova": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  }
+}

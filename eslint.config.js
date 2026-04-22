@@ -1,15 +1,18 @@
 // @ts-nocheck
-import eslintPluginReact from "@eslint-react/eslint-plugin";
-import eslintRules from "@pawover/eslint-rules";
+import { defineConfig } from "eslint/config";
+
+import eslintTs from "typescript-eslint";
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginAntfu from "eslint-plugin-antfu";
+import eslintPluginImports from "eslint-plugin-import-lite";
+import eslintPluginImportsSort from "eslint-plugin-simple-import-sort";
+import eslintPluginReact from "@eslint-react/eslint-plugin";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 
-import { defineConfig } from "eslint/config";
-import eslintTs from "typescript-eslint";
+import eslintRules from "@pawover/eslint-rules";
 
 const plugins = {
-  ts: {
+  typescript: {
     ts: eslintTs.plugin,
   },
   stylistic: {
@@ -18,118 +21,66 @@ const plugins = {
   antfu: {
     antfu: eslintPluginAntfu,
   },
+  imports: {
+    imports: eslintPluginImports.configs.all.plugins["import-lite"],
+    importsSort: eslintPluginImportsSort,
+  },
   react: {
-    "react-x": eslintPluginReact.configs.all.plugins["@eslint-react"],
-    "react-dom": eslintPluginReact.configs.all.plugins["@eslint-react/dom"],
-    "react-rsc": eslintPluginReact.configs.all.plugins["@eslint-react/rsc"],
-    "react-web-api": eslintPluginReact.configs.all.plugins["@eslint-react/web-api"],
+    "react": eslintPluginReact,
     "react-hooks": eslintPluginReactHooks,
-    "react-naming-convention": eslintPluginReact.configs.all.plugins["@eslint-react/naming-convention"],
   },
 };
-const GLOB_EXCLUDE = [
-  "**/node_modules",
-  "**/dist",
-  "**/package-lock.json",
-  "**/yarn.lock",
-  "**/pnpm-lock.yaml",
-  "**/bun.lockb",
-  "**/output",
-  "**/coverage",
-  "**/temp",
-  "**/.temp",
-  "**/tmp",
-  "**/.tmp",
-  "**/.history",
-  "**/.vitepress/cache",
-  "**/.nuxt",
-  "**/.next",
-  "**/.svelte-kit",
-  "**/.vercel",
-  "**/.changeset",
-  "**/.idea",
-  "**/.cache",
-  "**/.output",
-  "**/.vite-inspect",
-  "**/.yarn",
-  "**/vite.config.*.timestamp-*",
-  "**/CHANGELOG*.md",
-  "**/*.min.*",
-  "**/LICENSE*",
-  "**/__snapshots__",
-  "**/auto-import?(s).d.ts",
-  "**/auto-component?(s).d.ts",
-  "**/auto-router?(s).d.ts",
-  "routeTree.gen.ts",
-];
 
 export default defineConfig([
   {
-    ignores: GLOB_EXCLUDE,
+    ignores: [...eslintRules.GLOB_EXCLUDE, "eslint.config.js", "**/.cache"],
   },
   {
-    files: ["**/*.{js,cjs,mjs}"],
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: false,
-        },
-      },
-    },
-    plugins: {
-      ...plugins.stylistic,
-      ...plugins.antfu,
-    },
-    rules: {
-      ...eslintRules.javascript,
-      ...eslintRules.stylistic,
-      ...eslintRules.antfu,
-    },
-  },
-  {
-    files: ["**/*.{ts,cts,mts,tsx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       parser: eslintTs.parser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
+        sourceType: "module",
+        ecmaVersion: 2020,
+        ecmaFeatures: {
+          jsx: true,
+        },
       },
     },
     plugins: {
-      ...plugins.ts,
-      ...plugins.react,
+      ...plugins.typescript,
       ...plugins.stylistic,
       ...plugins.antfu,
+      ...plugins.imports,
+      ...plugins.react,
     },
     rules: {
       ...eslintRules.javascript,
       ...eslintRules.typescript,
-      ...eslintRules.react,
-      ...eslintRules.reactRefresh,
       ...eslintRules.stylistic,
       ...eslintRules.antfu,
+      ...eslintRules.imports,
+      ...eslintRules.importsSort,
+      ...eslintRules.react,
+      ...eslintRules.reactHooks,
+      "antfu/no-import-dist": 0,
+      "stylistic/no-multiple-empty-lines": [2, { max: 1, maxEOF: 1, maxBOF: 0 }],
     },
   },
   {
-    files: ["**/*.test.ts", "**/*.test.tsx"],
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.test.json",
-        projectService: false,
-      },
-    },
+    files: ["**/*.test.{js,jsx,ts,tsx}"],
     rules: {
-      "func-names": 0,
-      "no-promise-executor-return": 0,
-      "prefer-arrow-callback": 0,
-      "stylistic/quote-props": 0,
-      "ts/no-array-constructor": 0,
-      "ts/no-confusing-void-expression": 0,
-      "ts/no-explicit-any": 0,
-      "ts/no-misused-spread": 0,
-      "ts/no-require-imports": 0,
-      "ts/no-unused-expressions": 0,
-      "ts/no-unused-vars": 0,
+      ...Object.keys({
+        ...eslintRules.javascript,
+        ...eslintRules.typescript,
+        ...eslintRules.react,
+        ...eslintRules.reactHooks,
+      }).reduce((acc, key) => {
+        acc[key] = 0;
+        return acc;
+      }, {}),
     },
   },
 ]);

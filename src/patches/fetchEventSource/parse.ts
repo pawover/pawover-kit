@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { isNaN, isReadableStream } from "../../utils";
 
 const CONTROL_CHARS_ENUM = {

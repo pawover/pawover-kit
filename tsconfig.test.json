@@ -1,21 +1,11 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "lib": ["ES2020", "DOM", "WebWorker"],
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "moduleDetection": "force",
     "jsx": "react-jsx",
-    "noEmit": true,
-    "declaration": false,
-    "declarationMap": false,
-    "emitDeclarationOnly": false,
+    "erasableSyntaxOnly": false,
     "allowUnusedLabels": true,
-    "noUnusedLocals": false,
-    "rootDir": ".",
-    "types": ["node"]
+    "noUnusedLocals": false
   },
-  "include": ["src/**/*.test.ts", "src/**/*.test.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+  "exclude": ["**/node_modules", "**/dist"]
 }

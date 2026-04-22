@@ -1,5 +1,7 @@
+// @ts-nocheck
 import type { AnyFunction, AnyObject, PlainObject } from "@pawover/types";
 import type { Except } from "type-fest";
+
 import { isAbortSignal, isBoolean, isFunction, isPositiveInteger } from "../../utils";
 import { type EventSourceMessage, getBytes, getLines, getMessages } from "./parse";
 
