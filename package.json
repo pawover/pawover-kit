@@ -49,7 +49,7 @@
     "test": "vitest",
     "build": "turbo build-all",
     "build:force": "turbo build-all --force",
-    "public": "pnpm build && npm publish --access public --tag bate",
+    "public": "turbo build-all && npm publish --access public --tag bate",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
     "check:types": "tsc --noEmit",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
