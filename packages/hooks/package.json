@@ -46,7 +46,8 @@
       "types": "./dist/react.d.ts",
       "import": "./dist/react.js",
       "default": "./dist/react.js"
-    }
+    },
+    "./metadata.json": "./dist/metadata.json"
   },
   "scripts": {
     "build": "tsdown",

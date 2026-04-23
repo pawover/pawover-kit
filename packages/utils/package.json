@@ -46,7 +46,8 @@
       "types": "./dist/vite.d.ts",
       "import": "./dist/vite.js",
       "default": "./dist/vite.js"
-    }
+    },
+    "./metadata.json": "./dist/metadata.json"
   },
   "scripts": {
     "build": "tsdown",

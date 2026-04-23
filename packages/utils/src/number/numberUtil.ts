@@ -20,11 +20,11 @@ export class NumberUtil {
    */
   static within (input: number, interval: [number, number], includeLeft = true, includeRight = false) {
     if (!TypeUtil.isNumber(input) || TypeUtil.isInfinity(input)) {
-      throw new Error("params [input] mast be a finite number.");
+      throw new Error("function [within] Expected parameter [input] to be a finite number.");
     }
 
     if (!TypeUtil.isArray(interval) || interval.length !== 2) {
-      throw new Error("params [interval] must be a tuple with 2 numbers.");
+      throw new Error("function [within] Expected parameter [interval] to be a tuple with 2 numbers.");
     }
 
     const [left, right] = interval;

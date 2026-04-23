@@ -35,8 +35,8 @@ export class ArrayUtil {
    * 获取数组第一项
    *
    * @param initialList 初始数组
-   * @param saveValue 安全值
-   * @returns 数组第一项，如果为空则返回安全值
+   * @param fallback 回退值
+   * @returns 数组第一项，如果为空则返回回退值
    * @example
    * ```ts
    * ArrayUtil.first([1, 2]); // 1
@@ -44,10 +44,10 @@ export class ArrayUtil {
    * ```
    */
   static first<T>(initialList: readonly T[]): T | undefined;
-  static first<T>(initialList: readonly T[], saveValue: T): T;
-  static first<T>(initialList: readonly T[], saveValue?: T): T | undefined {
+  static first<T>(initialList: readonly T[], fallback: T): T;
+  static first<T>(initialList: readonly T[], fallback?: T): T | undefined {
     if (!TypeUtil.isArray(initialList) || initialList.length === 0) {
-      return saveValue;
+      return fallback;
     }
 
     return initialList[0];
@@ -57,8 +57,8 @@ export class ArrayUtil {
    * 获取数组最后一项
    *
    * @param initialList 初始数组
-   * @param saveValue 安全值
-   * @returns 数组最后一项，如果为空则返回安全值
+   * @param fallback 回退值
+   * @returns 数组最后一项，如果为空则返回回退值
    * @example
    * ```ts
    * ArrayUtil.last([1, 2, 3]); // 3
@@ -66,10 +66,10 @@ export class ArrayUtil {
    * ```
    */
   static last<T>(initialList: readonly T[]): T | undefined;
-  static last<T>(initialList: readonly T[], saveValue: T): T;
-  static last<T>(initialList: readonly T[], saveValue?: T): T | undefined {
+  static last<T>(initialList: readonly T[], fallback: T): T;
+  static last<T>(initialList: readonly T[], fallback?: T): T | undefined {
     if (!TypeUtil.isArray(initialList) || initialList.length === 0) {
-      return saveValue;
+      return fallback;
     }
 
     return initialList[initialList.length - 1];
@@ -397,6 +397,30 @@ export class ArrayUtil {
       .map((_c, i) => {
         return initialList.slice(i * size, i * size + size);
       });
+  }
+
+  /**
+   * 数组分组过滤
+   * - 给定一个数组和一个条件，返回一个由两个数组组成的元组，其中第一个数组包含所有满足条件的项，第二个数组包含所有不满足条件的项
+   *
+   * @param initialList 初始数组
+   * @param match 条件匹配函数
+   * @returns [满足条件的项[], 不满足条件的项[]]
+   * @example
+   * ```ts
+   * ArrayUtil.fork([1, 2, 3, 4], (n) => n % 2 === 0); // [[2, 4], [1, 3]]
+   * ```
+   */
+  static fork<T> (initialList: readonly T[], match: MatchFunction<T, boolean>): [T[], T[]] {
+    const forked: [T[], T[]] = [[], []];
+
+    if (TypeUtil.isArray(initialList)) {
+      initialList.forEach((item, index) => {
+        forked[match(item, index) ? 0 : 1].push(item);
+      });
+    }
+
+    return forked;
   }
 
   /**

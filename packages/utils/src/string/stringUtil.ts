@@ -209,8 +209,8 @@ export class StringUtil {
    * 处理 JSON 字符串
    *
    * @param input 待处理字符串
-   * @param fallback 当解析失败或输入无效时的返回
-   * @returns 解析后的对象 或 安全值
+   * @param fallback 回退值
+   * @returns 解析后的对象 或 回退值
    * @example
    * ```ts
    * StringUtil.toJson('{"a": 1}', {}); // { a: 1 }

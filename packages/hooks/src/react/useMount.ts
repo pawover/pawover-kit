@@ -28,7 +28,7 @@ export function useMount (effect: EffectCallback | AnyAsyncFunction) {
 
   useEffect(() => {
     if (!TypeUtil.isFunction(effectRef.current)) {
-      console.error(`[useMount] Expected parameter to be a function, but got ${typeof effectRef.current}. This effect will not execute.`);
+      console.error(`hook [useMount] Expected parameter to be a function, but got ${typeof effectRef.current}. This effect will not execute.`);
 
       return;
     }

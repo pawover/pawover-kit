@@ -15,7 +15,7 @@ export function useUnmount (effect: AnyFunction) {
   useEffect(
     () => () => {
       if (!TypeUtil.isFunction(effectRef.current)) {
-        console.error(`[useUnmount] Expected parameter to be a function, but got ${typeof effectRef.current}. This effect will not execute.`);
+        console.error(`hook [useUnmount] Expected parameter to be a function, but got ${typeof effectRef.current}. This effect will not execute.`);
 
         return;
       }

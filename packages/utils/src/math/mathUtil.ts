@@ -13,7 +13,7 @@ export class MathUtil {
    *
    * @param mathJsInstance mathJs 实例
    * @param value 任意类型的值
-   * @param saveValue 安全值
+   * @param fallback 回退值
    * @returns 转换后的 BigNumber
    * @example
    * ```ts
@@ -22,8 +22,8 @@ export class MathUtil {
    * MathUtil.toBignumber(math, "0.1");
    * ```
    */
-  static toBignumber (mathJsInstance: MathJsInstance, value: unknown, saveValue?: BigNumber | undefined): BigNumber {
-    const errorValue = saveValue ?? mathJsInstance.bignumber(0);
+  static toBignumber (mathJsInstance: MathJsInstance, value: unknown, fallback?: BigNumber | undefined): BigNumber {
+    const errorValue = fallback ?? mathJsInstance.bignumber(0);
 
     if (TypeUtil.isFalsyLike(value) || TypeUtil.isInfinityLike(value)) {
       return errorValue;

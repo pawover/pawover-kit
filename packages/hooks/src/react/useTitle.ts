@@ -1,4 +1,4 @@
-import { EnvironmentUtil, TypeUtil } from "@pawover/kit-utils";
+import { EnvUtil, TypeUtil } from "@pawover/kit-utils";
 import { useEffect, useRef } from "react";
 
 import { useUnmount } from "./useUnmount";
@@ -18,21 +18,21 @@ interface TitleHookOptions {
  * @param options 配置选项
  */
 export function useTitle (title: string, options?: TitleHookOptions | undefined) {
-  const titleRef = useRef(EnvironmentUtil.isBrowser() ? document.title : "");
+  const titleRef = useRef(EnvUtil.isBrowser() ? document.title : "");
 
   useEffect(() => {
     if (!TypeUtil.isString(title)) {
-      console.error(`[useTitle] Expected parameter to be a string, but got ${typeof title}. This effect will not execute.`);
+      console.error(`hook [useTitle] Expected parameter to be a string, but got ${typeof title}. This effect will not execute.`);
 
       return;
     }
-    if (EnvironmentUtil.isBrowser()) {
+    if (EnvUtil.isBrowser()) {
       document.title = title;
     }
   }, [title]);
 
   useUnmount(() => {
-    if (EnvironmentUtil.isBrowser() && options?.isRestoreOnUnmount) {
+    if (EnvUtil.isBrowser() && options?.isRestoreOnUnmount) {
       document.title = titleRef.current;
     }
   });

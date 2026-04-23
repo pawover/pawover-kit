@@ -14,6 +14,7 @@ vite.config.ts.timestamp-*.mjs
 # output
 dist
 dist-ssr
+*.tgz
 
 # Logs
 logs

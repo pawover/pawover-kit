@@ -1,6 +1,6 @@
 export * from "./array";
 export * from "./dateTime";
-export * from "./environment";
+export * from "./env";
 export * from "./function";
 export * from "./mime";
 export * from "./number";

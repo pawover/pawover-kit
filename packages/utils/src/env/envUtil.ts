@@ -3,7 +3,7 @@ import { TypeUtil } from "../type";
 /**
  * 环境检查工具类
  */
-export class EnvironmentUtil {
+export class EnvUtil {
   private static readonly _isBrowser = typeof window !== "undefined" && TypeUtil.isFunction(window?.document?.createElement);
   private static readonly _isWebWorker = typeof window === "undefined" && typeof self !== "undefined" && "importScripts" in self;
   private static readonly _isReactNative = typeof navigator !== "undefined" && navigator.product === "ReactNative";
@@ -50,10 +50,10 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // 假设 window.innerWidth = 1920
-   * EnvironmentUtil.isDesktop(); // true
+   * EnvUtil.isDesktop(); // true
    *
    * // 自定义阈值
-   * EnvironmentUtil.isDesktop(1440, 13); // 更严格的桌面检测
+   * EnvUtil.isDesktop(1440, 13); // 更严格的桌面检测
    * ```
    */
   static isDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
@@ -96,7 +96,7 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // UA contains Windows
-   * EnvironmentUtil.isWindowsDesktop(); // true
+   * EnvUtil.isWindowsDesktop(); // true
    * ```
    */
   static isWindowsDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
@@ -119,7 +119,7 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // UA contains Macintosh
-   * EnvironmentUtil.isMacOSDesktop(); // true
+   * EnvUtil.isMacOSDesktop(); // true
    * ```
    */
   static isMacOSDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
@@ -141,7 +141,7 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // 假设 window.innerWidth = 500
-   * EnvironmentUtil.isMobile(); // true
+   * EnvUtil.isMobile(); // true
    * ```
    */
   static isMobile (maxWidth = 768, dpi = 160) {
@@ -182,7 +182,7 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // UA contains iPhone
-   * EnvironmentUtil.isIOSMobile(); // true
+   * EnvUtil.isIOSMobile(); // true
    * ```
    */
   static isIOSMobile (maxWidth = 768, dpi = 160) {
@@ -205,7 +205,7 @@ export class EnvironmentUtil {
    * @example
    * ```ts
    * // 假设 window.innerWidth = 1000
-   * EnvironmentUtil.isTablet(); // true
+   * EnvUtil.isTablet(); // true
    * ```
    */
   static isTablet (minWidth = 768, maxWidth = 1200, dpi = 160) {

@@ -237,7 +237,7 @@ export class ObjectUtil {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 
     if (!isEnum) {
-      throw Error("function enumKeys expected parameter is a enum, and requires at least one member");
+      throw Error("function [enumKeys] expected parameter to be a enum, and requires at least one member");
     }
 
     const keys = this.keys(enumeration);
@@ -266,7 +266,7 @@ export class ObjectUtil {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 
     if (!isEnum) {
-      throw Error("function enumValues expected parameter is a enum, and requires at least one member");
+      throw Error("function [enumValues] expected parameter to be a enum, and requires at least one member");
     }
 
     const values = this.values(enumeration);
@@ -295,7 +295,7 @@ export class ObjectUtil {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 
     if (!isEnum) {
-      throw Error("function enumEntries expected parameter is a enum, and requires at least one member");
+      throw Error("function [enumEntries] expected parameter to be a enum, and requires at least one member");
     }
 
     const entries = this.entries(enumeration);

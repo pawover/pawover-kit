@@ -83,7 +83,7 @@ export class FunctionUtil {
    */
   static toArgs<T = unknown>(args: IArguments, start?: number | undefined): T[] {
     if (args === null) {
-      throw new TypeError(`[toArgs] Expected arguments object, got ${typeof args}`);
+      throw new TypeError(`function [toArgs] Expected parameter [args] to be a arguments object, got ${typeof args}`);
     }
 
     const array = Array.from(args);
