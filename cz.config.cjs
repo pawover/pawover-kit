@@ -16,7 +16,13 @@ module.exports = {
     value,
     name: icon.padEnd(4) + value.padEnd(10) + name.padEnd(8) + description,
   })),
-  scopes: [{ name: "kit-enums" }, { name: "kit-hooks" }, { name: "kit-utils" }, { name: "kit-zod" }],
+  scopes: [
+    { name: "kit" },
+    { name: "kit-enums" },
+    { name: "kit-hooks" },
+    { name: "kit-utils" },
+    { name: "kit-zod" },
+  ],
   messages: {
     type: "请选择本次提交的变更类型：",
     scope: "请输入本次变更的影响范围（可选）：",
