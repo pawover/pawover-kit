@@ -6,6 +6,6 @@
     "allowUnusedLabels": true,
     "noUnusedLocals": false
   },
-  "include": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+  "include": ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.jsx", "**/*.tsx"],
   "exclude": ["**/node_modules", "**/dist"]
 }

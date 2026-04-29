@@ -36,7 +36,7 @@ export default defineConfig([
     ignores: [...eslintRules.GLOB_EXCLUDE, "eslint.config.js", "**/.cache"],
   },
   {
-    files: ["**/*.{js,jsx,ts,tsx}"],
+    files: ["**/*.{js,cjs,mjs,jsx,ts,tsx}"],
     languageOptions: {
       parser: eslintTs.parser,
       parserOptions: {
