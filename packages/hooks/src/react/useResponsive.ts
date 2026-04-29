@@ -1,6 +1,6 @@
 import { ArrayUtil, ObjectUtil, StringUtil } from "@pawover/kit-utils";
 import type { AnyFunction } from "@pawover/types";
-import { assign, clone, isEqual } from "lodash-es";
+import { clone, isEqual } from "es-toolkit";
 import { useLayoutEffect, useMemo, useState } from "react";
 import type { TupleToUnion } from "type-fest";
 
@@ -50,7 +50,7 @@ export interface ResponsiveHookOptions {
 }
 export function useResponsive (options?: ResponsiveHookOptions | undefined) {
   const { breakPointTokens = {} } = options || {};
-  const tokens = useMemo<BreakPointTokens>(() => assign(BREAK_POINT_TOKEN, breakPointTokens), [breakPointTokens]);
+  const tokens = useMemo<BreakPointTokens>(() => Object.assign(BREAK_POINT_TOKEN, breakPointTokens), [breakPointTokens]);
   const [responsive, setResponsive] = useState<ResponsiveValues>(() => calculateResponsive(tokens));
   const current = ObjectUtil.keys(DEFAULT_VALUES).find((key) => responsive[key] === true) || "xs";
 

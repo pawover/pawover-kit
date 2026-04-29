@@ -8,6 +8,6 @@ export default defineConfig({
   },
   dts: true,
   target: "es2020",
-  platform: "browser",
+  platform: "neutral",
   tsconfig: true,
 });

@@ -1,4 +1,4 @@
-import { isEqual } from "lodash-es";
+import { isEqual } from "es-toolkit";
 import { type DependencyList, useRef } from "react";
 
 /**
