@@ -135,7 +135,7 @@ export class ObjectUtil {
    * ```
    */
   static omit<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Omit<O, K>;
-  static omit<O extends AnyObject, K extends keyof O>(anyObject: O, keys: readonly K[]): Omit<O, K>;
+  static omit<O extends AnyObject, K extends keyof O>(anyObject: O, keys: readonly K[]): PlainObject;
   static omit (obj: object, keys: readonly string[]) {
     const result = {} as PlainObject;
 
