@@ -8,7 +8,7 @@
   "description": "一个基于 TypeScript 的开发工具包",
   "license": "MIT",
   "type": "module",
-  "version": "0.0.0-beta.50",
+  "version": "0.0.1",
   "packageManager": "pnpm@10.28.2",
   "engines": {
     "node": ">=22.20.0"
