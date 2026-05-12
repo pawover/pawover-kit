@@ -5,7 +5,7 @@
     "email": "pawover@outlook.com",
     "url": "https://github.com/pawover"
   },
-  "description": "pawover's kit",
+  "description": "pawover's kit-zod",
   "license": "MIT",
   "type": "module",
   "version": "0.0.0-alpha.1",
@@ -37,16 +37,15 @@
     }
   },
   "scripts": {
-    "build": "tsdown",
+    "build:source": "tsdown",
+    "package": "pnpm pack",
     "public": "npm publish --access public --tag alpha",
-    "check:pack": "attw --pack .",
-    "clean:lib": "rimraf node_modules",
-    "clean:output": "rimraf dist"
+    "check:pack": "attw --pack ."
   },
   "devDependencies": {
-    "zod": "^4.3.6"
+    "zod": "^4.4.3"
   },
   "peerDependencies": {
-    "zod": ">=4.1.0"
+    "zod": "^4.1.0"
   }
 }

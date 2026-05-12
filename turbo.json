@@ -1,28 +1,23 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "tasks": {
-    "build": {
+    "build:source": {
       "outputs": ["dist/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build:source"]
     },
     "build:metadata": {
       "outputs": ["dist/**"],
+      "dependsOn": ["build:source"]
+    },
+    "build": {
+      "dependsOn": ["build:metadata"]
+    },
+    "package": {
+      "outputs": ["*.tgz"],
       "dependsOn": ["build"]
     },
-    "build-all": {
-      "dependsOn": ["build", "build:metadata"]
-    },
-    "clean": {
-      "cache": false,
-      "dependsOn": ["clean:lib", "clean:output"]
-    },
-    "clean:lib": {
-      "cache": false,
-      "dependsOn": ["^clean:lib"]
-    },
-    "clean:output": {
-      "cache": false,
-      "dependsOn": ["^clean:output"]
+    "build:package": {
+      "dependsOn": ["build", "package"]
     }
   }
 }
