@@ -4,12 +4,12 @@ node_modules
 .pnp.js
 
 # Misc
-.idea
+.idea/*
+!.idea/settings.json
 .vscode/*
 !.vscode/settings.json
-.DS_Store
-vite.config.ts.timestamp-*.mjs
-*_vite.config.ts
+.zed/*
+!.zed/settings.json
 
 # output
 dist
