@@ -6,18 +6,16 @@ import { useLatest } from "./useLatest";
 
 describe("useLatest", () => {
   it("should return ref object with initial value", async () => {
-    const { result } = await renderHook(
-      (props?: { value: number }) => useLatest(props?.value),
-      { initialProps: { value: 42 } },
-    );
+    const { result } = await renderHook((props?: { value: number }) => useLatest(props?.value), {
+      initialProps: { value: 42 },
+    });
     expect(result.current).toEqual({ current: 42 });
   });
 
   it("should update ref.current when value changes via props", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { value: number }) => useLatest(props?.value),
-      { initialProps: { value: 10 } },
-    );
+    const { result, rerender } = await renderHook((props?: { value: number }) => useLatest(props?.value), {
+      initialProps: { value: 10 },
+    });
 
     expect(result.current.current).toBe(10);
     await rerender({ value: 20 }); // ✅ 通过 props 触发更新
@@ -25,10 +23,9 @@ describe("useLatest", () => {
   });
 
   it("should preserve ref identity across renders", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { value: string }) => useLatest(props?.value),
-      { initialProps: { value: "initial" } },
-    );
+    const { result, rerender } = await renderHook((props?: { value: string }) => useLatest(props?.value), {
+      initialProps: { value: "initial" },
+    });
     const firstRef = result.current;
 
     await rerender({ value: "updated" });
@@ -37,10 +34,9 @@ describe("useLatest", () => {
   });
 
   it("should capture latest value in async callbacks (microtask)", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { count: number }) => useLatest(props?.count),
-      { initialProps: { count: 0 } },
-    );
+    const { result, rerender } = await renderHook((props?: { count: number }) => useLatest(props?.count), {
+      initialProps: { count: 0 },
+    });
 
     // 1. 先触发更新
     await rerender({ count: 1 });
@@ -77,10 +73,9 @@ describe("useLatest", () => {
   });
 
   it("should handle null/undefined values correctly", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { value: null | undefined }) => useLatest(props?.value),
-      { initialProps: { value: null } },
-    );
+    const { result, rerender } = await renderHook((props?: { value: null | undefined }) => useLatest(props?.value), {
+      initialProps: { value: null },
+    });
 
     expect(result.current.current).toBeNull();
     await rerender({ value: undefined! });
@@ -88,10 +83,9 @@ describe("useLatest", () => {
   });
 
   it("should work with reference types (objects/arrays)", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { obj: { count: number } }) => useLatest(props?.obj),
-      { initialProps: { obj: { count: 1 } } },
-    );
+    const { result, rerender } = await renderHook((props?: { obj: { count: number } }) => useLatest(props?.obj), {
+      initialProps: { obj: { count: 1 } },
+    });
 
     const initialRef = result.current;
     expect(initialRef.current).toEqual({ count: 1 });
@@ -102,13 +96,10 @@ describe("useLatest", () => {
   });
 
   it("should be compatible with React.StrictMode", async () => {
-    const { result, rerender } = await renderHook(
-      (props?: { value: number }) => useLatest(props?.value),
-      {
-        initialProps: { value: 100 },
-        wrapper: ({ children }) => <React.StrictMode>{children}</React.StrictMode>,
-      },
-    );
+    const { result, rerender } = await renderHook((props?: { value: number }) => useLatest(props?.value), {
+      initialProps: { value: 100 },
+      wrapper: ({ children }) => <React.StrictMode>{children}</React.StrictMode>,
+    });
 
     // StrictMode 双渲染后，值仍正确
     expect(result.current.current).toBe(100);
