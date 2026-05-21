@@ -1,5 +1,4 @@
 import type { AnyObject } from "@pawover/types";
-
 import { ArrayUtil } from "../array";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeFilterCallback, TreeFilterInnerOption } from "./index.type";

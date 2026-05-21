@@ -1,13 +1,12 @@
 // @ts-nocheck
 import { defineConfig } from "eslint/config";
 
-import eslintTs from "typescript-eslint";
+import eslintPluginReact from "@eslint-react/eslint-plugin";
 import eslintPluginStylistic from "@stylistic/eslint-plugin";
 import eslintPluginAntfu from "eslint-plugin-antfu";
 import eslintPluginImports from "eslint-plugin-import-lite";
-import eslintPluginImportsSort from "eslint-plugin-simple-import-sort";
-import eslintPluginReact from "@eslint-react/eslint-plugin";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintTs from "typescript-eslint";
 
 import eslintRules from "@pawover/eslint-rules";
 
@@ -23,7 +22,6 @@ const plugins = {
   },
   imports: {
     imports: eslintPluginImports.configs.all.plugins["import-lite"],
-    importsSort: eslintPluginImportsSort,
   },
   react: {
     "react": eslintPluginReact,
@@ -62,7 +60,6 @@ export default defineConfig([
       ...eslintRules.stylistic,
       ...eslintRules.antfu,
       ...eslintRules.imports,
-      ...eslintRules.importsSort,
       ...eslintRules.react,
       ...eslintRules.reactHooks,
       "antfu/no-import-dist": 0,

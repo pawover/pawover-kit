@@ -1,6 +1,5 @@
 import type { AnyObject, PlainObject } from "@pawover/types";
 import type { Except, Split, UnionToTuple, ValueOf } from "type-fest";
-
 import { TypeUtil } from "../type";
 import type { Crush, Invert, Range, TupleToEntries, TupleToGroups } from "./index.type";
 

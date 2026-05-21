@@ -1,6 +1,5 @@
 import type { AnyAsyncFunction, AnyAsyncGeneratorFunction, AnyFunction, AnyGeneratorFunction, AnyObject, PlainObject } from "@pawover/types";
 import type { TypedArray } from "type-fest";
-
 import type { Class } from "./index.type";
 
 /**

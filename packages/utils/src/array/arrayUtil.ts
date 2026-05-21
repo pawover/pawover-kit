@@ -1,5 +1,4 @@
 import type { PlainObject } from "@pawover/types";
-
 import { TypeUtil } from "../type";
 import type { MatchFunction } from "./index.type";
 

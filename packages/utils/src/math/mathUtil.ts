@@ -1,5 +1,4 @@
 import type { BigNumber, MathExpression, MathJsInstance, Matrix } from "mathjs";
-
 import { StringUtil } from "../string";
 import { TypeUtil } from "../type";
 

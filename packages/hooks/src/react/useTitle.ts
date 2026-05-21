@@ -1,6 +1,5 @@
 import { EnvUtil, TypeUtil } from "@pawover/kit-utils";
 import { useEffect, useRef } from "react";
-
 import { useUnmount } from "./useUnmount";
 
 interface TitleHookOptions {

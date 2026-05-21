@@ -1,5 +1,4 @@
 import fse from "fs-extra";
-
 import * as moduleAlova from "../dist/alova.js";
 import * as moduleReact from "../dist/react.js";
 

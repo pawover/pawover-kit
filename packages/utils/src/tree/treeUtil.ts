@@ -1,6 +1,5 @@
 import type { AnyObject, TreeLike } from "@pawover/types";
 import type { SetOptional } from "type-fest";
-
 import { TypeUtil } from "../type";
 import { treeFilterStrategies } from "./filter";
 import { treeFindStrategies } from "./find";

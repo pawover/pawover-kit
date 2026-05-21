@@ -1,5 +1,4 @@
 import type { AnyObject } from "@pawover/types";
-
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeForeachCallback, TreeForeachInnerOption } from "./index.type";
 import { getFinalChildrenKey } from "./utils";

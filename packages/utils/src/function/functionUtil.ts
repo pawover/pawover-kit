@@ -1,6 +1,5 @@
 import type { PlainObject } from "@pawover/types";
 import type { LiteralUnion } from "type-fest";
-
 import { TypeUtil } from "../type";
 
 /**

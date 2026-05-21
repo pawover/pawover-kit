@@ -1,7 +1,6 @@
 import { TypeUtil } from "@pawover/kit-utils";
 import type { AnyAsyncFunction } from "@pawover/types";
 import { type EffectCallback, useEffect, useRef } from "react";
-
 import { useLatest } from "./useLatest";
 
 /**

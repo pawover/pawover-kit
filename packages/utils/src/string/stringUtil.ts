@@ -1,6 +1,5 @@
 import type { AnyObject, PlainObject } from "@pawover/types";
 import type { Replace } from "type-fest";
-
 import { TypeUtil } from "../type";
 
 /**
