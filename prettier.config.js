@@ -5,7 +5,8 @@ export default {
   quoteProps: "consistent",
   overrides: [
     { files: "*.html", options: { singleAttributePerLine: false } },
-    { files: "*.json", options: { objectWrap: "preserve" } },
+    { files: "*.json", options: { parser: "json", trailingComma: "none" } },
+    { files: ["*.jsonc"], options: { parser: "json", trailingComma: "none" } },
     { files: "*.type.ts", options: { printWidth: 240 } },
     { files: "*.test.ts", options: { printWidth: 240 } },
   ],

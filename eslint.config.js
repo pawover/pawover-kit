@@ -31,7 +31,7 @@ const plugins = {
 
 export default defineConfig([
   {
-    ignores: [...eslintRules.GLOB_EXCLUDE, "eslint.config.js", "**/.cache"],
+    ignores: [...eslintRules.GLOB_EXCLUDE, "**/.cache"],
   },
   {
     files: ["**/*.{js,cjs,mjs,jsx,ts,tsx}"],
@@ -76,6 +76,7 @@ export default defineConfig([
         ...eslintRules.reactHooks,
       }).reduce((acc, key) => {
         acc[key] = 0;
+
         return acc;
       }, {}),
     },
