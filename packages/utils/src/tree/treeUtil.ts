@@ -163,8 +163,12 @@ export class TreeUtil {
    * @example
    * ```ts
    * const tree = [{ id: 1, visible: true, children: [{ id: 2, visible: false }] }];
-   * TreeUtil.filter(tree, (node) => node.visible);
-   * // [{ id: 1, visible: true, children: [] }]
+   *
+   * // 重载 1: 传入树数组
+   * TreeUtil.filter(tree, (node) => node.visible); // [{ id: 1, visible: true, children: [] }]
+   *
+   * // 重载 2: 传入单个树节点
+   * TreeUtil.filter(tree[0], (node) => node.visible); // { id: 1, visible: true, children: [] }
    * ```
    */
   static filter<T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
@@ -188,8 +192,14 @@ export class TreeUtil {
    * @example
    * ```ts
    * const tree = [{ id: 1, val: 10, children: [{ id: 2, val: 20 }] }];
+   *
+   * // 重载 1: 传入树数组
    * TreeUtil.map(tree, (node) => ({ ...node, val: node.val * 2 }));
    * // [{ id: 1, val: 20, children: [{ id: 2, val: 40 }] }]
+   *
+   * // 重载 2: 传入单个树节点
+   * TreeUtil.map(tree[0], (node) => ({ ...node, val: node.val * 2 }));
+   * // { id: 1, val: 20, children: [{ id: 2, val: 40 }] }
    * ```
    */
   static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey>(tree: T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];

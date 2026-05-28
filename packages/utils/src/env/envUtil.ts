@@ -8,20 +8,53 @@ export class EnvUtil {
   private static readonly _isWebWorker = typeof window === "undefined" && typeof self !== "undefined" && "importScripts" in self;
   private static readonly _isReactNative = typeof navigator !== "undefined" && navigator.product === "ReactNative";
 
+  /**
+   * 检测是否处于浏览器环境
+   *
+   * @returns 是否为浏览器环境
+   * @example
+   * ```ts
+   * EnvUtil.isBrowser(); // true: 浏览器, false: Node.js
+   * ```
+   */
   static isBrowser (): boolean {
     return this._isBrowser;
   }
 
+  /**
+   * 检测是否处于 Web Worker 环境
+   *
+   * @returns 是否为 Web Worker 环境
+   * @example
+   * ```ts
+   * EnvUtil.isWebWorker(); // true: Worker, false: 主线程/Node.js
+   * ```
+   */
   static isWebWorker (): boolean {
     return this._isWebWorker;
   }
 
+  /**
+   * 检测是否处于 React Native 环境
+   *
+   * @returns 是否为 React Native 环境
+   * @example
+   * ```ts
+   * EnvUtil.isReactNative(); // true: React Native, false: Web/Node.js
+   * ```
+   */
   static isReactNative (): boolean {
     return this._isReactNative;
   }
 
   /**
    * 检查是否在 iframe 环境中
+   *
+   * @returns 是否在 iframe 中
+   * @example
+   * ```ts
+   * EnvUtil.isIframe(); // true: 当前页面在 iframe 中
+   * ```
    */
   static isIframe (): boolean {
     if (typeof window === "undefined") {

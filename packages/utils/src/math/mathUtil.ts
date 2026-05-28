@@ -45,7 +45,11 @@ export class MathUtil {
    * @returns 格式化后的字符串或 BigNumber
    * @example
    * ```ts
+   * // 重载 1: isFormat = true (默认)
    * MathUtil.toDecimal(math, 0.12345, 2); // "0.12"
+   *
+   * // 重载 2: isFormat = false
+   * MathUtil.toDecimal(math, 0.12345, 2, false); // BigNumber(0.12345)
    * ```
    */
   static toDecimal (mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat?: true | undefined,): string;

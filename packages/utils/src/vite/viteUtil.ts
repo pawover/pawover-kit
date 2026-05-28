@@ -8,6 +8,19 @@ export class ViteUtil {
    * 开发服务器反向代理配置
    *
    * @param proxyList 代理配置项
+   * @param options 追加到每个代理项的 Vite `ProxyOptions`
+   * @returns Vite `server.proxy` 可直接使用的配置对象
+   * @example
+   * ```ts
+   * ViteUtil.toProxy([
+   *   ["/api", "http://localhost:3000"],
+   *   ["/mock", "https://example.com"],
+   * ]);
+   * // {
+   * //   "/api": { target: "http://localhost:3000", changeOrigin: true, ws: true, rewrite: [Function] },
+   * //   "/mock": { target: "https://example.com", changeOrigin: true, ws: true, secure: false, rewrite: [Function] }
+   * // }
+   * ```
    */
   static toProxy<L extends [string, string][]>(proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
     const httpsRE = /^https:\/\//;

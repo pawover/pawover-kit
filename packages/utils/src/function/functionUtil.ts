@@ -63,6 +63,7 @@ export class FunctionUtil {
    * @throws TypeError 如果 args 为 null 或 undefined
    *
    * @example
+   * ```ts
    * // 遗留代码场景
    * function legacyFn(a: number, b: string) {
    *   const argsArray = FunctionUtil.toArgs(arguments);
@@ -79,6 +80,7 @@ export class FunctionUtil {
    *   const rest = FunctionUtil.toArgs(arguments, 1);
    *   // rest: unknown[]，跳过第一个参数
    * }
+   * ```
    */
   static toArgs<T = unknown>(args: IArguments, start?: number | undefined): T[] {
     if (args === null) {
@@ -98,6 +100,7 @@ export class FunctionUtil {
    * @returns 标准化的 Promise
    *
    * @example
+   * ```ts
    * // 同步函数
    * FunctionUtil.toPromise(() => 42).then(v => console.log(v)); // 42
    *
@@ -106,6 +109,7 @@ export class FunctionUtil {
    *
    * // 异常处理
    * FunctionUtil.toPromise(() => { throw new Error('fail'); }).catch(err => console.error(err)); // 捕获同步异常
+   * ```
    */
   static toPromise<T>(fn: () => T | Promise<T>): Promise<T> {
     try {

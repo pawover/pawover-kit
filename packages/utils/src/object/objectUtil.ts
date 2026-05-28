@@ -15,7 +15,18 @@ export class ObjectUtil {
    * @returns 键数组
    * @example
    * ```ts
+   * // 重载 1: string
+   * ObjectUtil.keys("abc"); // ["0", "1", "2"]
+   *
+   * // 重载 2: ArrayLike
+   * ObjectUtil.keys([10, 20]); // ["0", "1"]
+   *
+   * // 重载 3: PlainObject
    * ObjectUtil.keys({ a: 1, b: 2 }); // ["a", "b"]
+   *
+   * // 重载 4: AnyObject
+   * const anyObj = { x: 1, y: 2 } as Record<string, unknown>;
+   * ObjectUtil.keys(anyObj); // ["x", "y"]
    * ```
    */
   static keys<const S extends string>(string: S): UnionToTuple<Range<0, Split<S, "">["length"]>>;
@@ -33,7 +44,18 @@ export class ObjectUtil {
    * @returns 值数组
    * @example
    * ```ts
+   * // 重载 1: string
+   * ObjectUtil.values("abc"); // ["a", "b", "c"]
+   *
+   * // 重载 2: ArrayLike
+   * ObjectUtil.values([10, 20]); // [10, 20]
+   *
+   * // 重载 3: PlainObject
    * ObjectUtil.values({ a: 1, b: 2 }); // [1, 2]
+   *
+   * // 重载 4: AnyObject
+   * const anyObj = { x: 1, y: 2 } as Record<string, unknown>;
+   * ObjectUtil.values(anyObj); // [1, 2]
    * ```
    */
   static values<S extends string>(string: S): Split<S, "">;
@@ -51,7 +73,18 @@ export class ObjectUtil {
    * @returns 键值对数组
    * @example
    * ```ts
+   * // 重载 1: string
+   * ObjectUtil.entries("ab"); // [["0", "a"], ["1", "b"]]
+   *
+   * // 重载 2: readonly array
+   * ObjectUtil.entries([10, 20] as const); // [["0", 10], ["1", 20]]
+   *
+   * // 重载 3: PlainObject
    * ObjectUtil.entries({ a: 1 }); // [["a", 1]]
+   *
+   * // 重载 4: AnyObject
+   * const anyObj = { x: 1 } as Record<string, unknown>;
+   * ObjectUtil.entries(anyObj); // [["x", 1]]
    * ```
    */
   static entries<const S extends string>(string: S): TupleToEntries<Split<S, "">>;
@@ -72,7 +105,10 @@ export class ObjectUtil {
    * @example
    * ```ts
    * const obj = { a: 1, b: 2 };
+   *
    * ObjectUtil.entriesMap(obj, (k, v) => [k, v * 2]); // { a: 2, b: 4 }
+   *
+   * ObjectUtil.entriesMap(obj, (k, v) => [`prefix_${String(k)}`, `${v}x`]); // { prefix_a: "1x", prefix_b: "2x" }
    * ```
    */
   static entriesMap<O extends PlainObject, NK extends PropertyKey, NV>(plainObject: O, toEntry: (key: keyof O, value: O[keyof O]) => [NK, NV]): PlainObject<NK, NV> {
@@ -98,7 +134,12 @@ export class ObjectUtil {
    * @returns 包含指定属性的新对象
    * @example
    * ```ts
+   * // 重载 1: PlainObject
    * ObjectUtil.pick({ a: 1, b: 2 }, ["a"]); // { a: 1 }
+   *
+   * // 重载 2: AnyObject
+   * const anyObj = { x: 1, y: 2 } as Record<string, unknown>;
+   * ObjectUtil.pick(anyObj, ["x"]); // { x: 1 }
    * ```
    */
   static pick<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Pick<O, K>;
@@ -130,7 +171,12 @@ export class ObjectUtil {
    * @returns 排除指定属性后的新对象
    * @example
    * ```ts
+   * // 重载 1: PlainObject
    * ObjectUtil.omit({ a: 1, b: 2 }, ["a"]); // { b: 2 }
+   *
+   * // 重载 2: AnyObject
+   * const anyObj = { x: 1, y: 2 } as Record<string, unknown>;
+   * ObjectUtil.omit(anyObj, ["x"]); // { y: 2 }
    * ```
    */
   static omit<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Omit<O, K>;
@@ -163,8 +209,13 @@ export class ObjectUtil {
    * @returns 键值互换后的对象
    * @example
    * ```ts
+   * // 重载 1: Record<keyof O, PropertyKey>
    * const obj = { a: "1", b: 2 };
    * ObjectUtil.invert(obj); // { "1": "a", 2: "b" }
+   *
+   * // 重载 2: AnyObject
+   * const anyObj = { x: Symbol.for("s"), y: true } as Record<string, unknown>;
+   * ObjectUtil.invert(anyObj); // { [Symbol.for("s")]: "x" }
    * ```
    */
   static invert<const O extends Record<keyof O, PropertyKey>>(plainObject: O): Invert<O>;
@@ -193,8 +244,13 @@ export class ObjectUtil {
    * @returns 压平后的对象
    * @example
    * ```ts
-   * const obj = { a: { b: 1 } };
-   * ObjectUtil.crush(obj); // { "a.b": 1 }
+   * // 重载 1: PlainObject
+   * const plainObj = { a: { b: 1 } };
+   * ObjectUtil.crush(plainObj); // { "a.b": 1 }
+   *
+   * // 重载 2: AnyObject
+   * const anyObj = { list: [{ id: 1 }] } as Record<string, unknown>;
+   * ObjectUtil.crush(anyObj); // { "list.0.id": 1 }
    * ```
    */
   static crush<T extends PlainObject>(plainObject: T): Crush<T>;
@@ -226,8 +282,14 @@ export class ObjectUtil {
    * @returns 键数组
    * @example
    * ```ts
-   * enum A { k = "v" }
-   * ObjectUtil.enumKeys(A); // ["k"]
+   * // 重载 1: PlainObject
+   * enum StringEnum { A = "a", B = "b" }
+   * ObjectUtil.enumKeys(StringEnum); // ["A", "B"]
+   *
+   * // 重载 2: AnyObject
+   * enum NumberEnum { A, B }
+   * const anyEnum = NumberEnum as Record<string, unknown>;
+   * ObjectUtil.enumKeys(anyEnum); // ["A", "B"]
    * ```
    */
   static enumKeys<E extends PlainObject>(enumeration: E): (keyof E)[];
@@ -255,8 +317,14 @@ export class ObjectUtil {
    * @returns 值数组
    * @example
    * ```ts
-   * enum A { k = "v" }
-   * ObjectUtil.enumValues(A); // ["v"]
+   * // 重载 1: PlainObject
+   * enum StringEnum { A = "a", B = "b" }
+   * ObjectUtil.enumValues(StringEnum); // ["a", "b"]
+   *
+   * // 重载 2: AnyObject
+   * enum NumberEnum { A, B }
+   * const anyEnum = NumberEnum as Record<string, unknown>;
+   * ObjectUtil.enumValues(anyEnum); // [0, 1]
    * ```
    */
   static enumValues<E extends PlainObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
@@ -284,8 +352,14 @@ export class ObjectUtil {
    * @returns 键值对数组
    * @example
    * ```ts
-   * enum A { k = "v" }
-   * ObjectUtil.enumEntries(A); // [["k", "v"]]
+   * // 重载 1: PlainObject
+   * enum StringEnum { A = "a", B = "b" }
+   * ObjectUtil.enumEntries(StringEnum); // [["A", "a"], ["B", "b"]]
+   *
+   * // 重载 2: AnyObject
+   * enum NumberEnum { A, B }
+   * const anyEnum = NumberEnum as Record<string, unknown>;
+   * ObjectUtil.enumEntries(anyEnum); // [["A", 0], ["B", 1]]
    * ```
    */
   static enumEntries<E extends PlainObject>(enumeration: E): [keyof E, E[keyof E]][];

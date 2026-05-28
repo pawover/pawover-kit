@@ -13,11 +13,16 @@ export class ArrayUtil {
    * @returns 构造后的数组
    * @example
    * ```ts
+   * // 重载 1: checkEmpty = true (默认)
    * ArrayUtil.cast(1); // [1]
-   * ArrayUtil.cast([1, 2]); // [1, 2]
    * ArrayUtil.cast(null); // []
-   * ArrayUtil.cast(undefined); // []
+   *
+   * // 重载 2: checkEmpty = false
    * ArrayUtil.cast(null, false); // [null]
+   *
+   * // 通用场景
+   * ArrayUtil.cast([1, 2]); // [1, 2]
+   * ArrayUtil.cast(undefined); // []
    * ```
    */
   static cast<T>(candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
@@ -38,7 +43,11 @@ export class ArrayUtil {
    * @returns 数组第一项，如果为空则返回回退值
    * @example
    * ```ts
+   * // 重载 1: 无 fallback
    * ArrayUtil.first([1, 2]); // 1
+   * ArrayUtil.first([]); // undefined
+   *
+   * // 重载 2: 有 fallback
    * ArrayUtil.first([], 0); // 0
    * ```
    */
@@ -60,7 +69,11 @@ export class ArrayUtil {
    * @returns 数组最后一项，如果为空则返回回退值
    * @example
    * ```ts
+   * // 重载 1: 无 fallback
    * ArrayUtil.last([1, 2, 3]); // 3
+   * ArrayUtil.last([]); // undefined
+   *
+   * // 重载 2: 有 fallback
    * ArrayUtil.last([], 0); // 0
    * ```
    */
@@ -174,7 +187,10 @@ export class ArrayUtil {
    * @returns 交集数组
    * @example
    * ```ts
+   * // 重载 1: 按元素本身比较
    * ArrayUtil.intersection([1, 2], [2, 3]); // [2]
+   *
+   * // 重载 2: 按 match 结果比较
    * ArrayUtil.intersection([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 2 }]
    * ```
    */
@@ -210,11 +226,11 @@ export class ArrayUtil {
    * @returns 合并后的数组
    * @example
    * ```ts
-   * // 基础合并去重
+   * // 重载 1: 基础合并去重
    * ArrayUtil.merge([1, 2], [2, 3]); // [1, 2, 3]
    * ArrayUtil.merge([], [1, 2, 3]); // [1, 2, 3]
    *
-   * // 按条件更新
+   * // 重载 2: 按条件更新
    * const source = [{ id: 1, val: "a" }, { id: 2, val: "b" }];
    * const update = [{ id: 2, val: "new" }, { id: 3, val: "c" }];
    * ArrayUtil.merge(source, update, (x) => x.id); // [{ id: 1, val: "a" }, { id: 2, val: "new" }] -> id:3 被忽略
@@ -256,7 +272,11 @@ export class ArrayUtil {
    * @example
    * ```ts
    * const list = [1, 2, 3, 4];
+   *
+   * // 重载 1: 仅过滤
    * ArrayUtil.pick(list, (n) => n % 2 === 0); // [2, 4]
+   *
+   * // 重载 2: 过滤 + 映射
    * ArrayUtil.pick(list, (n) => n % 2 === 0, (n) => n * 2); // [4, 8]
    * ```
    */
@@ -297,7 +317,11 @@ export class ArrayUtil {
    * @returns 替换后的新数组
    * @example
    * ```ts
+   * // 重载 1/2: newItem 与数组元素类型兼容
    * ArrayUtil.replace([1, 2, 3], 4, (n) => n === 2); // [1, 4, 3]
+   *
+   * // 重载 3: newItem 可扩展为新类型
+   * ArrayUtil.replace([1, 2, 3], "X", (n) => n === 2); // [1, "X", 3]
    * ```
    */
   static replace<const T>(initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>): T[];
@@ -456,7 +480,20 @@ export class ArrayUtil {
    * @returns 压缩后的元组数组
    * @example
    * ```ts
+   * // 重载 1: 两个数组
    * ArrayUtil.zip([1, 2], ["a", "b"]); // [[1, "a"], [2, "b"]]
+   *
+   * // 重载 2: 三个数组
+   * ArrayUtil.zip([1, 2], ["a", "b"], [true, false]); // [[1, "a", true], [2, "b", false]]
+   *
+   * // 重载 3: 四个数组
+   * ArrayUtil.zip([1], ["a"], [true], ["x"]); // [[1, "a", true, "x"]]
+   *
+   * // 重载 4: 五个数组
+   * ArrayUtil.zip([1], ["a"], [true], ["x"], [9]); // [[1, "a", true, "x", 9]]
+   *
+   * // 重载 5: 空参数
+   * ArrayUtil.zip(); // []
    * ```
    */
   static zip<T1, T2, T3, T4, T5>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
@@ -477,8 +514,13 @@ export class ArrayUtil {
    * @returns 生成的对象
    * @example
    * ```ts
+   * // 重载 1: 传值数组
    * ArrayUtil.zipToObject(["a", "b"], [1, 2]); // { a: 1, b: 2 }
+   *
+   * // 重载 2: 传生成函数
    * ArrayUtil.zipToObject(["a", "b"], (k, i) => k + i); // { a: "a0", b: "b1" }
+   *
+   * // 重载 3: 传静态值
    * ArrayUtil.zipToObject(["a", "b"], 1); // { a: 1, b: 1 }
    * ```
    */

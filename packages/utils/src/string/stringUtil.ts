@@ -79,7 +79,10 @@ export class StringUtil {
    * @returns 转换后的小写字符串类型，如果输入无效则返回空字符串类型 ""
    * @example
    * ```ts
+   * // 重载 1: 输入 string
    * StringUtil.toLowerCase("HELLO"); // "hello"
+   *
+   * // 重载 2: 输入 unknown
    * StringUtil.toLowerCase(null); // ""
    * ```
    */
@@ -102,7 +105,10 @@ export class StringUtil {
    * @returns 转换后的大写字符串，如果输入无效则返回空字符串
    * @example
    * ```ts
+   * // 重载 1: 输入 string
    * StringUtil.toUpperCase("hello"); // "HELLO"
+   *
+   * // 重载 2: 输入 unknown
    * StringUtil.toUpperCase(null); // ""
    * ```
    */
@@ -212,8 +218,12 @@ export class StringUtil {
    * @returns 解析后的对象 或 回退值
    * @example
    * ```ts
-   * StringUtil.toJson('{"a": 1}', {}); // { a: 1 }
-   * StringUtil.toJson('invalid', {}); // {}
+   * // 重载 1: 无 fallback
+   * StringUtil.toJson<{ a: number }>("{\"a\":1}"); // { a: 1 }
+   * StringUtil.toJson("invalid"); // undefined
+   *
+   * // 重载 2: 有 fallback
+   * StringUtil.toJson<{ a: number }>("invalid", { a: 0 }); // { a: 0 }
    * ```
    */
   static toJson<D extends AnyObject = AnyObject>(input: string | null | undefined): D | undefined;
@@ -242,7 +252,10 @@ export class StringUtil {
    * @returns 分割后的数组
    * @example
    * ```ts
+   * // 重载 1: valueType = "number" (默认)
    * StringUtil.toValues("1,2,3"); // [1, 2, 3]
+   *
+   * // 重载 2: valueType = "string"
    * StringUtil.toValues("a-b-c", "string", "-"); // ["a", "b", "c"]
    * ```
    */

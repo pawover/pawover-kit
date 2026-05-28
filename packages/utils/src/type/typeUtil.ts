@@ -100,9 +100,10 @@ export class TypeUtil {
 
   /**
    * 检查 value 是否为 number 类型
+   * - 默认会调用 `TypeUtil.isNaN`（内部基于 `Number.isNaN`）过滤掉 `NaN`
    *
    * @param value 待检查值
-   * @param checkNaN 是否排除 `NaN`，默认为 `true`
+   * @param checkNaN 是否过滤 `NaN`，默认为 `true`
    * @returns 是否为 number
    * @example
    * ```ts
@@ -117,9 +118,15 @@ export class TypeUtil {
 
   /**
    * 检查 value 是否为 NaN
+   * - 禁止使用全局 `isNaN`，其会先进行隐式数字转换，可能导致误判（例如 `isNaN("foo") === true`）
+   * - 使用 `Number.isNaN` 仅在值本身就是 `NaN` 时返回 `true`，语义更严格且更安全
    *
    * @param value 待检查值
    * @returns 是否为 NaN
+   * @example
+   * ```ts
+   * TypeUtil.isNaN(NaN); // true
+   * ```
    */
   static isNaN (value: unknown): value is number {
     return Number.isNaN(value);
@@ -131,6 +138,11 @@ export class TypeUtil {
    * @param value 待检查值
    * @param checkSafe 是否附加安全整数检查
    * @returns 是否为整数
+   * @example
+   * ```ts
+   * TypeUtil.isInteger(1); // true
+   * TypeUtil.isInteger(1.1); // false
+   * ```
    */
   static isInteger (value: unknown, checkSafe = true): value is number {
     const check = Number.isInteger(value);
@@ -144,6 +156,11 @@ export class TypeUtil {
    *
    * @param value 待检查值
    * @param checkSafe 是否附加安全整数检查
+   * @example
+   * ```ts
+   * TypeUtil.isPositiveInteger(1); // true
+   * TypeUtil.isPositiveInteger(0); // false
+   * ```
    */
   static isPositiveInteger (value: unknown, checkSafe = true): value is number {
     return this.isInteger(value, checkSafe) && value > 0;
@@ -155,6 +172,11 @@ export class TypeUtil {
    *
    * @param value 待检查值
    * @param checkSafe 是否附加安全整数检查
+   * @example
+   * ```ts
+   * TypeUtil.isNegativeInteger(-1); // true
+   * TypeUtil.isNegativeInteger(0); // false
+   * ```
    */
   static isNegativeInteger (value: unknown, checkSafe = true): value is number {
     return this.isInteger(value, checkSafe) && value < 0;
@@ -165,6 +187,11 @@ export class TypeUtil {
    * - 排除 `NaN`
    *
    * @param value 待检查值
+   * @example
+   * ```ts
+   * TypeUtil.isInfinity(Infinity); // true
+   * TypeUtil.isInfinity(1); // false
+   * ```
    */
   static isInfinity (value: unknown): value is number {
     return this.isNumber(value) && (Number.POSITIVE_INFINITY === value || Number.NEGATIVE_INFINITY === value);
@@ -175,6 +202,11 @@ export class TypeUtil {
    * - 排除 `NaN`
    *
    * @param value 待检查值
+   * @example
+   * ```ts
+   * TypeUtil.isInfinityLike("Infinity"); // true
+   * TypeUtil.isInfinityLike("123"); // false
+   * ```
    */
   static isInfinityLike (value: unknown): boolean {
     const check = this.isInfinity(value);
@@ -194,6 +226,10 @@ export class TypeUtil {
    * 检查 value 是否为 Boolean
    * @param value 待检查值
    * @returns 是否为 Boolean
+   * @example
+   * ```ts
+   * TypeUtil.isBoolean(false); // true
+   * ```
    */
   static isBoolean (value: unknown): value is boolean {
     return typeof value === "boolean";
@@ -203,6 +239,10 @@ export class TypeUtil {
    * 检查 value 是否为 BigInt
    * @param value 待检查值
    * @returns 是否为 BigInt
+   * @example
+   * ```ts
+   * TypeUtil.isBigInt(1n); // true
+   * ```
    */
   static isBigInt (value: unknown): value is bigint {
     return typeof value === "bigint";
@@ -212,6 +252,10 @@ export class TypeUtil {
    * 检查 value 是否为 Symbol
    * @param value 待检查值
    * @returns 是否为 Symbol
+   * @example
+   * ```ts
+   * TypeUtil.isSymbol(Symbol("a")); // true
+   * ```
    */
   static isSymbol (value: unknown): value is symbol {
     return typeof value === "symbol";
@@ -221,6 +265,10 @@ export class TypeUtil {
    * 检查 value 是否为 undefined
    * @param value 待检查值
    * @returns 是否为 undefined
+   * @example
+   * ```ts
+   * TypeUtil.isUndefined(undefined); // true
+   * ```
    */
   static isUndefined (value: unknown): value is undefined {
     return typeof value === "undefined";
@@ -230,6 +278,10 @@ export class TypeUtil {
    * 检查 value 是否为 null
    * @param value 待检查值
    * @returns 是否为 null
+   * @example
+   * ```ts
+   * TypeUtil.isNull(null); // true
+   * ```
    */
   static isNull (value: unknown): value is null {
     return value === null;
@@ -239,6 +291,10 @@ export class TypeUtil {
    * 检查 value 是否为 Function
    * @param value 待检查值
    * @returns 是否为 Function
+   * @example
+   * ```ts
+   * TypeUtil.isFunction(() => {}); // true
+   * ```
    */
   static isFunction (value: unknown): value is AnyFunction {
     return typeof value === "function";
@@ -248,6 +304,10 @@ export class TypeUtil {
    * 检查 value 是否为 AsyncFunction
    * @param value 待检查值
    * @returns 是否为 AsyncFunction
+   * @example
+   * ```ts
+   * TypeUtil.isAsyncFunction(async () => {}); // true
+   * ```
    */
   static isAsyncFunction (value: unknown): value is AnyAsyncFunction {
     return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ASYNC_FUNCTION;
@@ -257,6 +317,10 @@ export class TypeUtil {
    * 检查 value 是否为 GeneratorFunction
    * @param value 待检查值
    * @returns 是否为 GeneratorFunction
+   * @example
+   * ```ts
+   * TypeUtil.isGeneratorFunction(function * a () {}); // true
+   * ```
    */
   static isGeneratorFunction (value: unknown): value is AnyGeneratorFunction {
     return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.GENERATOR_FUNCTION;
@@ -266,6 +330,10 @@ export class TypeUtil {
    * 检查 value 是否为 AsyncGeneratorFunction
    * @param value 待检查值
    * @returns 是否为 AsyncGeneratorFunction
+   * @example
+   * ```ts
+   * TypeUtil.isAsyncGeneratorFunction(async function * a () {}); // true
+   * ```
    */
   static isAsyncGeneratorFunction (value: unknown): value is AnyAsyncGeneratorFunction {
     return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ASYNC_GENERATOR_FUNCTION;
@@ -275,6 +343,10 @@ export class TypeUtil {
    * 检查 value 是否为 Promise
    * @param value 待检查值
    * @returns 是否为 Promise
+   * @example
+   * ```ts
+   * TypeUtil.isPromise(Promise.resolve(1)); // true
+   * ```
    */
   static isPromise (value: unknown): value is Promise<unknown> {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.PROMISE;
@@ -285,6 +357,10 @@ export class TypeUtil {
    * - 可识别拥有 then 方法的非 Promise 对象
    * @param value 待检查值
    * @returns 是否为 PromiseLike
+   * @example
+   * ```ts
+   * TypeUtil.isPromiseLike({ then: () => {} }); // true
+   * ```
    */
   static isPromiseLike (value: unknown): value is PromiseLike<unknown> {
     return this.isPromise(value) || (this.isObject(value, false) && this.isFunction(value["then"]));
@@ -323,6 +399,11 @@ export class TypeUtil {
    *
    * @param enumeration 待检查值
    * @returns [是否为有效的枚举, 是否为双向枚举]
+   * @example
+   * ```ts
+   * enum A { X, Y }
+   * TypeUtil.isEnumeration(A); // [true, true]
+   * ```
    */
   static isEnumeration (enumeration: PlainObject): [boolean, boolean] {
     if (typeof enumeration !== "object" || enumeration === null) {
@@ -470,6 +551,10 @@ export class TypeUtil {
    * 检查 value 是否为 Map
    * @param value 待检查值
    * @returns 是否为 Map
+   * @example
+   * ```ts
+   * TypeUtil.isMap(new Map()); // true
+   * ```
    */
   static isMap (value: unknown): value is Map<unknown, unknown> {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.MAP;
@@ -479,6 +564,10 @@ export class TypeUtil {
    * 检查 value 是否为 WeakMap
    * @param value 待检查值
    * @returns 是否为 WeakMap
+   * @example
+   * ```ts
+   * TypeUtil.isWeakMap(new WeakMap()); // true
+   * ```
    */
   static isWeakMap (value: unknown): value is WeakMap<AnyObject, unknown> {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEAK_MAP;
@@ -488,6 +577,10 @@ export class TypeUtil {
    * 检查 value 是否为 Set
    * @param value 待检查值
    * @returns 是否为 Set
+   * @example
+   * ```ts
+   * TypeUtil.isSet(new Set()); // true
+   * ```
    */
   static isSet (value: unknown): value is Set<unknown> {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.SET;
@@ -497,6 +590,10 @@ export class TypeUtil {
    * 检查 value 是否为 WeakSet
    * @param value 待检查值
    * @returns 是否为 WeakSet
+   * @example
+   * ```ts
+   * TypeUtil.isWeakSet(new WeakSet()); // true
+   * ```
    */
   static isWeakSet (value: unknown): value is WeakSet<AnyObject> {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEAK_SET;
@@ -506,6 +603,10 @@ export class TypeUtil {
    * 检查 value 是否为 Blob
    * @param value 待检查值
    * @returns 是否为 Blob
+   * @example
+   * ```ts
+   * TypeUtil.isBlob(new Blob(["a"])); // true
+   * ```
    */
   static isBlob (value: unknown): value is Blob {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.BLOB;
@@ -515,6 +616,10 @@ export class TypeUtil {
    * 检查 value 是否为 File
    * @param value 待检查值
    * @returns 是否为 File
+   * @example
+   * ```ts
+   * TypeUtil.isFile(new File(["a"], "a.txt")); // true
+   * ```
    */
   static isFile (value: unknown): value is File {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.FILE;
@@ -529,6 +634,10 @@ export class TypeUtil {
    *
    * @param value 待检查值
    * @returns 是否为 ReadableStream
+   * @example
+   * ```ts
+   * TypeUtil.isReadableStream(new ReadableStream()); // true
+   * ```
    */
   static isReadableStream (value: unknown): value is ReadableStream {
     if (this.getPrototypeString(value) === this.PROTOTYPE_TAGS.READABLE_STREAM) {
@@ -542,6 +651,10 @@ export class TypeUtil {
    * 检查 value 是否为 Window
    * @param value 待检查值
    * @returns 是否为 Window
+   * @example
+   * ```ts
+   * TypeUtil.isWindow(window); // true
+   * ```
    */
   static isWindow (value: unknown): value is Window {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WINDOW;
@@ -551,6 +664,10 @@ export class TypeUtil {
    * 检查 value 是否为 HTMLIFrameElement
    * @param value 待检查值
    * @returns 是否为 HTMLIFrameElement
+   * @example
+   * ```ts
+   * TypeUtil.isIframe(document.createElement("iframe")); // true
+   * ```
    */
   static isIframe (value: unknown): value is HTMLIFrameElement {
     if (typeof window === "undefined") {
@@ -605,6 +722,10 @@ export class TypeUtil {
    * 检查 value 是否为 Error 对象
    * @param value 待检查值
    * @returns 是否为 Error
+   * @example
+   * ```ts
+   * TypeUtil.isError(new Error("x")); // true
+   * ```
    */
   static isError (value: unknown): value is Error {
     return value instanceof Error || this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ERROR;
@@ -614,6 +735,10 @@ export class TypeUtil {
    * 检查 value 是否为 RegExp
    * @param value 待检查值
    * @returns 是否为 RegExp
+   * @example
+   * ```ts
+   * TypeUtil.isRegExp(/a/); // true
+   * ```
    */
   static isRegExp (value: unknown): value is RegExp {
     if (typeof value !== "object" || value === null) {
@@ -633,6 +758,10 @@ export class TypeUtil {
    * 检查 value 是否为 WebSocket
    * @param value 待检查值
    * @returns 是否为 WebSocket
+   * @example
+   * ```ts
+   * TypeUtil.isWebSocket(new WebSocket("wss://echo.websocket.events")); // true
+   * ```
    */
   static isWebSocket (value: unknown): value is WebSocket {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEB_SOCKET;
@@ -642,6 +771,10 @@ export class TypeUtil {
    * 检查 value 是否为 URLSearchParams
    * @param value 待检查值
    * @returns 是否为 URLSearchParams
+   * @example
+   * ```ts
+   * TypeUtil.isURLSearchParams(new URLSearchParams("a=1")); // true
+   * ```
    */
   static isURLSearchParams (value: unknown): value is URLSearchParams {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.URL_SEARCH_PARAMS;
@@ -651,6 +784,10 @@ export class TypeUtil {
    * 检查 value 是否为 AbortSignal
    * @param value 待检查值
    * @returns 是否为 AbortSignal
+   * @example
+   * ```ts
+   * TypeUtil.isAbortSignal(new AbortController().signal); // true
+   * ```
    */
   static isAbortSignal (value: unknown): value is AbortSignal {
     return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ABORT_SIGNAL;
@@ -660,6 +797,10 @@ export class TypeUtil {
    * 检查 value 是否为可迭代对象 (Iterable)
    * @param value 待检查值
    * @returns 是否为 Iterable
+   * @example
+   * ```ts
+   * TypeUtil.isIterable([1, 2]); // true
+   * ```
    */
   static isIterable (value: unknown): value is { [Symbol.iterator]: () => Iterator<unknown> } {
     return !!value && typeof (value as AnyObject)[Symbol.iterator] === "function";
@@ -669,6 +810,10 @@ export class TypeUtil {
    * 检查 value 是否为 Falsy 值 (false, 0, "", null, undefined, NaN)
    * @param value 待检查值
    * @returns 是否为 Falsy
+   * @example
+   * ```ts
+   * TypeUtil.isFalsy(0); // true
+   * ```
    */
   static isFalsy (value: unknown): value is false | 0 | "" | null | undefined {
     if (this.isNaN(value) || this.isNull(value) || this.isUndefined(value)) {
@@ -678,6 +823,18 @@ export class TypeUtil {
     return value === false || value === 0 || value === 0n || value === "";
   }
 
+  /**
+   * 检查 value 是否为 FalsyLike 值
+   * - 包含字符串形式的 `"null"`、`"undefined"`、`"false"`、`"0"` 等
+   *
+   * @param value 待检查值
+   * @returns 是否为 FalsyLike
+   * @example
+   * ```ts
+   * TypeUtil.isFalsyLike("false"); // true
+   * TypeUtil.isFalsyLike("hello"); // false
+   * ```
+   */
   static isFalsyLike (value: unknown): boolean {
     if (this.isFalsy(value)) {
       return true;

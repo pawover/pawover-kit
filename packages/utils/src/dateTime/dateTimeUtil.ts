@@ -4,64 +4,121 @@
 export class DateTimeUtil {
   /**
    * 每秒的毫秒数
+   * @example
+   * ```ts
+   * DateTimeUtil.MILLISECONDS_PER_SECOND; // 1000
+   * ```
    */
   static readonly MILLISECONDS_PER_SECOND: number = 1000;
 
   /**
    * 每分钟的秒数
+   * @example
+   * ```ts
+   * DateTimeUtil.SECOND_PER_MINUTE; // 60
+   * ```
    */
   static readonly SECOND_PER_MINUTE: number = 60;
 
   /**
    * 每小时的分钟数
+   * @example
+   * ```ts
+   * DateTimeUtil.MINUTE_PER_HOUR; // 60
+   * ```
    */
   static readonly MINUTE_PER_HOUR: number = 60;
 
   /**
    * 每小时的秒数
+   * @example
+   * ```ts
+   * DateTimeUtil.SECOND_PER_HOUR; // 3600
+   * ```
    */
   static readonly SECOND_PER_HOUR: number = this.SECOND_PER_MINUTE ** 2;
 
   /**
    * 每天小时数
+   * @example
+   * ```ts
+   * DateTimeUtil.HOUR_PER_DAY; // 24
+   * ```
    */
   static readonly HOUR_PER_DAY: number = 24;
 
   /**
    * 每天秒数
+   * @example
+   * ```ts
+   * DateTimeUtil.SECOND_PER_DAY; // 86400
+   * ```
    */
   static readonly SECOND_PER_DAY: number = this.SECOND_PER_HOUR * this.HOUR_PER_DAY;
 
   /**
    * 每周天数
+   * @example
+   * ```ts
+   * DateTimeUtil.DAY_PER_WEEK; // 7
+   * ```
    */
   static readonly DAY_PER_WEEK: number = 7;
 
   /**
    * 每月天数
+   * @example
+   * ```ts
+   * DateTimeUtil.DAY_PER_MONTH; // 30
+   * ```
    */
   static readonly DAY_PER_MONTH: number = 30;
 
   /**
    * 每年天数
+   * @example
+   * ```ts
+   * DateTimeUtil.DAY_PER_YEAR; // 365
+   * ```
    */
   static readonly DAY_PER_YEAR: number = 365;
 
   /**
    * 每年月数
+   * @example
+   * ```ts
+   * DateTimeUtil.MONTH_PER_YEAR; // 12
+   * ```
    */
   static readonly MONTH_PER_YEAR: number = 12;
 
   /**
    * 每年平均周
+   * @example
+   * ```ts
+   * DateTimeUtil.WEEK_PER_YEAR; // 52
+   * ```
    */
   static readonly WEEK_PER_YEAR: number = 52;
 
   /**
    * 每月平均周
+   * @example
+   * ```ts
+   * DateTimeUtil.WEEK_PER_MONTH; // 4
+   * ```
    */
   static readonly WEEK_PER_MONTH: number = 4;
 
+  /**
+   * 常用时间格式模板集合
+   *
+   * @example
+   * ```ts
+   * DateTimeUtil.FORMAT.ISO_DATE; // "yyyy-MM-dd"
+   * DateTimeUtil.FORMAT.CN_DATE_TIME; // "yyyy年MM月dd日 HH时mm分ss秒"
+   * ```
+   */
   static readonly FORMAT = {
     // ISO 8601
     ISO_DATE: "yyyy-MM-dd",
