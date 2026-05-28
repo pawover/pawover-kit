@@ -18,6 +18,7 @@ module.exports = {
     name: icon.padEnd(4) + value.padEnd(10) + name.padEnd(8) + description,
   })),
   scopes: [
+    { name: "agents" },
     { name: "kit" },
     { name: "kit-enums" },
     { name: "kit-hooks" },
