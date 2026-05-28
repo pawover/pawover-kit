@@ -103,7 +103,7 @@ export class TypeUtil {
    * - 默认会调用 `TypeUtil.isNaN`（内部基于 `Number.isNaN`）过滤掉 `NaN`
    *
    * @param value 待检查值
-   * @param checkNaN 是否过滤 `NaN`，默认为 `true`
+   * @param checkNaN 是否检查 `NaN`，默认为 `true`
    * @returns 是否为 number
    * @example
    * ```ts
