@@ -44,7 +44,7 @@
     "check:pack": "attw --pack ."
   },
   "devDependencies": {
-    "@pawover/types": "^0.0.1",
-    "type-fest": "^5.6.0"
+    "@pawover/types": "^0.0.2",
+    "type-fest": "^5.7.0"
   }
 }
