@@ -21,8 +21,38 @@ export class MimeUtil {
     XML: "text/xml",
     /** XHTML 文档（XML 严格格式的 HTML） */
     XHTML: "application/xhtml+xml",
-    /** JavaScript 脚本文件（标准推荐） */
+    /** JavaScript 文件 */
     JS: "text/javascript",
+    /** TypeScript 文件 */
+    TS: "text/typescript",
+    /** Python 文件 */
+    PY: "text/x-python",
+    /** Shell 脚本 (.sh) */
+    SH: "text/x-sh",
+    /** C 语言源文件 */
+    C: "text/x-c",
+    /** C++ 源文件 */
+    CPP: "text/x-c++",
+    /** C# 源文件 */
+    CSHARP: "text/x-csharp",
+    /** Java 源文件 */
+    JAVA: "text/x-java",
+    /** Go 源文件 */
+    GO: "text/x-go",
+    /** Rust 源文件 */
+    RUST: "text/x-rust",
+    /** PHP 文件 */
+    PHP: "text/x-php",
+    /** Ruby 文件 */
+    RUBY: "text/x-ruby",
+    /** Swift 源文件 */
+    SWIFT: "text/x-swift",
+    /** YAML 文档 */
+    YAML: "text/vnd.yaml",
+    /** TOML 文档 */
+    TOML: "text/x-toml",
+    /** SQL 脚本 */
+    SQL: "text/x-sql",
     /** Markdown 格式文档 */
     MARKDOWN: "text/markdown",
     /** 富文本格式文档（.rtf） */
@@ -47,6 +77,12 @@ export class MimeUtil {
     ICO: "image/vnd.microsoft.icon",
     /** WebP 图像（高效压缩） */
     WEBP: "image/webp",
+    /** TIFF 图像（.tif/.tiff） */
+    TIFF: "image/tiff",
+    /** HEIC 图像（高效编码） */
+    HEIC: "image/heic",
+    /** Adobe Photoshop 文件（.psd） */
+    PSD: "image/vnd.adobe.photoshop",
     /** MP3 音频（.mp3） */
     MP3: "audio/mpeg",
     /** AAC 音频（.aac） */
@@ -115,6 +151,8 @@ export class MimeUtil {
     BZIP2: "application/x-bzip2",
     /** 7-Zip 压缩文件（.7z） */
     SEVEN_Z: "application/x-7z-compressed",
+    /** RAR 压缩文件（.rar） */
+    RAR: "application/vnd.rar",
     /** 通用二进制数据（默认类型） */
     OCTET_STREAM: "application/octet-stream",
     /** JSON 数据格式（.json） */
@@ -123,10 +161,18 @@ export class MimeUtil {
     LD_JSON: "application/ld+json",
     /** Java 归档文件（.jar） */
     JAR: "application/java-archive",
+    /** WebAssembly 二进制指令格式（.wasm） */
+    WASM: "application/wasm",
     /** MS 嵌入式 OpenType 字体（.eot） */
     EOT: "application/vnd.ms-fontobject",
     /** OpenType 字体（.otf） */
     OTF: "font/otf",
+    /** WOFF 字体（.woff） */
+    WOFF: "font/woff",
+    /** WOFF2 字体（.woff2） */
+    WOFF2: "font/woff2",
+    /** TrueType 字体（.ttf） */
+    TTF: "font/ttf",
     /** Excel 97-2003 工作簿（.xls） */
     XLS: "application/vnd.ms-excel",
     /** Microsoft XPS 文档（.xps） */
