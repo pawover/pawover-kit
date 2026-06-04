@@ -26,7 +26,7 @@ export class ArrayUtil {
    * ```
    */
   static cast<T>(candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
-  static cast<T>(candidate: T | T[] | null | undefined, checkEmpty?: false): T[];
+  static cast<T>(candidate: T | T[] | null | undefined, checkEmpty: false): T[];
   static cast<T>(candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
     if (checkEmpty && (TypeUtil.isUndefined(candidate) || TypeUtil.isNull(candidate))) {
       return [];

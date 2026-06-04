@@ -83,19 +83,22 @@ export class TypeUtil {
 
   /**
    * 检查 value 是否为 string 类型
+   * - 当 `checkEmpty` 为 `true` 时，会先 trim 再判断是否为空
    *
    * @param value 待检查值
-   * @param checkEmpty 是否检查空字符串
+   * @param checkEmpty 是否检查空字符串（含空白字符串），默认为 `false`
    * @returns 是否为字符串
    * @example
    * ```ts
    * TypeUtil.isString("abc"); // true
    * TypeUtil.isString(""); // true
    * TypeUtil.isString("", true); // false
+   * TypeUtil.isString("   ", true); // false
+   * TypeUtil.isString(" a ", true); // true
    * ```
    */
   static isString (value: unknown, checkEmpty = false): value is string {
-    return typeof value === "string" && (!checkEmpty || !!value.length);
+    return typeof value === "string" && (!checkEmpty || value.trim().length > 0);
   }
 
   /**

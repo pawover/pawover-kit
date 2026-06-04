@@ -7,6 +7,52 @@ import { TypeUtil } from "../type";
  */
 export class StringUtil {
   /**
+   * 将任意值转换为字符串
+   * - 当传入数值字面量时，返回对应的字符串字面量类型
+   *
+   * @param candidate 待转换的值
+   * @param checkEmpty 是否检查空值（`null` / `undefined` / 空白字符串），默认为 `true`
+   * @returns 转换后的字符串
+   * @example
+   * ```ts
+   * // 重载 1: null / undefined + checkEmpty = true (默认) → ""
+   * StringUtil.cast(null); // ""
+   * StringUtil.cast(undefined); // ""
+   * StringUtil.cast(""); // ""
+   * StringUtil.cast("   "); // ""
+   *
+   * // 重载 2: null / undefined + checkEmpty = false → "null" / "undefined"
+   * StringUtil.cast(null, false); // "null" (类型为 "null")
+   * StringUtil.cast(undefined, false); // "undefined" (类型为 "undefined")
+   *
+   * // 重载 3: 原始类型 → 字符串字面量类型
+   * StringUtil.cast(123); // "123" (类型为 "123")
+   * StringUtil.cast("hello"); // "hello" (类型为 "hello")
+   * StringUtil.cast(true); // "true" (类型为 "true")
+   * StringUtil.cast(42n); // "42" (类型为 "42")
+   *
+   * // 重载 4: 其他类型 → string
+   * StringUtil.cast(Symbol("foo")); // "Symbol(foo)" (类型为 string)
+   * ```
+   */
+  static cast<T extends null | undefined>(candidate: T, checkEmpty?: true): "";
+  static cast<T extends null | undefined>(candidate: T, checkEmpty: false): `${T}`;
+  static cast<T extends string | number | bigint | boolean>(candidate: T, checkEmpty?: boolean): `${T}`;
+  static cast (candidate: unknown, checkEmpty?: boolean): string;
+  static cast (candidate: unknown, checkEmpty = true): string {
+    if (checkEmpty) {
+      if (candidate === null || candidate === undefined) {
+        return "";
+      }
+      if (typeof candidate === "string" && candidate.trim().length === 0) {
+        return "";
+      }
+    }
+
+    return String(candidate);
+  }
+
+  /**
    * 从字符串中提取数字字符串
    * - 移除非数字字符，保留符号和小数点
    *
