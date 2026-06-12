@@ -6,13 +6,8 @@
     "url": "https://github.com/pawover"
   },
   "description": "pawover's kit-enums",
-  "license": "MIT",
-  "type": "module",
   "version": "0.0.0-alpha.1",
-  "packageManager": "pnpm@10.28.2",
-  "engines": {
-    "node": ">=22.20.0"
-  },
+  "type": "module",
   "keywords": [
     "pawover",
     "pawover-kit-enums"
@@ -22,6 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
