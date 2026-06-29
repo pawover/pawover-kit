@@ -1,6 +1,5 @@
 import type { PlainObject } from "@pawover/types";
 import type { LiteralUnion } from "type-fest";
-import { TypeUtil } from "../type";
 
 /**
  * 函数工具类
@@ -83,13 +82,11 @@ export class FunctionUtil {
    * ```
    */
   static toArgs<T = unknown>(args: IArguments, start?: number | undefined): T[] {
-    if (args === null) {
+    if (args === null || args === undefined) {
       throw new TypeError(`function [toArgs] Expected parameter [args] to be a arguments object, got ${typeof args}`);
     }
 
-    const array = Array.from(args);
-
-    return TypeUtil.isNumber(start) ? array.slice(start) : array;
+    return Array.prototype.slice.call(args, start);
   }
 
   /**
