@@ -55,7 +55,7 @@
   "devDependencies": {
     "@pawover/kit-utils": "workspace:*",
     "@pawover/types": "^0.0.2",
-    "es-toolkit": "^1.47.0",
+    "es-toolkit": "^1.49.0",
     "type-fest": "^5.7.0"
   },
   "peerDependencies": {
