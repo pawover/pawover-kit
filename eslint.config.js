@@ -41,7 +41,7 @@ export default defineConfig([
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
         sourceType: "module",
-        ecmaVersion: 2020,
+        ecmaVersion: 2022,
         ecmaFeatures: {
           jsx: true,
         },

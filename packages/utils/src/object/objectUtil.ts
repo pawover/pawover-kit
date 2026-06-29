@@ -114,7 +114,7 @@ export class ObjectUtil {
   static entriesMap<O extends PlainObject, NK extends PropertyKey, NV>(plainObject: O, toEntry: (key: keyof O, value: O[keyof O]) => [NK, NV]): PlainObject<NK, NV> {
     const defaultResult = {} as PlainObject<NK, NV>;
 
-    if (!TypeUtil.isObject(plainObject)) {
+    if (!TypeUtil.isPlainObject(plainObject)) {
       return defaultResult;
     }
 
@@ -147,7 +147,7 @@ export class ObjectUtil {
   static pick (obj: object, keys: readonly PropertyKey[]) {
     const result = {} as PlainObject;
 
-    if (!TypeUtil.isObject(obj)) {
+    if (!TypeUtil.isPlainObject(obj)) {
       return result;
     }
     if (!TypeUtil.isArray(keys)) {
@@ -184,7 +184,7 @@ export class ObjectUtil {
   static omit (obj: object, keys: readonly string[]) {
     const result = {} as PlainObject;
 
-    if (!TypeUtil.isObject(obj)) {
+    if (!TypeUtil.isPlainObject(obj)) {
       return result;
     }
     if (!TypeUtil.isArray(keys)) {
@@ -223,7 +223,7 @@ export class ObjectUtil {
   static invert (obj: AnyObject) {
     const result = {} as Invert<AnyObject>;
 
-    if (!TypeUtil.isObject(obj)) {
+    if (!TypeUtil.isPlainObject(obj)) {
       return result;
     }
 
@@ -261,7 +261,7 @@ export class ObjectUtil {
     }
 
     function crushReducer (crushed: Crush<T>, value: unknown, path: string) {
-      if (TypeUtil.isObject(value) || TypeUtil.isArray(value)) {
+      if (TypeUtil.isPlainObject(value) || TypeUtil.isArray(value)) {
         for (const [prop, propValue] of Object.entries(value)) {
           crushReducer(crushed, propValue, path ? `${path}.${prop}` : prop);
         }

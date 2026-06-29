@@ -7,7 +7,7 @@ export default defineConfig({
     vite: "src/vite/index.ts",
   },
   dts: true,
-  target: "es2020",
+  target: "es2022",
   platform: "neutral",
   tsconfig: true,
 });

@@ -245,9 +245,9 @@ export class StringUtil {
       return separator ? "/" : "";
     });
     // 2. 替换所有反斜杠为正斜杠
-    normalized = normalized.replace(/\\/g, "/");
+    normalized = normalized.replaceAll("\\", "/");
     // 3. 合并连续斜杠
-    normalized = normalized.replace(/\/+/g, "/");
+    normalized = normalized.replaceAll(/\/+/g, "/");
     // 4. 移除开头斜杠
     if (removeLeadingSlash && normalized.startsWith("/")) {
       normalized = normalized.substring(1);

@@ -366,7 +366,7 @@ export class TypeUtil {
    * ```
    */
   static isPromiseLike (value: unknown): value is PromiseLike<unknown> {
-    return this.isPromise(value) || (this.isObject(value, false) && this.isFunction(value["then"]));
+    return this.isPromise(value) || (this.isPlainObject(value, false) && this.isFunction(value["then"]));
   }
 
   /**
@@ -375,18 +375,19 @@ export class TypeUtil {
    *
    * @param value 待检查值
    * @param prototypeCheck 是否进行原型检查，默认 `true`
-   * @returns 是否为 Plain Object (当 checkPrototype=true) 或 object
+   * @returns 是否为 Plain Object (当 prototypeCheck=true) 或 object
    * @example
    * ```ts
-   * TypeUtil.isObject({}); // true
-   * TypeUtil.isObject([]); // false
-   * TypeUtil.isObject(new Date()); // false
-   * TypeUtil.isObject(new Date(), false); // true
-   * TypeUtil.isObject(Object.create(null)) // false
-   * TypeUtil.isObject(Object.create(null), false) // true
+   * TypeUtil.isPlainObject({}); // true
+   * TypeUtil.isPlainObject([]); // false
+   * TypeUtil.isPlainObject(new Date()); // false
+   * TypeUtil.isPlainObject(new (class {})()); // false
+   * TypeUtil.isPlainObject(new (class {})(), false); // true
+   * TypeUtil.isPlainObject(Object.create(null)) // false
+   * TypeUtil.isPlainObject(Object.create(null), false) // true
    * ```
    */
-  static isObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
+  static isPlainObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
     const check = this.getPrototypeString(value) === this.PROTOTYPE_TAGS.OBJECT;
 
     return prototypeCheck ? check && Object.getPrototypeOf(value) === Object.prototype : check;
@@ -647,7 +648,7 @@ export class TypeUtil {
       return true;
     }
 
-    return this.isObject(value) && this.isFunction(value["getReader"]) && this.isFunction(value["pipeThrough"]);
+    return this.isPlainObject(value) && this.isFunction(value["getReader"]) && this.isFunction(value["pipeThrough"]);
   }
 
   /**
