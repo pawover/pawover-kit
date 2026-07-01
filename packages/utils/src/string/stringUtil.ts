@@ -35,9 +35,9 @@ export class StringUtil {
    * StringUtil.cast(Symbol("foo")); // "Symbol(foo)" (类型为 string)
    * ```
    */
-  static cast<T extends null | undefined>(candidate: T, checkEmpty?: true): "";
-  static cast<T extends null | undefined>(candidate: T, checkEmpty: false): `${T}`;
-  static cast<T extends string | number | bigint | boolean>(candidate: T, checkEmpty?: boolean): `${T}`;
+  static cast<T extends null | undefined> (candidate: T, checkEmpty?: true): "";
+  static cast<T extends null | undefined> (candidate: T, checkEmpty: false): `${T}`;
+  static cast<T extends string | number | bigint | boolean> (candidate: T, checkEmpty?: boolean): `${T}`;
   static cast (candidate: unknown, checkEmpty?: boolean): string;
   static cast (candidate: unknown, checkEmpty = true): string {
     if (checkEmpty) {
@@ -132,9 +132,9 @@ export class StringUtil {
    * StringUtil.toLowerCase(null); // ""
    * ```
    */
-  static toLowerCase<const T extends string>(input: T): Lowercase<T>;
+  static toLowerCase<const T extends string> (input: T): Lowercase<T>;
   static toLowerCase (input: unknown): "";
-  static toLowerCase<const T extends string>(input: T): Lowercase<T> | "" {
+  static toLowerCase<const T extends string> (input: T): Lowercase<T> | "" {
     if (!TypeUtil.isString(input, true)) {
       return "";
     }
@@ -158,9 +158,9 @@ export class StringUtil {
    * StringUtil.toUpperCase(null); // ""
    * ```
    */
-  static toUpperCase<const T extends string>(input: T): Uppercase<T>;
+  static toUpperCase<const T extends string> (input: T): Uppercase<T>;
   static toUpperCase (input: unknown): "";
-  static toUpperCase<const T extends string>(input: T): Uppercase<T> | "" {
+  static toUpperCase<const T extends string> (input: T): Uppercase<T> | "" {
     if (!TypeUtil.isString(input, true)) {
       return "";
     }
@@ -272,9 +272,9 @@ export class StringUtil {
    * StringUtil.toJson<{ a: number }>("invalid", { a: 0 }); // { a: 0 }
    * ```
    */
-  static toJson<D extends AnyObject = AnyObject>(input: string | null | undefined): D | undefined;
-  static toJson<D extends AnyObject = AnyObject>(input: string | null | undefined, fallback: D): D;
-  static toJson<D extends AnyObject = AnyObject>(input: string | null | undefined, fallback?: D | undefined): D | undefined {
+  static toJson<D extends AnyObject = AnyObject> (input: string | null | undefined): D | undefined;
+  static toJson<D extends AnyObject = AnyObject> (input: string | null | undefined, fallback: D): D;
+  static toJson<D extends AnyObject = AnyObject> (input: string | null | undefined, fallback?: D | undefined): D | undefined {
     if (!TypeUtil.isString(input, true)) {
       return fallback;
     }
@@ -440,7 +440,7 @@ export class StringUtil {
    * StringUtil.replace("hello world", "world", "context"); // "hello context"
    * ```
    */
-  static replace<I extends string, S extends string, R extends string>(input: I, search: S, replacement: R) {
+  static replace<I extends string, S extends string, R extends string> (input: I, search: S, replacement: R) {
     if (!TypeUtil.isString(input, true)) {
       return "" as Replace<I, S, R>;
     }

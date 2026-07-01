@@ -22,7 +22,7 @@ export class ViteUtil {
    * // }
    * ```
    */
-  static toProxy<L extends [string, string][]>(proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
+  static toProxy<L extends [string, string][]> (proxyList: L, options?: ProxyOptions | undefined): Record<string, ProxyOptions> {
     const httpsRE = /^https:\/\//;
     const result: Record<string, ProxyOptions> = {};
 

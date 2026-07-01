@@ -394,6 +394,24 @@ export class TypeUtil {
   }
 
   /**
+   * 判断是否为广义对象类型
+   *
+   * @param value 待检查值
+   * @returns 是否为对象
+   * @example
+   * ```ts
+   * TypeUtil.isObject({}); // true
+   * TypeUtil.isObject([]); // true
+   * TypeUtil.isObject(new Date()); // true
+   * TypeUtil.isObject(null); // false
+   * TypeUtil.isObject("string"); // false
+   * ```
+   */
+  static isObject (value: unknown): value is object {
+    return typeof value === "object" && value !== null;
+  }
+
+  /**
    * 判断一个对象是否为有效的枚举
    * - 枚举成员不能为空
    * - 枚举成员的键不能具有数值名

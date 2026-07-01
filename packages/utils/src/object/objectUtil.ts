@@ -29,10 +29,10 @@ export class ObjectUtil {
    * ObjectUtil.keys(anyObj); // ["x", "y"]
    * ```
    */
-  static keys<const S extends string>(string: S): UnionToTuple<Range<0, Split<S, "">["length"]>>;
-  static keys<const A extends ArrayLike<unknown>>(array: A): UnionToTuple<Range<0, A["length"]>>;
-  static keys<O extends PlainObject>(plainObject: O): `${Extract<keyof O, string | number>}`[];
-  static keys<O extends AnyObject>(anyObject: O): `${Extract<keyof O, string | number>}`[];
+  static keys<const S extends string> (string: S): UnionToTuple<Range<0, Split<S, "">["length"]>>;
+  static keys<const A extends ArrayLike<unknown>> (array: A): UnionToTuple<Range<0, A["length"]>>;
+  static keys<O extends PlainObject> (plainObject: O): `${Extract<keyof O, string | number>}`[];
+  static keys<O extends AnyObject> (anyObject: O): `${Extract<keyof O, string | number>}`[];
   static keys (value: object) {
     return Object.keys(value);
   }
@@ -58,10 +58,10 @@ export class ObjectUtil {
    * ObjectUtil.values(anyObj); // [1, 2]
    * ```
    */
-  static values<S extends string>(string: S): Split<S, "">;
-  static values<A extends ArrayLike<unknown>>(array: A): A;
-  static values<O extends PlainObject>(plainObject: O): O[keyof O][];
-  static values<O extends AnyObject>(anyObject: O): O[keyof O][];
+  static values<S extends string> (string: S): Split<S, "">;
+  static values<A extends ArrayLike<unknown>> (array: A): A;
+  static values<O extends PlainObject> (plainObject: O): O[keyof O][];
+  static values<O extends AnyObject> (anyObject: O): O[keyof O][];
   static values (value: object) {
     return Object.values(value);
   }
@@ -87,10 +87,10 @@ export class ObjectUtil {
    * ObjectUtil.entries(anyObj); // [["x", 1]]
    * ```
    */
-  static entries<const S extends string>(string: S): TupleToEntries<Split<S, "">>;
-  static entries<const A extends readonly unknown[]>(array: A): TupleToGroups<A>;
-  static entries<const O extends PlainObject>(plainObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
-  static entries<const O extends AnyObject>(anyObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
+  static entries<const S extends string> (string: S): TupleToEntries<Split<S, "">>;
+  static entries<const A extends readonly unknown[]> (array: A): TupleToGroups<A>;
+  static entries<const O extends PlainObject> (plainObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
+  static entries<const O extends AnyObject> (anyObject: O): [`${keyof Except<O, symbol>}`, O[keyof Except<O, symbol>]][];
   static entries (value: object) {
     return Object.entries(value) as unknown;
   }
@@ -111,7 +111,7 @@ export class ObjectUtil {
    * ObjectUtil.entriesMap(obj, (k, v) => [`prefix_${String(k)}`, `${v}x`]); // { prefix_a: "1x", prefix_b: "2x" }
    * ```
    */
-  static entriesMap<O extends PlainObject, NK extends PropertyKey, NV>(plainObject: O, toEntry: (key: keyof O, value: O[keyof O]) => [NK, NV]): PlainObject<NK, NV> {
+  static entriesMap<O extends PlainObject, NK extends PropertyKey, NV> (plainObject: O, toEntry: (key: keyof O, value: O[keyof O]) => [NK, NV]): PlainObject<NK, NV> {
     const defaultResult = {} as PlainObject<NK, NV>;
 
     if (!TypeUtil.isPlainObject(plainObject)) {
@@ -142,8 +142,8 @@ export class ObjectUtil {
    * ObjectUtil.pick(anyObj, ["x"]); // { x: 1 }
    * ```
    */
-  static pick<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Pick<O, K>;
-  static pick<O extends AnyObject, K extends keyof O>(anyObject: O, keys: readonly K[]): Pick<O, K>;
+  static pick<O extends PlainObject, K extends keyof O> (plainObject: O, keys: readonly K[]): Pick<O, K>;
+  static pick<O extends AnyObject, K extends keyof O> (anyObject: O, keys: readonly K[]): Pick<O, K>;
   static pick (obj: object, keys: readonly PropertyKey[]) {
     const result = {} as PlainObject;
 
@@ -179,8 +179,8 @@ export class ObjectUtil {
    * ObjectUtil.omit(anyObj, ["x"]); // { y: 2 }
    * ```
    */
-  static omit<O extends PlainObject, K extends keyof O>(plainObject: O, keys: readonly K[]): Omit<O, K>;
-  static omit<O extends AnyObject, K extends keyof O>(anyObject: O, keys: readonly K[]): PlainObject;
+  static omit<O extends PlainObject, K extends keyof O> (plainObject: O, keys: readonly K[]): Omit<O, K>;
+  static omit<O extends AnyObject, K extends keyof O> (anyObject: O, keys: readonly K[]): PlainObject;
   static omit (obj: object, keys: readonly string[]) {
     const result = {} as PlainObject;
 
@@ -218,8 +218,8 @@ export class ObjectUtil {
    * ObjectUtil.invert(anyObj); // { [Symbol.for("s")]: "x" }
    * ```
    */
-  static invert<const O extends Record<keyof O, PropertyKey>>(plainObject: O): Invert<O>;
-  static invert<const O extends AnyObject>(anyObject: O): Invert<O>;
+  static invert<const O extends Record<keyof O, PropertyKey>> (plainObject: O): Invert<O>;
+  static invert<const O extends AnyObject> (anyObject: O): Invert<O>;
   static invert (obj: AnyObject) {
     const result = {} as Invert<AnyObject>;
 
@@ -253,9 +253,9 @@ export class ObjectUtil {
    * ObjectUtil.crush(anyObj); // { "list.0.id": 1 }
    * ```
    */
-  static crush<T extends PlainObject>(plainObject: T): Crush<T>;
-  static crush<T extends AnyObject>(anyObject: T): Crush<T>;
-  static crush<T extends AnyObject>(obj: T): Crush<T> {
+  static crush<T extends PlainObject> (plainObject: T): Crush<T>;
+  static crush<T extends AnyObject> (anyObject: T): Crush<T>;
+  static crush<T extends AnyObject> (obj: T): Crush<T> {
     if (!obj) {
       return {} as Crush<T>;
     }
@@ -292,8 +292,8 @@ export class ObjectUtil {
    * ObjectUtil.enumKeys(anyEnum); // ["A", "B"]
    * ```
    */
-  static enumKeys<E extends PlainObject>(enumeration: E): (keyof E)[];
-  static enumKeys<E extends AnyObject>(enumeration: E): (keyof E)[];
+  static enumKeys<E extends PlainObject> (enumeration: E): (keyof E)[];
+  static enumKeys<E extends AnyObject> (enumeration: E): (keyof E)[];
   static enumKeys (enumeration: AnyObject) {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 
@@ -327,8 +327,8 @@ export class ObjectUtil {
    * ObjectUtil.enumValues(anyEnum); // [0, 1]
    * ```
    */
-  static enumValues<E extends PlainObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
-  static enumValues<E extends AnyObject>(enumeration: E): UnionToTuple<ValueOf<E>>;
+  static enumValues<E extends PlainObject> (enumeration: E): UnionToTuple<ValueOf<E>>;
+  static enumValues<E extends AnyObject> (enumeration: E): UnionToTuple<ValueOf<E>>;
   static enumValues (enumeration: AnyObject) {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 
@@ -362,8 +362,8 @@ export class ObjectUtil {
    * ObjectUtil.enumEntries(anyEnum); // [["A", 0], ["B", 1]]
    * ```
    */
-  static enumEntries<E extends PlainObject>(enumeration: E): [keyof E, E[keyof E]][];
-  static enumEntries<E extends AnyObject>(enumeration: E): [keyof E, E[keyof E]][];
+  static enumEntries<E extends PlainObject> (enumeration: E): [keyof E, E[keyof E]][];
+  static enumEntries<E extends AnyObject> (enumeration: E): [keyof E, E[keyof E]][];
   static enumEntries (enumeration: AnyObject) {
     const [isEnum, isBidirectionalEnum] = TypeUtil.isEnumeration(enumeration);
 

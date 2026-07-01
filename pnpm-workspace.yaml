@@ -16,3 +16,5 @@ minimumReleaseAgeExclude:
   - eslint-plugin-react-rsc@5.8.19
   - eslint-plugin-react-web-api@5.8.19
   - eslint-plugin-react-x@5.8.19
+  - '@pawover/types@0.0.4'
+  - '@pawover/eslint-rules@0.2.1'

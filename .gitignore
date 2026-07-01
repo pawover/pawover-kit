@@ -38,8 +38,4 @@ lerna-debug.log*
 # turbo
 .turbo
 
-# auto
-auto-*.json
-auto-*.d.ts
-
 metadata.json

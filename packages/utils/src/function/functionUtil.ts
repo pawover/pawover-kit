@@ -16,7 +16,7 @@ export class FunctionUtil {
    * const [err, data] = await FunctionUtil.to(someAsyncFunc());
    * ```
    */
-  static to<T, U = Error>(promise: Readonly<Promise<T>>, errorExt?: PlainObject): Promise<[U, undefined] | [null, T]> {
+  static to<T, U = Error> (promise: Readonly<Promise<T>>, errorExt?: PlainObject): Promise<[U, undefined] | [null, T]> {
     return promise
       .then<[null, T]>((data: T) => [null, data])
       .catch<[U, undefined]>((err: U) => {
@@ -81,7 +81,7 @@ export class FunctionUtil {
    * }
    * ```
    */
-  static toArgs<T = unknown>(args: IArguments, start?: number | undefined): T[] {
+  static toArgs<T = unknown> (args: IArguments, start?: number | undefined): T[] {
     if (args === null || args === undefined) {
       throw new TypeError(`function [toArgs] Expected parameter [args] to be a arguments object, got ${typeof args}`);
     }
@@ -108,7 +108,7 @@ export class FunctionUtil {
    * FunctionUtil.toPromise(() => { throw new Error('fail'); }).catch(err => console.error(err)); // 捕获同步异常
    * ```
    */
-  static toPromise<T>(fn: () => T | Promise<T>): Promise<T> {
+  static toPromise<T> (fn: () => T | Promise<T>): Promise<T> {
     try {
       return Promise.resolve(fn());
     } catch (error) {

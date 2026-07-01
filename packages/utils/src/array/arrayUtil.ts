@@ -25,9 +25,9 @@ export class ArrayUtil {
    * ArrayUtil.cast(undefined); // []
    * ```
    */
-  static cast<T>(candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
-  static cast<T>(candidate: T | T[] | null | undefined, checkEmpty: false): T[];
-  static cast<T>(candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
+  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
+  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty: false): T[];
+  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
     if (checkEmpty && (TypeUtil.isUndefined(candidate) || TypeUtil.isNull(candidate))) {
       return [];
     }
@@ -51,9 +51,9 @@ export class ArrayUtil {
    * ArrayUtil.first([], 0); // 0
    * ```
    */
-  static first<T>(initialList: readonly T[]): T | undefined;
-  static first<T>(initialList: readonly T[], fallback: T): T;
-  static first<T>(initialList: readonly T[], fallback?: T): T | undefined {
+  static first<T> (initialList: readonly T[]): T | undefined;
+  static first<T> (initialList: readonly T[], fallback: T): T;
+  static first<T> (initialList: readonly T[], fallback?: T): T | undefined {
     if (!TypeUtil.isArray(initialList) || initialList.length === 0) {
       return fallback;
     }
@@ -77,9 +77,9 @@ export class ArrayUtil {
    * ArrayUtil.last([], 0); // 0
    * ```
    */
-  static last<T>(initialList: readonly T[]): T | undefined;
-  static last<T>(initialList: readonly T[], fallback: T): T;
-  static last<T>(initialList: readonly T[], fallback?: T): T | undefined {
+  static last<T> (initialList: readonly T[]): T | undefined;
+  static last<T> (initialList: readonly T[], fallback: T): T;
+  static last<T> (initialList: readonly T[], fallback?: T): T | undefined {
     if (!TypeUtil.isArray(initialList) || initialList.length === 0) {
       return fallback;
     }
@@ -101,7 +101,7 @@ export class ArrayUtil {
    * ArrayUtil.compete(list, (a, b) => (a < b ? a : b)); // 1
    * ```
    */
-  static compete<T>(initialList: readonly T[], match: (a: T, b: T, index: number) => T): T | null {
+  static compete<T> (initialList: readonly T[], match: (a: T, b: T, index: number) => T): T | null {
     if (!TypeUtil.isArray(initialList) || initialList.length === 0 || !TypeUtil.isFunction(match)) {
       return null;
     }
@@ -125,7 +125,7 @@ export class ArrayUtil {
    * ArrayUtil.count(users, (u) => u.group); // { A: 2, B: 1 }
    * ```
    */
-  static count<T, K extends PropertyKey>(initialList: readonly T[], match: MatchFunction<T, K>): Record<string, number> {
+  static count<T, K extends PropertyKey> (initialList: readonly T[], match: MatchFunction<T, K>): Record<string, number> {
     if (!TypeUtil.isArray(initialList) || !TypeUtil.isFunction(match)) {
       return {};
     }
@@ -152,7 +152,7 @@ export class ArrayUtil {
    * ArrayUtil.difference([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 1 }]
    * ```
    */
-  static difference<T>(initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
+  static difference<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
     if (!TypeUtil.isArray(initialList) && !TypeUtil.isArray(diffList)) {
       return [];
     }
@@ -194,9 +194,9 @@ export class ArrayUtil {
    * ArrayUtil.intersection([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 2 }]
    * ```
    */
-  static intersection<T>(initialList: readonly T[], diffList: readonly T[]): T[];
-  static intersection<T, D = T>(initialList: readonly T[], diffList: readonly D[], match: MatchFunction<T>): T[];
-  static intersection<T>(initialList: readonly T[], diffList: readonly T[], match?: MatchFunction<T>): T[] {
+  static intersection<T> (initialList: readonly T[], diffList: readonly T[]): T[];
+  static intersection<T, D = T> (initialList: readonly T[], diffList: readonly D[], match: MatchFunction<T>): T[];
+  static intersection<T> (initialList: readonly T[], diffList: readonly T[], match?: MatchFunction<T>): T[] {
     if (!TypeUtil.isArray(initialList) || !TypeUtil.isArray(diffList)) {
       return [];
     }
@@ -236,9 +236,9 @@ export class ArrayUtil {
    * ArrayUtil.merge(source, update, (x) => x.id); // [{ id: 1, val: "a" }, { id: 2, val: "new" }] -> id:3 被忽略
    * ```
    */
-  static merge<T>(initialList: readonly T[], mergeList: readonly T[]): T[];
-  static merge<T, D = T>(initialList: readonly T[], mergeList: readonly D[], match: MatchFunction<T>): T[];
-  static merge<T>(initialList: readonly T[], mergeList: readonly T[], match?: MatchFunction<T>): T[] {
+  static merge<T> (initialList: readonly T[], mergeList: readonly T[]): T[];
+  static merge<T, D = T> (initialList: readonly T[], mergeList: readonly D[], match: MatchFunction<T>): T[];
+  static merge<T> (initialList: readonly T[], mergeList: readonly T[], match?: MatchFunction<T>): T[] {
     if (!TypeUtil.isArray(initialList)) {
       return [];
     }
@@ -280,9 +280,9 @@ export class ArrayUtil {
    * ArrayUtil.pick(list, (n) => n % 2 === 0, (n) => n * 2); // [4, 8]
    * ```
    */
-  static pick<const T>(initialList: readonly T[], filter: (row: T, index: number) => boolean): T[];
-  static pick<const T, K = T>(initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper: (row: T, index: number) => K): K[];
-  static pick<const T, K = T>(initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {
+  static pick<const T> (initialList: readonly T[], filter: (row: T, index: number) => boolean): T[];
+  static pick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper: (row: T, index: number) => K): K[];
+  static pick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {
     if (!TypeUtil.isArray(initialList)) {
       return [];
     }
@@ -324,10 +324,10 @@ export class ArrayUtil {
    * ArrayUtil.replace([1, 2, 3], "X", (n) => n === 2); // [1, "X", 3]
    * ```
    */
-  static replace<const T>(initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>): T[];
-  static replace<const T, K extends T>(initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): T[];
-  static replace<const T, K>(initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[];
-  static replace<const T, K>(initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[] {
+  static replace<const T> (initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>): T[];
+  static replace<const T, K extends T> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): T[];
+  static replace<const T, K> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[];
+  static replace<const T, K> (initialList: readonly T[], newItem: K, match: MatchFunction<T, boolean>): (T | K)[] {
     if (!TypeUtil.isArray(initialList) || !initialList.length) {
       return [];
     }
@@ -364,7 +364,7 @@ export class ArrayUtil {
    * ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2); // [1, 3, 4, 5]
    * ```
    */
-  static replaceMove<const T>(initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>, position?: "start" | "end" | number): T[] {
+  static replaceMove<const T> (initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>, position?: "start" | "end" | number): T[] {
     if (!TypeUtil.isArray(initialList)) {
       return [];
     }
@@ -405,7 +405,7 @@ export class ArrayUtil {
    * ArrayUtil.split([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
    * ```
    */
-  static split<T>(initialList: readonly T[], size: number = 10): T[][] {
+  static split<T> (initialList: readonly T[], size: number = 10): T[][] {
     if (!TypeUtil.isArray(initialList)) {
       return [];
     }
@@ -457,7 +457,7 @@ export class ArrayUtil {
    * ArrayUtil.unzip([[1, "a"], [2, "b"]]); // [[1, 2], ["a", "b"]]
    * ```
    */
-  static unzip<T>(arrayList: readonly (readonly T[])[]): T[][] {
+  static unzip<T> (arrayList: readonly (readonly T[])[]): T[][] {
     if (!TypeUtil.isArray(arrayList) || !arrayList.length) {
       return [];
     }
@@ -496,12 +496,12 @@ export class ArrayUtil {
    * ArrayUtil.zip(); // []
    * ```
    */
-  static zip<T1, T2, T3, T4, T5>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
-  static zip<T1, T2, T3, T4>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[]): [T1, T2, T3, T4][];
-  static zip<T1, T2, T3>(array1: readonly T1[], array2: readonly T2[], array3: readonly T3[]): [T1, T2, T3][];
-  static zip<T1, T2>(array1: readonly T1[], array2: readonly T2[]): [T1, T2][];
+  static zip<T1, T2, T3, T4, T5> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
+  static zip<T1, T2, T3, T4> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[]): [T1, T2, T3, T4][];
+  static zip<T1, T2, T3> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[]): [T1, T2, T3][];
+  static zip<T1, T2> (array1: readonly T1[], array2: readonly T2[]): [T1, T2][];
   static zip (): [];
-  static zip<T>(...arrays: (readonly T[])[]): T[][] {
+  static zip<T> (...arrays: (readonly T[])[]): T[][] {
     return this.unzip(arrays);
   }
 
@@ -524,10 +524,10 @@ export class ArrayUtil {
    * ArrayUtil.zipToObject(["a", "b"], 1); // { a: 1, b: 1 }
    * ```
    */
-  static zipToObject<const K extends PropertyKey, const V>(keys: readonly K[], array: readonly V[]): Record<K, V>;
-  static zipToObject<const K extends PropertyKey, const V>(keys: readonly K[], match: MatchFunction<K, V>): Record<K, V>;
-  static zipToObject<const K extends PropertyKey, const V>(keys: readonly K[], value: V): Record<K, V>;
-  static zipToObject<const K extends PropertyKey, const V>(keys: readonly K[], values: V | MatchFunction<K, V> | readonly V[]): Record<K, V> {
+  static zipToObject<const K extends PropertyKey, const V> (keys: readonly K[], array: readonly V[]): Record<K, V>;
+  static zipToObject<const K extends PropertyKey, const V> (keys: readonly K[], match: MatchFunction<K, V>): Record<K, V>;
+  static zipToObject<const K extends PropertyKey, const V> (keys: readonly K[], value: V): Record<K, V>;
+  static zipToObject<const K extends PropertyKey, const V> (keys: readonly K[], values: V | MatchFunction<K, V> | readonly V[]): Record<K, V> {
     const result = {} as PlainObject<K, V>;
 
     if (!TypeUtil.isArray(keys) || !keys.length) {
