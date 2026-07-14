@@ -1,9 +1,10 @@
-/* eslint-disable ts/no-explicit-any */
-
 import type { AlovaGenerics, Method } from "alova";
 import { type AlovaMethodHandler, type CompleteHandler, type ErrorHandler, type SuccessHandler, useWatcher, type WatcherHookConfig } from "alova/client";
+import type { BeforeRequestHandler } from ".";
+import { createBeforeRequestMiddleware } from "./createBeforeRequestMiddleware";
 
 interface HookOptions<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args> {
+  onBeforeRequest?: BeforeRequestHandler<AG, Args> | undefined;
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
   onComplete?: CompleteHandler<AG, Args> | undefined;
@@ -14,7 +15,12 @@ export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = a
   watchingStates: AG["StatesExport"]["Watched"][],
   hookOptions: HookOptions<AG, Args> = {},
 ) {
-  const options = hookOptions || {};
+  const options = { ...hookOptions };
+
+  if (options.onBeforeRequest) {
+    options.middleware = createBeforeRequestMiddleware(options.middleware, options.onBeforeRequest);
+  }
+
   const exposure = useWatcher(methodHandler, watchingStates, options);
 
   if (options.onSuccess) {

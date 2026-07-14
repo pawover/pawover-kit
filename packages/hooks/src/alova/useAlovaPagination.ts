@@ -1,10 +1,10 @@
-/* eslint-disable ts/no-explicit-any */
-
 import type { AlovaGenerics, Method } from "alova";
-import { type AlovaFrontMiddlewareContext, type CompleteHandler, type ErrorHandler, type PaginationHookConfig, type SuccessHandler, usePagination } from "alova/client";
+import { type CompleteHandler, type ErrorHandler, type PaginationHookConfig, type SuccessHandler, usePagination } from "alova/client";
+import type { BeforeRequestHandler } from ".";
+import { createBeforeRequestMiddleware } from "./createBeforeRequestMiddleware";
 
 interface HookOptions<AG extends AlovaGenerics, L extends any[], Args extends any[]> extends PaginationHookConfig<AG, L> {
-  onBeforeRequest?: ((context: AlovaFrontMiddlewareContext<AG, any[]>) => void) | undefined;
+  onBeforeRequest?: BeforeRequestHandler<AG, any[]> | undefined;
   onSuccess?: SuccessHandler<AG, Args> | undefined;
   onError?: ErrorHandler<AG, Args> | undefined;
   onComplete?: CompleteHandler<AG, Args> | undefined;
@@ -15,22 +15,9 @@ export function useAlovaPagination<AG extends AlovaGenerics, L extends any[], Ar
   hookOptions?: HookOptions<AG, L, Args> | undefined,
 ) {
   const options = { ...hookOptions, immediate: hookOptions?.immediate ?? true };
-  let isBeforeExecuted = false;
-  let isMiddlewareExecuted = false;
 
   if (options.onBeforeRequest) {
-    const middleware = options.middleware;
-    options.middleware = async (context, next) => {
-      !isBeforeExecuted && options.onBeforeRequest?.(context);
-      isBeforeExecuted = true;
-
-      if (middleware && !isMiddlewareExecuted) {
-        isMiddlewareExecuted = true;
-        await middleware?.(context, next);
-      } else {
-        await next();
-      }
-    };
+    options.middleware = createBeforeRequestMiddleware(options.middleware, options.onBeforeRequest);
   }
 
   const exposure = usePagination(methodHandler, options);
