@@ -41,6 +41,6 @@
   },
   "devDependencies": {
     "@pawover/types": "^0.0.4",
-    "type-fest": "^5.7.0"
+    "type-fest": "^5.8.0"
   }
 }

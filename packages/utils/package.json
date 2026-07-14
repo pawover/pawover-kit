@@ -55,7 +55,7 @@
   "devDependencies": {
     "@pawover/types": "0.0.2",
     "ts-toolbelt": "^9.6.0",
-    "type-fest": "^5.7.0"
+    "type-fest": "^5.8.0"
   },
   "peerDependencies": {
     "mathjs": "^15.2.0",

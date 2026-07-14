@@ -63,6 +63,7 @@ export default defineConfig([
       ...eslintRules.react,
       ...eslintRules.reactHooks,
       "antfu/no-import-dist": 0,
+      "ts/no-explicit-any": 0,
       "stylistic/no-multiple-empty-lines": [2, { max: 1, maxEOF: 1, maxBOF: 0 }],
     },
   },
