@@ -1,3 +1,5 @@
+import { StringUtil } from "../string";
+
 /**
  * MIME 工具类
  */
@@ -20,7 +22,7 @@ export class MimeUtil {
     /** XML 文档（.xml） */
     XML: "application/xml",
     /** XML 文档/兼容值 */
-    XML_TEXT: "text/xml",
+    XML_LEGACY: "text/xml",
     /** XHTML 文档（.xhtml/.xht） */
     XHTML: "application/xhtml+xml",
     /** JavaScript 文件（.js） */
@@ -52,15 +54,15 @@ export class MimeUtil {
     /** YAML 文档（.yaml/.yml） */
     YAML: "application/yaml",
     /** YAML 文档/兼容值 */
-    YAML_TEXT: "text/vnd.yaml",
+    YAML_LEGACY: "text/vnd.yaml",
     /** TOML 文档（.toml） */
     TOML: "application/toml",
     /** TOML 文档/兼容值 */
-    TOML_TEXT: "text/x-toml",
+    TOML_LEGACY: "text/x-toml",
     /** SQL 脚本（.sql） */
     SQL: "application/sql",
     /** SQL 脚本/兼容值 */
-    SQL_TEXT: "text/x-sql",
+    SQL_LEGACY: "text/x-sql",
     /** Markdown 格式文档（.md/.markdown） */
     MARKDOWN: "text/markdown",
     /** 富文本格式文档（.rtf） */
@@ -85,6 +87,8 @@ export class MimeUtil {
     AVIF: "image/avif",
     /** 图标文件格式（.ico） */
     ICO: "image/vnd.microsoft.icon",
+    /** 图标文件格式/兼容值（.ico） */
+    ICO_LEGACY: "image/x-icon",
     /** WebP 图像/高效压缩（.webp） */
     WEBP: "image/webp",
     /** TIFF 图像（.tif/.tiff） */
@@ -127,6 +131,10 @@ export class MimeUtil {
     THREE_GPP2: "video/3gpp2",
     /** WebM 视频（.webm） */
     WEBM: "video/webm",
+    /** Matroska 视频（.mkv） */
+    MKV: "video/x-matroska",
+    /** Matroska 音频（.mka） */
+    MKA: "audio/x-matroska",
     /** QuickTime 视频（.mov） */
     QUICKTIME: "video/quicktime",
     /** PDF 文档（.pdf） */
@@ -223,4 +231,177 @@ export class MimeUtil {
     /** JSON Merge Patch（RFC 7386） */
     MERGE_PATCH_JSON: "application/merge-patch+json",
   } as const;
+
+  /**
+   * 根据文件后缀名获取对应的标准 MIME 类型（含历史兼容值）
+   * - 支持带 `.` 或不带 `.` 的后缀名，不区分大小写
+   * - 元组第一项始终为 IANA 官方标准 MIME，后续项为历史兼容值
+   * - 仅查询文件类型 MIME，不包含无后缀对应的协议类型
+   *
+   * @param extension 文件后缀名（如 `".png"` / `"png"` / `".PNG"`）
+   * @returns 标准 MIME + 兼容值的元组；如无匹配则返回 `undefined`
+   * @example
+   * ```ts
+   * MimeUtil.fromExtension(".png");  // ["image/png"]
+   * MimeUtil.fromExtension("ico");   // ["image/vnd.microsoft.icon", "image/x-icon"]
+   * MimeUtil.fromExtension(".xml");  // ["application/xml", "text/xml"]
+   * MimeUtil.fromExtension(".xyz");  // undefined
+   * ```
+   */
+  static fromExtension (extension: string): readonly [string, ...string[]] | undefined {
+    const ext = StringUtil.cast(extension).toLowerCase();
+    const key = ext.startsWith(".") ? ext : `.${ext}`;
+
+    return EXT_TO_MIME[key];
+  }
+
+  /**
+   * 根据 MIME 类型获取对应的文件后缀名列表
+   * - 一个 MIME 类型可能对应多个后缀名（如 `text/html` → `.html` / `.htm`）
+   * - 兼容值和标准值映射到相同的后缀（如 `image/x-icon` 和 `image/vnd.microsoft.icon` 均返回 `[".ico"]`）
+   * - 仅查询文件类型 MIME，协议类型无对应后缀
+   *
+   * @param mime MIME 类型字符串（如 `"image/png"` / `"IMAGE/PNG"`）
+   * @returns 文件后缀名列表；如无匹配则返回 `undefined`
+   * @example
+   * ```ts
+   * MimeUtil.toExtension("IMAGE/PNG");                    // [".png"]
+   * MimeUtil.toExtension("text/html");                    // [".html", ".htm"]
+   * MimeUtil.toExtension("image/jpeg");                   // [".jpg", ".jpeg"]
+   * MimeUtil.toExtension("application/octet-stream");     // undefined
+   * ```
+   */
+  static toExtension (mime: string): readonly [string, ...string[]] | undefined {
+    const m = StringUtil.cast(mime).toLowerCase();
+
+    return MIME_TO_EXT.get(m);
+  }
 }
+
+const EXT_TO_MIME: Record<string, readonly [string, ...string[]]> = {
+  ".txt": [MimeUtil.FILE_MIME.TEXT],
+  ".html": [MimeUtil.FILE_MIME.HTML],
+  ".htm": [MimeUtil.FILE_MIME.HTML],
+  ".css": [MimeUtil.FILE_MIME.CSS],
+  ".csv": [MimeUtil.FILE_MIME.CSV],
+  ".tsv": [MimeUtil.FILE_MIME.TSV],
+  ".xml": [MimeUtil.FILE_MIME.XML, MimeUtil.FILE_MIME.XML_LEGACY],
+  ".xhtml": [MimeUtil.FILE_MIME.XHTML],
+  ".xht": [MimeUtil.FILE_MIME.XHTML],
+  ".js": [MimeUtil.FILE_MIME.JS],
+  ".ts": [MimeUtil.FILE_MIME.TS],
+  ".py": [MimeUtil.FILE_MIME.PY],
+  ".sh": [MimeUtil.FILE_MIME.SH],
+  ".c": [MimeUtil.FILE_MIME.C],
+  ".cpp": [MimeUtil.FILE_MIME.CPP],
+  ".cc": [MimeUtil.FILE_MIME.CPP],
+  ".cxx": [MimeUtil.FILE_MIME.CPP],
+  ".cs": [MimeUtil.FILE_MIME.CSHARP],
+  ".java": [MimeUtil.FILE_MIME.JAVA],
+  ".go": [MimeUtil.FILE_MIME.GO],
+  ".rs": [MimeUtil.FILE_MIME.RUST],
+  ".php": [MimeUtil.FILE_MIME.PHP],
+  ".rb": [MimeUtil.FILE_MIME.RUBY],
+  ".swift": [MimeUtil.FILE_MIME.SWIFT],
+  ".yaml": [MimeUtil.FILE_MIME.YAML, MimeUtil.FILE_MIME.YAML_LEGACY],
+  ".yml": [MimeUtil.FILE_MIME.YAML, MimeUtil.FILE_MIME.YAML_LEGACY],
+  ".toml": [MimeUtil.FILE_MIME.TOML, MimeUtil.FILE_MIME.TOML_LEGACY],
+  ".sql": [MimeUtil.FILE_MIME.SQL, MimeUtil.FILE_MIME.SQL_LEGACY],
+  ".md": [MimeUtil.FILE_MIME.MARKDOWN],
+  ".markdown": [MimeUtil.FILE_MIME.MARKDOWN],
+  ".rtf": [MimeUtil.FILE_MIME.RTF],
+  ".ics": [MimeUtil.FILE_MIME.CALENDAR],
+  ".jpg": [MimeUtil.FILE_MIME.JPEG],
+  ".jpeg": [MimeUtil.FILE_MIME.JPEG],
+  ".png": [MimeUtil.FILE_MIME.PNG],
+  ".gif": [MimeUtil.FILE_MIME.GIF],
+  ".bmp": [MimeUtil.FILE_MIME.BMP],
+  ".svg": [MimeUtil.FILE_MIME.SVG],
+  ".apng": [MimeUtil.FILE_MIME.APNG],
+  ".avif": [MimeUtil.FILE_MIME.AVIF],
+  ".ico": [MimeUtil.FILE_MIME.ICO, MimeUtil.FILE_MIME.ICO_LEGACY],
+  ".webp": [MimeUtil.FILE_MIME.WEBP],
+  ".tif": [MimeUtil.FILE_MIME.TIFF],
+  ".tiff": [MimeUtil.FILE_MIME.TIFF],
+  ".heic": [MimeUtil.FILE_MIME.HEIC],
+  ".heif": [MimeUtil.FILE_MIME.HEIF],
+  ".psd": [MimeUtil.FILE_MIME.PSD],
+  ".mp3": [MimeUtil.FILE_MIME.MP3],
+  ".aac": [MimeUtil.FILE_MIME.AAC],
+  ".mid": [MimeUtil.FILE_MIME.MIDI],
+  ".midi": [MimeUtil.FILE_MIME.MIDI],
+  ".oga": [MimeUtil.FILE_MIME.OGG_AUDIO],
+  ".opus": [MimeUtil.FILE_MIME.OPUS],
+  ".flac": [MimeUtil.FILE_MIME.FLAC],
+  ".wav": [MimeUtil.FILE_MIME.WAV],
+  ".weba": [MimeUtil.FILE_MIME.WEBM_AUDIO],
+  ".ra": [MimeUtil.FILE_MIME.REAL_AUDIO],
+  ".ram": [MimeUtil.FILE_MIME.REAL_AUDIO],
+  ".mp4": [MimeUtil.FILE_MIME.MP4],
+  ".mpeg": [MimeUtil.FILE_MIME.MPEG],
+  ".mpg": [MimeUtil.FILE_MIME.MPEG],
+  ".ogv": [MimeUtil.FILE_MIME.OGG_VIDEO],
+  ".avi": [MimeUtil.FILE_MIME.AVI],
+  ".3gp": [MimeUtil.FILE_MIME.THREE_GPP],
+  ".3g2": [MimeUtil.FILE_MIME.THREE_GPP2],
+  ".webm": [MimeUtil.FILE_MIME.WEBM],
+  ".mkv": [MimeUtil.FILE_MIME.MKV],
+  ".mka": [MimeUtil.FILE_MIME.MKA],
+  ".mov": [MimeUtil.FILE_MIME.QUICKTIME],
+  ".pdf": [MimeUtil.FILE_MIME.PDF],
+  ".doc": [MimeUtil.FILE_MIME.DOC],
+  ".docx": [MimeUtil.FILE_MIME.DOCX],
+  ".xlsx": [MimeUtil.FILE_MIME.XLSX],
+  ".xlsm": [MimeUtil.FILE_MIME.XLSM],
+  ".xltx": [MimeUtil.FILE_MIME.XLTX],
+  ".pptx": [MimeUtil.FILE_MIME.PPTX],
+  ".ppt": [MimeUtil.FILE_MIME.PPT],
+  ".odt": [MimeUtil.FILE_MIME.ODT],
+  ".ods": [MimeUtil.FILE_MIME.ODS],
+  ".odp": [MimeUtil.FILE_MIME.ODP],
+  ".epub": [MimeUtil.FILE_MIME.EPUB],
+  ".azw": [MimeUtil.FILE_MIME.AZW],
+  ".zip": [MimeUtil.FILE_MIME.ZIP],
+  ".gz": [MimeUtil.FILE_MIME.GZIP],
+  ".tar": [MimeUtil.FILE_MIME.TAR],
+  ".bz": [MimeUtil.FILE_MIME.BZIP],
+  ".bz2": [MimeUtil.FILE_MIME.BZIP2],
+  ".7z": [MimeUtil.FILE_MIME.SEVEN_Z],
+  ".rar": [MimeUtil.FILE_MIME.RAR],
+  ".xz": [MimeUtil.FILE_MIME.XZ],
+  ".zst": [MimeUtil.FILE_MIME.ZSTD],
+  ".iso": [MimeUtil.FILE_MIME.ISO9660_IMAGE],
+  ".json": [MimeUtil.FILE_MIME.JSON],
+  ".jsonld": [MimeUtil.FILE_MIME.LD_JSON],
+  ".webmanifest": [MimeUtil.FILE_MIME.MANIFEST],
+  ".jar": [MimeUtil.FILE_MIME.JAR],
+  ".wasm": [MimeUtil.FILE_MIME.WASM],
+  ".eot": [MimeUtil.FILE_MIME.EOT],
+  ".otf": [MimeUtil.FILE_MIME.OTF],
+  ".woff": [MimeUtil.FILE_MIME.WOFF],
+  ".woff2": [MimeUtil.FILE_MIME.WOFF2],
+  ".ttf": [MimeUtil.FILE_MIME.TTF],
+  ".xls": [MimeUtil.FILE_MIME.XLS],
+  ".xps": [MimeUtil.FILE_MIME.XPS],
+  ".docm": [MimeUtil.FILE_MIME.DOCM],
+};
+
+const MIME_TO_EXT: ReadonlyMap<string, readonly [string, ...string[]]> = (() => {
+  const map = new Map<string, [string, ...string[]]>();
+
+  for (const [ext, mimes] of Object.entries(EXT_TO_MIME)) {
+    for (const mime of mimes) {
+      const exts = map.get(mime);
+
+      if (exts) {
+        if (!exts.includes(ext)) {
+          exts.push(ext);
+        }
+      } else {
+        map.set(mime, [ext]);
+      }
+    }
+  }
+
+  return map;
+})();
