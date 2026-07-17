@@ -12,6 +12,7 @@ export class StringUtil {
    *
    * @param candidate 待转换的值
    * @param checkEmpty 是否检查空值（`null` / `undefined` / 空白字符串），默认为 `true`
+   * @param trim 是否去除结果首尾空白，默认为 `true`
    * @returns 转换后的字符串
    * @example
    * ```ts
@@ -33,13 +34,18 @@ export class StringUtil {
    *
    * // 重载 4: 其他类型 → string
    * StringUtil.cast(Symbol("foo")); // "Symbol(foo)" (类型为 string)
+   *
+   * // trim 参数（默认 true）
+   * StringUtil.cast("  hello  "); // "hello"
+   * StringUtil.cast("\n  abc  \n"); // "abc"
+   * StringUtil.cast("\n  abc  \n", true, false); // "\n  abc  \n"
    * ```
    */
-  static cast<T extends null | undefined> (candidate: T, checkEmpty?: true): "";
-  static cast<T extends null | undefined> (candidate: T, checkEmpty: false): `${T}`;
-  static cast<T extends string | number | bigint | boolean> (candidate: T, checkEmpty?: boolean): `${T}`;
-  static cast (candidate: unknown, checkEmpty?: boolean): string;
-  static cast (candidate: unknown, checkEmpty = true): string {
+  static cast<T extends null | undefined> (candidate: T, checkEmpty?: true, trim?: boolean): "";
+  static cast<T extends null | undefined> (candidate: T, checkEmpty: false, trim?: boolean): `${T}`;
+  static cast<T extends string | number | bigint | boolean> (candidate: T, checkEmpty?: boolean, trim?: boolean): `${T}`;
+  static cast (candidate: unknown, checkEmpty?: boolean, trim?: boolean): string;
+  static cast (candidate: unknown, checkEmpty = true, trim = true): string {
     if (checkEmpty) {
       if (candidate === null || candidate === undefined) {
         return "";
@@ -49,7 +55,9 @@ export class StringUtil {
       }
     }
 
-    return String(candidate);
+    const result = String(candidate);
+
+    return trim ? result.trim() : result;
   }
 
   /**
