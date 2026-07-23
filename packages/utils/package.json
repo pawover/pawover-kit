@@ -53,7 +53,7 @@
     "check:pack": "attw --pack ."
   },
   "devDependencies": {
-    "@pawover/types": "0.0.2",
+    "@pawover/types": "^0.0.4",
     "ts-toolbelt": "^9.6.0",
     "type-fest": "^5.8.0"
   },

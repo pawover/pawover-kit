@@ -60,7 +60,7 @@
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",
-    "alova": "^3.3.0",
+    "alova": "^3.5.1",
     "react": "^19.2.0"
   },
   "peerDependenciesMeta": {
