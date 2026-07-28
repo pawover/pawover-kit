@@ -291,6 +291,20 @@ export class TypeUtil {
   }
 
   /**
+   * 检查 value 是否为 null 或 undefined
+   * @param value 待检查值
+   * @returns 是否为 Nullish
+   * @example
+   * ```ts
+   * TypeUtil.isNullish(null); // true
+   * TypeUtil.isNullish(undefined); // true
+   * ```
+   */
+  static isNullish (value: unknown): value is null | undefined {
+    return this.isNull(value) || this.isUndefined(value);
+  }
+
+  /**
    * 检查 value 是否为 Function
    * @param value 待检查值
    * @returns 是否为 Function
