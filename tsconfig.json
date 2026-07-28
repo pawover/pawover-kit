@@ -4,7 +4,6 @@
   "references": [
     { "path": "./packages/utils/tsconfig.json" },
     { "path": "./packages/hooks/tsconfig.json" },
-    { "path": "./packages/enums/tsconfig.json" },
     { "path": "./packages/zod/tsconfig.json" },
     { "path": "./tsconfig.test.json" }
   ]

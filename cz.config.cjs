@@ -19,7 +19,6 @@ module.exports = {
   })),
   scopes: [
     { name: "kit" },
-    { name: "kit-enums" },
     { name: "kit-hooks" },
     { name: "kit-utils" },
     { name: "kit-zod" },
