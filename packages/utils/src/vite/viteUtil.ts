@@ -26,7 +26,7 @@ export class ViteUtil {
     const httpsRE = /^https:\/\//;
     const result: Record<string, ProxyOptions> = {};
 
-    if (typeof proxyList === "object") {
+    if (Array.isArray(proxyList)) {
       for (const [prefix, target] of proxyList) {
         const isHttps = httpsRE.test(target);
 
