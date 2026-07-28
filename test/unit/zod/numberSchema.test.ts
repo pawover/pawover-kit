@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { number, integer, integerPositive, integerNegative } from "@pawover/kit/zod";
+import { number, numberAllowEmpty, integer, integerAllowEmpty, integerPositive, integerPositiveAllowEmpty, integerNegative, integerNegativeAllowEmpty } from "@pawover/kit/zod";
 
 describe("number schema", () => {
   it("should parse a number", () => {
@@ -46,5 +46,49 @@ describe("integerNegative schema", () => {
 
   it("should reject a positive integer", () => {
     expect(() => integerNegative.parse(1)).toThrow();
+  });
+});
+
+describe("numberAllowEmpty schema", () => {
+  it("should parse a number", () => {
+    expect(numberAllowEmpty.parse(42)).toBe(42);
+  });
+
+  it("should parse null", () => {
+    expect(numberAllowEmpty.parse(null)).toBeNull();
+  });
+
+  it("should parse undefined", () => {
+    expect(numberAllowEmpty.parse(undefined)).toBeUndefined();
+  });
+});
+
+describe("integerAllowEmpty schema", () => {
+  it("should parse an integer", () => {
+    expect(integerAllowEmpty.parse(42)).toBe(42);
+  });
+
+  it("should parse null", () => {
+    expect(integerAllowEmpty.parse(null)).toBeNull();
+  });
+});
+
+describe("integerPositiveAllowEmpty schema", () => {
+  it("should parse a positive integer", () => {
+    expect(integerPositiveAllowEmpty.parse(1)).toBe(1);
+  });
+
+  it("should parse null", () => {
+    expect(integerPositiveAllowEmpty.parse(null)).toBeNull();
+  });
+});
+
+describe("integerNegativeAllowEmpty schema", () => {
+  it("should parse a negative integer", () => {
+    expect(integerNegativeAllowEmpty.parse(-1)).toBe(-1);
+  });
+
+  it("should parse null", () => {
+    expect(integerNegativeAllowEmpty.parse(null)).toBeNull();
   });
 });

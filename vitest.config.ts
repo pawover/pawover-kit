@@ -1,5 +1,5 @@
-import { resolve } from "node:path";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
@@ -15,22 +15,25 @@ export default defineConfig({
     ],
   },
   test: {
+    clearMocks: true,
     setupFiles: ["./test/setup/vitest.setup.ts"],
     coverage: {
       enabled: false,
       reportsDirectory: ".cache/coverage",
       provider: "v8",
+      include: ["packages/**/src/**/*.ts", "packages/**/src/**/*.tsx"],
       thresholds: {
-        lines: 80,
-        branches: 70,
-        functions: 80,
-        statements: 80,
+        lines: 90,
+        branches: 90,
+        functions: 90,
+        statements: 90,
       },
     },
     projects: [
       {
         extends: true,
         test: {
+          name: "node",
           environment: "node",
           include: [
             "test/unit/utils/**/*.test.ts",
@@ -42,6 +45,7 @@ export default defineConfig({
       {
         extends: true,
         test: {
+          name: "dom",
           environment: "jsdom",
           include: ["test/unit/hooks/**/*.test.{ts,tsx}"],
         },

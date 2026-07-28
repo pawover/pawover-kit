@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.build.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "rootDir": "..",
+    "erasableSyntaxOnly": false,
+    "allowUnusedLabels": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+    "noUncheckedIndexedAccess": false
+  },
+  "include": [
+    "**/*.js",
+    "**/*.cjs",
+    "**/*.mjs",
+    "**/*.ts",
+    "**/*.jsx",
+    "**/*.tsx",
+    "../eslint.config.js",
+    "../vitest.config.ts"
+  ],
+  "exclude": ["**/node_modules", "**/dist"]
+}

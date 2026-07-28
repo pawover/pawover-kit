@@ -21,4 +21,12 @@ describe("useUnmount", () => {
     unmount();
     expect(fn).toHaveBeenCalledTimes(1);
   });
+
+  it("should log error when effect is not a function", () => {
+    const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const { unmount } = renderHook(() => useUnmount(null as never));
+    unmount();
+    expect(consoleSpy).toHaveBeenCalled();
+    consoleSpy.mockRestore();
+  });
 });

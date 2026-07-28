@@ -16,4 +16,19 @@ describe("root package subpath exports", () => {
     const mod = await import("@pawover/kit/zod");
     expect(mod).toBeDefined();
   });
+
+  it("@pawover/kit/utils/vite should be importable", async () => {
+    const mod = await import("@pawover/kit/utils/vite");
+    expect(mod).toBeDefined();
+  });
+
+  it("@pawover/kit/hooks/react should be importable", async () => {
+    const mod = await import("@pawover/kit/hooks/react");
+    expect(mod).toBeDefined();
+  });
+
+  it("@pawover/kit/hooks/alova should be importable", async () => {
+    const mod = await import("@pawover/kit/hooks/alova");
+    expect(mod).toBeDefined();
+  });
 });
