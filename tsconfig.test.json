@@ -4,8 +4,9 @@
     "jsx": "react-jsx",
     "erasableSyntaxOnly": false,
     "allowUnusedLabels": true,
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
-  "include": ["**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+  "include": ["test", "**/*.js", "**/*.cjs", "**/*.mjs", "**/*.ts", "**/*.jsx", "**/*.tsx"],
   "exclude": ["**/node_modules", "**/dist"]
 }

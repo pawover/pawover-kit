@@ -68,11 +68,14 @@ export default defineConfig([
     },
   },
   {
-    files: ["**/*.test.{js,jsx,ts,tsx}"],
+    files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.test.type.ts"],
     rules: {
       ...Object.keys({
         ...eslintRules.javascript,
         ...eslintRules.typescript,
+        ...eslintRules.stylistic,
+        ...eslintRules.antfu,
+        ...eslintRules.imports,
         ...eslintRules.react,
         ...eslintRules.reactHooks,
       }).reduce((acc, key) => {
