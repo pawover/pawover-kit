@@ -9,15 +9,15 @@ export class ArrayUtil {
   /**
    * 构造数组
    * @param candidate 待构造项
-   * @param checkEmpty 是否检查 `undefined` 和 `null`，默认为 `true`
+   * @param checkNullish 是否检查 `undefined` 和 `null`，默认为 `true`
    * @returns 构造后的数组
    * @example
    * ```ts
-   * // 重载 1: checkEmpty = true (默认)
+   * // 重载 1: checkNullish = true (默认)
    * ArrayUtil.cast(1); // [1]
    * ArrayUtil.cast(null); // []
    *
-   * // 重载 2: checkEmpty = false
+   * // 重载 2: checkNullish = false
    * ArrayUtil.cast(null, false); // [null]
    *
    * // 通用场景
@@ -25,10 +25,10 @@ export class ArrayUtil {
    * ArrayUtil.cast(undefined); // []
    * ```
    */
-  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty?: true): NonNullable<T>[];
-  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty: false): T[];
-  static cast<T> (candidate: T | T[] | null | undefined, checkEmpty = true): T[] {
-    if (checkEmpty && (TypeUtil.isUndefined(candidate) || TypeUtil.isNull(candidate))) {
+  static cast<T> (candidate: T | T[] | null | undefined, checkNullish?: true): NonNullable<T>[];
+  static cast<T> (candidate: T | T[] | null | undefined, checkNullish: false): T[];
+  static cast<T> (candidate: T | T[] | null | undefined, checkNullish = true): T[] {
+    if (checkNullish && (TypeUtil.isNullish(candidate))) {
       return [];
     }
 

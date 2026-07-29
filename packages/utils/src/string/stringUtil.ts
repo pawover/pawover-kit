@@ -11,18 +11,18 @@ export class StringUtil {
    * - 当传入数值字面量时，返回对应的字符串字面量类型
    *
    * @param candidate 待转换的值
-   * @param checkEmpty 是否检查空值（`null` / `undefined` / 空白字符串），默认为 `true`
+   * @param checkNullish 是否检查空值（`null` / `undefined` / 空白字符串），默认为 `true`
    * @param trim 是否去除结果首尾空白，默认为 `true`
    * @returns 转换后的字符串
    * @example
    * ```ts
-   * // 重载 1: null / undefined + checkEmpty = true (默认) → ""
+   * // 重载 1: null / undefined + checkNullish = true (默认) → ""
    * StringUtil.cast(null); // ""
    * StringUtil.cast(undefined); // ""
    * StringUtil.cast(""); // ""
    * StringUtil.cast("   "); // ""
    *
-   * // 重载 2: null / undefined + checkEmpty = false → "null" / "undefined"
+   * // 重载 2: null / undefined + checkNullish = false → "null" / "undefined"
    * StringUtil.cast(null, false); // "null" (类型为 "null")
    * StringUtil.cast(undefined, false); // "undefined" (类型为 "undefined")
    *
@@ -41,12 +41,12 @@ export class StringUtil {
    * StringUtil.cast("\n  abc  \n", true, false); // "\n  abc  \n"
    * ```
    */
-  static cast<T extends null | undefined> (candidate: T, checkEmpty?: true, trim?: boolean): "";
-  static cast<T extends null | undefined> (candidate: T, checkEmpty: false, trim?: boolean): `${T}`;
-  static cast<T extends string | number | bigint | boolean> (candidate: T, checkEmpty?: boolean, trim?: boolean): `${T}`;
-  static cast (candidate: unknown, checkEmpty?: boolean, trim?: boolean): string;
-  static cast (candidate: unknown, checkEmpty = true, trim = true): string {
-    if (checkEmpty) {
+  static cast<T extends null | undefined> (candidate: T, checkNullish?: true, trim?: boolean): "";
+  static cast<T extends null | undefined> (candidate: T, checkNullish: false, trim?: boolean): `${T}`;
+  static cast<T extends string | number | bigint | boolean> (candidate: T, checkNullish?: boolean, trim?: boolean): `${T}`;
+  static cast (candidate: unknown, checkNullish?: boolean, trim?: boolean): string;
+  static cast (candidate: unknown, checkNullish = true, trim = true): string {
+    if (checkNullish) {
       if (candidate === null || candidate === undefined) {
         return "";
       }

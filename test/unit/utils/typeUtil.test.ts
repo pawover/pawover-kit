@@ -11,15 +11,15 @@ describe("TypeUtil", () => {
       expect(TypeUtil.isString(123)).toBe(false);
     });
 
-    it("should return false for empty string when checkEmpty is true", () => {
+    it("should return false for empty string when checkNullish is true", () => {
       expect(TypeUtil.isString("", true)).toBe(false);
     });
 
-    it("should return false for whitespace-only string when checkEmpty is true", () => {
+    it("should return false for whitespace-only string when checkNullish is true", () => {
       expect(TypeUtil.isString("   ", true)).toBe(false);
     });
 
-    it("should return true for non-empty string when checkEmpty is true", () => {
+    it("should return true for non-empty string when checkNullish is true", () => {
       expect(TypeUtil.isString(" a ", true)).toBe(true);
     });
 

@@ -52,7 +52,7 @@ export class TreeUtil {
 
       const siblings = parent[childrenKey];
 
-      if (TypeUtil.isNull(siblings) || TypeUtil.isUndefined(siblings)) {
+      if (TypeUtil.isNullish(siblings)) {
         parent[childrenKey] = [row] as T[CK];
       } else if (Array.isArray(siblings)) {
         siblings.push(row);

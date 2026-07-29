@@ -172,7 +172,7 @@ export class CurrencyUtil {
   static currencyFormatter (value: string | number, options: FormatterOptions): string;
   static currencyFormatter (value: string | number | null | undefined, options: FormatterOptions): string | null;
   static currencyFormatter (value: string | number | null | undefined, options: FormatterOptions) {
-    if (TypeUtil.isNull(value) || TypeUtil.isUndefined(value)) {
+    if (TypeUtil.isNullish(value)) {
       return null;
     }
 
@@ -222,7 +222,7 @@ export class CurrencyUtil {
   static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision?: number | undefined, stringMode?: boolean | undefined): string | number;
   static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): string | number | null;
   static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): string | number | null {
-    if (TypeUtil.isNull(value) || TypeUtil.isUndefined(value)) {
+    if (TypeUtil.isNullish(value)) {
       return null;
     }
 

@@ -19,7 +19,7 @@ describe("StringUtil", () => {
       expect(StringUtil.cast(undefined)).toBe("");
     });
 
-    it("should return 'null' for null when checkEmpty is false", () => {
+    it("should return 'null' for null when checkNullish is false", () => {
       expect(StringUtil.cast(null, false)).toBe("null");
     });
 

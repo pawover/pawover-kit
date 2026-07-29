@@ -11,15 +11,15 @@ describe("ArrayUtil", () => {
       expect(ArrayUtil.cast([1, 2])).toEqual([1, 2]);
     });
 
-    it("should return empty array for null when checkEmpty is true", () => {
+    it("should return empty array for null when checkNullish is true", () => {
       expect(ArrayUtil.cast(null)).toEqual([]);
     });
 
-    it("should return empty array for undefined when checkEmpty is true", () => {
+    it("should return empty array for undefined when checkNullish is true", () => {
       expect(ArrayUtil.cast(undefined)).toEqual([]);
     });
 
-    it("should return [null] for null when checkEmpty is false", () => {
+    it("should return [null] for null when checkNullish is false", () => {
       expect(ArrayUtil.cast(null, false)).toEqual([null]);
     });
 
