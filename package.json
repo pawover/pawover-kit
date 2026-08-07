@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "一个基于 TypeScript 的开发工具包",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -167,8 +167,8 @@
     "test:types": "tsc -p test/tsconfig.json --noEmit",
     "test:smoke": "node test/scripts/smoke.mjs",
     "test:ci": "pnpm test:types && pnpm test && pnpm build && pnpm test:smoke && pnpm check:pack",
-    "build": "turbo build",
     "postbuild": "node scripts/sync-entry.ts",
+    "build": "turbo build",
     "build:force": "turbo build --force",
     "build:package": "turbo build:package && pnpm package",
     "build:package:force": "turbo build:package --force && pnpm package",
