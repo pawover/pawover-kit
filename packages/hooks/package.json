@@ -52,7 +52,7 @@
     "public": "npm publish --access public --tag alpha",
     "check:pack": "attw --pack ."
   },
-  "devDependencies": {
+  "dependencies": {
     "@pawover/kit-utils": "workspace:*",
     "@pawover/types": "^0.0.4",
     "es-toolkit": "^1.50.0",
