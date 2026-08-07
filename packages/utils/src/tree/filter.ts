@@ -31,7 +31,7 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T,
 
   if (TypeUtil.isArray(children)) {
     const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-    newChildren = children.map((c) => preImpl(c, callback, nextLevelOptions)).filter((c) => !!c);
+    newChildren = children.map((c) => postImpl(c, callback, nextLevelOptions)).filter((c) => !!c);
   }
 
   const result = callback(row, options);

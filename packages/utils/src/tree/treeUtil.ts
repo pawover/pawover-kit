@@ -1,5 +1,4 @@
 import type { AnyObject, TreeLike } from "@pawover/types";
-import type { SetOptional } from "type-fest";
 import { TypeUtil } from "../type";
 import { treeFilterStrategies } from "./filter";
 import { treeFindStrategies } from "./find";
@@ -8,58 +7,105 @@ import type { ChildrenKey, ParentIdKey, RowKey, RowsToTreeOptions, TreeFilterCal
 import { treeMapStrategies } from "./map";
 
 /**
+ * 行结构转树结构后，节点类型（children 键可选）
+ */
+type TreeWithOptionalChildren<T extends AnyObject, CK extends string> = T & { [K in CK]?: TreeWithOptionalChildren<T, CK>[] };
+
+/**
  * 树结构工具类
+ *
+ * 引用策略约定：
+ * - 转换类方法（`rowsToTree` / `treeToRows` / `filter` / `map`）：不突变输入；输出的每个节点均为**新对象引用**（来源节点的浅拷贝，仅自有可枚举属性；非枚举属性、原型链、getter 及深层嵌套对象不保证）。
+ * - 查询类方法（`find` / `forEach`）：按查询语义直接使用**原对象引用**。
  */
 export class TreeUtil {
   /**
    * 行结构 转 树结构
    * - 将平铺的数组转换为树形结构
+   * - 返回的树结构与输入行无共享节点（新对象引用），输入行不会被突变
+   * - 重复 id 的行只取首次出现；仅叶子/缺失父节点的 id 会作为根节点，且每个根节点只输出一次
    *
    * @param rows 行数据数组
    * @param options 配置项
-   * @returns 树结构数组
+   * @returns 树结构数组（所有节点均包含 children 数组）
    * @example
    * ```ts
    * const rows = [
    *   { id: 1, parentId: null },
    *   { id: 2, parentId: 1 },
    * ];
-   * TreeUtil.rowsToTree(rows); // [{ id: 1, parentId: null, children: [{ id: 2, parentId: 1 }] }]
+   * TreeUtil.rowsToTree(rows); // [{ id: 1, parentId: null, children: [{ id: 2, parentId: 1, children: [] }] }]
    * ```
    */
-  static rowsToTree<T extends AnyObject = AnyObject, CK extends string = ChildrenKey, R = TreeLike<T, CK>, RK extends string = RowKey, PK extends string = ParentIdKey> (rows: T[], options?: RowsToTreeOptions<RK, PK, CK> | undefined): R[] {
+  static rowsToTree<
+    T extends AnyObject = AnyObject,
+    CK extends string = ChildrenKey,
+    R extends AnyObject = TreeLike<T, CK>,
+    RK extends string = RowKey,
+    PK extends string = ParentIdKey,
+  > (
+    rows: T[],
+    options?: RowsToTreeOptions<RK, PK, CK> | undefined,
+  ): R[] {
     const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children" } = options || {};
     const result: R[] = [];
     const map = new Map<PropertyKey, T>();
+    const processedIds = new Set<PropertyKey>();
 
     for (const row of rows) {
       const id = row[rowKey];
 
       if (!map.get(id)) {
-        map.set(id, row);
+        map.set(id, { ...row });
       }
     }
 
     for (const row of rows) {
-      const parentId = row[parentIdKey];
-      const parent = map.get(parentId);
+      const id = row[rowKey];
 
-      if (!parent || !parentId) {
-        result.push(row);
+      if (processedIds.has(id)) {
+        continue;
+      }
+
+      processedIds.add(id);
+      const parentId = row[parentIdKey];
+      const node = map.get(id);
+
+      if (!node) {
+        continue;
+      }
+
+      if (TypeUtil.isNullish(parentId) || parentId === id || !map.has(parentId)) {
+        result.push(node);
 
         continue;
       }
 
+      const parent = map.get(parentId)!;
       const siblings = parent[childrenKey];
 
       if (TypeUtil.isNullish(siblings)) {
-        parent[childrenKey] = [row] as T[CK];
+        parent[childrenKey] = [node] as T[CK];
       } else if (Array.isArray(siblings)) {
-        siblings.push(row);
+        siblings.push(node);
       } else {
         const message = `The key "${childrenKey.toString()}" in parent item is not an array.`;
         throw new Error(message);
       }
+    }
+
+    for (const root of result) {
+      this.forEach(root, (node) => {
+        const record = node as Record<string, unknown>;
+        const children = record[childrenKey];
+
+        if (TypeUtil.isNullish(children)) {
+          record[childrenKey] = [];
+        } else if (!Array.isArray(children)) {
+          const message = `The key "${childrenKey.toString()}" in parent item is not an array.`;
+          throw new Error(message);
+        }
+      }, { childrenKey });
     }
 
     return result;
@@ -78,7 +124,14 @@ export class TreeUtil {
    * TreeUtil.treeToRows(tree); // [{ id: 1, children: undefined }, { id: 2, children: undefined }]
    * ```
    */
-  static treeToRows<T extends AnyObject, CK extends string = ChildrenKey, R extends AnyObject = SetOptional<T, CK>> (tree: T | T[], options: TreeToRowsOptions<T, CK> = {}): R[] {
+  static treeToRows<
+    T extends AnyObject,
+    CK extends string = ChildrenKey,
+    R extends AnyObject = TreeWithOptionalChildren<T, CK>,
+  > (
+    tree: T | T[],
+    options: TreeToRowsOptions<T, CK> = {},
+  ): R[] {
     const { childrenKey = "children" } = options;
     const result: R[] = [];
 

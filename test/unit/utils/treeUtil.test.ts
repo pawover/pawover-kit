@@ -63,13 +63,114 @@ describe("TreeUtil", () => {
       expect(tree).toHaveLength(1);
     });
 
-    it("should keep first occurrence for duplicate ids", () => {
+    it("should deduplicate duplicate ids by first occurrence", () => {
       const rows = [
         { id: 1, parentId: null, name: "first" },
         { id: 1, parentId: null, name: "second" },
+        { id: 1, parentId: null, name: "third" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(1);
+      expect(tree[0].name).toBe("first");
+      expect(tree[0]).not.toBe(rows[0]);
+    });
+
+    it("should deduplicate duplicate roots without dropping distinct ids", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 1, parentId: null },
+        { id: 2, parentId: null },
       ];
       const tree = TreeUtil.rowsToTree(rows);
       expect(tree).toHaveLength(2);
+      expect(tree[0].id).toBe(1);
+      expect(tree[1].id).toBe(2);
+    });
+
+    it("should deduplicate duplicate child rows by first occurrence", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1, name: "first" },
+        { id: 2, parentId: 1, name: "second" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children).toHaveLength(1);
+      expect(tree[0].children[0].name).toBe("first");
+    });
+
+    it("should not duplicate a node across root and children when duplicate id rows have different parents", () => {
+      const rows = [
+        { id: 1, parentId: null, name: "root" },
+        { id: 2, parentId: null, name: "first" },
+        { id: 2, parentId: 1, name: "second" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(2);
+      expect(tree[0].children).toHaveLength(0);
+      expect(tree[1].children).toHaveLength(0);
+    });
+
+    it("should return fresh object references for nodes", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree[0]).not.toBe(rows[0]);
+      expect(tree[0].children[0]).not.toBe(rows[1]);
+    });
+
+    it("should treat parentId 0 as a valid parent", () => {
+      const rows = [
+        { id: 0, parentId: null },
+        { id: 2, parentId: 0 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(1);
+      expect(tree[0].id).toBe(0);
+      expect(tree[0].children).toHaveLength(1);
+    });
+
+    it("should treat self-reference as root", () => {
+      const rows = [
+        { id: 1, parentId: 1 },
+        { id: 2, parentId: 1 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(1);
+      expect(tree[0].id).toBe(1);
+      expect(tree[0].children).toHaveLength(1);
+    });
+
+    it("should not mutate input rows", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1 },
+      ];
+      TreeUtil.rowsToTree(rows);
+      expect(rows[1]).not.toHaveProperty("children");
+      expect(rows[0]).not.toHaveProperty("children");
+    });
+
+    it("should provide children array on every node", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1 },
+        { id: 3, parentId: null },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(2);
+      expect(tree[0].children).toHaveLength(1);
+      expect(tree[0].children[0].children).toEqual([]);
+      expect(tree[1].children).toEqual([]);
+    });
+
+    it("should throw when children key is not an array on a leaf node", () => {
+      const rows = [
+        { id: 1, parentId: null, children: "not-an-array" as never },
+      ];
+      expect(() => TreeUtil.rowsToTree(rows)).toThrow("not an array");
     });
   });
 
@@ -230,6 +331,16 @@ describe("TreeUtil", () => {
       const filtered = TreeUtil.filter(tree, (node) => node.visible, { strategy: "post" });
       expect(filtered).toHaveLength(1);
       expect(filtered[0].id).toBe(1);
+    });
+
+    it("should visit deepest nodes first in post-order", () => {
+      const tree = [{ id: 1, visible: true, children: [{ id: 2, visible: true, children: [{ id: 3, visible: true }] }] }];
+      const visited: number[] = [];
+      TreeUtil.filter(tree, (node) => {
+        visited.push(node.id);
+        return true;
+      }, { strategy: "post" });
+      expect(visited).toEqual([3, 2, 1]);
     });
 
     it("should filter in breadth-order", () => {
