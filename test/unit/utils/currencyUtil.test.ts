@@ -54,6 +54,30 @@ describe("CurrencyUtil", () => {
     it("should return null for undefined input", () => {
       expect(CurrencyUtil.currencyFormatter(undefined, {} as never)).toBeNull();
     });
+
+    it("should return null for NaN input", () => {
+      expect(CurrencyUtil.currencyFormatter(NaN, {} as never)).toBeNull();
+    });
+
+    it("should return null for non-numeric string", () => {
+      const result = CurrencyUtil.currencyFormatter("abc", {
+        locales: ["en-US", "en-US"],
+        currencySign: "$",
+        currencySignPosition: "start",
+        currencyFormatOptions: { style: "currency", currency: "USD" },
+      });
+      expect(result).toBeNull();
+    });
+
+    it("should format negative value with sign at start", () => {
+      const result = CurrencyUtil.currencyFormatter(-1234.56, {
+        locales: ["en-US", "en-US"],
+        currencySign: "$",
+        currencySignPosition: "start",
+        currencyFormatOptions: { style: "currency", currency: "USD" },
+      });
+      expect(result).toBe("$ -1,234.56");
+    });
   });
 
   describe("toRealValue", () => {
@@ -72,8 +96,13 @@ describe("CurrencyUtil", () => {
       expect(typeof result).toBe("string");
     });
 
-    it("should return number value by default", () => {
+    it("should return string value by default", () => {
       const result = CurrencyUtil.toRealValue(math, "123.456", 2);
+      expect(typeof result).toBe("string");
+    });
+
+    it("should return number value when stringMode is false", () => {
+      const result = CurrencyUtil.toRealValue(math, "123.456", 2, false);
       expect(typeof result).toBe("number");
     });
   });

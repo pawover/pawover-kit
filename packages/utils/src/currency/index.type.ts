@@ -6,7 +6,6 @@ export type CurrencyLocale = ValueOf<typeof CurrencyUtil.CURRENCY_ENUM>;
 export interface FormatterOptions {
   locales: [CurrencyLocale, CurrencyLocale];
   currencySign: string;
-  currencySignPosition: "prefix" | "suffix" | "start" | "end";
+  currencySignPosition: "start" | "end";
   currencyFormatOptions: Intl.NumberFormatOptions;
-  precision?: number | undefined;
 }

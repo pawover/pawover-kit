@@ -141,7 +141,7 @@ export class CurrencyUtil {
   /**
    * 货币格式化
    * - 使用 `Intl.NumberFormat` 进行本地化数字格式化
-   * - 支持自定义货币符号及位置（前缀/后缀/首/尾）
+   * - 支持自定义货币符号及位置（首/尾）
    * - 当值为 `null` 或 `undefined` 时返回 `null`
    *
    * @param value 待格式化的数值
@@ -160,7 +160,7 @@ export class CurrencyUtil {
    * CurrencyUtil.currencyFormatter(1234.56, {
    *   locales: [CurrencyUtil.CURRENCY_ENUM.CNY, CurrencyUtil.CURRENCY_ENUM.USD],
    *   currencySign: "¥",
-   *   currencySignPosition: "prefix",
+   *   currencySignPosition: "start",
    *   currencyFormatOptions: { style: "currency", currency: "CNY" },
    * }); // "¥ 1,234.56"
    *
@@ -169,7 +169,7 @@ export class CurrencyUtil {
    * CurrencyUtil.currencyFormatter(undefined, options); // null
    * ```
    */
-  static currencyFormatter (value: string | number, options: FormatterOptions): string;
+  static currencyFormatter (value: string | number, options: FormatterOptions): string | null;
   static currencyFormatter (value: string | number | null | undefined, options: FormatterOptions): string | null;
   static currencyFormatter (value: string | number | null | undefined, options: FormatterOptions) {
     if (TypeUtil.isNullish(value)) {
@@ -178,6 +178,11 @@ export class CurrencyUtil {
 
     const { currencySign, currencySignPosition, locales, currencyFormatOptions } = options;
     const numberValue = Number(value);
+
+    if (Number.isNaN(numberValue)) {
+      return null;
+    }
+
     let formatedValue = numberValue.toLocaleString(locales, currencyFormatOptions).replace(currencySign, "").trim();
 
     if (currencySignPosition === "start") {
@@ -215,12 +220,19 @@ export class CurrencyUtil {
    * // 重载 2: stringMode = false → number
    * CurrencyUtil.toRealValue(math, "0.1", undefined, false); // 0.1
    *
-   * // 重载 3: null / undefined
+   * // 重载 3: null / undefined（含 stringMode 显式组合）
    * CurrencyUtil.toRealValue(math, null); // null
+   * CurrencyUtil.toRealValue(math, undefined); // null
+   * CurrencyUtil.toRealValue(math, null, 2, true); // null
+   * CurrencyUtil.toRealValue(math, null, 2, false); // null
    * ```
    */
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision?: number | undefined, stringMode?: boolean | undefined): string | number;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): string | number | null;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision: number | undefined, stringMode: true): string;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision: number | undefined, stringMode: false): number;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision?: number | undefined): string;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision: number | undefined, stringMode: true): string | null;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision: number | undefined, stringMode: false): number | null;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined): string | null;
   static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): string | number | null {
     if (TypeUtil.isNullish(value)) {
       return null;
@@ -228,6 +240,6 @@ export class CurrencyUtil {
 
     const precisionValue = MathUtil.toDecimal(mathJsInstance, value, precision);
 
-    return stringMode ? precisionValue : Number(precisionValue);
+    return stringMode === false ? Number(precisionValue) : precisionValue;
   }
 }
