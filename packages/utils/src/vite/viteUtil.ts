@@ -29,14 +29,16 @@ export class ViteUtil {
     if (Array.isArray(proxyList)) {
       for (const [prefix, target] of proxyList) {
         const isHttps = httpsRE.test(target);
+        // 转义正则特殊字符，避免 prefix 中的 `.`、`(` 等破坏/扩大匹配
+        const escapedPrefix = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
         // https://github.com/http-party/node-http-proxy#options
         result[prefix] = {
           target,
           changeOrigin: true,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^${prefix}`), ""),
-          // https 需要开启 secure = false
+          rewrite: (path) => path.replace(new RegExp(`^${escapedPrefix}`), ""),
+          // https 目标关闭 TLS 校验（含自签证书场景）。仅限开发环境代理使用，生产环境请勿开启
           ...(isHttps ? { secure: false } : {}),
           ...options,
         };
