@@ -1,4 +1,4 @@
-import type { AnyObject } from "@pawover/types";
+import type { AnyObject } from "@pawover/kit-types";
 
 export type RowKey = "id";
 export type ParentIdKey = "parentId";

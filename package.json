@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "一个基于 TypeScript 的开发工具包",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -28,166 +28,135 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./packages/utils/dist/index.cjs",
-  "module": "./packages/utils/dist/index.js",
-  "types": "./packages/utils/dist/index.d.ts",
+  "main": "./entry/index.cjs",
+  "module": "./entry/index.js",
+  "types": "./entry/index.d.ts",
   "files": [
-    "packages/utils/dist",
-    "packages/hooks/dist",
-    "packages/types/dist",
-    "packages/eslint-rules/dist",
-    "packages/zod/dist"
+    "entry"
   ],
   "exports": {
     ".": {
       "import": {
-        "types": "./packages/utils/dist/index.d.ts",
-        "default": "./packages/utils/dist/index.js"
+        "types": "./entry/index.d.ts",
+        "default": "./entry/index.js"
       },
       "require": {
-        "types": "./packages/utils/dist/index.d.cts",
-        "default": "./packages/utils/dist/index.cjs"
+        "types": "./entry/index.d.cts",
+        "default": "./entry/index.cjs"
+      }
+    },
+    "./utils": {
+      "import": {
+        "types": "./entry/index.d.ts",
+        "default": "./entry/index.js"
+      },
+      "require": {
+        "types": "./entry/index.d.cts",
+        "default": "./entry/index.cjs"
       }
     },
     "./math": {
       "import": {
-        "types": "./packages/utils/dist/math.d.ts",
-        "default": "./packages/utils/dist/math.js"
+        "types": "./entry/math.d.ts",
+        "default": "./entry/math.js"
       },
       "require": {
-        "types": "./packages/utils/dist/math.d.cts",
-        "default": "./packages/utils/dist/math.cjs"
+        "types": "./entry/math.d.cts",
+        "default": "./entry/math.cjs"
       }
     },
     "./vite": {
       "import": {
-        "types": "./packages/utils/dist/vite.d.ts",
-        "default": "./packages/utils/dist/vite.js"
+        "types": "./entry/vite.d.ts",
+        "default": "./entry/vite.js"
       },
       "require": {
-        "types": "./packages/utils/dist/vite.d.cts",
-        "default": "./packages/utils/dist/vite.cjs"
-      }
-    },
-    "./metadata.json": "./packages/utils/dist/metadata.json",
-    "./utils": {
-      "import": {
-        "types": "./packages/utils/dist/index.d.ts",
-        "default": "./packages/utils/dist/index.js"
-      },
-      "require": {
-        "types": "./packages/utils/dist/index.d.cts",
-        "default": "./packages/utils/dist/index.cjs"
+        "types": "./entry/vite.d.cts",
+        "default": "./entry/vite.cjs"
       }
     },
     "./utils/math": {
       "import": {
-        "types": "./packages/utils/dist/math.d.ts",
-        "default": "./packages/utils/dist/math.js"
+        "types": "./entry/math.d.ts",
+        "default": "./entry/math.js"
       },
       "require": {
-        "types": "./packages/utils/dist/math.d.cts",
-        "default": "./packages/utils/dist/math.cjs"
+        "types": "./entry/math.d.cts",
+        "default": "./entry/math.cjs"
       }
     },
     "./utils/vite": {
       "import": {
-        "types": "./packages/utils/dist/vite.d.ts",
-        "default": "./packages/utils/dist/vite.js"
+        "types": "./entry/vite.d.ts",
+        "default": "./entry/vite.js"
       },
       "require": {
-        "types": "./packages/utils/dist/vite.d.cts",
-        "default": "./packages/utils/dist/vite.cjs"
-      }
-    },
-    "./utils/*": {
-      "import": {
-        "types": "./packages/utils/dist/*",
-        "default": "./packages/utils/dist/*"
-      },
-      "require": "./packages/utils/dist/*"
-    },
-    "./hooks/alova": {
-      "import": {
-        "types": "./packages/hooks/dist/alova.d.ts",
-        "default": "./packages/hooks/dist/alova.js"
-      },
-      "require": {
-        "types": "./packages/hooks/dist/alova.d.cts",
-        "default": "./packages/hooks/dist/alova.cjs"
+        "types": "./entry/vite.d.cts",
+        "default": "./entry/vite.cjs"
       }
     },
     "./hooks/react": {
       "import": {
-        "types": "./packages/hooks/dist/react.d.ts",
-        "default": "./packages/hooks/dist/react.js"
+        "types": "./entry/hooks-react.d.ts",
+        "default": "./entry/hooks-react.js"
       },
       "require": {
-        "types": "./packages/hooks/dist/react.d.cts",
-        "default": "./packages/hooks/dist/react.cjs"
+        "types": "./entry/hooks-react.d.cts",
+        "default": "./entry/hooks-react.cjs"
       }
     },
-    "./hooks/*": {
+    "./hooks/alova": {
       "import": {
-        "types": "./packages/hooks/dist/*",
-        "default": "./packages/hooks/dist/*"
+        "types": "./entry/hooks-alova.d.ts",
+        "default": "./entry/hooks-alova.js"
       },
-      "require": "./packages/hooks/dist/*"
+      "require": {
+        "types": "./entry/hooks-alova.d.cts",
+        "default": "./entry/hooks-alova.cjs"
+      }
     },
+    "./hooks/metadata.json": "./entry/hooks-metadata.json",
     "./zod": {
       "import": {
-        "types": "./packages/zod/dist/index.d.ts",
-        "default": "./packages/zod/dist/index.js"
+        "types": "./entry/zod.d.ts",
+        "default": "./entry/zod.js"
       },
       "require": {
-        "types": "./packages/zod/dist/index.d.cts",
-        "default": "./packages/zod/dist/index.cjs"
-      }
-    },
-    "./zod/*": {
-      "import": {
-        "types": "./packages/zod/dist/*",
-        "default": "./packages/zod/dist/*"
-      },
-      "require": "./packages/zod/dist/*"
-    },
-    "./eslint-rules": {
-      "import": {
-        "types": "./packages/eslint-rules/dist/index.d.ts",
-        "default": "./packages/eslint-rules/dist/index.js"
-      },
-      "require": {
-        "types": "./packages/eslint-rules/dist/index.d.cts",
-        "default": "./packages/eslint-rules/dist/index.cjs"
+        "types": "./entry/zod.d.cts",
+        "default": "./entry/zod.cjs"
       }
     },
     "./types": {
       "import": {
-        "types": "./packages/types/dist/index.d.ts",
-        "default": "./packages/types/dist/index.js"
+        "types": "./entry/types.d.ts",
+        "default": "./entry/types.js"
       },
       "require": {
-        "types": "./packages/types/dist/index.d.cts",
-        "default": "./packages/types/dist/index.cjs"
+        "types": "./entry/types.d.cts",
+        "default": "./entry/types.cjs"
       }
     },
     "./types/react": {
       "import": {
-        "types": "./packages/types/dist/react.d.ts",
-        "default": "./packages/types/dist/react.js"
+        "types": "./entry/types-react.d.ts",
+        "default": "./entry/types-react.js"
       },
       "require": {
-        "types": "./packages/types/dist/react.d.cts",
-        "default": "./packages/types/dist/react.cjs"
+        "types": "./entry/types-react.d.cts",
+        "default": "./entry/types-react.cjs"
       }
     },
-    "./types/*": {
+    "./eslint-rules": {
       "import": {
-        "types": "./packages/types/dist/*",
-        "default": "./packages/types/dist/*"
+        "types": "./entry/eslint-rules.d.ts",
+        "default": "./entry/eslint-rules.js"
       },
-      "require": "./packages/types/dist/*"
-    }
+      "require": {
+        "types": "./entry/eslint-rules.d.cts",
+        "default": "./entry/eslint-rules.cjs"
+      }
+    },
+    "./metadata.json": "./entry/metadata.json"
   },
   "scripts": {
     "test": "vitest run",
@@ -199,6 +168,7 @@
     "test:smoke": "node test/scripts/smoke.mjs",
     "test:ci": "pnpm test:types && pnpm test && pnpm build && pnpm test:smoke && pnpm check:pack",
     "build": "turbo build",
+    "postbuild": "node scripts/sync-entry.ts",
     "build:force": "turbo build --force",
     "build:package": "turbo build:package && pnpm package",
     "build:package:force": "turbo build:package --force && pnpm package",
@@ -218,11 +188,17 @@
     "prepare": "husky",
     "commit": "git cz"
   },
+  "dependencies": {
+    "@pawover/kit-eslint-rules": "workspace:*",
+    "@pawover/kit-hooks": "workspace:*",
+    "@pawover/kit-types": "workspace:*",
+    "@pawover/kit-utils": "workspace:*",
+    "@pawover/kit-zod": "workspace:*"
+  },
   "devDependencies": {
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint-react/eslint-plugin": "^5.18.2",
-    "@pawover/kit-eslint-rules": "workspace:*",
     "@playwright/test": "^1.62.1",
     "@stylistic/eslint-plugin": "^6.0.0-beta.5",
     "@testing-library/react": "^16.3.2",

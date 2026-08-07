@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "ESLint rulesets: javascript, typescript, react, vue, stylistic, antfu and import rules with presets",
-  "version": "0.0.0-alpha.1",
+  "version": "0.0.0-alpha.3",
   "type": "module",
   "keywords": [
     "pawover",
@@ -50,7 +50,7 @@
   "scripts": {
     "build:source": "tsdown",
     "package": "pnpm pack",
-    "public": "npm publish --access public --tag alpha",
+    "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "peerDependencies": {
