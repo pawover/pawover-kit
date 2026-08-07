@@ -1,5 +1,5 @@
 import { ArrayUtil, ObjectUtil, StringUtil } from "@pawover/kit-utils";
-import type { AnyFunction } from "@pawover/types";
+import type { AnyFunction } from "@pawover/kit-types";
 import { clone, isEqual } from "es-toolkit";
 import { useLayoutEffect, useMemo, useState } from "react";
 import type { TupleToUnion } from "type-fest";

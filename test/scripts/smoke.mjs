@@ -17,6 +17,7 @@ const entries = [
   { name: "@pawover/kit/utils/vite", path: resolve(root, "packages/utils/dist/vite.js") },
   { name: "@pawover/kit/hooks/react", path: resolve(root, "packages/hooks/dist/react.js") },
   { name: "@pawover/kit/hooks/alova", path: resolve(root, "packages/hooks/dist/alova.js") },
+  { name: "@pawover/kit/types", path: resolve(root, "packages/types/dist/index.js") },
   { name: "@pawover/kit/zod", path: resolve(root, "packages/zod/dist/index.js") },
 ];
 
@@ -26,6 +27,7 @@ const cjsEntries = [
   { name: "@pawover/kit/utils/vite (cjs)", path: resolve(root, "packages/utils/dist/vite.cjs") },
   { name: "@pawover/kit/hooks/react (cjs)", path: resolve(root, "packages/hooks/dist/react.cjs") },
   { name: "@pawover/kit/hooks/alova (cjs)", path: resolve(root, "packages/hooks/dist/alova.cjs") },
+  { name: "@pawover/kit/types (cjs)", path: resolve(root, "packages/types/dist/index.cjs") },
   { name: "@pawover/kit/zod (cjs)", path: resolve(root, "packages/zod/dist/index.cjs") },
 ];
 

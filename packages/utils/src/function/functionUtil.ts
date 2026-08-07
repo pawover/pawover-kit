@@ -1,4 +1,4 @@
-import type { PlainObject } from "@pawover/types";
+import type { PlainObject } from "@pawover/kit-types";
 import type { LiteralUnion } from "type-fest";
 
 /**

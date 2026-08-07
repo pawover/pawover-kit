@@ -11,6 +11,7 @@ export default defineConfig({
       { find: "@pawover/kit/utils", replacement: resolve("packages/utils/src/index.ts") },
       { find: "@pawover/kit/hooks/react", replacement: resolve("packages/hooks/src/react/index.ts") },
       { find: "@pawover/kit/hooks/alova", replacement: resolve("packages/hooks/src/alova/index.ts") },
+      { find: "@pawover/kit/types", replacement: resolve("packages/types/src/index.ts") },
       { find: "@pawover/kit/zod", replacement: resolve("packages/zod/src/index.ts") },
     ],
   },

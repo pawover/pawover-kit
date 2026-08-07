@@ -1,4 +1,4 @@
-import type { AnyObject, PlainObject } from "@pawover/types";
+import type { AnyObject, PlainObject } from "@pawover/kit-types";
 import type { Replace, Trim } from "type-fest";
 import { TypeUtil } from "../type";
 

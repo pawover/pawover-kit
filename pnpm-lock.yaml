@@ -120,12 +120,12 @@ importers:
 
   packages/hooks:
     dependencies:
+      '@pawover/kit-types':
+        specifier: workspace:*
+        version: link:../types
       '@pawover/kit-utils':
         specifier: workspace:*
         version: link:../utils
-      '@pawover/types':
-        specifier: ^0.0.5
-        version: 0.0.5(@types/react@19.2.15)(react@19.2.6)(typescript@6.0.3)
       '@types/react':
         specifier: ^19.2.14
         version: 19.2.15
@@ -142,11 +142,24 @@ importers:
         specifier: ^5.8.0
         version: 5.8.0
 
+  packages/types:
+    dependencies:
+      react:
+        specifier: ^19.2.0
+        version: 19.2.6
+      type-fest:
+        specifier: ^5.8.0
+        version: 5.8.0
+    devDependencies:
+      '@types/react':
+        specifier: ^19.2.18
+        version: 19.2.18
+
   packages/utils:
     dependencies:
-      '@pawover/types':
-        specifier: ^0.0.5
-        version: 0.0.5(@types/react@19.2.18)(react@19.2.6)(typescript@6.0.3)
+      '@pawover/kit-types':
+        specifier: workspace:*
+        version: link:../types
       mathjs:
         specifier: ^15.2.0
         version: 15.2.0
@@ -615,18 +628,6 @@ packages:
       typescript:
         optional: true
       typescript-eslint:
-        optional: true
-
-  '@pawover/types@0.0.5':
-    resolution: {integrity: sha512-stnzxklBMw4ZyDqRz5PkYM2pcjjAVwKspyXWT8ysKnbnSpb8IDAI+/cYXTKY9RZp76OYimu2e96cK3r3Fer7kw==}
-    peerDependencies:
-      '@types/react': '>=19.2.4'
-      react: '>=19.0.0'
-      typescript: '>=5.9.3'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
         optional: true
 
   '@playwright/test@1.62.1':
@@ -3552,22 +3553,6 @@ snapshots:
       eslint-plugin-react-hooks: 7.1.1(eslint@10.8.0(jiti@2.6.1)(supports-color@7.2.0))(supports-color@7.2.0)
       typescript: 6.0.3
       typescript-eslint: 8.66.0(eslint@10.8.0(jiti@2.6.1)(supports-color@7.2.0))(supports-color@7.2.0)(typescript@6.0.3)
-
-  '@pawover/types@0.0.5(@types/react@19.2.15)(react@19.2.6)(typescript@6.0.3)':
-    dependencies:
-      type-fest: 5.8.0
-      typescript: 6.0.3
-    optionalDependencies:
-      '@types/react': 19.2.15
-      react: 19.2.6
-
-  '@pawover/types@0.0.5(@types/react@19.2.18)(react@19.2.6)(typescript@6.0.3)':
-    dependencies:
-      type-fest: 5.8.0
-      typescript: 6.0.3
-    optionalDependencies:
-      '@types/react': 19.2.18
-      react: 19.2.6
 
   '@playwright/test@1.62.1':
     dependencies:

@@ -34,6 +34,7 @@
   "files": [
     "packages/utils/dist",
     "packages/hooks/dist",
+    "packages/types/dist",
     "packages/zod/dist"
   ],
   "exports": {
@@ -148,6 +149,33 @@
         "default": "./packages/zod/dist/*"
       },
       "require": "./packages/zod/dist/*"
+    },
+    "./types": {
+      "import": {
+        "types": "./packages/types/dist/index.d.ts",
+        "default": "./packages/types/dist/index.js"
+      },
+      "require": {
+        "types": "./packages/types/dist/index.d.cts",
+        "default": "./packages/types/dist/index.cjs"
+      }
+    },
+    "./types/react": {
+      "import": {
+        "types": "./packages/types/dist/react.d.ts",
+        "default": "./packages/types/dist/react.js"
+      },
+      "require": {
+        "types": "./packages/types/dist/react.d.cts",
+        "default": "./packages/types/dist/react.cjs"
+      }
+    },
+    "./types/*": {
+      "import": {
+        "types": "./packages/types/dist/*",
+        "default": "./packages/types/dist/*"
+      },
+      "require": "./packages/types/dist/*"
     }
   },
   "scripts": {

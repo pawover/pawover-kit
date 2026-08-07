@@ -1,18 +1,18 @@
 {
-  "name": "@pawover/kit-hooks",
+  "name": "@pawover/kit-types",
   "author": {
     "name": "pawover",
     "email": "pawover@outlook.com",
     "url": "https://github.com/pawover"
   },
-  "description": "pawover's kit-hooks",
+  "description": "pawover's kit-types",
   "version": "0.0.0-alpha.1",
   "type": "module",
   "keywords": [
     "pawover",
-    "pawover-kit-hooks"
+    "pawover-kit-types"
   ],
-  "homepage": "https://github.com/pawover/pawover-kit/packages/hooks#readme",
+  "homepage": "https://github.com/pawover/pawover-kit/packages/types#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pawover/pawover-kit.git"
@@ -36,19 +36,8 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./alova": {
-      "development": "./src/alova/index.ts",
-      "import": {
-        "types": "./dist/alova.d.ts",
-        "default": "./dist/alova.js"
-      },
-      "require": {
-        "types": "./dist/alova.d.cts",
-        "default": "./dist/alova.cjs"
-      }
-    },
     "./react": {
-      "development": "./src/react/index.ts",
+      "development": "./src/react.ts",
       "import": {
         "types": "./dist/react.d.ts",
         "default": "./dist/react.js"
@@ -57,32 +46,26 @@
         "types": "./dist/react.d.cts",
         "default": "./dist/react.cjs"
       }
-    },
-    "./metadata.json": "./dist/metadata.json"
+    }
   },
   "scripts": {
     "build:source": "tsdown",
-    "build:metadata": "node scripts/metadata.ts",
     "package": "pnpm pack",
     "public": "npm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
-    "@pawover/kit-types": "workspace:*",
-    "@pawover/kit-utils": "workspace:*",
-    "es-toolkit": "^1.50.0",
     "type-fest": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18"
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",
-    "alova": "^3.5.1",
     "react": "^19.2.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
-      "optional": true
-    },
-    "alova": {
       "optional": true
     },
     "react": {

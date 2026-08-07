@@ -1,4 +1,4 @@
-import type { AnyObject, TreeLike, TreeLikeOptionalChildren } from "@pawover/types";
+import type { AnyObject, TreeLike, TreeLikeOptionalChildren } from "@pawover/kit-types";
 import { TypeUtil } from "../type";
 import { treeFilterStrategies } from "./filter";
 import { treeFindStrategies } from "./find";

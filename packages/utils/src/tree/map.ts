@@ -1,4 +1,4 @@
-import type { AnyObject, TreeLike } from "@pawover/types";
+import type { AnyObject, TreeLike } from "@pawover/kit-types";
 import { ArrayUtil } from "../array";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeMapCallback, TreeMapInnerOption } from "./index.type";

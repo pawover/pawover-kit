@@ -1,4 +1,4 @@
-import type { AnyObject } from "@pawover/types";
+import type { AnyObject } from "@pawover/kit-types";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeFindCallback, TreeFindInnerOption } from "./index.type";
 import { getFinalChildrenKey } from "./utils";

@@ -1,4 +1,4 @@
-import type { AnyFunction } from "@pawover/types";
+import type { AnyFunction } from "@pawover/kit-types";
 import type { Any, List } from "ts-toolbelt";
 import type { If, IsAny, Simplify, TupleOf, UnionToIntersection } from "type-fest";
 

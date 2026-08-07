@@ -1,4 +1,4 @@
-import type { PlainObject } from "@pawover/types";
+import type { PlainObject } from "@pawover/kit-types";
 import { TypeUtil } from "../type";
 import type { MatchFunction, ZipOptions } from "./index.type";
 
