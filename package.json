@@ -30,7 +30,7 @@
   "license": "MIT",
   "main": "./packages/utils/dist/index.cjs",
   "module": "./packages/utils/dist/index.js",
-  "types": "./packages/utils/dist/index.d.cts",
+  "types": "./packages/utils/dist/index.d.ts",
   "files": [
     "packages/utils/dist",
     "packages/hooks/dist",
