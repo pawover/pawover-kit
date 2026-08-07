@@ -18,30 +18,45 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
       "development": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./alova": {
       "development": "./src/alova/index.ts",
-      "types": "./dist/alova.d.ts",
-      "import": "./dist/alova.js",
-      "default": "./dist/alova.js"
+      "import": {
+        "types": "./dist/alova.d.ts",
+        "default": "./dist/alova.js"
+      },
+      "require": {
+        "types": "./dist/alova.d.cts",
+        "default": "./dist/alova.cjs"
+      }
     },
     "./react": {
       "development": "./src/react/index.ts",
-      "types": "./dist/react.d.ts",
-      "import": "./dist/react.js",
-      "default": "./dist/react.js"
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      },
+      "require": {
+        "types": "./dist/react.d.cts",
+        "default": "./dist/react.cjs"
+      }
     },
     "./metadata.json": "./dist/metadata.json"
   },
@@ -50,7 +65,7 @@
     "build:metadata": "node scripts/metadata.ts",
     "package": "pnpm pack",
     "public": "npm publish --access public --tag alpha",
-    "check:pack": "attw --pack ."
+    "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
     "@pawover/kit-utils": "workspace:*",

@@ -18,30 +18,45 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
       "development": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./math": {
       "development": "./src/math/index.ts",
-      "types": "./dist/math.d.ts",
-      "import": "./dist/math.js",
-      "default": "./dist/math.js"
+      "import": {
+        "types": "./dist/math.d.ts",
+        "default": "./dist/math.js"
+      },
+      "require": {
+        "types": "./dist/math.d.cts",
+        "default": "./dist/math.cjs"
+      }
     },
     "./vite": {
       "development": "./src/vite/index.ts",
-      "types": "./dist/vite.d.ts",
-      "import": "./dist/vite.js",
-      "default": "./dist/vite.js"
+      "import": {
+        "types": "./dist/vite.d.ts",
+        "default": "./dist/vite.js"
+      },
+      "require": {
+        "types": "./dist/vite.d.cts",
+        "default": "./dist/vite.cjs"
+      }
     },
     "./metadata.json": "./dist/metadata.json"
   },
@@ -50,7 +65,7 @@
     "build:metadata": "node scripts/metadata.ts",
     "package": "pnpm pack",
     "public": "npm publish --access public --tag alpha",
-    "check:pack": "attw --pack ."
+    "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
     "@pawover/types": "^0.0.4",

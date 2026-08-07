@@ -18,25 +18,30 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/index.d.cts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
       "development": "./src/index.ts",
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "scripts": {
     "build:source": "tsdown",
     "package": "pnpm pack",
     "public": "npm publish --access public --tag alpha",
-    "check:pack": "attw --pack ."
+    "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "devDependencies": {
     "zod": "^4.4.3"

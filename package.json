@@ -8,14 +8,14 @@
   "description": "一个基于 TypeScript 的开发工具包",
   "version": "0.5.0",
   "type": "module",
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.20.0",
   "engines": {
     "node": ">=22.20.0"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "24.14.0"
+      "version": "24.18.0"
     }
   },
   "keywords": [
@@ -28,28 +28,127 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./packages/utils/dist/index.js",
+  "main": "./packages/utils/dist/index.cjs",
   "module": "./packages/utils/dist/index.js",
-  "types": "./packages/utils/dist/index.d.ts",
+  "types": "./packages/utils/dist/index.d.cts",
   "files": [
     "packages/utils/dist",
     "packages/hooks/dist",
     "packages/zod/dist"
   ],
   "exports": {
-    ".": "./packages/utils/dist/index.js",
-    "./math": "./packages/utils/dist/math.js",
-    "./vite": "./packages/utils/dist/vite.js",
+    ".": {
+      "import": {
+        "types": "./packages/utils/dist/index.d.ts",
+        "default": "./packages/utils/dist/index.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/index.d.cts",
+        "default": "./packages/utils/dist/index.cjs"
+      }
+    },
+    "./math": {
+      "import": {
+        "types": "./packages/utils/dist/math.d.ts",
+        "default": "./packages/utils/dist/math.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/math.d.cts",
+        "default": "./packages/utils/dist/math.cjs"
+      }
+    },
+    "./vite": {
+      "import": {
+        "types": "./packages/utils/dist/vite.d.ts",
+        "default": "./packages/utils/dist/vite.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/vite.d.cts",
+        "default": "./packages/utils/dist/vite.cjs"
+      }
+    },
     "./metadata.json": "./packages/utils/dist/metadata.json",
-    "./utils": "./packages/utils/dist/index.js",
-    "./utils/math": "./packages/utils/dist/math.js",
-    "./utils/vite": "./packages/utils/dist/vite.js",
-    "./utils/*": "./packages/utils/dist/*",
-    "./hooks/alova": "./packages/hooks/dist/alova.js",
-    "./hooks/react": "./packages/hooks/dist/react.js",
-    "./hooks/*": "./packages/hooks/dist/*",
-    "./zod": "./packages/zod/dist/index.js",
-    "./zod/*": "./packages/zod/dist/*"
+    "./utils": {
+      "import": {
+        "types": "./packages/utils/dist/index.d.ts",
+        "default": "./packages/utils/dist/index.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/index.d.cts",
+        "default": "./packages/utils/dist/index.cjs"
+      }
+    },
+    "./utils/math": {
+      "import": {
+        "types": "./packages/utils/dist/math.d.ts",
+        "default": "./packages/utils/dist/math.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/math.d.cts",
+        "default": "./packages/utils/dist/math.cjs"
+      }
+    },
+    "./utils/vite": {
+      "import": {
+        "types": "./packages/utils/dist/vite.d.ts",
+        "default": "./packages/utils/dist/vite.js"
+      },
+      "require": {
+        "types": "./packages/utils/dist/vite.d.cts",
+        "default": "./packages/utils/dist/vite.cjs"
+      }
+    },
+    "./utils/*": {
+      "import": {
+        "types": "./packages/utils/dist/*",
+        "default": "./packages/utils/dist/*"
+      },
+      "require": "./packages/utils/dist/*"
+    },
+    "./hooks/alova": {
+      "import": {
+        "types": "./packages/hooks/dist/alova.d.ts",
+        "default": "./packages/hooks/dist/alova.js"
+      },
+      "require": {
+        "types": "./packages/hooks/dist/alova.d.cts",
+        "default": "./packages/hooks/dist/alova.cjs"
+      }
+    },
+    "./hooks/react": {
+      "import": {
+        "types": "./packages/hooks/dist/react.d.ts",
+        "default": "./packages/hooks/dist/react.js"
+      },
+      "require": {
+        "types": "./packages/hooks/dist/react.d.cts",
+        "default": "./packages/hooks/dist/react.cjs"
+      }
+    },
+    "./hooks/*": {
+      "import": {
+        "types": "./packages/hooks/dist/*",
+        "default": "./packages/hooks/dist/*"
+      },
+      "require": "./packages/hooks/dist/*"
+    },
+    "./zod": {
+      "import": {
+        "types": "./packages/zod/dist/index.d.ts",
+        "default": "./packages/zod/dist/index.js"
+      },
+      "require": {
+        "types": "./packages/zod/dist/index.d.cts",
+        "default": "./packages/zod/dist/index.cjs"
+      }
+    },
+    "./zod/*": {
+      "import": {
+        "types": "./packages/zod/dist/*",
+        "default": "./packages/zod/dist/*"
+      },
+      "require": "./packages/zod/dist/*"
+    }
   },
   "scripts": {
     "test": "vitest run",
@@ -70,7 +169,7 @@
     "check:types": "tsc --noEmit",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
     "check:format": "prettier --write \"**/*.{html,json,jsonc}\" --cache-location=.cache/prettier.cache.json --cache",
-    "check:pack": "attw --pack .",
+    "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16",
     "clean": "pnpm clean:cache & pnpm clean:lib & pnpm clean:output",
     "clean:turbo": "rimraf -g **/.turbo",
     "clean:cache": "rimraf -g .cache",

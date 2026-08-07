@@ -12,6 +12,7 @@
     "declarationMap": false,
     "declarationDir": "dist/types",
     "emitDeclarationOnly": true,
+    "types": ["node"],
     "rootDir": ".",
     "outDir": "dist"
   },

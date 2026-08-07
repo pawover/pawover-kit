@@ -4,12 +4,9 @@ node_modules
 .pnp.js
 
 # Misc
-.idea/*
-!.idea/settings.json
-.vscode/*
-!.vscode/settings.json
-.zed/*
-!.zed/settings.json
+.idea
+.vscode
+.zed
 
 # output
 dist
