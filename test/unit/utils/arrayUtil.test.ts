@@ -333,7 +333,7 @@ describe("ArrayUtil", () => {
       expect(ArrayUtil.zip()).toEqual([]);
     });
 
-    it("should handle arrays of different lengths", () => {
+    it("should pad with undefined for shorter arrays in zip", () => {
       expect(ArrayUtil.zip([1, 2, 3], ["a"])).toEqual([[1, "a"], [2, undefined], [3, undefined]]);
     });
 
@@ -341,8 +341,18 @@ describe("ArrayUtil", () => {
       expect(ArrayUtil.unzip([])).toEqual([]);
     });
 
-    it("should handle non-rectangular arrays in unzip", () => {
+    it("should pad with undefined for uneven rows in unzip", () => {
       expect(ArrayUtil.unzip([[1, 2], [3]])).toEqual([[1, 3], [2, undefined]]);
+    });
+
+    it("should pad with undefined for empty row in unzip", () => {
+      expect(ArrayUtil.unzip([[1, 2], []])).toEqual([[1, undefined], [2, undefined]]);
+    });
+
+    it("should truncate to shortest array when truncate option is set", () => {
+      expect(ArrayUtil.zip([1, 2, 3], ["a"], { truncate: true })).toEqual([[1, "a"]]);
+      expect(ArrayUtil.zip([1, 2], ["a", "b", "c"], { truncate: true })).toEqual([[1, "a"], [2, "b"]]);
+      expect(ArrayUtil.unzip([[1, 2], [3]], { truncate: true })).toEqual([[1, 3]]);
     });
   });
 

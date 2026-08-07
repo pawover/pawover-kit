@@ -1,6 +1,6 @@
 import type { PlainObject } from "@pawover/types";
 import { TypeUtil } from "../type";
-import type { MatchFunction } from "./index.type";
+import type { MatchFunction, ZipOptions } from "./index.type";
 
 /**
  * 数组工具类
@@ -449,19 +449,30 @@ export class ArrayUtil {
   /**
    * 数组解压
    * - `ArrayUtil.zip` 的反向操作
+   * - 默认按最长数组补齐 `undefined`
    *
    * @param arrayList 压缩后的数组
+   * @param options 配置项（`truncate` 为 `true` 时按最短数组截断）
    * @returns 解压后的二维数组
    * @example
    * ```ts
    * ArrayUtil.unzip([[1, "a"], [2, "b"]]); // [[1, 2], ["a", "b"]]
+   *
+   * // 补齐语义
+   * ArrayUtil.unzip([[1, 2], [3]]); // [[1, 3], [2, undefined]]
+   *
+   * // 截断语义
+   * ArrayUtil.unzip([[1, 2], [3]], { truncate: true }); // [[1, 3]]
    * ```
    */
-  static unzip<T> (arrayList: readonly (readonly T[])[]): T[][] {
+  static unzip<T> (arrayList: readonly (readonly T[])[], options?: ZipOptions): T[][] {
     if (!TypeUtil.isArray(arrayList) || !arrayList.length) {
       return [];
     }
-    const out = new Array(arrayList.reduce((max, arr) => Math.max(max, arr.length), 0));
+    const length = options?.truncate
+      ? arrayList.reduce((min, arr) => Math.min(min, arr.length), Infinity)
+      : arrayList.reduce((max, arr) => Math.max(max, arr.length), 0);
+    const out = new Array(length);
     let index = 0;
     const get = (array: T[]) => array[index];
 
@@ -475,13 +486,17 @@ export class ArrayUtil {
   /**
    * 数组压缩
    * - 将多个数组的元素按索引组合成元组
+   * - 默认按最长数组补齐 `undefined`
    *
    * @param arrays 多个数组
+   * @param options 配置项（`truncate` 为 `true` 时按最短数组截断）
    * @returns 压缩后的元组数组
    * @example
    * ```ts
    * // 重载 1: 两个数组
    * ArrayUtil.zip([1, 2], ["a", "b"]); // [[1, "a"], [2, "b"]]
+   * // 长度不一致时默认补齐 undefined
+   * ArrayUtil.zip([1, 2, 3], ["a"]); // [[1, "a"], [2, undefined], [3, undefined]]
    *
    * // 重载 2: 三个数组
    * ArrayUtil.zip([1, 2], ["a", "b"], [true, false]); // [[1, "a", true], [2, "b", false]]
@@ -494,15 +509,35 @@ export class ArrayUtil {
    *
    * // 重载 5: 空参数
    * ArrayUtil.zip(); // []
+   *
+   * // 重载 6: 两个数组 + options（truncate: true 截断到最短数组）
+   * ArrayUtil.zip([1, 2, 3], ["a"], { truncate: true }); // [[1, "a"]]
+   *
+   * // 重载 7: 三个数组 + options
+   * ArrayUtil.zip([1, 2], ["a"], [true], { truncate: true }); // [[1, "a", true]]
+   *
+   * // 重载 8: 四个数组 + options
+   * ArrayUtil.zip([1], ["a"], [true], ["x"], { truncate: true }); // [[1, "a", true, "x"]]
+   *
+   * // 重载 9: 五个数组 + options
+   * ArrayUtil.zip([1], ["a"], [true], ["x"], [9], { truncate: true }); // [[1, "a", true, "x", 9]]
    * ```
    */
+  static zip<T1, T2, T3, T4, T5> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[], options: ZipOptions): [T1, T2, T3, T4, T5][];
+  static zip<T1, T2, T3, T4> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], options: ZipOptions): [T1, T2, T3, T4][];
+  static zip<T1, T2, T3> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], options: ZipOptions): [T1, T2, T3][];
+  static zip<T1, T2> (array1: readonly T1[], array2: readonly T2[], options: ZipOptions): [T1, T2][];
   static zip<T1, T2, T3, T4, T5> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[], array5: readonly T5[]): [T1, T2, T3, T4, T5][];
   static zip<T1, T2, T3, T4> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[], array4: readonly T4[]): [T1, T2, T3, T4][];
   static zip<T1, T2, T3> (array1: readonly T1[], array2: readonly T2[], array3: readonly T3[]): [T1, T2, T3][];
   static zip<T1, T2> (array1: readonly T1[], array2: readonly T2[]): [T1, T2][];
   static zip (): [];
-  static zip<T> (...arrays: (readonly T[])[]): T[][] {
-    return this.unzip(arrays);
+  static zip<T> (...arraysAndOptions: (readonly T[] | ZipOptions)[]): T[][] {
+    const last = arraysAndOptions[arraysAndOptions.length - 1];
+    const options = last && !TypeUtil.isArray(last) ? (last as ZipOptions) : undefined;
+    const arrays = options ? (arraysAndOptions.slice(0, -1) as (readonly T[])[]) : (arraysAndOptions as (readonly T[])[]);
+
+    return this.unzip(arrays, options);
   }
 
   /**
