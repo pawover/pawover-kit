@@ -70,5 +70,9 @@ describe("DateTimeUtil", () => {
       expect(typeof tz.UTC).toBe("string");
       expect(typeof tz.timeZone).toBe("string");
     });
+
+    it("should format UTC offset with colon for half-hour timezones", () => {
+      expect(DateTimeUtil.getTimeZone().UTC).toMatch(/^UTC[+-]\d{1,2}(:\d{2})?$/);
+    });
   });
 });

@@ -182,10 +182,14 @@ export class DateTimeUtil {
    * ```
    */
   static getTimeZone () {
-    const hour = 0 - new Date().getTimezoneOffset() / this.MINUTE_PER_HOUR;
+    const offsetMinutes = 0 - new Date().getTimezoneOffset();
+    const sign = offsetMinutes >= 0 ? "+" : "-";
+    const absMinutes = Math.abs(offsetMinutes);
+    const hours = Math.floor(absMinutes / this.MINUTE_PER_HOUR);
+    const minutes = absMinutes % this.MINUTE_PER_HOUR;
 
     return {
-      UTC: "UTC" + (hour >= 0 ? "+" + hour : hour),
+      UTC: `UTC${sign}${hours}${minutes ? `:${String(minutes).padStart(2, "0")}` : ""}`,
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
   }
