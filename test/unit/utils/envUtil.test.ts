@@ -137,7 +137,22 @@ describe("EnvUtil", () => {
       expect(EnvUtil.isTablet()).toBe(false);
     });
 
-    it("should return true for desktop width when screen inches >= 7", () => {
+    it("should return false for desktop width with large screen (>= 13 inch)", () => {
+      setInnerWidth(1920);
+      setScreen(1920, 1080);
+      expect(EnvUtil.isTablet()).toBe(false);
+    });
+
+    it("should return true for screen in 7~13 inch range regardless of width", () => {
+      setInnerWidth(1400);
+      setScreen(1024, 768);
+      expect(EnvUtil.isTablet()).toBe(true);
+    });
+
+    it("should return true for 14.6-inch tablet by css width (DPR compressed inches)", () => {
+      setInnerWidth(1184);
+      setScreen(2960, 1848);
+      Object.defineProperty(window, "devicePixelRatio", { value: 2.55, configurable: true });
       expect(EnvUtil.isTablet()).toBe(true);
     });
 

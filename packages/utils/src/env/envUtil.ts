@@ -235,6 +235,7 @@ export class EnvUtil {
    * @param maxWidth - 平板最大宽度（默认 1200px）
    * @param dpi - 标准 DPI 基准（默认 160）
    * @returns 是否为平板设备
+   * - 宽度命中 `[minWidth, maxWidth]` 区间，或 CSS/DPI 折算尺寸落在 `[7, 13)` 英寸（排除 DPR=1 的 1920×1080 桌面）
    * @example
    * ```ts
    * // 假设 window.innerWidth = 1000
@@ -261,7 +262,8 @@ export class EnvUtil {
       const heightInch = heightPx / DPI;
       const screenInches = Math.sqrt(widthInch ** 2 + heightInch ** 2);
 
-      return isWithinWidthRange || screenInches >= 7.0;
+      // 宽度区间命中，或 CSS/DPI 折算尺寸落在平板区间（7~13 英寸，排除 DPR=1 的 1920×1080 桌面）
+      return isWithinWidthRange || (screenInches >= 7.0 && screenInches < 13);
     } catch {
       // 备用方案：如果计算失败（如无 screen API），仅用宽度判断
       return isWithinWidthRange;
