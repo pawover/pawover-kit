@@ -70,17 +70,6 @@ export class TypeUtil {
     return Object.prototype.toString.call(value);
   }
 
-  private static isConstructable (fn: unknown): boolean {
-    try {
-      // 尝试用 new 调用（但不执行 constructor）
-      Reflect.construct(fn as AnyFunction, []);
-
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
   /**
    * 检查 value 是否为 string 类型
    * - 当 `checkNullish` 为 `true` 时，会先 trim 再判断是否为空
@@ -552,7 +541,7 @@ export class TypeUtil {
    * ```
    */
   static isClass (value: unknown): value is Class<AnyObject> {
-    return this.isFunction(value) && !this.isAsyncFunction(value) && Function.prototype.toString.call(value).startsWith("class ") && this.isConstructable(value) && value.prototype !== undefined;
+    return this.isFunction(value) && !this.isAsyncFunction(value) && Function.prototype.toString.call(value).startsWith("class ") && value.prototype !== undefined;
   }
 
   /**
@@ -843,7 +832,9 @@ export class TypeUtil {
   }
 
   /**
-   * 检查 value 是否为 Falsy 值 (false, 0, "", null, undefined, NaN)
+   * 检查 value 是否为 Falsy 值 (false, 0, "", null, undefined, NaN, 0n)
+   * - 处理非字符串形式的 falsy；字符串形式（`"null"`、`"0"` 等）请使用 `isFalsyLike`
+   *
    * @param value 待检查值
    * @returns 是否为 Falsy
    * @example
@@ -851,12 +842,8 @@ export class TypeUtil {
    * TypeUtil.isFalsy(0); // true
    * ```
    */
-  static isFalsy (value: unknown): value is false | 0 | "" | null | undefined {
-    if (this.isNaN(value) || this.isNullish(value)) {
-      return true;
-    }
-
-    return value === false || value === 0 || value === 0n || value === "";
+  static isFalsy (value: unknown): boolean {
+    return this.isNaN(value) || this.isNullish(value) || value === false || value === 0 || value === 0n || value === "";
   }
 
   /**

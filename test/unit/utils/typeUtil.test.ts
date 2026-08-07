@@ -524,6 +524,15 @@ describe("TypeUtil", () => {
     it("should return false for async function", () => {
       expect(TypeUtil.isClass(async () => {})).toBe(false);
     });
+
+    it("should return true for class with throwing constructor", () => {
+      class ThrowingConstructor {
+        constructor () {
+          throw new Error("boom");
+        }
+      }
+      expect(TypeUtil.isClass(ThrowingConstructor)).toBe(true);
+    });
   });
 
   describe("isArray", () => {
@@ -899,6 +908,14 @@ describe("TypeUtil", () => {
 
     it("should return false for empty object", () => {
       expect(TypeUtil.isFalsyLike({})).toBe(false);
+    });
+
+    it("should return true for NaN", () => {
+      expect(TypeUtil.isFalsyLike(NaN)).toBe(true);
+    });
+
+    it("should return true for 0n", () => {
+      expect(TypeUtil.isFalsyLike(0n)).toBe(true);
     });
   });
 });
