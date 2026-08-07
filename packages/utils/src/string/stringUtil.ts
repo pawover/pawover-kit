@@ -182,19 +182,26 @@ export class StringUtil {
   }
 
   /**
-   * 字符串首字母大小写
-   * - 包含非西欧字母字符时，不处理
+   * 调整大小写
+   * - 每个单词（`\S+`）独立处理
+   * - 包含非西欧字母字符（如 `.`、`,`、`'`、`-`）时，该词不处理
    * - 纯字母且全大写时，不处理
-   * - 纯字母且非全大写时，首字母小写，其余保留
-   * - 纯字母且非全大写时，首字母大写，其余保留
+   * - 纯字母且非全大写时：`caseType` 为 `"lower"` 则首字母小写，`"upper"` 则首字母大写，其余字符保留
+   * - ⚠️ 缺省 `caseType` 时不产生任何转换（no-op），需显式传 `"lower"` / `"upper"`
    *
    * @param input 待处理字符串
-   * @param caseType 大小写类型
+   * @param caseType 大小写类型（缺省时无操作）
    * @returns 处理后的字符串
    * @example
    * ```ts
-   * StringUtil.toInitialCase("Hello", "lower"); // "hello"
-   * StringUtil.toInitialCase("hello", "upper"); // "Hello"
+   * // 重载 1: lower
+   * StringUtil.toInitialCase("Hello World", "lower"); // "hello world"
+   *
+   * // 重载 2: upper
+   * StringUtil.toInitialCase("hello world", "upper"); // "Hello World"
+   *
+   * // 缺省 caseType → no-op
+   * StringUtil.toInitialCase("Hello"); // "Hello"
    * ```
    */
   static toInitialCase (input: string, caseType?: "lower" | "upper" | undefined) {
@@ -304,6 +311,7 @@ export class StringUtil {
   /**
    * 字符串分割为数组
    * - 按指定分隔符分割字符串，并转换类型
+   * - ⚠️ `valueType` 为 `"number"` 时，无法解析的片段会转为 `NaN`，**不进行过滤**
    *
    * @param input 待处理字符串
    * @param valueType 数组中每一项的类型，默认为 "number"
@@ -316,6 +324,9 @@ export class StringUtil {
    *
    * // 重载 2: valueType = "string"
    * StringUtil.toValues("a-b-c", "string", "-"); // ["a", "b", "c"]
+   *
+   * // 无法解析的片段 → NaN 不被过滤
+   * StringUtil.toValues("1,abc,3"); // [1, NaN, 3]
    * ```
    */
   static toValues (input: string | null | undefined, valueType?: "number" | undefined, splitSymbol?: string | undefined): number[];

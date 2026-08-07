@@ -2,6 +2,8 @@ import { TypeUtil } from "../type";
 
 /**
  * 环境检查工具类
+ * - ⚠️ `isBrowser` / `isWebWorker` / `isReactNative` 基于静态字段判定，在**模块加载时**求值一次。
+ *   SSR 场景下若在 Node 端 import（此时 `window` 未定义），结果会永久为 `false`，不会随运行时环境变化重算。
  */
 export class EnvUtil {
   private static readonly _isBrowser = typeof window !== "undefined" && TypeUtil.isFunction(window?.document?.createElement);

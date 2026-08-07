@@ -63,6 +63,9 @@ export class MathUtil {
   /**
    * 数学表达式求值
    *
+   * ⚠️ 安全警告：mathjs `evaluate` 存在已知的沙箱逃逸向量，**仅限可信输入**（硬编码表达式或受控参数），
+   * 切勿直接用于用户提供的表达式。
+   *
    * @param mathJsInstance mathJs 实例
    * @param expr 表达式
    * @param scope 键值映射

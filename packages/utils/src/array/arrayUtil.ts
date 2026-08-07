@@ -148,8 +148,13 @@ export class ArrayUtil {
    * @returns 差集数组
    * @example
    * ```ts
+   * // 重载 1: 按元素本身比较（自动去重）
    * ArrayUtil.difference([1, 2, 3], [2, 3, 4]); // [1]
+   * ArrayUtil.difference([1, 1, 2], [2]); // [1]，重复项会被去重
+   *
+   * // 重载 2: 按 match 结果比较（不去重，保留 initialList 原始重复项与顺序）
    * ArrayUtil.difference([{ id: 1 }, { id: 2 }], [{ id: 2 }], (x) => x.id); // [{ id: 1 }]
+   * ArrayUtil.difference([{ id: 1 }, { id: 1 }], [{ id: 2 }], (x) => x.id); // [{ id: 1 }, { id: 1 }]
    * ```
    */
   static difference<T> (initialList: readonly T[], diffList: readonly T[], match?: (row: T, index: number) => unknown): T[] {
@@ -350,6 +355,7 @@ export class ArrayUtil {
    * - 在给定的数组中，替换并移动符合匹配函数结果的项目
    * - 只替换和移动第一个匹配项
    * - 未匹配时，根据 `position` 在指定位置插入 `newItem`
+   * - ⚠️ `position` 为负数或非正整数（如 `-1`、`2.5`）时不生效，静默回退为 `push`（追加到末尾）
    *
    * @param initialList 初始数组
    * @param newItem 替换项
@@ -362,6 +368,9 @@ export class ArrayUtil {
    * ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2, 2); // [1, 3, 5, 4]
    * ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2, "start"); // [5, 1, 3, 4]
    * ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2); // [1, 3, 4, 5]
+   *
+   * // position 为负数 → 静默回退为 push
+   * ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2, -1); // [1, 3, 4, 5]
    * ```
    */
   static replaceMove<const T> (initialList: readonly T[], newItem: T, match: MatchFunction<T, boolean>, position?: "start" | "end" | number): T[] {
