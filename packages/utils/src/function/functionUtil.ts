@@ -36,6 +36,9 @@ export class FunctionUtil {
             });
           } else {
             Object.assign(parsedError, err);
+            if (!parsedError.message) {
+              parsedError.message = String(err);
+            }
           }
 
           Object.assign(parsedError, errorExt);

@@ -26,6 +26,20 @@ describe("FunctionUtil", () => {
       expect(err).toHaveProperty("code", 500);
     });
 
+    it("should merge own enumerable props of non-error object rejection with errorExt", async () => {
+      const [err] = await FunctionUtil.to(Promise.reject({ code: 500, data: "boom" }), { extra: "info" });
+      expect(err).toHaveProperty("code", 500);
+      expect(err).toHaveProperty("data", "boom");
+      expect(err).toHaveProperty("extra", "info");
+      expect(typeof (err as Error).message).toBe("string");
+    });
+
+    it("should handle symbol rejection with errorExt without throwing", async () => {
+      const [err] = await FunctionUtil.to(Promise.reject(Symbol("boom")), { code: 500 });
+      expect(err).toHaveProperty("code", 500);
+      expect(String((err as Error).message)).toBe("Symbol(boom)");
+    });
+
     it("should use defaultError for falsy rejection", async () => {
       const [err] = await FunctionUtil.to(Promise.reject(null));
       expect(err).toBeInstanceOf(Error);
