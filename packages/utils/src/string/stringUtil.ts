@@ -415,21 +415,24 @@ export class StringUtil {
       return "";
     }
 
-    // 重置正则表达式的 lastIndex，防止上次执行的影响
+    // 重置正则表达式的 `lastIndex`，防止上次执行的影响
     regex.lastIndex = 0;
+
+    // 非全局正则会导致 exec 原地打转，强制补上 `g` 标志
+    const executor: RegExp = regex.global ? regex : new RegExp(regex.source, `${regex.flags}g`);
 
     let result = "";
     let from = 0;
     let match: RegExpExecArray | null;
 
-    while ((match = regex.exec(input))) {
+    while ((match = executor.exec(input))) {
       // 获取模板对象中对应的值
       const replacement = template[match[1]!];
       // 如果值为 null 或 undefined，则保留原始的占位符
       const valueToInsert = replacement === null || replacement === undefined ? match[0] : replacement;
 
       result += input.slice(from, match.index) + valueToInsert;
-      from = regex.lastIndex;
+      from = executor.lastIndex;
     }
 
     return result + input.slice(from);

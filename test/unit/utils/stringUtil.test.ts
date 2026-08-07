@@ -393,6 +393,10 @@ describe("StringUtil", () => {
       expect(StringUtil.template("Hello <name>", { name: "World" }, /<(.+?)>/g)).toBe("Hello World");
     });
 
+    it("should force global flag on non-global regex", () => {
+      expect(StringUtil.template("Hello <name>!", { name: "World" }, /<(.+?)>/)).toBe("Hello World!");
+    });
+
     it("should work with no placeholders", () => {
       expect(StringUtil.template("hello world", { x: "y" })).toBe("hello world");
     });
