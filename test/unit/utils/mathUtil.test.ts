@@ -42,6 +42,16 @@ describe("MathUtil", () => {
       const result = MathUtil.toBignumber(math, Symbol("test"));
       expect(result.toString()).toBe("0");
     });
+
+    it("should convert numeric string '0' to 0", () => {
+      const result = MathUtil.toBignumber(math, "0");
+      expect(result.toString()).toBe("0");
+    });
+
+    it("should return fallback for non-numeric string 'false'", () => {
+      const result = MathUtil.toBignumber(math, "false");
+      expect(result.toString()).toBe("0");
+    });
   });
 
   describe("toDecimal", () => {
