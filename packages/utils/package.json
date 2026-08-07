@@ -68,7 +68,7 @@
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
-    "@pawover/types": "^0.0.4",
+    "@pawover/types": "^0.0.5",
     "ts-toolbelt": "^9.6.0",
     "type-fest": "^5.8.0"
   },

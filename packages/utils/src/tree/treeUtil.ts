@@ -1,15 +1,10 @@
-import type { AnyObject, TreeLike } from "@pawover/types";
+import type { AnyObject, TreeLike, TreeLikeOptionalChildren } from "@pawover/types";
 import { TypeUtil } from "../type";
 import { treeFilterStrategies } from "./filter";
 import { treeFindStrategies } from "./find";
 import { treeForEachStrategies } from "./forEach";
 import type { ChildrenKey, ParentIdKey, RowKey, RowsToTreeOptions, TreeFilterCallback, TreeFilterOptions, TreeFindCallback, TreeFindOptions, TreeForeachCallback, TreeForeachOptions, TreeMapCallback, TreeMapOptions, TreeToRowsOptions } from "./index.type";
 import { treeMapStrategies } from "./map";
-
-/**
- * 行结构转树结构后，节点类型（children 键可选）
- */
-type TreeWithOptionalChildren<T extends AnyObject, CK extends string> = T & { [K in CK]?: TreeWithOptionalChildren<T, CK>[] };
 
 /**
  * 树结构工具类
@@ -127,7 +122,7 @@ export class TreeUtil {
   static treeToRows<
     T extends AnyObject,
     CK extends string = ChildrenKey,
-    R extends AnyObject = TreeWithOptionalChildren<T, CK>,
+    R extends AnyObject = TreeLikeOptionalChildren<T, CK>,
   > (
     tree: T | T[],
     options: TreeToRowsOptions<T, CK> = {},

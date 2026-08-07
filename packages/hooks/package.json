@@ -69,7 +69,7 @@
   },
   "dependencies": {
     "@pawover/kit-utils": "workspace:*",
-    "@pawover/types": "^0.0.4",
+    "@pawover/types": "^0.0.5",
     "es-toolkit": "^1.50.0",
     "type-fest": "^5.8.0"
   },
