@@ -1,5 +1,5 @@
 import type { AnyObject, PlainObject } from "@pawover/types";
-import type { Replace } from "type-fest";
+import type { Replace, Trim } from "type-fest";
 import { TypeUtil } from "../type";
 
 /**
@@ -26,24 +26,29 @@ export class StringUtil {
    * StringUtil.cast(null, false); // "null" (类型为 "null")
    * StringUtil.cast(undefined, false); // "undefined" (类型为 "undefined")
    *
-   * // 重载 3: 原始类型 → 字符串字面量类型
+   * // 重载 3: 原始类型 → Trim<`${T}`> 字面量类型（trim 默认 true）
    * StringUtil.cast(123); // "123" (类型为 "123")
    * StringUtil.cast("hello"); // "hello" (类型为 "hello")
    * StringUtil.cast(true); // "true" (类型为 "true")
    * StringUtil.cast(42n); // "42" (类型为 "42")
+   * // 默认去除结果首尾空白
+   * StringUtil.cast("  hello  "); // "hello" (类型为 Trim<"  hello  "> = "hello")
+   * StringUtil.cast("\n  abc  \n"); // "abc" (类型为 "abc")
    *
-   * // 重载 4: 其他类型 → string
+   * // 重载 4: 原始类型 + trim = false → 保留字面量类型
+   * StringUtil.cast("\n  abc  \n", true, false); // "\n  abc  \n" (类型为 "\n  abc  \n")
+   * StringUtil.cast(123, undefined, false); // "123" (类型为 "123")
+   *
+   * // 重载 5: 其他类型 → string
    * StringUtil.cast(Symbol("foo")); // "Symbol(foo)" (类型为 string)
-   *
-   * // trim 参数（默认 true）
-   * StringUtil.cast("  hello  "); // "hello"
-   * StringUtil.cast("\n  abc  \n"); // "abc"
-   * StringUtil.cast("\n  abc  \n", true, false); // "\n  abc  \n"
+   * StringUtil.cast([1, 2, 3]); // "1,2,3" (类型为 string)
+   * StringUtil.cast({}); // "[object Object]" (类型为 string)
    * ```
    */
   static cast<T extends null | undefined> (candidate: T, checkNullish?: true, trim?: boolean): "";
-  static cast<T extends null | undefined> (candidate: T, checkNullish: false, trim?: boolean): `${T}`;
-  static cast<T extends string | number | bigint | boolean> (candidate: T, checkNullish?: boolean, trim?: boolean): `${T}`;
+  static cast<T extends null | undefined> (candidate: T, checkNullish: false, trim?: boolean): Trim<`${T}`>;
+  static cast<T extends string | number | bigint | boolean> (candidate: T, checkNullish?: boolean, trim?: true): Trim<`${T}`>;
+  static cast<T extends string | number | bigint | boolean> (candidate: T, checkNullish: boolean | undefined, trim: false): `${T}`;
   static cast (candidate: unknown, checkNullish?: boolean, trim?: boolean): string;
   static cast (candidate: unknown, checkNullish = true, trim = true): string {
     if (checkNullish) {
