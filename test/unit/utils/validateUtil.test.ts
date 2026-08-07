@@ -90,6 +90,23 @@ describe("ValidateUtil", () => {
       expect(ValidateUtil.isUSCC("91350100M000100Y43")).toBe(true);
     });
 
+    it("should reject non-18-digit USCC", () => {
+      expect(ValidateUtil.isUSCC("91350100M000100")).toBe(false);
+      expect(ValidateUtil.isUSCC("91350100M000100Y43A")).toBe(false);
+    });
+
+    it("should reject lowercase USCC", () => {
+      expect(ValidateUtil.isUSCC("91350100m000100y43")).toBe(false);
+    });
+
+    it("should reject excluded chars I/O/Z/S/V", () => {
+      expect(ValidateUtil.isUSCC("91350100S000100Y43")).toBe(false);
+    });
+
+    it("should accept letter-led codes for other registration departments", () => {
+      expect(ValidateUtil.isUSCC("A1350100M000100Y43")).toBe(true);
+    });
+
     it("should reject invalid USCC", () => {
       expect(ValidateUtil.isUSCC("123")).toBe(false);
     });
@@ -98,6 +115,19 @@ describe("ValidateUtil", () => {
   describe("isUSCCS", () => {
     it("should validate correct USCCS", () => {
       expect(ValidateUtil.isUSCCS("91350100M000100Y43")).toBe(true);
+    });
+
+    it("should reject obsolete 15-digit USCCS", () => {
+      expect(ValidateUtil.isUSCCS("91350100M000100")).toBe(false);
+    });
+
+    it("should reject over-length USCCS", () => {
+      expect(ValidateUtil.isUSCCS("91350100M000100Y43AB")).toBe(false);
+      expect(ValidateUtil.isUSCCS("91350100M000100Y43A")).toBe(false);
+    });
+
+    it("should reject lowercase USCCS", () => {
+      expect(ValidateUtil.isUSCCS("91350100m000100y43")).toBe(false);
     });
 
     it("should reject invalid USCCS", () => {
@@ -199,6 +229,8 @@ describe("ValidateUtil", () => {
 
     it("should reject invalid provinces", () => {
       expect(ValidateUtil.isChineseProvince("Unknown")).toBe(false);
+      expect(ValidateUtil.isChineseProvince("我来自浙江")).toBe(false);
+      expect(ValidateUtil.isChineseProvince("湖北武汉")).toBe(false);
     });
   });
 
@@ -206,10 +238,12 @@ describe("ValidateUtil", () => {
     it("should validate correct nationalities", () => {
       expect(ValidateUtil.isChineseNation("汉族")).toBe(true);
       expect(ValidateUtil.isChineseNation("蒙古族")).toBe(true);
+      expect(ValidateUtil.isChineseNation("外国人入中国籍")).toBe(true);
     });
 
     it("should reject invalid nationalities", () => {
       expect(ValidateUtil.isChineseNation("Unknown")).toBe(false);
+      expect(ValidateUtil.isChineseNation("我是蒙古族")).toBe(false);
     });
   });
 

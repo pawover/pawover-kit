@@ -89,26 +89,38 @@ export class ValidateUtil {
 
   static _uscc = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
   /**
-   * 验证是否为统一社会信用代码
+   * 验证是否为统一社会信用代码（USCC / USCI / USCCS）
+   * - 固定 18 位：1 位登记管理部门码 + 1 位机构类别码 + 6 位行政区划码 + 9 位主体标识码 + 1 位校验码
+   * - 字符集：数字 0-9 + 大写英文字母（排除 I、O、Z、S、V，防视觉混淆）
+   * - 第 1-2 位允许字母（如登记管理部门码 `A`，代表"其他"），第 3-8 位行政区划码为纯数字
+   *
+   * @param input 待校验字符串
+   * @returns 是否为合法格式的统一社会信用代码
    * @example
    * ```ts
    * ValidateUtil.isUSCC("91350100M000100Y43"); // true
+   * ValidateUtil.isUSCC("A1350100M000100Y43"); // true (A 开头"其他"部门码)
    * ```
    */
   static isUSCC (input: string): boolean {
     return this._uscc.test(input.toString());
   }
 
-  static _usccs = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
   /**
-   * 验证是否为统一社会信用代码 - 15位/18位/20位数字/字母
+   * 验证是否为统一社会信用代码（同 `isUSCC`）
+   * - USCC / USCI / USCCS 均指统一社会信用代码，固定 18 位
+   * - 15 位旧税务登记号在 2015 年"三证合一"前使用，现已作废，视为无效
+   *
+   * @param input 待校验字符串
+   * @returns 是否为合法代码
    * @example
    * ```ts
-   * ValidateUtil.isUSCCS("91350100M000100Y43"); // true
+   * ValidateUtil.isUSCCS("91350100M000100Y43"); // true (18位)
+   * ValidateUtil.isUSCCS("91350100M000100"); // false (15位旧号，已作废)
    * ```
    */
   static isUSCCS (input: string): boolean {
-    return this._usccs.test(input.toString());
+    return this.isUSCC(input);
   }
 
   static _dirPathWindows = /^[a-z]:\\(?:\w+\\?)*$/i;
@@ -207,7 +219,7 @@ export class ValidateUtil {
     return this._chineseId.test(input.toString());
   }
 
-  static _chineseProvince = /^安徽|澳门|北京|重庆|福建|甘肃|广东|广西|贵州|海南|河北|河南|黑龙江|湖北|湖南|吉林|江苏|江西|辽宁|内蒙古|宁夏|青海|山东|山西|陕西|上海|四川|台湾|天津|西藏|香港|新疆|云南|浙江$/;
+  static _chineseProvince = /^(?:安徽|澳门|北京|重庆|福建|甘肃|广东|广西|贵州|海南|河北|河南|黑龙江|湖北|湖南|吉林|江苏|江西|辽宁|内蒙古|宁夏|青海|山东|山西|陕西|上海|四川|台湾|天津|西藏|香港|新疆|云南|浙江)$/;
   /**
    * 验证是否为中国省份
    * @example
@@ -219,7 +231,7 @@ export class ValidateUtil {
     return this._chineseProvince.test(input.toString());
   }
 
-  static _chineseNation = /^汉族|蒙古族|回族|藏族|维吾尔族|苗族|彝族|壮族|布依族|朝鲜族|满族|侗族|瑶族|白族|土家族|哈尼族|哈萨克族|傣族|黎族|傈僳族|佤族|畲族|高山族|拉祜族|水族|东乡族|纳西族|景颇族|柯尔克孜族|土族|达斡尔族|仫佬族|羌族|布朗族|撒拉族|毛南族|仡佬族|锡伯族|阿昌族|普米族|塔吉克族|怒族|乌孜别克族|俄罗斯族|鄂温克族|德昂族|保安族|裕固族|京族|塔塔尔族|独龙族|鄂伦春族|赫哲族|门巴族|珞巴族|基诺族|其它未识别民族|外国人入中国籍$/;
+  static _chineseNation = /^(?:汉族|蒙古族|回族|藏族|维吾尔族|苗族|彝族|壮族|布依族|朝鲜族|满族|侗族|瑶族|白族|土家族|哈尼族|哈萨克族|傣族|黎族|傈僳族|佤族|畲族|高山族|拉祜族|水族|东乡族|纳西族|景颇族|柯尔克孜族|土族|达斡尔族|仫佬族|羌族|布朗族|撒拉族|毛南族|仡佬族|锡伯族|阿昌族|普米族|塔吉克族|怒族|乌孜别克族|俄罗斯族|鄂温克族|德昂族|保安族|裕固族|京族|塔塔尔族|独龙族|鄂伦春族|赫哲族|门巴族|珞巴族|基诺族|其它未识别民族|外国人入中国籍)$/;
   /**
    * 验证是否为中华民族
    * @example
