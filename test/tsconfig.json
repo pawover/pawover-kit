@@ -18,8 +18,12 @@
     "**/*.ts",
     "**/*.jsx",
     "**/*.tsx",
-    "../eslint.config.js",
-    "../vitest.config.ts"
+    "../*.js",
+    "../*.cjs",
+    "../*.mjs",
+    "../*.ts",
+    "../*.jsx",
+    "../*.tsx"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }
