@@ -343,6 +343,25 @@ describe("TreeUtil", () => {
       expect(visited).toEqual([3, 2, 1]);
     });
 
+    it("should drop whole branch when parent fails but child passes in post-order", () => {
+      const tree = [{ id: 1, visible: false, children: [{ id: 2, visible: true }] }];
+      const filtered = TreeUtil.filter(tree, (node) => node.visible, { strategy: "post" });
+      expect(filtered).toEqual([]);
+    });
+
+    it("should prune failing branch before callback runs on parent in post-order", () => {
+      const tree = [{ id: 1, visible: true, children: [{ id: 2, visible: false, children: [{ id: 3, visible: true }] }] }];
+      const visited: number[] = [];
+      const filtered = TreeUtil.filter(tree, (node) => {
+        visited.push(node.id);
+        return node.visible;
+      }, { strategy: "post" });
+      // 后序遍历：先访问子节点（3、2），再访问根节点 1
+      expect(visited).toEqual([3, 2, 1]);
+      // 失败分支（2、3）整体被剪除，根节点保留但 children 为空数组
+      expect(filtered).toEqual([{ id: 1, visible: true, children: [] }]);
+    });
+
     it("should filter in breadth-order", () => {
       const tree = [{ id: 1, visible: true, children: [{ id: 2, visible: false }, { id: 3, visible: true }] }];
       const filtered = TreeUtil.filter(tree, (node) => node.visible, { strategy: "breadth" });

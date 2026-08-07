@@ -68,6 +68,19 @@ describe("EnvUtil", () => {
       expect(EnvUtil.isDesktop()).toBe(true);
       screenSpy.mockRestore();
     });
+
+    it("should detect 15.6-inch laptop at 1366x768 as desktop", () => {
+      setInnerWidth(1366);
+      setScreen(1366, 768);
+      // 1366x768 DPR=1 换算尺寸约 9.79 英寸，低于桌面 10 英寸阈值 → isDesktop 返回 false
+      expect(EnvUtil.isDesktop()).toBe(false);
+    });
+
+    it("should classify 9.79-inch 1366x768 laptop as desktop with custom minScreenSize", () => {
+      setInnerWidth(1366);
+      setScreen(1366, 768);
+      expect(EnvUtil.isDesktop(1200, 9)).toBe(true);
+    });
   });
 
   describe("isWindowsDesktop", () => {
@@ -153,6 +166,12 @@ describe("EnvUtil", () => {
       setInnerWidth(1184);
       setScreen(2960, 1848);
       Object.defineProperty(window, "devicePixelRatio", { value: 2.55, configurable: true });
+      expect(EnvUtil.isTablet()).toBe(true);
+    });
+
+    it("should classify 1366x768 laptop as tablet by inch range (9.79 inch)", () => {
+      setInnerWidth(1366);
+      setScreen(1366, 768);
       expect(EnvUtil.isTablet()).toBe(true);
     });
 
