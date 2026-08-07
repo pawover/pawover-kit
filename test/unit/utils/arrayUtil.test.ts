@@ -376,5 +376,11 @@ describe("ArrayUtil", () => {
     it("should return empty object for non-array keys", () => {
       expect(ArrayUtil.zipToObject(null as unknown as string[], [1])).toEqual({});
     });
+
+    it("should not pollute prototype with __proto__ key", () => {
+      const result = ArrayUtil.zipToObject(["__proto__"], "polluted");
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(({} as Record<string, unknown>).polluted).toBeUndefined();
+    });
   });
 });

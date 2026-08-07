@@ -120,7 +120,7 @@ export class ObjectUtil {
 
     return this.entries(plainObject).reduce((acc, [key, value]) => {
       const [newKey, newValue] = toEntry(key, value);
-      acc[newKey] = newValue;
+      Object.defineProperty(acc, newKey, { value: newValue, enumerable: true, writable: true, configurable: true });
 
       return acc;
     }, defaultResult);
@@ -156,7 +156,7 @@ export class ObjectUtil {
 
     return keys.reduce((acc, key) => {
       if (key in obj) {
-        acc[key] = obj[key];
+        Object.defineProperty(acc, key, { value: obj[key], enumerable: true, writable: true, configurable: true });
       }
 
       return acc;
@@ -195,7 +195,7 @@ export class ObjectUtil {
 
     return Object.keys(obj).reduce((acc, key) => {
       if (!keysToOmit.has(key)) {
-        acc[key] = obj[key];
+        Object.defineProperty(acc, key, { value: obj[key], enumerable: true, writable: true, configurable: true });
       }
 
       return acc;

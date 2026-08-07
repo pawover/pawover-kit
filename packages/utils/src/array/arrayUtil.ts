@@ -237,7 +237,7 @@ export class ArrayUtil {
    * ```
    */
   static merge<T> (initialList: readonly T[], mergeList: readonly T[]): T[];
-  static merge<T, D = T> (initialList: readonly T[], mergeList: readonly D[], match: MatchFunction<T>): T[];
+  static merge<T, D = T> (initialList: readonly T[], mergeList: readonly D[], match: MatchFunction<T>): (T | D)[];
   static merge<T> (initialList: readonly T[], mergeList: readonly T[], match?: MatchFunction<T>): T[] {
     if (!TypeUtil.isArray(initialList)) {
       return [];
@@ -572,7 +572,7 @@ export class ArrayUtil {
     const getValue = TypeUtil.isFunction(values) ? values : TypeUtil.isArray(values) ? (_k: K, i: number) => values[i] : (_k: K, _i: number) => values;
 
     return keys.reduce((acc, key, idx) => {
-      acc[key] = getValue(key, idx) as V;
+      Object.defineProperty(acc, key, { value: getValue(key, idx) as V, enumerable: true, writable: true, configurable: true });
 
       return acc;
     }, result);

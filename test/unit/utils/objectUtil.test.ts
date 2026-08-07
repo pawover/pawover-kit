@@ -74,6 +74,12 @@ describe("ObjectUtil", () => {
     it("should return empty object for array input", () => {
       expect(ObjectUtil.entriesMap([] as unknown as Record<string, never>, (k, v) => [k, v])).toEqual({});
     });
+
+    it("should not pollute prototype with __proto__ key", () => {
+      const result = ObjectUtil.entriesMap({ a: 1 }, (k, v) => ["__proto__", v]);
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(Object.prototype.hasOwnProperty.call(result, "__proto__")).toBe(true);
+    });
   });
 
   describe("pick", () => {
@@ -97,6 +103,14 @@ describe("ObjectUtil", () => {
       const obj = { a: 1 };
       expect(ObjectUtil.pick(obj, null as any)).toEqual(obj);
     });
+
+    it("should not pollute prototype with __proto__ key", () => {
+      const input: Record<string, unknown> = {};
+      Object.defineProperty(input, "__proto__", { value: "evil", enumerable: true, configurable: true, writable: true });
+      const result = ObjectUtil.pick(input, ["__proto__"]);
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(Object.prototype.hasOwnProperty.call(result, "__proto__")).toBe(true);
+    });
   });
 
   describe("omit", () => {
@@ -118,6 +132,14 @@ describe("ObjectUtil", () => {
 
     it("should return empty object for empty keys", () => {
       expect(ObjectUtil.omit({ a: 1 }, [])).toEqual({ a: 1 });
+    });
+
+    it("should not pollute prototype with __proto__ key", () => {
+      const input: Record<string, unknown> = {};
+      Object.defineProperty(input, "__proto__", { value: "evil", enumerable: true, configurable: true, writable: true });
+      const result = ObjectUtil.omit(input, []) as Record<string, unknown>;
+      expect(Object.getPrototypeOf(result)).toBe(Object.prototype);
+      expect(Object.prototype.hasOwnProperty.call(result, "__proto__")).toBe(true);
     });
   });
 
