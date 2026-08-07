@@ -8,7 +8,7 @@ import eslintPluginImports from "eslint-plugin-import-lite";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintTs from "typescript-eslint";
 
-import eslintRules from "@pawover/eslint-rules";
+import eslintRules from "@pawover/kit-eslint-rules";
 
 const plugins = {
   typescript: {

@@ -1,0 +1,97 @@
+{
+  "name": "@pawover/kit-eslint-rules",
+  "author": {
+    "name": "pawover",
+    "email": "pawover@outlook.com",
+    "url": "https://github.com/pawover"
+  },
+  "description": "ESLint rulesets: javascript, typescript, react, vue, stylistic, antfu and import rules with presets",
+  "version": "0.0.0-alpha.1",
+  "type": "module",
+  "keywords": [
+    "pawover",
+    "pawover-kit-eslint-rules"
+  ],
+  "homepage": "https://github.com/pawover/pawover-kit/packages/eslint-rules#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawover/pawover-kit.git"
+  },
+  "license": "MIT",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./src/*": {
+      "import": {
+        "types": "./dist/*.d.ts",
+        "default": "./dist/*.js"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build:source": "tsdown",
+    "package": "pnpm pack",
+    "public": "npm publish --access public --tag alpha",
+    "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
+  },
+  "peerDependencies": {
+    "@eslint-react/eslint-plugin": "^5.9.0",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.0.0",
+    "eslint-plugin-antfu": "^3.2.2",
+    "eslint-plugin-import-lite": "^0.6.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
+    "eslint-plugin-vue": "^10.8.0",
+    "typescript": "^5.9.3 || ^6.0.0",
+    "typescript-eslint": "^8.57.0"
+  },
+  "peerDependenciesMeta": {
+    "@eslint-react/eslint-plugin": {
+      "optional": true
+    },
+    "@stylistic/eslint-plugin": {
+      "optional": true
+    },
+    "eslint-plugin-antfu": {
+      "optional": true
+    },
+    "eslint-plugin-import-lite": {
+      "optional": true
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": true
+    },
+    "eslint-plugin-simple-import-sort": {
+      "optional": true
+    },
+    "eslint-plugin-vue": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    },
+    "typescript-eslint": {
+      "optional": true
+    }
+  }
+}

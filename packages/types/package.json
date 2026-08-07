@@ -5,7 +5,7 @@
     "email": "pawover@outlook.com",
     "url": "https://github.com/pawover"
   },
-  "description": "pawover's kit-types",
+  "description": "Type-only utility toolkit: object, tree, function, record and React props types with no runtime code",
   "version": "0.0.0-alpha.1",
   "type": "module",
   "keywords": [

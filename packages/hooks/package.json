@@ -5,7 +5,7 @@
     "email": "pawover@outlook.com",
     "url": "https://github.com/pawover"
   },
-  "description": "pawover's kit-hooks",
+  "description": "React hooks (mount, unmount, latest, title, responsive) and Alova request hooks",
   "version": "0.0.0-alpha.1",
   "type": "module",
   "keywords": [
