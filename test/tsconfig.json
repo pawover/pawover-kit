@@ -9,7 +9,8 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": false
+    "noUncheckedIndexedAccess": false,
+    "customConditions": ["development"]
   },
   "include": [
     "**/*.js",

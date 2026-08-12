@@ -1,13 +1,17 @@
 import { id } from "@pawover/kit/zod";
 import type { z } from "zod";
 
-// Validate inferred type
+// z.infer<typeof id> must stay string | number
 type IdType = z.infer<typeof id>;
-const idStr: IdType = "abc";
-const idNum: IdType = 123;
+
+// @ts-expect-error — IdType must include string (cast would fail) and stay wider than number
+const badIdTypeNumber: number = "abc" as IdType;
+
+// @ts-expect-error — IdType must include number (cast would fail) and stay wider than string
+const badIdTypeString: string = 123 as IdType;
 
 // @ts-expect-error — IdType is string | number, not boolean
-const idBool: IdType = true;
+const badIdTypeBoolean: IdType = true;
 
 // @ts-expect-error — IdType is string | number, not object
-const idObj: IdType = {};
+const badIdTypeObject: IdType = {};
