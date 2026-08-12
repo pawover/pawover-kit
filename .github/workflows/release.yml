@@ -71,7 +71,7 @@ jobs:
       - name: Version packages and create/update pull request
         uses: changesets/action/version@v2
         with:
-          version-script: pnpm ci:version
+          script: pnpm ci:version
           commit-message: 'chore: version packages'
           pr-title: 'Version Packages'
           pr-base-branch: main
