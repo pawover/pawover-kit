@@ -65,7 +65,7 @@ tsdown (build:source) → scripts/metadata.ts (build:metadata) → build (turbo)
 ## 导入风格
 
 ```ts
-import { TypeUtil } from "@pawover/kit/utils";            // 核心工具
+import { TypeUtil } from "@pawover/kit/utils";              // 核心工具
 import { useMount } from "@pawover/kit/hooks/react";        // React hooks
 import { useAlovaRequest } from "@pawover/kit/hooks/alova"; // Alova hooks
 import type { AnyObject } from "@pawover/kit/types";        // 类型工具（根包子路径）

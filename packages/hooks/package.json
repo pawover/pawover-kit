@@ -67,6 +67,9 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@pawover/kit-types": "workspace:*",
     "@pawover/kit-utils": "workspace:*",

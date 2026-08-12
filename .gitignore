@@ -35,4 +35,7 @@ lerna-debug.log*
 # turbo
 .turbo
 
+# changesets
+.changeset/status.json
+
 *metadata.json

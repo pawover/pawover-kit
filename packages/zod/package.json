@@ -43,6 +43,9 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "zod": "^4.4.3"
   },

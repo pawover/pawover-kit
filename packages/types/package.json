@@ -54,6 +54,9 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "type-fest": "^5.8.0"
   },

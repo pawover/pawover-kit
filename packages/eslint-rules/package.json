@@ -53,6 +53,9 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^5.9.0",
     "@stylistic/eslint-plugin": "^5.10.0",

@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "一个基于 TypeScript 的开发工具包",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -174,6 +174,11 @@
     "build:package:force": "turbo build:package --force && pnpm package",
     "package": "pnpm pack",
     "public": "turbo build && pnpm publish --access public",
+    "changeset": "changeset",
+    "ci:version": "pnpm changeset version && pnpm install",
+    "ci:publish": "pnpm build && pnpm changeset publish",
+    "pre:enter-alpha": "pnpm changeset pre enter alpha",
+    "pre:exit": "pnpm changeset pre exit",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
     "check:types": "tsc --noEmit",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
@@ -196,6 +201,7 @@
     "@pawover/kit-zod": "workspace:*"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@eslint-react/eslint-plugin": "^5.18.2",
@@ -252,6 +258,9 @@
     "zod": {
       "optional": true
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "config": {
     "commitizen": {
