@@ -3,6 +3,12 @@ import { MathUtil } from "../math";
 import { TypeUtil } from "../type";
 import type { FormatterOptions } from "./index.type";
 
+/** `toRealValue` 返回值映射：可空 `value` 的返回追加 `| null`（内部类型，不导出） */
+type ToRealValueResult<T extends string | number | null | undefined, R> = T extends string | number ? R : R | null;
+
+/** Bidi 控制字符正则：`Intl.NumberFormat` 在 RTL locale（如 `ar-SA`、`he-IL`）下会注入不可见的 U+200E/U+200F/U+202A–U+202E/U+2066–U+2069 标记 */
+const BIDI_CONTROL_CHARS_REGEX = /[\u200E\u200F\u202A-\u202E\u2066-\u2069]/g;
+
 /**
  * 货币工具类
  * - 基于 [`Intl.NumberFormat`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) 进行本地化格式化
@@ -142,13 +148,14 @@ export class CurrencyUtil {
    * 货币格式化
    * - 使用 `Intl.NumberFormat` 进行本地化数字格式化
    * - 支持自定义货币符号及位置（首/尾）
+   * - 自动剥离 Intl 注入的不可见 Bidi 控制字符（RTL locale）
    * - 当值为 `null` 或 `undefined` 时返回 `null`
    *
    * @param value 待格式化的数值
    * @param options 格式化选项
    * @param options.locales locale 元组，同时指定格式化语言和货币所属地区
-   * @param options.currencySign 货币符号（如 `¥`、`$`、`€`）
-   * @param options.currencySignPosition 货币符号位置
+   * @param options.currencySign 货币符号，三态：非空字符串为自定义符号（如 `¥`、`$`、`€`）；`null` 输出纯数字；`undefined` 或省略时保留 Intl 原生符号。空字符串及非字符串值（如数字、布尔、对象）在运行时被忽略，等价于 `undefined`
+   * @param options.currencySignPosition 货币符号位置，`"end"` 置于金额后，其余非 `"end"` 值（含非法值）运行时统一视为 `"start"`
    * @param options.currencyFormatOptions `Intl.NumberFormatOptions` 格式化选项
    * @returns 格式化后的货币字符串，无效输入返回 `null`
    *
@@ -157,10 +164,25 @@ export class CurrencyUtil {
    * import { CurrencyUtil } from "@pawover/kit/utils";
    *
    * // 重载 1: 有效数值
+   * // 变体 A: 自定义符号
    * CurrencyUtil.currencyFormatter(1234.56, {
    *   locales: [CurrencyUtil.CURRENCY_ENUM.CNY, CurrencyUtil.CURRENCY_ENUM.USD],
    *   currencySign: "¥",
    *   currencySignPosition: "start",
+   *   currencyFormatOptions: { style: "currency", currency: "CNY" },
+   * }); // "¥ 1,234.56"
+   *
+   * // 变体 B: currencySign 为 null → 纯数字
+   * CurrencyUtil.currencyFormatter(1234.56, {
+   *   locales: [CurrencyUtil.CURRENCY_ENUM.CNY, CurrencyUtil.CURRENCY_ENUM.USD],
+   *   currencySign: null,
+   *   currencySignPosition: "start",
+   *   currencyFormatOptions: { style: "currency", currency: "CNY" },
+   * }); // "1,234.56"
+   *
+   * // 变体 C: currencySign 省略或为 undefined → 保留 Intl 原生符号
+   * CurrencyUtil.currencyFormatter(1234.56, {
+   *   locales: [CurrencyUtil.CURRENCY_ENUM.CNY, CurrencyUtil.CURRENCY_ENUM.USD],
    *   currencyFormatOptions: { style: "currency", currency: "CNY" },
    * }); // "¥ 1,234.56"
    *
@@ -183,16 +205,27 @@ export class CurrencyUtil {
       return null;
     }
 
-    let formatedValue = numberValue.toLocaleString(locales, currencyFormatOptions).replace(currencySign, "").trim();
+    const parts = new Intl.NumberFormat(locales, currencyFormatOptions).formatToParts(numberValue);
+    const nativeSign = (parts.find(({ type }) => type === "currency")?.value ?? "").replace(BIDI_CONTROL_CHARS_REGEX, "");
+    const sign = TypeUtil.isString(currencySign, true)
+      ? currencySign
+      : currencySign === null
+        ? ""
+        : nativeSign;
+    const numberText = parts
+      .filter(({ type }) => type !== "currency")
+      .map(({ value }) => value)
+      .join("")
+      .replace(BIDI_CONTROL_CHARS_REGEX, "")
+      .trim();
 
-    if (currencySignPosition === "start") {
-      formatedValue = `${currencySign} ${formatedValue}`;
-    }
-    if (currencySignPosition === "end") {
-      formatedValue = `${formatedValue} ${currencySign}`;
+    const isSignAtEnd = currencySignPosition === "end";
+
+    if (!sign) {
+      return numberText;
     }
 
-    return formatedValue;
+    return isSignAtEnd ? `${numberText} ${sign}` : `${sign} ${numberText}`;
   }
 
   /**
@@ -213,27 +246,30 @@ export class CurrencyUtil {
    *
    * const math = create(all);
    *
-   * // 重载 1: 有效值 + stringMode = true（默认）
+   * // 重载 1: stringMode 省略 / undefined / true → string
    * CurrencyUtil.toRealValue(math, "0.1"); // "0.1"
    * CurrencyUtil.toRealValue(math, 0.1 + 0.2, 2); // "0.30"
+   * CurrencyUtil.toRealValue(math, "0.1", undefined, true); // "0.1"
    *
    * // 重载 2: stringMode = false → number
    * CurrencyUtil.toRealValue(math, "0.1", undefined, false); // 0.1
    *
-   * // 重载 3: null / undefined（含 stringMode 显式组合）
+   * // 重载 3: stringMode 为 boolean（未收窄）→ number | string
+   * const getMode = (): boolean => false;
+   * CurrencyUtil.toRealValue(math, "0.1", undefined, getMode()); // 0.1 | "0.1"
+   *
+   * // 变体: null / undefined 与可空联合值 → 返回追加 null
    * CurrencyUtil.toRealValue(math, null); // null
    * CurrencyUtil.toRealValue(math, undefined); // null
-   * CurrencyUtil.toRealValue(math, null, 2, true); // null
    * CurrencyUtil.toRealValue(math, null, 2, false); // null
+   * const value: string | number | null = null;
+   * CurrencyUtil.toRealValue(math, value, 2, getMode()); // null | 0.1 | "0.1"
    * ```
    */
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision: number | undefined, stringMode: true): string;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision: number | undefined, stringMode: false): number;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number, precision?: number | undefined): string;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision: number | undefined, stringMode: true): string | null;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision: number | undefined, stringMode: false): number | null;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined): string | null;
-  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): string | number | null {
+  static toRealValue<T extends string | number | null | undefined> (mathJsInstance: MathJsInstance, value: T, precision?: number | undefined, stringMode?: true | undefined): ToRealValueResult<T, string>;
+  static toRealValue<T extends string | number | null | undefined> (mathJsInstance: MathJsInstance, value: T, precision: number | undefined, stringMode: false): ToRealValueResult<T, number>;
+  static toRealValue<T extends string | number | null | undefined> (mathJsInstance: MathJsInstance, value: T, precision: number | undefined, stringMode: boolean | undefined): ToRealValueResult<T, number | string>;
+  static toRealValue (mathJsInstance: MathJsInstance, value: string | number | null | undefined, precision?: number | undefined, stringMode?: boolean | undefined): number | string | null {
     if (TypeUtil.isNullish(value)) {
       return null;
     }
