@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "ESLint rulesets: javascript, typescript, react, vue, stylistic, antfu and import rules with presets",
-  "version": "0.0.0-alpha.3",
+  "version": "0.0.0-alpha.4",
   "type": "module",
   "keywords": [
     "pawover",
