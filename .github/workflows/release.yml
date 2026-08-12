@@ -86,6 +86,8 @@ jobs:
       pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
     permissions:
       contents: read
+    env:
+      HUSKY: "0"
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -121,6 +123,7 @@ jobs:
       id-token: write
     env:
       NPM_CONFIG_TAG: alpha
+      HUSKY: "0"
     steps:
       - name: Checkout
         uses: actions/checkout@v7
