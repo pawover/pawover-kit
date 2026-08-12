@@ -183,7 +183,7 @@
     "check:types": "tsc --noEmit",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
     "check:format": "prettier --write \"**/*.{html,json,jsonc}\" --cache-location=.cache/prettier.cache.json --cache",
-    "check:pack": "cross-env HUSKY=0 pnpm dlx @arethetypeswrong/cli --pack . --profile node16",
+    "check:pack": "cross-env HUSKY=0 node scripts/check-pack.mjs",
     "clean": "pnpm clean:cache & pnpm clean:lib & pnpm clean:output",
     "clean:turbo": "rimraf -g **/.turbo",
     "clean:cache": "rimraf -g .cache",
@@ -201,6 +201,7 @@
     "@pawover/kit-zod": "workspace:*"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@changesets/cli": "^3.0.0",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
