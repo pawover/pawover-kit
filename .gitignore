@@ -41,5 +41,5 @@ lerna-debug.log*
 *metadata.json
 
 # vitepress
-.vitepress/cache
-.vitepress/dist
+**/.vitepress/cache
+**/.vitepress/dist
