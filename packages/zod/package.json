@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Zod v4 schemas: id, string, number, boolean and bigint validators",
-  "version": "0.0.0-alpha.5",
+  "version": "0.0.0",
   "type": "module",
   "keywords": [
     "pawover",
