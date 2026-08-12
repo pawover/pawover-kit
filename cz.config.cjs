@@ -19,7 +19,9 @@ module.exports = {
   })),
   scopes: [
     { name: "kit" },
+    { name: "kit-eslint-rules" },
     { name: "kit-hooks" },
+    { name: "kit-types" },
     { name: "kit-utils" },
     { name: "kit-zod" },
   ],
