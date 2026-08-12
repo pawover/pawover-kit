@@ -145,5 +145,4 @@ jobs:
       - name: Publish packages
         uses: changesets/action/publish@v2
         with:
-          publishCommand: pnpm changeset publish
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
