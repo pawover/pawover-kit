@@ -1,5 +1,13 @@
 # @pawover/kit-utils
 
+## 0.0.0-alpha.5
+
+### Patch Changes
+
+- c2acb2b: 预发布 0.0.0-alpha.5（恢复 alpha pre 模式，验证 CI 发布流程；根包经 bump-root.mjs 同步发布）
+- Updated dependencies [c2acb2b]
+  - @pawover/kit-types@0.0.0-alpha.5
+
 ## 0.0.0-alpha.4
 
 ### Patch Changes
