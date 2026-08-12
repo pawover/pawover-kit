@@ -3,10 +3,13 @@
 [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
 [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-0E6E57.svg)](https://pawover.github.io/pawover-kit/)
 
 > 一个基于 TypeScript 的开源工具包合集：类型工具、静态工具类、React / Alova Hooks、ESLint 规则集与 Zod Schema，开箱即用、类型完备。
 
 pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布的子包组成。根包 `@pawover/kit` 聚合重新导出所有子包，也可以按需单独安装使用。
+
+> 📚 **技术文档**：[https://pawover.github.io/pawover-kit/](https://pawover.github.io/pawover-kit/) —— 完整的 API 参考、指南与实战示例见文档站；本文档只保留最简介绍。
 
 ## 特性
 
@@ -105,6 +108,8 @@ pnpm install
 | `pnpm test:ci` | 完整 CI 流程：类型检查 → 测试 → 构建 → 冒烟 → pack 检查 |
 | `pnpm build` | turbo 构建全部子包（tsdown 生成 ESM/CJS 双格式与类型声明） |
 | `pnpm check` | 并行运行 types / eslint / format 检查 |
+| `pnpm docs:dev` | 本地预览文档站（VitePress，源码见 `docs/`） |
+| `pnpm docs:gen` | 从源码 JSDoc 重新生成 API 参考页（改源码注释后需重新生成） |
 
 ## 发布
 

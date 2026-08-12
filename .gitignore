@@ -39,3 +39,7 @@ lerna-debug.log*
 .changeset/status.json
 
 *metadata.json
+
+# vitepress
+.vitepress/cache
+.vitepress/dist
