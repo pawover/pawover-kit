@@ -45,4 +45,5 @@ jobs:
           HUSKY: "0"
 
       - name: Verify release plan (sub-package release ⇒ root must release)
+        if: github.event_name == 'push'
         run: pnpm changeset status --output=.changeset/status.json
