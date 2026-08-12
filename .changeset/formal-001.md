@@ -6,4 +6,4 @@
 "@pawover/kit-zod": patch
 ---
 
-发布首个正式版本 0.0.1（结束 alpha pre 阶段）
+预发布 0.0.0-alpha.5（恢复 alpha pre 模式，验证 CI 发布流程；根包经 bump-root.mjs 同步发布）

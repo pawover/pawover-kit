@@ -1,47 +1,57 @@
-import { existsSync, readFileSync } from "node:fs";
+import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 
 /**
- * 发布计划守卫脚本：
- * 在「子包发布 ⇒ 根包必发」规则上做硬校验，防止误配置导致根包漏发。
+ * 发布顺序复核脚本：
+ * 在 version 通道（changesets/action/version 的 version-script 执行后）运行，
+ * 复核「子包版本变化 ⇒ 根包必变」规则，防止 ci:version 被改坏后根包漏发。
  *
- * 用法：先运行 `pnpm changeset status --output=status.json`（changesets 目录下），再：
- *   node scripts/verify-release.mjs [status.json 路径]
+ * changesets 的包列表不包含根包（getPackages 将根包单独放在 rootPackage），
+ * 根包无法进入 changesets 的 releases；根包版本由 scripts/bump-root.mjs 在
+ * `changeset version` 之后同步递增。本脚本对比 git HEAD 与工作区的版本：
+ * 若任一子包版本变化而根包版本未变，则校验失败。
+ *
+ * 用法（在 version 通道的 version action 之后运行）：
+ *   node scripts/verify-release.mjs
  *
  * 退出码：
- *   0 校验通过（或无待发布变更）
- *   1 存在子包发布但根包未纳入发布计划
+ *   0 校验通过（或无子包版本变化）
+ *   1 子包版本变化但根包版本未变
  */
-const ROOT_PACKAGE = "@pawover/kit";
-const SUB_PACKAGES = [
-  "@pawover/kit-eslint-rules",
-  "@pawover/kit-hooks",
-  "@pawover/kit-types",
-  "@pawover/kit-utils",
-  "@pawover/kit-zod",
+const SUB_PACKAGE_PATHS = [
+  "packages/eslint-rules",
+  "packages/hooks",
+  "packages/types",
+  "packages/utils",
+  "packages/zod",
 ];
 
-const statusPath = process.argv[2] ?? ".changeset/status.json";
-
-if (!existsSync(statusPath)) {
-  console.log("✔ 无待发布变更，跳过校验");
-  process.exit(0);
+function gitShowVersion(pkgPath) {
+  const out = execSync(`git show HEAD:${pkgPath}`, { encoding: "utf8" });
+  return JSON.parse(out).version;
 }
 
-/** @type {{ releases: Array<{ name: string; type: string }> }} */
-const status = JSON.parse(readFileSync(statusPath, "utf8"));
-const released = new Set(status.releases.map((item) => item.name));
-const releasedSubs = SUB_PACKAGES.filter((name) => released.has(name));
+function worktreeVersion(pkgPath) {
+  return JSON.parse(readFileSync(pkgPath, "utf8")).version;
+}
 
-if (releasedSubs.length > 0 && !released.has(ROOT_PACKAGE)) {
+const rootOld = gitShowVersion("package.json");
+const rootNew = worktreeVersion("package.json");
+const changedSubs = SUB_PACKAGE_PATHS.filter((pkgPath) => {
+  const file = `${pkgPath}/package.json`;
+  return gitShowVersion(file) !== worktreeVersion(file);
+});
+
+if (changedSubs.length > 0 && rootOld === rootNew) {
   console.error(`❌ 发布顺序校验失败：`);
-  console.error(`   子包将发布：${releasedSubs.join(", ")}`);
-  console.error(`   但根包 ${ROOT_PACKAGE} 不在发布计划中。`);
+  console.error(`   子包版本已变化：${changedSubs.join(", ")}`);
+  console.error(`   但根包 @pawover/kit 版本未变化（仍为 ${rootNew}）。`);
   console.error(`   根包直接依赖全部子包（workspace:*），子包发布时根包必须同步发布。`);
-  console.error(`   请检查 .changeset/config.json 的 updateInternalDependencies 配置或补充根包 changeset。`);
+  console.error(`   请检查 scripts/bump-root.mjs 与 ci:version 配置。`);
   process.exit(1);
 }
 
-const detail = released.size === 0
-  ? "本次不发布任何包"
-  : `本次将发布：${[...released].join(", ")}`;
+const detail = changedSubs.length === 0
+  ? "本次无子包版本变化"
+  : `子包版本变化：${changedSubs.join(", ")}，根包同步为 ${rootNew}`;
 console.log(`✔ 发布顺序校验通过（${detail}）`);

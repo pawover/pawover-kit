@@ -66,9 +66,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Verify release plan (sub-package release ⇒ root must release)
-        run: |
-          pnpm changeset status --output=.changeset/status.json || true
-          node scripts/verify-release.mjs .changeset/status.json
+        run: pnpm changeset status --output=.changeset/status.json
 
       - name: Version packages and create/update pull request
         uses: changesets/action/version@v2
@@ -77,6 +75,9 @@ jobs:
           commit-message: 'chore: version packages'
           pr-title: 'Version Packages'
           pr-base-branch: main
+
+      - name: Verify root package bumped alongside sub-packages
+        run: node scripts/verify-release.mjs
 
   pack:
     if: needs.select-mode.outputs.mode == 'publish'
@@ -146,3 +147,9 @@ jobs:
         uses: changesets/action/publish@v2
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
+
+      - name: Build root package
+        run: pnpm build
+
+      - name: Publish root package
+        run: pnpm publish --no-git-checks --access public
