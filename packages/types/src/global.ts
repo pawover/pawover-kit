@@ -13,6 +13,19 @@
 export type Primitive = null | undefined | string | number | boolean | symbol | bigint;
 
 /**
+ * 空值类型
+ *
+ * `null` 与 `undefined` 的联合类型，用于表示「无值」语义。
+ *
+ * @example
+ * ```ts
+ * const a: Nullish = null;
+ * const b: Nullish = undefined;
+ * ```
+ */
+export type Nullish = null | undefined;
+
+/**
  * 任意对象类型
  *
  * 以索引签名描述任意键值对对象，键类型默认为 `PropertyKey`，值类型默认为 `any`。
