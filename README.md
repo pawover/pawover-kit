@@ -106,6 +106,28 @@ pnpm install
 | `pnpm build` | turbo 构建全部子包（tsdown 生成 ESM/CJS 双格式与类型声明） |
 | `pnpm check` | 并行运行 types / eslint / format 检查 |
 
+## 发布
+
+发布由 [Changesets](https://changesets.dev) + GitHub Actions 全自动驱动，无需手动登录 npm 或运行发布命令。
+
+**日常流程**：改动代码后运行 `pnpm changeset`，按提示选择受影响的包与版本级别并填写变更说明，将生成的 `.changeset/*.md` 随 PR 一起提交。合并到 `main` 后：
+
+1. CI 自动创建 / 更新 **Version Packages** PR（内含各包版本号与 CHANGELOG）
+2. 合并该 PR 后自动构建，并按拓扑序发布（`types` / `zod` / `eslint-rules` → `utils` → `hooks` → 根包 `@pawover/kit`）
+3. 自动打 git tag 并生成 GitHub Release
+
+**版本策略**：各包独立版本。子包版本变化时，依赖它的包（含根包）自动随同提升——任何子包发布必伴随根包发布（CI 有硬校验守卫）。
+
+**当前阶段**：处于 alpha pre 模式，所有包以 `X.Y.Z-alpha.N` 发布到 `alpha` dist-tag。转正时运行 `pnpm pre:exit` 并删除 CI 中的 `NPM_CONFIG_TAG` 环境变量。
+
+**应急手动发布**（一般不使用）：
+
+```bash
+pnpm build && pnpm postbuild   # 构建并同步 entry/metadata.json
+pnpm publish --access public --tag alpha   # 根包
+pnpm --filter @pawover/kit-types public    # 单个子包
+```
+
 ## 测试
 
 - **单元测试**：vitest 双项目（node 环境覆盖 utils / zod / eslint-rules，jsdom 环境覆盖 hooks）

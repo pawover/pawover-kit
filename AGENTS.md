@@ -15,6 +15,11 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 | `pnpm check:types` | `tsc --noEmit`（根 tsconfig，通过 project references） |
 | `pnpm check:eslint` | eslint 带 `--fix` 和缓存 |
 | `pnpm check:format` | prettier（仅 HTML/JSON）带缓存 |
+| `pnpm changeset` | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交） |
+| `pnpm ci:version` | 消费 changeset：`changeset version && pnpm install`（CI 用） |
+| `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter|exit alpha`） |
+
+**发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动。push main 后 `release.yml` 自动创建/更新 Version Packages PR，合并后经 `pack` → `publish` 按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），走 Trusted Publishing（OIDC，无 token）。当前全仓处于 alpha pre 模式（版本 `X.Y.Z-alpha.N`，dist-tag `alpha`，由 release.yml 的 `NPM_CONFIG_TAG` 环境变量控制）。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
 
 ## 架构
 
