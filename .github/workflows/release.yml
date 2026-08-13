@@ -1,7 +1,9 @@
 ﻿name: Release
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [main, feature]
 
 permissions: {}
@@ -12,6 +14,7 @@ concurrency:
 
 jobs:
   select-mode:
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     outputs:
       mode: ${{ steps.select-mode.outputs.mode }}
@@ -41,7 +44,7 @@ jobs:
         uses: changesets/action/select-mode@v2
 
   version:
-    if: needs.select-mode.outputs.mode == 'version'
+    if: github.event.workflow_run.conclusion == 'success' && needs.select-mode.outputs.mode == 'version'
     needs: select-mode
     runs-on: ubuntu-latest
     permissions:
@@ -85,6 +88,7 @@ jobs:
           fi
 
       - name: Version packages and create/update pull request
+        id: version
         uses: changesets/action/version@v2
         with:
           script: pnpm ci:version
@@ -92,11 +96,21 @@ jobs:
           pr-title: 'Version Packages'
           pr-base-branch: ${{ github.ref_name }}
 
+      - name: Enable auto-merge on version pull request
+        if: steps.version.outputs.pr-number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X PUT "repos/${{ github.repository }}/pulls/${{ steps.version.outputs.pr-number }}/auto-merge" \
+            -f merge_method=squash \
+            --jq '.id' >/dev/null
+          echo "auto-merge enabled on PR #${{ steps.version.outputs.pr-number }}"
+
       - name: Verify root package bumped alongside sub-packages
         run: node scripts/verify-release.mjs
 
   pack:
-    if: needs.select-mode.outputs.mode == 'publish'
+    if: github.event.workflow_run.conclusion == 'success' && needs.select-mode.outputs.mode == 'publish'
     needs: select-mode
     runs-on: ubuntu-latest
     outputs:
@@ -140,6 +154,7 @@ jobs:
           publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
 
   publish:
+    if: github.event.workflow_run.conclusion == 'success'
     needs: pack
     runs-on: ubuntu-latest
     permissions:
