@@ -18,7 +18,7 @@ export default defineConfig({
   lastUpdated: true,
   head: [
     ["link", { rel: "icon", href: "/pawover-kit/favicon.svg" }],
-    ["meta", { name: "theme-color", content: "#0E6E57" }],
+    ["meta", { name: "theme-color", content: "#3B82F6" }],
     ["meta", { property: "og:title", content: "pawover-kit" }],
     ["meta", { property: "og:description", content: "TypeScript 工具箱：类型工具、静态工具类、React / Alova Hooks、ESLint 规则集与 Zod Schema" }],
     ["meta", { property: "og:type", content: "website" }],

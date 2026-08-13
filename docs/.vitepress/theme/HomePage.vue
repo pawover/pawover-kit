@@ -6,6 +6,7 @@ const plates = [
     count: 19,
     spec: "个导出类型 · 无运行时代码",
     clean: true,
+    color: "#3178C6",
     href: "/api/types",
   },
   {
@@ -14,6 +15,7 @@ const plates = [
     count: 144,
     spec: "个静态方法 · 15 个工具类",
     clean: false,
+    color: "#F59E0B",
     href: "/api/utils",
   },
   {
@@ -22,6 +24,7 @@ const plates = [
     count: 9,
     spec: "个导出 · React 5 + Alova 4",
     clean: false,
+    color: "#06B6D4",
     href: "/api/hooks",
   },
   {
@@ -30,6 +33,7 @@ const plates = [
     count: 784,
     spec: "条规则 · 9 个规则组",
     clean: true,
+    color: "#8B5CF6",
     href: "/api/eslint-rules",
   },
   {
@@ -38,6 +42,7 @@ const plates = [
     count: 30,
     spec: "个 Schema · Zod v4",
     clean: false,
+    color: "#10B981",
     href: "/api/zod",
   },
 ];
@@ -67,7 +72,7 @@ const plates = [
         <span class="pk-legend"><i class="is-clean" />无额外依赖 <i class="is-peer" />需要 peer 依赖</span>
       </p>
       <div class="pk-plates">
-        <a v-for="plate in plates" :key="plate.name" class="pk-plate" :href="`/pawover-kit${plate.href}`">
+        <a v-for="plate in plates" :key="plate.name" class="pk-plate" :style="{ '--mod': plate.color }" :href="`/pawover-kit${plate.href}`">
           <div class="pk-plate-head">
             <span class="pk-plate-name">{{ plate.name }}</span>
             <span class="pk-plate-dot" :class="plate.clean ? 'is-clean' : 'is-peer'"
