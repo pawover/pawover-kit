@@ -179,6 +179,7 @@
     "ci:publish": "pnpm build && pnpm changeset publish",
     "pre:enter-alpha": "pnpm changeset pre enter alpha",
     "pre:exit": "pnpm changeset pre exit",
+    "release:merge": "node scripts/release-merge.mjs",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
