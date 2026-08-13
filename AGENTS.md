@@ -19,7 +19,13 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 | `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）               |
 | `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）               |
 
-**发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动。push main / feature 后 `release.yml` 自动创建/更新 Version Packages PR，合并后经 `pack` → `publish` 按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），走 Trusted Publishing（OIDC，无 token）。当前全仓处于 alpha pre 模式（版本 `X.Y.Z-alpha.N`，dist-tag `alpha`，由 release.yml 的 `NPM_CONFIG_TAG` 环境变量控制）。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
+**发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动，**双通道分支模型**：
+
+- **feature = alpha 预发布通道**：`.changeset/pre.json` 不入库（gitignore），由 release.yml 在 feature push 时生成（`pnpm pre:enter-alpha`）。push 后经 select-mode → version 通道（`pnpm ci:version` = `changeset version` → `scripts/bump-root.mjs` → `pnpm install`）创建 **Version Packages PR（base = 推送分支）**，合并后 publish 通道按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），dist-tag `alpha`（来自 pre.json），走 Trusted Publishing（OIDC，无 token）。
+- **main = 正式版通道**：无 pre.json。version 通道检测到根包版本含 prerelease 后缀时自动进入毕业模式（`pre:enter-alpha` + `pre:exit`，`changeset version` 将 `X.Y.Z-alpha.N` 毕业为 `X.Y.Z` 稳定版），发布走 `latest` dist-tag。
+- **CI 守卫**：ci.yml 的 push 事件跑 `scripts/verify-release-plan.mjs`——先 `changeset status`，失败时对「当前版本已有匹配 git tag」的变更子包豁免（alpha 通道版本递增后无待消费 changeset 属正常），其余仍强制要求 changeset。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。
+
+改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
 
 ## 架构
 
