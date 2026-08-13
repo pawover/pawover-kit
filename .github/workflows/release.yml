@@ -3,6 +3,7 @@
 on:
   push:
     branches: [main, feature]
+  workflow_dispatch:
 
 permissions: {}
 
@@ -51,12 +52,20 @@ jobs:
       ci: ${{ steps.wait.outputs.ci }}
     permissions:
       contents: read
+      checks: read
     steps:
       - name: Wait for CI to pass
         id: wait
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          # workflow_dispatch：由 version job 在 PR CI 绿后显式触发（GITHUB_TOKEN
+          # 触发的合并 push 不会产生 workflow run，dispatch 是例外），直接放行
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "✔ dispatched run, CI gate passed (PR CI was green before merge)"
+            echo "ci=success" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           sha="${{ github.sha }}"
           for i in $(seq 1 180); do
             body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
@@ -81,12 +90,13 @@ jobs:
           exit 1
 
   version:
-    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
+    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
     needs: [select-mode, gate]
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -138,13 +148,44 @@ jobs:
           pr-title: ${{ steps.title.outputs.title }}
           pr-base-branch: ${{ github.ref_name }}
 
-      - name: Enable auto-merge on version pull request (alpha channel only)
-        if: github.ref_name == 'feature' && steps.version.outputs.pr-number != ''
+      - name: Wait for version PR CI, merge and trigger publish
+        if: steps.version.outputs.pr-number != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr merge "${{ steps.version.outputs.pr-number }}" --auto --squash
-          echo "auto-merge enabled on PR #${{ steps.version.outputs.pr-number }}"
+          pr="${{ steps.version.outputs.pr-number }}"
+          sha=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pulls/$pr" \
+            | jq -r .head.sha)
+          echo "waiting for CI on PR #$pr ($sha)"
+          for i in $(seq 1 180); do
+            body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/commits/$sha/check-runs")
+            run=$(echo "$body" | jq -r '.check_runs[]? | select(.name == "ci") | .status + ":" + (.conclusion // "")' | tail -1)
+            if [ -n "$run" ]; then
+              status=${run%%:*}
+              conclusion=${run##*:}
+              if [ "$status" = "completed" ]; then
+                if [ "$conclusion" = "success" ]; then
+                  echo "✔ PR #$pr CI passed"
+                  break
+                fi
+                echo "::error::PR #$pr CI failed ($conclusion), version PR not merged"
+                exit 1
+              fi
+            fi
+            sleep 10
+          done
+          if [ "$status" != "completed" ] || [ "$conclusion" != "success" ]; then
+            echo "::error::Timed out waiting for PR #$pr CI"
+            exit 1
+          fi
+          # 合并（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，
+          # 用 workflow_dispatch 显式触发发布通道——dispatch 不受该限制）
+          gh pr merge "$pr" --squash
+          echo "✔ merged PR #$pr"
+          gh workflow run release.yml --ref "${{ github.ref_name }}"
+          echo "✔ dispatched Release workflow (publish channel)"
 
       - name: Verify root package bumped alongside sub-packages
         run: node scripts/verify-release.mjs
@@ -244,5 +285,9 @@ jobs:
           if npm view @pawover/kit@$version version >/dev/null 2>&1; then
             echo "root package @pawover/kit@$version already published, skipping"
           else
-            pnpm publish --no-git-checks --access public
+            if [ "${{ github.ref_name }}" = "feature" ]; then
+              pnpm publish --no-git-checks --access public --tag alpha
+            else
+              pnpm publish --no-git-checks --access public
+            fi
           fi

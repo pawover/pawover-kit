@@ -12,3 +12,6 @@ export * from "./tree";
 export * from "./type";
 export * from "./validate";
 
+// drill: 二次闭环测试
+// drill: dispatch 闭环测试
+// drill: dispatch 完整闭环验证

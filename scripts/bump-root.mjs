@@ -67,7 +67,8 @@ function getPreCount(version) {
 
 function bumpVersion(version, type, preTag, preCount) {
   const main = version.split("-")[0];
-  if (version.split("-")[1] != null && preTag == null) {
+  const oldPre = version.split("-")[1] ?? null;
+  if (oldPre != null && preTag == null) {
     return main;
   }
   const parts = main.split(".").map(Number);
@@ -78,6 +79,9 @@ function bumpVersion(version, type, preTag, preCount) {
   } else if (type === "minor") {
     parts[1] += 1;
     parts[2] = 0;
+  } else if (oldPre != null && preTag != null) {
+    // pre 模式内 patch：仅递增 prerelease 计数（0.9.1-alpha.0 → 0.9.1-alpha.1）
+    // 与 changesets 的子包行为保持一致，避免根包主数字虚高膨胀
   } else {
     parts[2] += 1;
   }

@@ -12,15 +12,17 @@ import path from "node:path";
  *  3. 剔除 `.changeset/pre/` 归档（v3.0.0 的 pre 模式 version 产生的消费归档，防止污染 main 的 changeset 判定）；
  *  4. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
  *  5. 防撞车校验：剥离后的版本若已发布到 npm 则报错停止（防静默失败）；
- *  6. 清理远端旧 release-main 分支并推送新的 release-main；
- *  7. 自动创建 PR（release-main → main），输出 PR 链接；
- *  8. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点。
+ *  6. 切到 release-main 分支并提交「剔除归档 + 剥离版本」变更（feature 保持 alpha 状态，
+ *     发布合并 PR 被关闭时不会锁死 feature）；
+ *  7. 清理远端旧 release-main 分支并推送新的 release-main；
+ *  8. 自动创建 PR（release-main → main，已存在 open PR 时跳过），输出 PR 链接；
+ *  9. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点。
  *
  * 用法：
  *   pnpm release:merge
  *
  * 退出码：
- *  0 成功（PR 已创建）
+ *  0 成功（PR 已创建或已存在）
  *  1 前置校验失败 / 合并冲突 / 版本撞车 / 网络或 API 错误
  */
 const SUB_PACKAGES = [
@@ -121,25 +123,28 @@ async function main() {
     if (pkg.version !== mainVersion) {
       pkg.version = mainVersion;
       writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
-      stripped.push(`${pkg.name}: ${pkg.version} -> ${mainVersion}`);
+      stripped.push({ name: pkg.name, version: mainVersion });
     }
   }
-  for (const line of stripped) console.log(`   ✔ ${line}`);
+  for (const { name, version } of stripped) console.log(`   ✔ ${name}: 剥离为 ${version}`);
   if (stripped.length === 0) console.log("   ✔ 无 prerelease 版本");
 
-  console.log("③ 防撞车校验（剥离后版本不得已存在于 npm）");
-  const all = [
-    ["package.json", "@pawover/kit"],
-    ...SUB_PACKAGES.map(([dir, name]) => [`packages/${dir}/package.json`, name]),
-  ];
-  for (const [file, name] of all) {
-    const version = versionOf(file);
+  console.log("③ 防撞车校验（仅检查本次剥离的版本）");
+  for (const { name, version } of stripped) {
     let exists = false;
     try {
-      run(`npm view ${name}@${version} version`, { stdio: "ignore" });
-      exists = true;
-    } catch {
-      /* not found */
+      const out = run(`npm view ${name}@${version} version`);
+      exists = out.trim() !== "";
+    } catch (err) {
+      const stderr = String(err.stderr ?? "");
+      if (/E404|is not in this registry/i.test(stderr)) {
+        exists = false;
+      } else {
+        throw new Error(
+          `防撞车检查失败（npm registry 访问异常，无法确认 ${name}@${version} 是否已发布）：` +
+            stderr.trim().slice(0, 200),
+        );
+      }
     }
     if (exists) {
       throw new Error(
@@ -147,25 +152,38 @@ async function main() {
       );
     }
   }
-  console.log("   ✔ 版本均未发布");
+  console.log("   ✔ 剥离后版本均未发布");
 
-  console.log("④ 清理旧 release-main 并推送新分支");
+  console.log("④ 切到 release-main 分支并提交发布合并准备变更");
   try {
     run(`git branch -D ${HEAD_BRANCH}`, { stdio: "ignore" });
   } catch {
     /* 本地无此分支 */
   }
+  git("switch", "-c", HEAD_BRANCH);
+  run("git add -A");
+  const staged = run("git diff --cached --name-only").trim();
+  if (staged) {
+    run('git commit -m "chore: 发布合并准备（剔除归档 + 剥离 prerelease）"');
+    console.log("   ✔ 已提交到 release-main（feature 保持 alpha 状态）");
+  } else {
+    console.log("   ✔ 无变更可提交");
+  }
+
+  console.log("⑤ 清理远端旧 release-main 并推送新分支");
   try {
     const remoteHas = run(`git ls-remote --heads origin ${HEAD_BRANCH}`).trim() !== "";
     if (remoteHas) run(`git push origin --delete ${HEAD_BRANCH}`);
-  } catch {
-    /* 远端无此分支 */
+  } catch (err) {
+    throw new Error(
+      `清理远端 ${HEAD_BRANCH} 分支失败：${String(err.stderr ?? err.message ?? err).trim().slice(0, 200)}` +
+        `（可能受分支保护，请手动删除后重试）`,
+    );
   }
-  git("switch", "-c", HEAD_BRANCH);
   run(`git push -u origin ${HEAD_BRANCH}`);
   console.log("   ✔ release-main 已推送");
 
-  console.log("⑤ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
+  console.log("⑥ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
   const rootVersion = versionOf("package.json");
   const title = `chore: 发布合并 feature（${rootVersion}）`;
   const body =
@@ -173,6 +191,16 @@ async function main() {
     "**此 PR 不启用 auto-merge，需人工审查版本号后手动合并。**";
   const repoUrl = git("config", "--get", "remote.origin.url");
   const repo = repoUrl.replace(/\.git$/, "").replace(/^.*github\.com[:\/]/, "");
+  const owner = repo.split("/")[0];
+  const existing = await api(
+    "GET",
+    `/repos/${repo}/pulls?state=open&head=${owner}:${HEAD_BRANCH}&base=main`,
+  );
+  if (existing.length > 0) {
+    console.log(`   ✔ 已存在 open 发布合并 PR #${existing[0].number}：${existing[0].html_url}`);
+    console.log("   → 如需重建，请先关闭该 PR 后重跑");
+    return;
+  }
   const pr = await api("POST", `/repos/${repo}/pulls`, {
     title,
     head: HEAD_BRANCH,
