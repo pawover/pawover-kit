@@ -11,6 +11,20 @@ export class EnvUtil {
   private static readonly _isReactNative = typeof navigator !== "undefined" && navigator.product === "ReactNative";
 
   /**
+   * 断点阈值常量表 —— 设备分类默认参数（768 / 1200）的唯一来源
+   *
+   * @example
+   * ```ts
+   * EnvUtil.BREAK_POINT.MD; // 768
+   * EnvUtil.BREAK_POINT.XL; // 1200
+   * ```
+   */
+  public static readonly BREAK_POINT = {
+    MD: 768,
+    XL: 1200,
+  } as const;
+
+  /**
    * 检测是否处于浏览器环境
    *
    * @returns 是否为浏览器环境
@@ -91,7 +105,7 @@ export class EnvUtil {
    * EnvUtil.isDesktop(1440, 13); // 更严格的桌面检测
    * ```
    */
-  static isDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
+  static isDesktop (minWidth = EnvUtil.BREAK_POINT.XL, minScreenSize = 10, dpi = 160) {
     if (typeof window === "undefined" || !TypeUtil.isPositiveInteger(minWidth) || !TypeUtil.isPositiveInteger(minScreenSize)) {
       return false;
     }
@@ -134,7 +148,7 @@ export class EnvUtil {
    * EnvUtil.isWindowsDesktop(); // true
    * ```
    */
-  static isWindowsDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
+  static isWindowsDesktop (minWidth = EnvUtil.BREAK_POINT.XL, minScreenSize = 10, dpi = 160) {
     if (typeof navigator === "undefined" || !navigator.userAgent) {
       return false;
     }
@@ -157,7 +171,7 @@ export class EnvUtil {
    * EnvUtil.isMacOSDesktop(); // true
    * ```
    */
-  static isMacOSDesktop (minWidth = 1200, minScreenSize = 10, dpi = 160) {
+  static isMacOSDesktop (minWidth = EnvUtil.BREAK_POINT.XL, minScreenSize = 10, dpi = 160) {
     if (typeof navigator === "undefined" || !navigator.userAgent) {
       return false;
     }
@@ -179,7 +193,7 @@ export class EnvUtil {
    * EnvUtil.isMobile(); // true
    * ```
    */
-  static isMobile (maxWidth = 768, dpi = 160) {
+  static isMobile (maxWidth = EnvUtil.BREAK_POINT.MD, dpi = 160) {
     if (typeof window === "undefined" || !TypeUtil.isPositiveInteger(maxWidth)) {
       return false;
     }
@@ -220,7 +234,7 @@ export class EnvUtil {
    * EnvUtil.isIOSMobile(); // true
    * ```
    */
-  static isIOSMobile (maxWidth = 768, dpi = 160) {
+  static isIOSMobile (maxWidth = EnvUtil.BREAK_POINT.MD, dpi = 160) {
     if (typeof navigator === "undefined" || !navigator.userAgent) {
       return false;
     }
@@ -244,7 +258,7 @@ export class EnvUtil {
    * EnvUtil.isTablet(); // true
    * ```
    */
-  static isTablet (minWidth = 768, maxWidth = 1200, dpi = 160) {
+  static isTablet (minWidth = EnvUtil.BREAK_POINT.MD, maxWidth = EnvUtil.BREAK_POINT.XL, dpi = 160) {
     if (typeof window === "undefined" || !TypeUtil.isPositiveInteger(minWidth) || !TypeUtil.isPositiveInteger(maxWidth)) {
       return false;
     }

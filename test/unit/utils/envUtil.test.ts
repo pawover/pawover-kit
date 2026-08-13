@@ -24,6 +24,13 @@ beforeEach(() => {
 });
 
 describe("EnvUtil", () => {
+  describe("BREAK_POINT", () => {
+    it("should expose the shared breakpoint thresholds", () => {
+      expect(EnvUtil.BREAK_POINT.MD).toBe(768);
+      expect(EnvUtil.BREAK_POINT.XL).toBe(1200);
+    });
+  });
+
   describe("isBrowser", () => {
     it("should return true in jsdom", () => {
       expect(EnvUtil.isBrowser()).toBe(true);
