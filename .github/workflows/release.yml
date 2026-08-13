@@ -3,6 +3,9 @@
 on:
   push:
     branches: [main, feature]
+  pull_request:
+    types: [closed]
+    branches: [main, feature]
 
 permissions: {}
 
@@ -12,6 +15,7 @@ concurrency:
 
 jobs:
   select-mode:
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     outputs:
       mode: ${{ steps.select-mode.outputs.mode }}
@@ -45,6 +49,7 @@ jobs:
         uses: changesets/action/select-mode@v2
 
   gate:
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
     needs: select-mode
     runs-on: ubuntu-latest
     outputs:
@@ -58,7 +63,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sha="${{ github.sha }}"
+          # PR 合并事件：auto-merge 的合并 push 不触发 workflow，
+          # 轮询 PR head 的 CI（合并前提是 CI 已绿）
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            sha="${{ github.event.pull_request.head.sha }}"
+          else
+            sha="${{ github.sha }}"
+          fi
           for i in $(seq 1 180); do
             body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
               "https://api.github.com/repos/${{ github.repository }}/commits/$sha/check-runs")
@@ -82,7 +93,7 @@ jobs:
           exit 1
 
   version:
-    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
+    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
     needs: [select-mode, gate]
     runs-on: ubuntu-latest
     permissions:

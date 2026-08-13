@@ -66,7 +66,8 @@
 │        │    action_required，需人工 Approve（流程稳定后自然消失）               │
 │        │  · CI 通过 → auto-merge → 合并（分支随 delete_branch_on_merge 自动删） │
 │        ▼                                                                      │
-│  feature push（bump 提交）→ 再跑一轮 CI + Release：                            │
+│  auto-merge 的合并 push 不触发 workflow（GitHub 限制），Release 由             │
+│  pull_request: closed 事件兜底触发（gate 轮询 PR head 的 CI，合并前提即已绿）： │
 │    ① select-mode：无根目录 changeset（已消费）→ publish-plan 非空 → publish     │
 │    ② gate：等 CI 绿（此时变更版本已发布？——未发布时守卫会拦，见下方说明）        │
 │    ③ pack job：pnpm build → changesets/action/pack（按 publish-plan 打包）      │
