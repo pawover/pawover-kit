@@ -4,20 +4,20 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 
 ## 命令
 
-| 命令 | 说明 |
-| :--- | :--- |
-| `pnpm test` | `vitest run` — 814 条测试 / 31 文件，双项目 (node + jsdom) |
-| `pnpm test:types` | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件 |
-| `pnpm test:coverage` | 全量运行 + v8 覆盖率，阈值 90/80/90/90 |
-| `pnpm test:ci` | `test:types && test && build && test:smoke && check:pack` (串行失败则停止) |
-| `pnpm build` | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build |
-| `pnpm check` | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`） |
-| `pnpm check:types` | `tsc --noEmit`（根 tsconfig，通过 project references） |
-| `pnpm check:eslint` | eslint 带 `--fix` 和缓存 |
-| `pnpm check:format` | prettier（仅 HTML/JSON）带缓存 |
-| `pnpm changeset` | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交） |
-| `pnpm ci:version` | 消费 changeset：`changeset version && pnpm install`（CI 用） |
-| `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter|exit alpha`） |
+| 命令                                     | 说明                                                                       |
+| :--------------------------------------- | :------------------------------------------------------------------------- |
+| `pnpm test`                              | `vitest run` — 814 条测试 / 31 文件，双项目 (node + jsdom)                 |
+| `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                  |
+| `pnpm test:coverage`                     | 全量运行 + v8 覆盖率，阈值 90/80/90/90                                     |
+| `pnpm test:ci`                           | `test:types && test && build && test:smoke && check:pack` (串行失败则停止) |
+| `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build  |
+| `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）   |
+| `pnpm check:types`                       | `tsc --noEmit`（根 tsconfig，通过 project references）                     |
+| `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                   |
+| `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                             |
+| `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）             |
+| `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）               |
+| `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）               |
 
 **发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动。push main 后 `release.yml` 自动创建/更新 Version Packages PR，合并后经 `pack` → `publish` 按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），走 Trusted Publishing（OIDC，无 token）。当前全仓处于 alpha pre 模式（版本 `X.Y.Z-alpha.N`，dist-tag `alpha`，由 release.yml 的 `NPM_CONFIG_TAG` 环境变量控制）。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
 
@@ -64,22 +64,21 @@ tsdown (build:source) → scripts/metadata.ts (build:metadata) → build (turbo)
 
 - **Prettier**：printWidth 120；`.type.ts` 和 `.test.ts` 文件为 240
 - **ESLint**：测试文件中所有规则禁用（eslint.config.js）。`antfu/no-import-dist: 0`。
-- **Git**：`AGENTS.md` 被 gitignore（不提交）。Husky pre-commit 运行 lint-staged。Commitizen 提交（中文提示）。
+- **Git**：`AGENTS.md` 被 gitignore（不提交）。Husky pre-commit 运行 lint-staged。Commitizen 提交（中英双语提示）。
 - **Peer 依赖**：全部可选（`alova`、`mathjs`、`react`、`vite`、`zod`）。
 
 ## 导入风格
 
 ```ts
-import { TypeUtil } from "@pawover/kit/utils";              // 核心工具
-import { useMount } from "@pawover/kit/hooks/react";        // React hooks
+import { TypeUtil } from "@pawover/kit/utils"; // 核心工具
+import { useMount } from "@pawover/kit/hooks/react"; // React hooks
 import { useAlovaRequest } from "@pawover/kit/hooks/alova"; // Alova hooks
-import type { AnyObject } from "@pawover/kit/types";        // 类型工具（根包子路径）
-import eslintRules from "@pawover/kit/eslint-rules";        // ESLint 规则集（根包子路径）
-import type { PlainObject } from "@pawover/kit-types";      // 类型工具（子包直引）
+import type { AnyObject } from "@pawover/kit/types"; // 类型工具（根包子路径）
+import eslintRules from "@pawover/kit/eslint-rules"; // ESLint 规则集（根包子路径）
+import type { PlainObject } from "@pawover/kit-types"; // 类型工具（子包直引）
 ```
 
 ## 注释规范
 
-- 所有公开 API（类 / 方法 / 类型）必须有中文 JSDoc，结构为：功能描述 → 空行 → `@param` / `@returns` / `@throws` → 空行 → `@example`（含 `` ```ts `` 代码块）。
-- **类型重载必须逐重载补示例**：方法存在多个重载签名时，`@example` 内必须为**每个重载**提供一个标注 `// 重载 N: <语义描述>` 的使用示例；参数组合变体（如 `null` / `undefined` 组合、`options` 变体）可以并入对应重载示例，用注释行说明。
-- 参考既有写法：`StringUtil.cast`、`CurrencyUtil.currencyFormatter`、`TreeUtil.filter` 的 JSDoc。
+- 所有公开 API（类 / 方法 / 类型）必须有中文 JSDoc，结构为：功能描述 → 空行 → `@param` / `@returns` / `@throws` → 空行 → `@example`（含 ` ```ts ` 代码块）。
+- 参考既有写法的 JSDoc，**类型重载必须逐重载补示例**：方法存在多个重载签名时，`@example` 内必须为**每个重载**提供一个标注 `// 重载 N: <语义描述>` 的使用示例；参数组合变体（如 `null` / `undefined` 组合、`options` 变体）可以并入对应重载示例，用注释行说明。
