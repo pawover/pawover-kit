@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 
 /**
@@ -94,6 +94,22 @@ async function main() {
   }
   if (hasMergeInProgress()) {
     throw new Error("检测到未完成的合并，请先 git merge --continue 或 git merge --abort 后重跑");
+  }
+  run("git fetch origin");
+  const localHead = git("rev-parse", "HEAD");
+  const remoteHead = run("git ls-remote origin feature").trim().split(/\s+/)[0] ?? "";
+  if (localHead !== remoteHead) {
+    throw new Error(
+      `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
+        "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
+    );
+  }
+  const pending = readdirSync(".changeset").filter((f) => f.endsWith(".md") && f !== "README.md");
+  if (pending.length > 0) {
+    throw new Error(
+      `存在未消费 changeset：${pending.join(", ")}。发布合并前必须消费（走 version 通道）` +
+        "或删除，否则会污染 main 的 changeset 判定并触发幽灵 version PR",
+    );
   }
 
   console.log("① 同步 origin/main 并合并（冲突时版本号取 feature 侧）");
