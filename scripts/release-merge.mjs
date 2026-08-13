@@ -7,7 +7,8 @@ import path from "node:path";
  * 在 feature 分支上运行，完成发布合并的所有准备动作并自动打开 PR。
  *
  * 流程：
- *  1. 前置校验：当前分支为 feature、工作区干净、origin/main 已同步；
+ *  1. 前置校验：当前分支为 feature、工作区干净、无未完成合并、本地与 origin/feature
+ *     同步（不同步报错要求先 pull）、无未消费 changeset；
  *  2. `git merge origin/main`（冲突时退出，手动解决后重跑本脚本续跑）；
  *  3. 剔除 `.changeset/pre/` 归档（v3.0.0 的 pre 模式 version 产生的消费归档，防止污染 main 的 changeset 判定）；
  *  4. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
@@ -97,7 +98,8 @@ async function main() {
   }
   run("git fetch origin");
   const localHead = git("rev-parse", "HEAD");
-  const remoteHead = run("git ls-remote origin feature").trim().split(/\s+/)[0] ?? "";
+  // --heads + 精确 ref：`git ls-remote origin feature` 会误匹配 changeset-release/feature 分支
+  const remoteHead = run("git ls-remote --heads origin refs/heads/feature").trim().split(/\s+/)[0] ?? "";
   if (localHead !== remoteHead) {
     throw new Error(
       `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
