@@ -1,5 +1,11 @@
 # @pawover/kit-utils
 
+## 0.1.1-alpha.3
+
+### Patch Changes
+
+- 67ccb15: 演练 changeset：workflow_dispatch 发布触发测试
+
 ## 0.1.1-alpha.2
 
 ### Patch Changes
