@@ -181,8 +181,9 @@ jobs:
             exit 1
           fi
           # 合并（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，
-          # 用 workflow_dispatch 显式触发发布通道——dispatch 不受该限制）
-          gh pr merge "$pr" --squash
+          # 用 workflow_dispatch 显式触发发布通道——dispatch 不受该限制；
+          # --delete-branch 防止 changeset-release/feature 残留）
+          gh pr merge "$pr" --squash --delete-branch
           echo "✔ merged PR #$pr"
           gh workflow run release.yml --ref "${{ github.ref_name }}"
           echo "✔ dispatched Release workflow (publish channel)"
