@@ -63,8 +63,8 @@
 │        ▼                                                                         │
 │  Version Packages PR（changeset-release/feature → feature）                       │
 │        │  · PR 的 CI（pull_request 事件）触发                                      │
-│        │  · 审批门禁：head 与 base 的 workflow 文件不一致时 run 显示                  │
-│        │    action_required，需人工 Approve（流程稳定后自然消失）                     │
+│        │  · 审批门禁：GitHub 对 bot 创建的 PR 的首次贡献者审批，run 显示                  │
+│        │    action_required，需人工 Approve（每次 version PR 一次）                     │
 │        │  · CI 通过 → version job 合并（分支随 delete_branch_on_merge 自动删）       │
 │        ▼                                                                         │
 │  GITHUB_TOKEN 触发的合并 push 不产生 workflow run（防递归限制），                     │
@@ -179,7 +179,7 @@
 | --- | --- | --- |
 | Release run 失败 | CI 红被 gate 拦截（符合设计） | 修 CI，重新 push |
 | Release run 失败：CI failed (cancelled) | 同 ref 连续 push，旧 CI 被 concurrency 取消（属正常，以最新 push 的 run 为准） | 无需处理，看最新 run |
-| version PR 的 CI 显示 action_required | head 与 base 的 workflow 文件不一致 / 首次贡献者审批 | Actions 页 Approve；流程稳定后自然消失 |
+| version PR 的 CI 显示 action_required | GitHub 对 bot（github-actions[bot]）创建的 PR 的首次贡献者审批（与 workflow 文件是否一致无关，每次 version PR 都会出现） | Actions 页 Approve（每次 version PR 一次，10 秒） |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 源码变更未写 changeset 且版本未发布（无 tag） | 补 changeset 重新 push（应急手动发布见下） |
 | release:merge 报版本撞车 | feature 落后 main（基线未同步） | 先 `git merge origin/main` 取 main 侧，再重跑 |
