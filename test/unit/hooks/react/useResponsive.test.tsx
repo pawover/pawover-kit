@@ -25,6 +25,59 @@ describe("useResponsive", () => {
     expect(result.current.breakPointTokens.XS).toBe(100);
   });
 
+  it("should not let custom tokens of one instance affect another instance", () => {
+    const { result: custom } = renderHook(() => useResponsive({ breakPointTokens: { XS: 100, XL: 99999 } }));
+    const { result: def } = renderHook(() => useResponsive());
+
+    expect(def.current.breakPointTokens.XS).toBe(480);
+
+    act(() => {
+      Object.defineProperty(window, "innerWidth", { value: 1500, configurable: true });
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(custom.current.responsive.xl).toBe(false);
+    expect(def.current.responsive.xl).toBe(true);
+  });
+
+  it("should not pollute the default table for later instances", () => {
+    const { unmount } = renderHook(() => useResponsive({ breakPointTokens: { XS: 100 } }));
+    unmount();
+
+    const { result } = renderHook(() => useResponsive());
+    expect(result.current.breakPointTokens.XS).toBe(480);
+  });
+
+  it("should keep other instances working after one unmounts", () => {
+    const removeSpy = vi.spyOn(window, "removeEventListener");
+    const { result: a } = renderHook(() => useResponsive({ breakPointTokens: { XL: 99999 } }));
+    const { unmount: unmountB } = renderHook(() => useResponsive());
+    unmountB();
+
+    expect(removeSpy).not.toHaveBeenCalled();
+
+    act(() => {
+      Object.defineProperty(window, "innerWidth", { value: 1500, configurable: true });
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(a.current.responsive.xl).toBe(false);
+    removeSpy.mockRestore();
+  });
+
+  it("should update all instances sharing default tokens on resize", () => {
+    const { result: a } = renderHook(() => useResponsive());
+    const { result: b } = renderHook(() => useResponsive());
+
+    act(() => {
+      Object.defineProperty(window, "innerWidth", { value: 2000, configurable: true });
+      window.dispatchEvent(new Event("resize"));
+    });
+
+    expect(a.current.responsive.xxxl).toBe(true);
+    expect(b.current.responsive.xxxl).toBe(true);
+  });
+
   it("should update responsive values on resize", () => {
     const { result } = renderHook(() => useResponsive());
 
