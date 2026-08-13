@@ -17,7 +17,8 @@ import path from "node:path";
  *     发布合并 PR 被关闭时不会锁死 feature）；
  *  7. 清理远端旧 release-main 分支并推送新的 release-main；
  *  8. 自动创建 PR（release-main → main，已存在 open PR 时跳过），输出 PR 链接；
- *  9. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点。
+ *  9. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点；
+ *  10. 收尾：切回 feature 并删除本地 release-main（远端保留至 PR 合并后自动删除）。
  *
  * 用法：
  *   pnpm release:merge
@@ -217,6 +218,7 @@ async function main() {
   if (existing.length > 0) {
     console.log(`   ✔ 已存在 open 发布合并 PR #${existing[0].number}：${existing[0].html_url}`);
     console.log("   → 如需重建，请先关闭该 PR 后重跑");
+    await cleanup();
     return;
   }
   const pr = await api("POST", `/repos/${repo}/pulls`, {
@@ -227,6 +229,18 @@ async function main() {
   });
   console.log(`   ✔ PR #${pr.number} 已创建：${pr.html_url}`);
   console.log(`   → 请人工审查版本号后合并（合并后自动发布 latest 正式版）`);
+  await cleanup();
+}
+
+async function cleanup() {
+  console.log("⑦ 清理本地 release-main 并切回 feature");
+  git("switch", "feature");
+  try {
+    run(`git branch -D ${HEAD_BRANCH}`, { stdio: "ignore" });
+    console.log("   ✔ 已切回 feature 并删除本地 release-main（远端保留至 PR 合并后自动删除）");
+  } catch {
+    console.log("   ✔ 已切回 feature（本地 release-main 删除失败，可手动清理）");
+  }
 }
 
 main().catch((err) => {
