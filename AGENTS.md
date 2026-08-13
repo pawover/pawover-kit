@@ -38,12 +38,12 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 ## 构建流水线
 
 ```
-tsdown (build:source) → scripts/metadata.ts (build:metadata) → build (turbo)
+tsdown (build:source) → build (turbo) → 根 postbuild（scripts/sync-entry.ts 生成 entry metadata）
 ```
 
 - **tsdown** 打包每个包（配置在每个包目录下，如 `packages/utils/tsdown.config.ts`）
 - **tsc** 仅用于类型检查。tsdown 的 `dts: true` 负责生成声明文件。
-- **metadata.ts**（utils + hooks）构建后提取导出名写入 `dist/metadata.json`。
+- **sync-entry.ts**（根 postbuild）读取 utils/hooks 的 dist 导出名，生成 `entry/metadata.json`（数组形状）与 `entry/hooks-metadata.json`（`{alova, react}` 形状）；源缺失即抛错。两文件已提交（gitignore 例外），干净检出可直接 pack。
 
 ## 测试注意事项
 

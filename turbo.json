@@ -5,12 +5,8 @@
       "outputs": ["dist/**"],
       "dependsOn": ["^build:source"]
     },
-    "build:metadata": {
-      "outputs": ["dist/**"],
-      "dependsOn": ["build:source"]
-    },
     "build": {
-      "dependsOn": ["build:metadata"]
+      "dependsOn": ["build:source"]
     },
     "package": {
       "outputs": ["*.tgz"],

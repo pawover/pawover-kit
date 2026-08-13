@@ -39,6 +39,8 @@ lerna-debug.log*
 .changeset/status.json
 
 *metadata.json
+!entry/metadata.json
+!entry/hooks-metadata.json
 
 # vitepress
 **/.vitepress/cache
