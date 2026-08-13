@@ -121,19 +121,14 @@ async function main() {
     if (pkg.version !== mainVersion) {
       pkg.version = mainVersion;
       writeFileSync(file, `${JSON.stringify(pkg, null, 2)}\n`);
-      stripped.push(`${pkg.name}: ${pkg.version} -> ${mainVersion}`);
+      stripped.push({ name: pkg.name, version: mainVersion });
     }
   }
-  for (const line of stripped) console.log(`   ✔ ${line}`);
+  for (const { name, version } of stripped) console.log(`   ✔ ${name}: 剥离为 ${version}`);
   if (stripped.length === 0) console.log("   ✔ 无 prerelease 版本");
 
-  console.log("③ 防撞车校验（剥离后版本不得已存在于 npm）");
-  const all = [
-    ["package.json", "@pawover/kit"],
-    ...SUB_PACKAGES.map(([dir, name]) => [`packages/${dir}/package.json`, name]),
-  ];
-  for (const [file, name] of all) {
-    const version = versionOf(file);
+  console.log("③ 防撞车校验（仅检查本次剥离的版本）");
+  for (const { name, version } of stripped) {
     let exists = false;
     try {
       run(`npm view ${name}@${version} version`, { stdio: "ignore" });
@@ -147,9 +142,19 @@ async function main() {
       );
     }
   }
-  console.log("   ✔ 版本均未发布");
+  console.log("   ✔ 剥离后版本均未发布");
 
-  console.log("④ 清理旧 release-main 并推送新分支");
+  console.log("④ 提交发布合并准备变更");
+  run("git add -A");
+  const staged = run("git diff --cached --name-only").trim();
+  if (staged) {
+    run('git commit -m "chore: 发布合并准备（剔除归档 + 剥离 prerelease）"');
+    console.log("   ✔ 已提交");
+  } else {
+    console.log("   ✔ 无变更可提交");
+  }
+
+  console.log("⑤ 清理旧 release-main 并推送新分支");
   try {
     run(`git branch -D ${HEAD_BRANCH}`, { stdio: "ignore" });
   } catch {
@@ -165,7 +170,7 @@ async function main() {
   run(`git push -u origin ${HEAD_BRANCH}`);
   console.log("   ✔ release-main 已推送");
 
-  console.log("⑤ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
+  console.log("⑥ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
   const rootVersion = versionOf("package.json");
   const title = `chore: 发布合并 feature（${rootVersion}）`;
   const body =
