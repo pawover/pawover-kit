@@ -21,6 +21,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Materialize base branch for changesets
+        run: |
+          if git show-ref --verify --quiet refs/remotes/origin/main; then
+            git update-ref refs/heads/main refs/remotes/origin/main
+          fi
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v5
 
