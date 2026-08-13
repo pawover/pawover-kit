@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.2-alpha.1
+
+### Patch Changes
+
+- 67ccb15: 演练 changeset：alpha 全链路测试
+- Updated dependencies [67ccb15]
+  - @pawover/kit-utils@0.1.1-alpha.1
+
 ## 0.0.2-alpha.0
 
 ### Patch Changes
