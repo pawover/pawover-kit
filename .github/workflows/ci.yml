@@ -52,6 +52,6 @@ jobs:
         env:
           HUSKY: "0"
 
-      - name: Verify release plan (sub-package release ⇒ root must release)
+      - name: Verify release plan (changesets cover unreleased package changes)
         if: github.event_name == 'push'
-        run: pnpm changeset status --output=.changeset/status.json
+        run: node scripts/verify-release-plan.mjs

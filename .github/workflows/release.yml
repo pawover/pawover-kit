@@ -75,13 +75,22 @@ jobs:
       - name: Verify release plan (sub-package release ⇒ root must release)
         run: pnpm changeset status --output=.changeset/status.json
 
+      - name: Configure pre-release mode
+        run: |
+          if [ "${{ github.ref_name }}" = "feature" ]; then
+            pnpm pre:enter-alpha
+          elif node -p "require('./package.json').version" | grep -q -- "-"; then
+            pnpm pre:enter-alpha
+            pnpm pre:exit
+          fi
+
       - name: Version packages and create/update pull request
         uses: changesets/action/version@v2
         with:
           script: pnpm ci:version
           commit-message: 'chore: version packages'
           pr-title: 'Version Packages'
-          pr-base-branch: main
+          pr-base-branch: ${{ github.ref_name }}
 
       - name: Verify root package bumped alongside sub-packages
         run: node scripts/verify-release.mjs
@@ -162,6 +171,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Configure pre-release mode
+        if: github.ref_name == 'feature'
+        run: pnpm pre:enter-alpha
 
       - name: Publish packages
         uses: changesets/action/publish@v2

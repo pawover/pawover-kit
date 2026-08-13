@@ -37,6 +37,7 @@ lerna-debug.log*
 
 # changesets
 .changeset/status.json
+.changeset/pre.json
 
 *metadata.json
 !entry/metadata.json
