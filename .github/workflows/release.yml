@@ -120,23 +120,31 @@ jobs:
             pnpm pre:exit
           fi
 
+      - name: Compute version PR title
+        id: title
+        run: |
+          date=$(date +%F)
+          if [ "${{ github.ref_name }}" = "feature" ]; then
+            echo "title=Version Packages (alpha) - $date" >> "$GITHUB_OUTPUT"
+          else
+            echo "title=Version Packages - $date" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Version packages and create/update pull request
         id: version
         uses: changesets/action/version@v2
         with:
           script: pnpm ci:version
           commit-message: 'chore: version packages'
-          pr-title: 'Version Packages'
+          pr-title: ${{ steps.title.outputs.title }}
           pr-base-branch: ${{ github.ref_name }}
 
-      - name: Enable auto-merge on version pull request
-        if: steps.version.outputs.pr-number != ''
+      - name: Enable auto-merge on version pull request (alpha channel only)
+        if: github.ref_name == 'feature' && steps.version.outputs.pr-number != ''
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh api -X PUT "repos/${{ github.repository }}/pulls/${{ steps.version.outputs.pr-number }}/auto-merge" \
-            -f merge_method=squash \
-            --jq '.id' >/dev/null
+          gh pr merge "${{ steps.version.outputs.pr-number }}" --auto --squash
           echo "auto-merge enabled on PR #${{ steps.version.outputs.pr-number }}"
 
       - name: Verify root package bumped alongside sub-packages
