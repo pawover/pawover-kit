@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.2-alpha.2
+
+### Patch Changes
+
+- 67ccb15: 演练 changeset：二次闭环 + PR closed 触发测试
+- Updated dependencies [67ccb15]
+  - @pawover/kit-utils@0.1.1-alpha.2
+
 ## 0.0.2-alpha.1
 
 ### Patch Changes
