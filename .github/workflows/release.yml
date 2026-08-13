@@ -172,4 +172,10 @@ jobs:
         run: pnpm build
 
       - name: Publish root package
-        run: pnpm publish --no-git-checks --access public
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view @pawover/kit@$version version >/dev/null 2>&1; then
+            echo "root package @pawover/kit@$version already published, skipping"
+          else
+            pnpm publish --no-git-checks --access public
+          fi
