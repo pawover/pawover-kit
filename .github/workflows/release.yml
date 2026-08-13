@@ -36,6 +36,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Configure pre-release mode (changeset filtering)
+        if: github.ref_name == 'feature'
+        run: pnpm pre:enter-alpha
+
       - name: Select Changesets mode
         id: select-mode
         uses: changesets/action/select-mode@v2
