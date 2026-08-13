@@ -55,7 +55,8 @@
 │    d. changesets/action/version：推送 changeset-release/feature 分支           │
 │       （chore: version packages）+ 创建/更新 PR「Version Packages (alpha) -    │
 │       2026-08-13」（base = 推送分支，pre 模式自动追加 alpha 后缀）              │
-│    e. Enable auto-merge（仅 feature 方向）：gh pr merge --auto --squash        │
+│    e. 等 version PR 的 CI 绿（轮询 PR head 的 check-run，action_required        │
+│       需人工 Approve 后放行）→ gh pr merge --squash 合并                        │
 │       —— main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）       │
 │    f. node scripts/verify-release.mjs（硬校验子包发布 ⇒ 根包必发）              │
 │        │                                                                      │
@@ -64,12 +65,13 @@
 │        │  · PR 的 CI（pull_request 事件）触发                                  │
 │        │  · 审批门禁：head 与 base 的 workflow 文件不一致时 run 显示            │
 │        │    action_required，需人工 Approve（流程稳定后自然消失）               │
-│        │  · CI 通过 → auto-merge → 合并（分支随 delete_branch_on_merge 自动删） │
+│        │  · CI 通过 → version job 合并（分支随 delete_branch_on_merge 自动删）  │
 │        ▼                                                                      │
-│  auto-merge 的合并 push 不触发 workflow（GitHub 限制），Release 由             │
-│  pull_request: closed 事件兜底触发（gate 轮询 PR head 的 CI，合并前提即已绿）： │
+│  GITHUB_TOKEN 触发的合并 push 不产生 workflow run（防递归限制），               │
+│  由 version job 显式 gh workflow run 触发（workflow_dispatch 是例外，          │
+│  不受该限制）；dispatch run 的 gate 直接放行（合并前提即 CI 已绿）：            │
 │    ① select-mode：无根目录 changeset（已消费）→ publish-plan 非空 → publish     │
-│    ② gate：等 CI 绿（此时变更版本已发布？——未发布时守卫会拦，见下方说明）        │
+│    ② gate：dispatch 事件直接放行（PR CI 绿是合并前提）                          │
 │    ③ pack job：pnpm build → changesets/action/pack（按 publish-plan 打包）      │
 │    ④ publish job：                                                             │
 │       · pre enter alpha（生成 pre.json → dist-tag=alpha；main 不跑 → latest）   │
@@ -82,7 +84,8 @@
 │  ✅ npm：@pawover/kit-hooks@0.0.2-alpha.0 等（dist-tag: alpha）                 │
 │                                                                               │
 │  ⚠️ 守卫说明：alpha bump 提交合并后、版本发布前，feature 的 CI 不会被拦          │
-│     （verify-release-plan 对仅版本文件变更的 bump/剥离提交直接放行）；             │
+│     （verify-release-plan 识别 version 通道产物：changeset 已消费/仅版本文件      │
+│     变更的 bump 与剥离提交直接放行）；                                          │
 │     源码变更无 changeset 且版本未发布（无 tag）才会被拦截；                       │
 │     若发布环节异常中断，走「应急手动发布」或直接进入发布合并（见 FAQ）。         │
 └──────────────────────────────────┬───────────────────────────────────────────┘
@@ -164,7 +167,7 @@
 
 | PR | head → base | 创建者 | 内容 | 合并方式 |
 |---|---|---|---|---|
-| Version Packages（alpha） | `changeset-release/feature` → `feature` | version job（bot） | 版本 bump 提交 | **auto-merge**（仅 feature 方向） |
+| Version Packages（alpha） | `changeset-release/feature` → `feature` | version job（bot） | 版本 bump 提交 | **version job 等 CI 绿后合并 + dispatch 发布**（仅 feature 方向） |
 | Version Packages | `changeset-release/main` → `main` | version job（bot） | 版本 bump 提交（罕见） | **人工** |
 | 发布合并 | `release-main` → `main` | `pnpm release:merge` | 代码 + 稳定版版本号 | **人工（正式版闸门）** |
 

@@ -79,12 +79,30 @@ const changedSubs = SUB_PACKAGES.filter(([dir]) => {
   );
 });
 
+// version 通道产物指纹：changeset 已被消费（新增 .changeset/pre/ 归档
+// 或删除 .changeset/*.md）或 .changeset 目录有删除。bump 提交（含此前
+// 已配 changeset 的源码变更）是 version 通道的合法产物，必须放行——
+// 否则 bump 提交合并后 CI 被拦红、publish 永远无法触发（死锁）。
+const changedStatuses = execSync(`git diff --name-status ${base} HEAD`, { encoding: "utf8" })
+  .split("\n")
+  .filter(Boolean);
+const changesetConsumed = changedStatuses.some((line) => {
+  const [status, file] = line.split("\t");
+  if (!file || !file.startsWith(".changeset/")) return false;
+  return status.startsWith("D") || file.startsWith(".changeset/pre/");
+});
+
 // 无子包源码变更 → 放行。覆盖三类提交：
 //  - version 通道的 bump 提交（仅 package.json / CHANGELOG / .changeset）；
 //  - release:merge 的剥离提交（版本文件 + .changeset/pre 删除）；
 //  - 根目录 / scripts / CI 配置等非子包改动（不触发子包发版，无需 changeset）。
-if (changedSubs.length === 0) {
-  console.log("✔ 发布计划校验通过（无子包源码变更，直接放行）");
+// changeset 已被消费（version 通道产物）→ 源码变更随 bump 一起放行。
+if (changedSubs.length === 0 || changesetConsumed) {
+  console.log(
+    changedSubs.length === 0
+      ? "✔ 发布计划校验通过（无子包源码变更，直接放行）"
+      : "✔ 发布计划校验通过（changeset 已被 version 通道消费，bump 提交放行）",
+  );
   process.exit(0);
 }
 
