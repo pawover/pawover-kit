@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "React hooks (mount, unmount, latest, title, responsive) and Alova request hooks",
-  "version": "0.0.2-alpha.3",
+  "version": "0.0.2-alpha.4",
   "type": "module",
   "keywords": [
     "pawover",

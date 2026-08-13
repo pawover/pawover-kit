@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.2-alpha.4
+
+### Patch Changes
+
+- 67ccb15: 演练 changeset：dispatch 完整闭环验证
+- Updated dependencies [67ccb15]
+  - @pawover/kit-utils@0.1.1-alpha.4
+
 ## 0.0.2-alpha.3
 
 ### Patch Changes
