@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.2-alpha.0
+
+### Patch Changes
+
+- 31631a2: chore: 双通道发布模型端到端演练（验证 alpha 发布 → 发布合并 → latest 全链）
+- Updated dependencies [31631a2]
+  - @pawover/kit-utils@0.1.1-alpha.0
+
 ## 0.0.1
 
 ### Patch Changes
