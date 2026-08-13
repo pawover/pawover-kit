@@ -36,6 +36,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Configure pre-release mode (changeset filtering)
+        if: github.ref_name == 'feature'
+        run: pnpm pre:enter-alpha
+
       - name: Select Changesets mode
         id: select-mode
         uses: changesets/action/select-mode@v2
@@ -123,12 +127,7 @@ jobs:
       - name: Compute version PR title
         id: title
         run: |
-          date=$(date +%F)
-          if [ "${{ github.ref_name }}" = "feature" ]; then
-            echo "title=Version Packages (alpha) - $date" >> "$GITHUB_OUTPUT"
-          else
-            echo "title=Version Packages - $date" >> "$GITHUB_OUTPUT"
-          fi
+          echo "title=Version Packages - $(date +%F)" >> "$GITHUB_OUTPUT"
 
       - name: Version packages and create/update pull request
         id: version
