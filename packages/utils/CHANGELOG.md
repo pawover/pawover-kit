@@ -1,10 +1,10 @@
 # @pawover/kit-utils
 
-## 0.1.1-alpha.4
+## 0.1.2
 
 ### Patch Changes
 
-- 67ccb15: 演练 changeset：dispatch 完整闭环验证
+- d59964a: 演练 changeset：dispatch 完整闭环验证
 
 ## 0.1.1-alpha.3
 
