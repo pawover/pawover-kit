@@ -82,3 +82,17 @@ import type { PlainObject } from "@pawover/kit-types"; // 类型工具（子包�
 
 - 所有公开 API（类 / 方法 / 类型）必须有中文 JSDoc，结构为：功能描述 → 空行 → `@param` / `@returns` / `@throws` → 空行 → `@example`（含 ` ```ts ` 代码块）。
 - 参考既有写法的 JSDoc，**类型重载必须逐重载补示例**：方法存在多个重载签名时，`@example` 内必须为**每个重载**提供一个标注 `// 重载 N: <语义描述>` 的使用示例；参数组合变体（如 `null` / `undefined` 组合、`options` 变体）可以并入对应重载示例，用注释行说明。
+
+## Agent skills
+
+### Issue tracker
+
+Issues 存于 GitHub Issues，用 `gh` CLI 操作。详见 `docs/agents/issue-tracker.md`。
+
+### Triage labels
+
+默认标签：`needs-triage` / `needs-info` / `ready-for-agent` / `ready-for-human` / `wontfix`。详见 `docs/agents/triage-labels.md`。
+
+### Domain docs
+
+多上下文布局：根 `CONTEXT-MAP.md` 指向各包 `CONTEXT.md`。详见 `docs/agents/domain.md`。
