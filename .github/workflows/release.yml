@@ -1,9 +1,7 @@
 ﻿name: Release
 
 on:
-  workflow_run:
-    workflows: ["CI"]
-    types: [completed]
+  push:
     branches: [main, feature]
 
 permissions: {}
@@ -14,7 +12,6 @@ concurrency:
 
 jobs:
   select-mode:
-    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     outputs:
       mode: ${{ steps.select-mode.outputs.mode }}
@@ -43,9 +40,45 @@ jobs:
         id: select-mode
         uses: changesets/action/select-mode@v2
 
-  version:
-    if: github.event.workflow_run.conclusion == 'success' && needs.select-mode.outputs.mode == 'version'
+  gate:
     needs: select-mode
+    runs-on: ubuntu-latest
+    outputs:
+      ci: ${{ steps.wait.outputs.ci }}
+    permissions:
+      contents: read
+    steps:
+      - name: Wait for CI to pass
+        id: wait
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          sha="${{ github.sha }}"
+          for i in $(seq 1 180); do
+            body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/commits/$sha/check-runs")
+            run=$(echo "$body" | jq -r '.check_runs[]? | select(.name == "ci") | .status + ":" + (.conclusion // "")' | tail -1)
+            if [ -n "$run" ]; then
+              status=${run%%:*}
+              conclusion=${run##*:}
+              if [ "$status" = "completed" ]; then
+                if [ "$conclusion" = "success" ]; then
+                  echo "✔ CI passed ($sha)"
+                  echo "ci=success" >> "$GITHUB_OUTPUT"
+                  exit 0
+                fi
+                echo "::error::CI failed ($conclusion), release blocked"
+                exit 1
+              fi
+            fi
+            sleep 10
+          done
+          echo "::error::Timed out waiting for CI on $sha"
+          exit 1
+
+  version:
+    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
+    needs: [select-mode, gate]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -110,8 +143,8 @@ jobs:
         run: node scripts/verify-release.mjs
 
   pack:
-    if: github.event.workflow_run.conclusion == 'success' && needs.select-mode.outputs.mode == 'publish'
-    needs: select-mode
+    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'publish'
+    needs: [select-mode, gate]
     runs-on: ubuntu-latest
     outputs:
       pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
@@ -154,7 +187,6 @@ jobs:
           publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
 
   publish:
-    if: github.event.workflow_run.conclusion == 'success'
     needs: pack
     runs-on: ubuntu-latest
     permissions:
