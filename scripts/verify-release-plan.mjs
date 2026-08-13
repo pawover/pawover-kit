@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
 
 /**
@@ -41,12 +41,28 @@ function mergeBase() {
   }
 }
 
-try {
-  execSync("pnpm changeset status --output=.changeset/status.json", { stdio: "inherit" });
-  console.log("✔ 发布计划校验通过（存在待消费 changeset）");
-  process.exit(0);
-} catch {
-  // 无待消费 changeset，走已发布版本豁免逻辑
+/**
+ * 根目录待消费 changeset（排除 pre/ 归档与说明文件）。
+ * v3.0.0 的 pre 模式 version 会把消费的 changeset 移动到 .changeset/pre/，
+ * 这些归档不应被当作待消费 changeset，否则 status 会被归档撑起、守卫失效。
+ */
+function pendingChangesets() {
+  if (!existsSync(".changeset")) return [];
+  return readdirSync(".changeset").filter(
+    (file) => file.endsWith(".md") && file !== "README.md" && file !== "pre",
+  );
+}
+
+if (pendingChangesets().length > 0) {
+  try {
+    execSync("pnpm changeset status --output=.changeset/status.json", { stdio: "inherit" });
+    console.log("✔ 发布计划校验通过（存在待消费 changeset）");
+    process.exit(0);
+  } catch {
+    // 根目录有 changeset 但 status 失败，走已发布版本豁免逻辑
+  }
+} else {
+  console.log("✔ 无待消费 changeset（忽略 .changeset/pre/ 归档），走已发布版本豁免逻辑");
 }
 
 const base = mergeBase();

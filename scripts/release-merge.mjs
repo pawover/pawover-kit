@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
 
 /**
  * 发布合并脚本（feature → main 正式版发布入口）：
@@ -8,11 +9,12 @@ import { readFileSync, writeFileSync } from "node:fs";
  * 流程：
  *  1. 前置校验：当前分支为 feature、工作区干净、origin/main 已同步；
  *  2. `git merge origin/main`（冲突时退出，手动解决后重跑本脚本续跑）；
- *  3. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
- *  4. 防撞车校验：剥离后的版本若已发布到 npm 则报错停止（防静默失败）；
- *  5. 清理远端旧 release-main 分支并推送新的 release-main；
- *  6. 自动创建 PR（release-main → main），输出 PR 链接；
- *  7. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点。
+ *  3. 剔除 `.changeset/pre/` 归档（v3.0.0 的 pre 模式 version 产生的消费归档，防止污染 main 的 changeset 判定）；
+ *  4. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
+ *  5. 防撞车校验：剥离后的版本若已发布到 npm 则报错停止（防静默失败）；
+ *  6. 清理远端旧 release-main 分支并推送新的 release-main；
+ *  7. 自动创建 PR（release-main → main），输出 PR 链接；
+ *  8. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点。
  *
  * 用法：
  *   pnpm release:merge
@@ -106,7 +108,12 @@ async function main() {
   }
   console.log("   ✔ 合并完成");
 
-  console.log("② 剥离 prerelease 后缀");
+  console.log("② 剔除 pre 模式归档并剥离 prerelease 后缀");
+  const preDir = path.join(".changeset", "pre");
+  if (existsSync(preDir)) {
+    run(`git rm -r -q ${preDir}`);
+    console.log("   ✔ 已剔除 .changeset/pre/ 归档（避免污染 main 的 changeset 判定）");
+  }
   const stripped = [];
   for (const file of PACKAGE_FILES) {
     const pkg = JSON.parse(readFileSync(file, "utf8"));
