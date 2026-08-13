@@ -80,9 +80,9 @@
 │        ▼                                                                      │
 │  ✅ npm：@pawover/kit-hooks@0.0.2-alpha.0 等（dist-tag: alpha）                 │
 │                                                                               │
-│  ⚠️ 守卫说明：alpha bump 提交合并后、版本发布前，feature 的 CI 会被              │
-│     verify-release-plan 拦截（版本未发布无 tag）——这是正常行为：                │
-│     发布动作在 version PR 合并后的 Release 中完成，发布后 tag 出现即放行；       │
+│  ⚠️ 守卫说明：alpha bump 提交合并后、版本发布前，feature 的 CI 不会被拦          │
+│     （verify-release-plan 对仅版本文件变更的 bump/剥离提交直接放行）；             │
+│     源码变更无 changeset 且版本未发布（无 tag）才会被拦截；                       │
 │     若发布环节异常中断，走「应急手动发布」或直接进入发布合并（见 FAQ）。         │
 └──────────────────────────────────┬───────────────────────────────────────────┘
                                    ▼
@@ -98,8 +98,10 @@
 │       0.0.2-alpha.0 → 0.0.2（含根包 0.9.1-alpha.0 → 0.9.1），无则跳过（幂等）   │
 │    ⑤ 防撞车校验：npm view 检查 6 个包剥离后版本，已发布 → 报错停止             │
 │       （防止静默失败：发布被幂等保护跳过却无人察觉）                            │
-│    ⑥ 清理旧 release-main（本地 + 远端）→ 推新 release-main 分支                │
-│    ⑦ 自动创建 PR（release-main → main）                                       │
+│    ⑥ 切到 release-main 分支并提交「剔除归档 + 剥离版本」变更                     │
+│       （feature 保持 alpha 状态：PR 被关闭也不会锁死 feature）                   │
+│    ⑦ 清理旧 release-main（本地 + 远端）→ 推新 release-main 分支                  │
+│    ⑧ 自动创建 PR（release-main → main，已有 open PR 则跳过）                    │
 │       · 标题：chore: 发布合并 feature（X.Y.Z）                                 │
 │       · 不启用 auto-merge！                                                    │
 │        │                                                                      │
@@ -133,17 +135,18 @@
 |---|---|---|---|
 | alpha bump（pre 模式） | `0.0.1` | patch | `0.0.2-alpha.0` |
 | alpha bump（pre 模式） | `0.0.1` | minor | `0.1.0-alpha.0` |
-| alpha bump（pre 模式） | `0.1.0-alpha.0` | patch | `0.1.1-alpha.0`（pre 递增，不剥后缀） |
+| alpha bump（pre 模式） | `0.0.2-alpha.0` | patch | `0.0.2-alpha.1`（pre 计数递增，主数字不变） |
+| alpha bump（pre 模式） | `0.1.0-alpha.0` | minor | `0.2.0-alpha.0` |
 | 发布合并剥离 | `0.0.2-alpha.0` | — | `0.0.2`（数字不变，剥 prerelease） |
 
-- 根包版本由 `bump-root.mjs` 按子包 bump 类型 + pre 计数同步（`0.9.0 → 0.9.1-alpha.0`）。
+- 根包版本由 `bump-root.mjs` 按子包 bump 类型 + pre 计数同步：首次进入 pre 时主数字 +1（`0.9.0 → 0.9.1-alpha.0`），pre 模式内 patch 仅递增 pre 计数（`0.9.1-alpha.0 → 0.9.1-alpha.1`），与 changesets 子包行为一致。
 - 剥离后的版本必须大于 main 已发布版本（单调），且不等于任何已发布版本（防撞车）。
 
 ## 三、守卫与校验
 
 | 守卫 | 位置 | 作用 |
 |---|---|---|
-| `verify-release-plan.mjs` | CI push 事件 | 根目录无 changeset 时，变更子包须已有匹配 git tag（已发布豁免），否则拦截 |
+| `verify-release-plan.mjs` | CI push 事件 | 根目录无 changeset 时：仅版本文件变更（bump/剥离提交）直接放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截 |
 | `verify-release.mjs` | version job 之后 | 子包发布 ⇒ 根包必发 |
 | `bump-root.mjs` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |

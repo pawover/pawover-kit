@@ -4,26 +4,25 @@ import path from "node:path";
 
 /**
  * 发布计划守卫（tag 感知版）：
- * 在 CI push 时运行，校验「子包有变更 ⇒ 必须有待消费 changeset」，
- * 但对「已发布（存在匹配 git tag）」的版本豁免。
+ * 在 CI push 时运行，校验「子包有源码变更 ⇒ 必须有待消费 changeset」，
+ * 并对以下情况豁免：
+ *  - 存在匹配 git tag（当前版本已发布）；
+ *  - 变更仅涉及版本文件（version 通道的 bump 提交 / release:merge 的剥离提交，
+ *    属发布流程自身产物，不要求 changeset）。
  *
- * alpha 通道（feature 分支）的版本号递增由 version 通道提交，其后
- * feature 上暂无待消费 changeset 属于正常状态，不应让 CI 变红；
- * 而开发改动没有 changeset 仍会被拦截。
- *
- * 流程：
- *  1. 先跑 `changeset status --output=.changeset/status.json`；
- *  2. 成功则直接退出（有待消费 changeset，计划合法）；
- *  3. 失败则收集自 main 分叉点以来变更的子包，凡当前版本存在
- *     `<pkg>@<version>` tag 的视为已发布并豁免，全部豁免则放行，
- *     否则报错。
+ * 场景：
+ *  - 有待消费 changeset → `changeset status` 通过即放行；
+ *  - 仅版本文件变更（package.json / CHANGELOG.md / .changeset/**）→ 放行，
+ *    否则 bump 提交会把 CI 拦红、进而被 release.yml 的 gate 挡住发布（死锁）；
+ *  - 源码变更 + 存在匹配 tag（已发布）→ 放行（alpha 发布完成后的后续开发）；
+ *  - 源码变更 + 无 tag → 拦截（开发改动没有 changeset）。
  *
  * 用法（在 ci.yml 的 push 事件步骤中）：
  *   node scripts/verify-release-plan.mjs
  *
  * 退出码：
- *   0 计划合法（存在待消费 changeset，或变更子包均已发布）
- *   1 存在子包变更但没有 changeset，且当前版本未发布
+ *   0 计划合法（存在待消费 changeset，或仅版本文件变更，或变更子包均已发布）
+ *   1 存在子包源码变更但没有 changeset，且当前版本未发布
  */
 const SUB_PACKAGES = [
   ["eslint-rules", "@pawover/kit-eslint-rules"],
@@ -32,6 +31,11 @@ const SUB_PACKAGES = [
   ["utils", "@pawover/kit-utils"],
   ["zod", "@pawover/kit-zod"],
 ];
+const VERSION_FILES = new Set([
+  "package.json",
+  ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/package.json`),
+  ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/CHANGELOG.md`),
+]);
 
 function mergeBase() {
   try {
@@ -48,9 +52,7 @@ function mergeBase() {
  */
 function pendingChangesets() {
   if (!existsSync(".changeset")) return [];
-  return readdirSync(".changeset").filter(
-    (file) => file.endsWith(".md") && file !== "README.md" && file !== "pre",
-  );
+  return readdirSync(".changeset").filter((file) => file.endsWith(".md") && file !== "README.md");
 }
 
 if (pendingChangesets().length > 0) {
@@ -62,7 +64,7 @@ if (pendingChangesets().length > 0) {
     // 根目录有 changeset 但 status 失败，走已发布版本豁免逻辑
   }
 } else {
-  console.log("✔ 无待消费 changeset（忽略 .changeset/pre/ 归档），走已发布版本豁免逻辑");
+  console.log("✔ 无待消费 changeset（忽略 .changeset/pre/ 归档），走豁免逻辑");
 }
 
 const base = mergeBase();
@@ -73,9 +75,18 @@ const changedFiles = execSync(`git diff --name-only ${base} HEAD`, { encoding: "
 
 const changedSubs = SUB_PACKAGES.filter(([dir]) => {
   return changedFiles.some(
-    (file) => file === `packages/${dir}/package.json` || file === `packages/${dir}/CHANGELOG.md`,
+    (file) => file.startsWith(`packages/${dir}/`) && !VERSION_FILES.has(file),
   );
 });
+
+// 无子包源码变更 → 放行。覆盖三类提交：
+//  - version 通道的 bump 提交（仅 package.json / CHANGELOG / .changeset）；
+//  - release:merge 的剥离提交（版本文件 + .changeset/pre 删除）；
+//  - 根目录 / scripts / CI 配置等非子包改动（不触发子包发版，无需 changeset）。
+if (changedSubs.length === 0) {
+  console.log("✔ 发布计划校验通过（无子包源码变更，直接放行）");
+  process.exit(0);
+}
 
 const unreleased = [];
 for (const [dir, name] of changedSubs) {
@@ -93,7 +104,7 @@ if (unreleased.length === 0) {
 }
 
 console.error("❌ 发布计划校验失败：");
-console.error("   以下子包存在变更但没有待消费 changeset，且当前版本尚未发布：");
+console.error("   以下子包存在源码变更但没有待消费 changeset，且当前版本尚未发布：");
 for (const { dir, version } of unreleased) console.error(`   - packages/${dir}（${version}）`);
 console.error("   请运行 pnpm changeset add 添加 changeset（或 changeset add --empty 声明无需发版）。");
 process.exit(1);
