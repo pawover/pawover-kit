@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "React hooks (mount, unmount, latest, title, responsive) and Alova request hooks",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "type": "module",
   "keywords": [
     "pawover",
@@ -62,7 +62,6 @@
   },
   "scripts": {
     "build:source": "tsdown",
-    "build:metadata": "node scripts/metadata.ts",
     "package": "pnpm pack",
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"

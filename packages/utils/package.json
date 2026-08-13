@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Static utility classes: array, string, object, tree, currency, date, math and more",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "type": "module",
   "keywords": [
     "pawover",
@@ -62,7 +62,6 @@
   },
   "scripts": {
     "build:source": "tsdown",
-    "build:metadata": "node scripts/metadata.ts",
     "package": "pnpm pack",
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"

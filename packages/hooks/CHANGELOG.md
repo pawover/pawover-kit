@@ -1,5 +1,14 @@
 # @pawover/kit-hooks
 
+## 0.0.1-alpha.0
+
+### Patch Changes
+
+- refactor(hooks): 抽取 Alova 三 hook 共享的 options 基类型与 middleware 组合/onX 挂载 helper（内部重构，行为不变）
+- fix(hooks): useResponsive 实例 token 覆盖不再改写模块级默认表，改为按 token 签名共享计算结果（单 resize 监听器，token 相同的实例共享一次计算）
+- Updated dependencies
+  - @pawover/kit-utils@0.1.0-alpha.0
+
 ## 0.0.0
 
 ### Minor Changes
