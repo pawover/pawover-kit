@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Type-only utility toolkit: object, tree, function, record and React props types with no runtime code",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "type": "module",
   "keywords": [
     "pawover",
