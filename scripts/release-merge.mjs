@@ -7,8 +7,8 @@ import path from "node:path";
  * 在 feature 分支上运行，完成发布合并的所有准备动作并自动打开 PR。
  *
  * 流程：
- *  1. 前置校验：当前分支为 feature、工作区干净、无未完成合并、无未消费 changeset；
- *     本地领先 origin/feature 时自动推送（落后/分叉则报错要求先 pull）；
+ *  1. 前置校验：当前分支为 feature、工作区干净、无未完成合并、本地与 origin/feature
+ *     同步（不同步报错要求先 pull）、无未消费 changeset；
  *  2. `git merge origin/main`（冲突时退出，手动解决后重跑本脚本续跑）；
  *  3. 剔除 `.changeset/pre/` 归档（v3.0.0 的 pre 模式 version 产生的消费归档，防止污染 main 的 changeset 判定）；
  *  4. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
@@ -101,23 +101,10 @@ async function main() {
   // --heads + 精确 ref：`git ls-remote origin feature` 会误匹配 changeset-release/feature 分支
   const remoteHead = run("git ls-remote --heads origin refs/heads/feature").trim().split(/\s+/)[0] ?? "";
   if (localHead !== remoteHead) {
-    let localAhead = false;
-    try {
-      run(`git merge-base --is-ancestor ${remoteHead} ${localHead}`, { stdio: "ignore" });
-      localAhead = true;
-    } catch {
-      localAhead = false;
-    }
-    if (localAhead) {
-      const count = run(`git rev-list --count ${remoteHead}..${localHead}`).trim();
-      console.log(`   ✔ 本地 feature 领先 origin/feature ${count} 个提交，自动推送`);
-      run("git push origin feature");
-    } else {
-      throw new Error(
-        `本地 feature（${localHead.slice(0, 7)}）与 origin/feature（${remoteHead.slice(0, 7)}）` +
-          "分叉或落后，请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
-      );
-    }
+    throw new Error(
+      `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
+        "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
+    );
   }
   const pending = readdirSync(".changeset").filter((f) => f.endsWith(".md") && f !== "README.md");
   if (pending.length > 0) {
