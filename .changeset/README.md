@@ -176,6 +176,7 @@
 | 现象 | 原因 | 处理 |
 |---|---|---|
 | Release run 失败 | CI 红被 gate 拦截（符合设计） | 修 CI，重新 push |
+| Release run 失败：CI failed (cancelled) | 同 ref 连续 push，旧 CI 被 concurrency 取消（属正常，以最新 push 的 run 为准） | 无需处理，看最新 run |
 | version PR 的 CI 显示 action_required | head 与 base 的 workflow 文件不一致 / 首次贡献者审批 | Actions 页 Approve；流程稳定后自然消失 |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 变更未写 changeset 且未发布；或 alpha bump 后发布环节中断 | 补 changeset；或应急手动发布（见下） |
