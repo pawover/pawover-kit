@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.3
+
+### Patch Changes
+
+- d59964a: 演练 changeset：dispatch 完整闭环验证
+- Updated dependencies [d59964a]
+  - @pawover/kit-utils@0.1.2
+
 ## 0.0.2-alpha.3
 
 ### Patch Changes
