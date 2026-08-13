@@ -2,36 +2,32 @@ import type { AnyObject, TreeLike } from "@pawover/kit-types";
 import { ArrayUtil } from "../array";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeMapCallback, TreeMapInnerOption } from "./index.type";
-import { getFinalChildrenKey } from "./utils";
+import { getChildren, nextLevelOptions } from "./utils";
 
 // 前置遍历
 function preImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
+  const { childrenKey, children } = getChildren(row, options);
   const result = callback(row, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
   let newChildren: TreeLike<R, CK>[] | undefined;
 
   if (TypeUtil.isArray(children)) {
-    const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-    newChildren = children.map((c) => preImpl(c, callback, nextLevelOptions));
+    newChildren = children.map((c) => preImpl(c, callback, nextLevelOptions(row, options)));
   }
 
-  return { ...result, [finalChildrenKey]: newChildren };
+  return { ...result, [childrenKey]: newChildren };
 }
 
 // 子节点优先遍历
 function postImpl<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeMapCallback<R, T>, options: TreeMapInnerOption<T, CK>): TreeLike<R, CK> {
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
+  const { childrenKey, children } = getChildren(row, options);
   let newChildren: TreeLike<R, CK>[] | undefined;
 
   if (TypeUtil.isArray(children)) {
-    const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-    newChildren = children.map((c) => postImpl(c, callback, nextLevelOptions));
+    newChildren = children.map((c) => postImpl(c, callback, nextLevelOptions(row, options)));
   }
   const result = callback(row, options);
 
-  return { ...result, [finalChildrenKey]: newChildren };
+  return { ...result, [childrenKey]: newChildren };
 }
 
 // 广度优先遍历
@@ -46,17 +42,15 @@ function breadthImpl<R extends AnyObject, T extends AnyObject, CK extends string
       return result;
     }
     const { queueRow, queueOptions } = queue.shift()!;
-    const finalChildrenKey = getFinalChildrenKey(queueRow, queueOptions, queueOptions);
-    const children = queueRow[finalChildrenKey] as T[] | undefined;
+    const { childrenKey, children } = getChildren(queueRow, queueOptions);
 
     if (TypeUtil.isArray(children)) {
-      const nextLevelOptions = { ...queueOptions, parents: [...queueOptions.parents, queueRow], depth: queueOptions.depth + 1 };
-      const subQueueItems = children.map((queueRow) => ({ queueRow, queueOptions: nextLevelOptions }));
+      const subQueueItems = children.map((child) => ({ queueRow: child, queueOptions: nextLevelOptions(queueRow, queueOptions) }));
       queue.push(...subQueueItems);
     }
     const res = callback(queueRow, queueOptions);
     cache.set(queueRow, res);
-    childrenKeyCache.set(queueRow, finalChildrenKey);
+    childrenKeyCache.set(queueRow, childrenKey);
 
     // breadth 模式的子节点一定晚于父节点执行，所以可以在cache中找到父节点的生成物
     const parent = ArrayUtil.last(queueOptions.parents);

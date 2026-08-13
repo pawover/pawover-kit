@@ -2,7 +2,7 @@ import type { AnyObject } from "@pawover/kit-types";
 import { ArrayUtil } from "../array";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeFilterCallback, TreeFilterInnerOption } from "./index.type";
-import { getFinalChildrenKey } from "./utils";
+import { getChildren, nextLevelOptions } from "./utils";
 
 // 前置遍历
 function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
@@ -11,27 +11,23 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
     return undefined;
   }
 
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
+  const { childrenKey, children } = getChildren(row, options);
   let newChildren: T[] | undefined;
 
   if (TypeUtil.isArray(children)) {
-    const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-    newChildren = children.map((c) => preImpl(c, callback, nextLevelOptions)).filter((c) => !!c);
+    newChildren = children.map((c) => preImpl(c, callback, nextLevelOptions(row, options))).filter((c) => !!c);
   }
 
-  return { ...row, [finalChildrenKey]: newChildren };
+  return { ...row, [childrenKey]: newChildren };
 }
 
 // 子节点优先遍历
 function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
+  const { childrenKey, children } = getChildren(row, options);
   let newChildren: T[] | undefined;
 
   if (TypeUtil.isArray(children)) {
-    const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-    newChildren = children.map((c) => postImpl(c, callback, nextLevelOptions)).filter((c) => !!c);
+    newChildren = children.map((c) => postImpl(c, callback, nextLevelOptions(row, options))).filter((c) => !!c);
   }
 
   const result = callback(row, options);
@@ -39,7 +35,7 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T,
     return undefined;
   }
 
-  return { ...row, [finalChildrenKey]: newChildren };
+  return { ...row, [childrenKey]: newChildren };
 }
 
 // 广度优先遍历
@@ -55,12 +51,10 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
     }
 
     const { queueRow, queueOptions } = queue.shift()!;
-    const finalChildrenKey = getFinalChildrenKey(queueRow, queueOptions, queueOptions);
-    const children = queueRow[finalChildrenKey] as T[] | undefined;
+    const { childrenKey, children } = getChildren(queueRow, queueOptions);
 
     if (TypeUtil.isArray(children)) {
-      const nextLevelOptions = { ...queueOptions, parents: [...queueOptions.parents, queueRow], depth: queueOptions.depth + 1 };
-      const subQueueItems = children.map((queueRow) => ({ queueRow, queueOptions: nextLevelOptions }));
+      const subQueueItems = children.map((child) => ({ queueRow: child, queueOptions: nextLevelOptions(queueRow, queueOptions) }));
       queue.push(...subQueueItems);
     }
 
@@ -77,14 +71,14 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
       return undefined;
     }
 
-    const newNode = { ...queueRow, [finalChildrenKey]: undefined };
+    const newNode = { ...queueRow, [childrenKey]: undefined };
     if (isTopNode) {
       result = newNode;
     }
 
     resultCache.set(queueRow, callbackResult);
     newNodeCache.set(queueRow, newNode);
-    childrenKeyCache.set(queueRow, finalChildrenKey);
+    childrenKeyCache.set(queueRow, childrenKey);
 
     if (callbackResult && parent) {
       const parentNewNode = newNodeCache.get(parent);

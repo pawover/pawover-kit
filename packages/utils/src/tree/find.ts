@@ -1,7 +1,7 @@
 import type { AnyObject } from "@pawover/kit-types";
 import { TypeUtil } from "../type";
 import type { ChildrenKey, Queue, TreeFindCallback, TreeFindInnerOption } from "./index.type";
-import { getFinalChildrenKey } from "./utils";
+import { getChildren, nextLevelOptions } from "./utils";
 
 // 前置深度优先遍历
 function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
@@ -10,12 +10,10 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
     return row;
   }
 
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
+  const { children } = getChildren(row, options);
   if (TypeUtil.isArray(children)) {
     for (const child of children) {
-      const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-      const result = preImpl(child, callback, nextLevelOptions);
+      const result = preImpl(child, callback, nextLevelOptions(row, options));
       if (result) {
         return result;
       }
@@ -27,12 +25,10 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
 
 // 后置深度优先遍历
 function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
-  const finalChildrenKey = getFinalChildrenKey(row, options, options);
-  const children = row[finalChildrenKey] as T[] | undefined;
+  const { children } = getChildren(row, options);
   if (TypeUtil.isArray(children)) {
     for (const child of children) {
-      const nextLevelOptions = { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
-      const result = postImpl(child, callback, nextLevelOptions);
+      const result = postImpl(child, callback, nextLevelOptions(row, options));
       if (result) {
         return result;
       }
@@ -55,12 +51,10 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
       return undefined;
     }
     const { queueRow, queueOptions } = queue.shift()!;
-    const finalChildrenKey = getFinalChildrenKey(queueRow, queueOptions, queueOptions);
-    const children = queueRow[finalChildrenKey] as T[] | undefined;
+    const { children } = getChildren(queueRow, queueOptions);
 
     if (TypeUtil.isArray(children)) {
-      const nextLevelOptions = { ...queueOptions, parents: [...queueOptions.parents, queueRow], depth: queueOptions.depth + 1 };
-      const subQueueItems = children.map((queueRow) => ({ queueRow, queueOptions: nextLevelOptions }));
+      const subQueueItems = children.map((child) => ({ queueRow: child, queueOptions: nextLevelOptions(queueRow, queueOptions) }));
       queue.push(...subQueueItems);
     }
 
