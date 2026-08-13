@@ -1,5 +1,11 @@
 # @pawover/kit-types
 
+## 0.0.1-alpha.0
+
+### Patch Changes
+
+- 37d3c03: 最终演练：五子包全链路发布测试
+
 ## 0.0.0
 
 ### Minor Changes

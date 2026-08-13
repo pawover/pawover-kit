@@ -1,5 +1,14 @@
 # @pawover/kit-hooks
 
+## 0.0.4-alpha.0
+
+### Patch Changes
+
+- 37d3c03: 最终演练：五子包全链路发布测试
+- Updated dependencies [37d3c03]
+  - @pawover/kit-types@0.0.1-alpha.0
+  - @pawover/kit-utils@0.1.3-alpha.0
+
 ## 0.0.3
 
 ### Patch Changes
