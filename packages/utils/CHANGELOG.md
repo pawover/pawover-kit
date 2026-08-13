@@ -1,5 +1,11 @@
 # @pawover/kit-utils
 
+## 0.1.0
+
+### Minor Changes
+
+- 05e9960: feat(utils): EnvUtil 新增 BREAK_POINT 断点阈值常量表，isDesktop/isMobile/isTablet 默认参数改为引用（768/1200 单源）
+
 ## 0.1.0-alpha.0
 
 ### Minor Changes
