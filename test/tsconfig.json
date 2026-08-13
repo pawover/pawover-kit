@@ -24,7 +24,8 @@
     "../*.mjs",
     "../*.ts",
     "../*.jsx",
-    "../*.tsx"
+    "../*.tsx",
+    "../packages/hooks/src/alova/**/*.ts"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }

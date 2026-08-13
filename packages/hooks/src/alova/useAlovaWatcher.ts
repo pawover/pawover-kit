@@ -1,14 +1,8 @@
 import type { AlovaGenerics, Method } from "alova";
-import { type AlovaMethodHandler, type CompleteHandler, type ErrorHandler, type SuccessHandler, useWatcher, type WatcherHookConfig } from "alova/client";
-import type { BeforeRequestHandler } from ".";
-import { createBeforeRequestMiddleware } from "./createBeforeRequestMiddleware";
+import { type AlovaMethodHandler, useWatcher, type WatcherHookConfig } from "alova/client";
+import { attachExposureHandlers, composeBeforeRequestMiddleware, type HookOptionsBase } from "./hookOptions";
 
-interface HookOptions<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args> {
-  onBeforeRequest?: BeforeRequestHandler<AG, Args> | undefined;
-  onSuccess?: SuccessHandler<AG, Args> | undefined;
-  onError?: ErrorHandler<AG, Args> | undefined;
-  onComplete?: CompleteHandler<AG, Args> | undefined;
-}
+interface HookOptions<AG extends AlovaGenerics, Args extends any[]> extends WatcherHookConfig<AG, Args>, HookOptionsBase<AG, Args> {}
 
 export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = any[]> (
   methodHandler: Method<AG> | AlovaMethodHandler<AG, Args>,
@@ -17,21 +11,9 @@ export function useAlovaWatcher<AG extends AlovaGenerics, Args extends any[] = a
 ) {
   const options = { ...hookOptions };
 
-  if (options.onBeforeRequest) {
-    options.middleware = createBeforeRequestMiddleware(options.middleware, options.onBeforeRequest);
-  }
+  composeBeforeRequestMiddleware(options);
 
   const exposure = useWatcher(methodHandler, watchingStates, options);
 
-  if (options.onSuccess) {
-    exposure.onSuccess(options.onSuccess);
-  }
-  if (options.onError) {
-    exposure.onError(options.onError);
-  }
-  if (options.onComplete) {
-    exposure.onComplete(options.onComplete);
-  }
-
-  return exposure;
+  return attachExposureHandlers(exposure, options);
 }
