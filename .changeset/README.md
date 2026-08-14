@@ -108,12 +108,12 @@ flowchart TD
     latest_ok --> sync
     branch_del --> sync
 
-    %% ============ 阶段四 · 基线同步（手动） ============
-    subgraph S4["阶段四 · 基线同步（手动）"]
-        sync["👆 git switch feature → git merge origin/main<br/>（冲突取 main 侧稳定版）→ git push"]
-        sync --> sync2["下一轮 alpha 从 0.0.2 之上递增（0.0.3-alpha.0）<br/>保持「feature 领先 main」"]
+    %% ============ 阶段四 · 基线同步（自动） ============
+    subgraph S4["阶段四 · 基线同步（自动）"]
+        sync["publish 通道成功后：sync-baseline job（仅 main）<br/>checkout feature → 合并 origin/main（-X theirs 取 main 侧版本）<br/>守卫：待消费 changeset 跳过 / main 含源码差异跳过 → push"]
+        sync --> sync2["下一轮 alpha 从 0.9.5 之上递增（0.9.6-alpha.0）<br/>保持「feature 领先 main」"]
         sync2 --> dev_code
-        sync -.->|"⚠️ 不执行基线同步的后果"| sync_note["alpha 剥离后撞已发布版本<br/>→ 被幂等保护静默跳过 → 正式版发不出"]
+        sync -.->|"同步被守卫跳过或失败时（日志告警）"| sync_note["按文档手动基线同步：<br/>git merge origin/main（取 main 侧）→ push"]
     end
 
     class dev_push,pr_approve,rm,human,sync manual
@@ -146,6 +146,7 @@ flowchart TD
 | `bump-root.mjs` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |
 | `release:merge` 防撞车 | 发布合并脚本 | 剥离后版本已发布 → 停止 |
+| `sync-baseline` | 发布后（main 通道） | main 稳定版版本号回推 feature（合并取 main 侧 + 守卫跳过） |
 
 ## 四、分支保护
 
@@ -171,7 +172,7 @@ flowchart TD
 | version PR 的 CI 显示 action_required | GitHub 对 bot（github-actions[bot]）创建的 PR 的首次贡献者审批（与 workflow 文件是否一致无关，每次 version PR 都会出现） | Actions 页 Approve（每次 version PR 一次，10 秒） |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 源码变更未写 changeset 且版本未发布（无 tag） | 补 changeset 重新 push（应急手动发布见下） |
-| release:merge 报版本撞车 | feature 落后 main（基线未同步） | 先 `git merge origin/main` 取 main 侧，再重跑 |
+| release:merge 报版本撞车 | feature 落后 main（基线未同步，自动回推被守卫跳过时） | 手动基线同步：`git merge origin/main` 取 main 侧，再重跑 |
 | 发布合并 PR 合并后没发版 | 剥离后版本已存在（幂等跳过） | 检查版本号与 npm 记录 |
 
 **应急手动发布**（alpha 发布环节异常中断时，等价 CI publish 通道）：
@@ -189,5 +190,5 @@ pnpm publish --no-git-checks --access public
 | 生成变更说明 | `pnpm changeset` |
 | 发布 alpha（自动） | `git push origin feature` |
 | 发布正式版（人工闸门） | `pnpm release:merge` → 人工合并 PR |
-| 基线同步 | `git merge origin/main`（feature 上，取 main 侧） |
+| 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：`git merge origin/main`（feature 上，取 main 侧） |
 | 手动预发布（应急） | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |

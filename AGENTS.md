@@ -22,7 +22,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 **发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动，**双通道分支模型**：
 
 - **feature = alpha 预发布通道**：`.changeset/pre.json` 不入库（gitignore），由 release.yml 在 feature push 时生成（`pnpm pre:enter-alpha`）。push 后经 select-mode → version 通道（`pnpm ci:version` = `changeset version` → `scripts/bump-root.mjs` → `pnpm install`）创建 **Version Packages PR（base = 推送分支）**；version job 等 PR CI 绿后 `gh pr merge --squash` 合并，再用 `gh workflow run`（workflow_dispatch）显式触发发布通道（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，dispatch 是例外），publish 通道按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），dist-tag `alpha`（来自 pre.json；根包 `--tag alpha`），走 Trusted Publishing（OIDC，无 token）。
-- **main = 正式版通道**：无 pre.json。version 通道检测到根包版本含 prerelease 后缀时自动进入毕业模式（`pre:enter-alpha` + `pre:exit`，`changeset version` 将 `X.Y.Z-alpha.N` 毕业为 `X.Y.Z` 稳定版），发布走 `latest` dist-tag。
+- **main = 正式版通道**：无 pre.json。version 通道检测到根包版本含 prerelease 后缀时自动进入毕业模式（`pre:enter-alpha` + `pre:exit`，`changeset version` 将 `X.Y.Z-alpha.N` 毕业为 `X.Y.Z` 稳定版），发布走 `latest` dist-tag。发布成功后 **sync-baseline job 自动做基线同步**（`scripts/sync-baseline.mjs`：feature 上 `git merge origin/main -X theirs` 取 main 侧版本并 push；守卫：待消费 changeset / main 含源码差异时跳过并告警）——否则下一轮 alpha 从旧基线递增，剥离后撞已发布版本被防撞车拦截。
 - **CI 守卫**：ci.yml 的 push 事件跑 `scripts/verify-release-plan.mjs`——无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更须已有匹配 git tag（已发布豁免），否则拦截（源码变更无 changeset 且版本未发布）。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。
 
 改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
