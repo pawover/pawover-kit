@@ -1,6 +1,7 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { PACKAGE_FILES, SUB_PACKAGES } from "./packages.mjs";
 
 /**
  * 发布合并脚本（feature → main 正式版发布入口）：
@@ -8,7 +9,8 @@ import path from "node:path";
  *
  * 流程：
  *  1. 前置校验：当前分支为 feature、工作区干净、无未完成合并、本地与 origin/feature
- *     同步（不同步报错要求先 pull）、无未消费 changeset；
+ *     同步（落后或分叉时报错要求先 pull / rebase；本地领先则放行——冲突解决
+ *     `git merge --continue` 后重跑本脚本即为此场景）、无未消费 changeset；
  *  2. `git merge origin/main`（冲突时退出，手动解决后重跑本脚本续跑）；
  *  3. 剔除 `.changeset/pre/` 归档（v3.0.0 的 pre 模式 version 产生的消费归档，防止污染 main 的 changeset 判定）；
  *  4. 剥离各包版本号的 prerelease 后缀（0.0.2-alpha.0 → 0.0.2，含根包）；
@@ -27,15 +29,16 @@ import path from "node:path";
  *  0 成功（PR 已创建或已存在）
  *  1 前置校验失败 / 合并冲突 / 版本撞车 / 网络或 API 错误
  */
-const SUB_PACKAGES = [
-  ["eslint-rules", "@pawover/kit-eslint-rules"],
-  ["hooks", "@pawover/kit-hooks"],
-  ["types", "@pawover/kit-types"],
-  ["utils", "@pawover/kit-utils"],
-  ["zod", "@pawover/kit-zod"],
-];
-const PACKAGE_FILES = ["package.json", ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/package.json`)];
 const HEAD_BRANCH = "release-main";
+
+function isAncestor(ancestor, descendant) {
+  try {
+    run(`git merge-base --is-ancestor ${ancestor} ${descendant}`, { stdio: "ignore" });
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 function run(cmd, options = {}) {
   return execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options });
@@ -102,10 +105,22 @@ async function main() {
   // --heads + 精确 ref：`git ls-remote origin feature` 会误匹配 changeset-release/feature 分支
   const remoteHead = run("git ls-remote --heads origin refs/heads/feature").trim().split(/\s+/)[0] ?? "";
   if (localHead !== remoteHead) {
-    throw new Error(
-      `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
-        "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
-    );
+    if (isAncestor(remoteHead, localHead)) {
+      // 本地领先（冲突解决后 git merge --continue 重跑本脚本即此场景）：
+      // 放行，领先提交随 release-main 推送，feature 稍后由用户 push
+      console.log(`   ⚠ 本地 feature（${localHead.slice(0, 7)}）领先 origin/feature（${remoteHead.slice(0, 7)}），` +
+        "放行续跑（领先提交将随 release-main 推送，feature 请稍后 push）");
+    } else if (isAncestor(localHead, remoteHead)) {
+      throw new Error(
+        `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
+          "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
+      );
+    } else {
+      throw new Error(
+        `本地 feature（${localHead.slice(0, 7)}）与 origin/feature（${remoteHead.slice(0, 7)}）已分叉，` +
+          "请先 git pull --rebase origin feature 后再运行",
+      );
+    }
   }
   const pending = readdirSync(".changeset").filter((f) => f.endsWith(".md") && f !== "README.md");
   if (pending.length > 0) {
