@@ -1,5 +1,14 @@
 # @pawover/kit-hooks
 
+## 0.0.7-alpha.0
+
+### Patch Changes
+
+- d408123: main 发布后自动回推版本基线到 feature
+- Updated dependencies [d408123]
+  - @pawover/kit-types@0.0.4-alpha.0
+  - @pawover/kit-utils@0.1.6-alpha.0
+
 ## 0.0.6-alpha.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @pawover/kit-types
 
+## 0.0.4-alpha.0
+
+### Patch Changes
+
+- d408123: main 发布后自动回推版本基线到 feature
+
 ## 0.0.3-alpha.1
 
 ### Patch Changes
