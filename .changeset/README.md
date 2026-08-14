@@ -136,6 +136,12 @@ flowchart TD
 
 - 根包版本由 `bump-root.mjs` 按子包 bump 类型 + pre 计数同步：首次进入 pre 时主数字 +1（`0.9.0 → 0.9.1-alpha.0`），pre 模式内 patch 仅递增 pre 计数（`0.9.1-alpha.0 → 0.9.1-alpha.1`），与 changesets 子包行为一致。
 - 剥离后的版本必须大于 main 已发布版本（单调），且不等于任何已发布版本（防撞车）。
+- **release:merge 合并冲突必须取 feature 侧版本**——pre 计数从当前版本号推导，取 main 侧会把已发布的 alpha 版本号丢弃，导致下一轮重复 bump 到已发布版本：
+
+  | 合并 origin/main 冲突后当前版本 | + patch changeset | 下一轮 version PR 结果 |
+  | --- | --- | --- |
+  | `0.9.6-alpha.0`（取 feature 侧，正确解法） | → | `0.9.6-alpha.1`（新版本，正常发布 alpha） |
+  | `0.9.5`（取 main 侧） | → | `0.9.6-alpha.0`（pre 计数从 0 起，撞已发布版本，被幂等跳过） |
 
 ## 三、守卫与校验
 
