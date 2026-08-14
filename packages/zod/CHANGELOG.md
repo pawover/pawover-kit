@@ -1,5 +1,11 @@
 # @pawover/kit-zod
 
+## 0.0.3-alpha.0
+
+### Patch Changes
+
+- d408123: 第三轮发布流程测试
+
 ## 0.0.2-alpha.0
 
 ### Patch Changes

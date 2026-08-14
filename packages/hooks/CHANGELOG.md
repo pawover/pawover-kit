@@ -1,5 +1,14 @@
 # @pawover/kit-hooks
 
+## 0.0.6-alpha.0
+
+### Patch Changes
+
+- d408123: 第三轮发布流程测试
+- Updated dependencies [d408123]
+  - @pawover/kit-types@0.0.3-alpha.0
+  - @pawover/kit-utils@0.1.5-alpha.0
+
 ## 0.0.5-alpha.0
 
 ### Patch Changes
