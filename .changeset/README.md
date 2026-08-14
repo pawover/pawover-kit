@@ -30,6 +30,7 @@
 │  · verify-release-   │                      │       │  publish-plan 非空 ─▶ publish  │
 │    plan（仅 push）：  │                      │       └─ 都无 ─▶ none（全 skipped）     │
 │      根目录有 changeset ─▶ status 通过 ──┐    │       （publish 时上传 plan artifact）  │
+│          └ status 失败 ─▶ 兜底走 tag 豁免 ──┘    │                                       │
 │      根目录无 changeset ─▶ tag 豁免检查 ──┤    │                                       │
 │      未发布变更 ─▶ ❌ 拦截（CI 红）       │    │  ② gate job ── 轮询当前 commit 的      │
 └──────────────────────┴─────────────────┤    │      ci check-run（10s × 180 次）      │
@@ -51,6 +52,7 @@
 │    c. pnpm ci:version = changeset version（pre 模式：0.0.1 → 0.0.2-alpha.0，       │
 │       消费的 changeset 移入 .changeset/pre/ 归档）                                  │
 │       → scripts/bump-root.mjs（根包 0.9.0 → 0.9.1-alpha.0，硬校验子包变⇒根包变）      │
+│       → scripts/verify-release.mjs（硬校验子包发布 ⇒ 根包必发）                     │
 │       → pnpm install（锁文件更新）                                                 │
 │    d. changesets/action/version：推送 changeset-release/feature 分支              │
 │       （chore: version packages）+ 创建/更新 PR「Version Packages (alpha) -        │
@@ -58,7 +60,6 @@
 │    e. 等 version PR 的 CI 绿（轮询 PR head 的 check-run，action_required            │
 │       需人工 Approve 后放行）→ gh pr merge --squash 合并                            │
 │       —— main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）               │
-│    f. node scripts/verify-release.mjs（硬校验子包发布 ⇒ 根包必发）                   │
 │        │                                                                         │
 │        ▼                                                                         │
 │  Version Packages PR（changeset-release/feature → feature）                       │
@@ -153,7 +154,7 @@
 | 守卫 | 位置 | 作用 |
 | --- | --- | --- |
 | `verify-release-plan.mjs` | CI push 事件 | 无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截 |
-| `verify-release.mjs` | version job 之后 | 子包发布 ⇒ 根包必发 |
+| `verify-release.mjs` | ci:version 内（bump-root 之后） | 子包发布 ⇒ 根包必发 |
 | `bump-root.mjs` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |
 | `release:merge` 防撞车 | 发布合并脚本 | 剥离后版本已发布 → 停止 |

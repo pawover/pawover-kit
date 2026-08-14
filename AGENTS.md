@@ -5,17 +5,17 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 ## 命令
 
 | 命令                                     | 说明                                                                       |
-| :--------------------------------------- | :------------------------------------------------------------------------- |
+| :--------------------------------------- | :------------------------------------------------------------------------ |
 | `pnpm test`                              | `vitest run` — 814 条测试 / 31 文件，双项目 (node + jsdom)                 |
 | `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                  |
-| `pnpm test:coverage`                     | 全量运行 + v8 覆盖率，阈值 90/80/90/90                                     |
+| `pnpm test:coverage`                     | 全量运行 + v8 覆盖率，阈值 90/80/90/90                                      |
 | `pnpm test:ci`                           | `test:types && test && build && test:smoke && check:pack` (串行失败则停止) |
-| `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build  |
-| `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）   |
+| `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build|
+| `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）    |
 | `pnpm check:types`                       | `tsc --noEmit`（根 tsconfig，通过 project references）                     |
 | `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                   |
 | `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                             |
-| `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）             |
+| `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                |
 | `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）               |
 | `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）               |
 
@@ -58,6 +58,7 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/sync-entry.t
 - `clearMocks: true` — mock 在测试间自动清除。
 - vitest.config.ts 中的 resolve alias 将 `@pawover/kit/*` 直接映射到源码 `.ts` 文件。
 - 类型检查测试：`test:types` 用 `test/tsconfig.json`（继承 `tsconfig.build.json` 但放宽了 `noUncheckedIndexedAccess: false`、`erasableSyntaxOnly: false` 等，并配置了 `customConditions: ["development"]`）。`check:types` 通过根 tsconfig（project references）可能遗漏某些错误 — **优先使用 `test:types` 检查测试文件类型**。
+- **根 scripts**：`scripts/tsconfig.json`（继承 `tsconfig.build.json`，`types: ["node"]`，`noEmit`）独立检查 `scripts/**/*.ts`（含 `sync-entry.ts`），由 `check:types` 的第二个 `tsc -p` 覆盖，并挂入根 tsconfig references。
 - **源码直查**：`test/tsconfig.json` 的 `customConditions: ["development"]` 使 `tsc` 经由子包 exports 的 `development` 条件解析 `@pawover/kit-*` 到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中子包 development）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias` + Vite 的 `development` 条件，同样直查源码。
 - 覆盖率：v8 provider，`packages/**/src/**/*.{ts,tsx}`。阈值：lines:90 / branches:90 / functions:90 / statements:90。
 - **`test/types/**` 类型测试约定（全反向断言）**：类型断言**禁止正向写法**（`const x: T = api(...)`），所有断言必须为 `@ts-expect-error` 反向断言——将 API 结果赋给**错误的目标类型**（比正确类型更窄或字面量不同，如 `const bad: number = CurrencyUtil.toRealValue(math, "0.1")`，正确返回应为 `string`）。如此 API 一旦放宽为 `any` / 超类型（正向断言会静默通过）或收窄为目标类型（赋值不再报错），都会触发「Unused '@ts-expect-error' directive」错误，IDE 直接提示。断言写法要点：双向语义靠「cast 合法性 + 赋值报错」组合覆盖（如 `"abc" as IdType` 校验 `IdType` 包含 `string`，再赋给 `number` 校验未收窄）；允许保留非断言脚手架（`const math = create(all)`、`interface TreeNode`、供重赋值断言使用的 fixture 声明）。已知陷阱：lib.dom 中 `HTMLDivElement` 与 `HTMLSpanElement` 结构相同（均为空接口 extends HTMLElement）互为可赋值，区分元素类型须用 `HTMLInputElement` 等；`(a: number) => void` 可赋给 `(...arg: any[]) => any`（rest-any 不校验元数），反例断言可改用 `null`。参考实现：`test/types/utils/utilsApi.test.type.ts`、`test/types/types/typesApi.test.type.ts`。
