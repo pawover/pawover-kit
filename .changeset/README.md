@@ -1,4 +1,4 @@
-# Changesets 与发布流程全解（双通道模型 · 一图流）
+# Changesets 与发布流程全解（双通道模型）
 
 本仓库使用 [Changesets](https://changesets.dev) v3 管理版本号与发布，由 GitHub Actions 全自动驱动（Trusted Publishing / OIDC，无 token）。
 
@@ -7,131 +7,119 @@
 
 ---
 
-## 一、完整发布流程（一图流）
+## 一、完整发布流程
 
-```
-┌─────────────────────────── 阶段一 · 开发（手动） ──────────────────────────────────────┐
-│  feature 分支开发代码                                                                 │
-│  + pnpm changeset 生成 .changeset/xxxx.md (bump 类型：patch/minor/major)              │
-│  + git add && git commit && git push feature                                        │
-└──────────────────────────────────┬──────────────────────────────────────────────────┘
-                                   ▼
-        ┌──────────── push 事件（main / feature）────────────────────────────┐
-        ▼                                                  ▼
-┌──────────────────────┐                      ┌────────────────────────────────────────┐
-│  CI workflow         │                      │  Release workflow（concurrency 串行）   │
-│  · Checkout (depth0) │                      │                                        │
-│  · 物化 main 引用     │                      │  ① select-mode job ── 读 .changeset    │
-│  · pnpm install      │                      │       目录（feature 先跑                │
-│  · pnpm test:ci      │                      │       pre:enter-alpha 生成 pre.json，  │
-│    = 类型检查+测试     │                      │       过滤 .changeset/pre/ 归档）：     │
-│      +构建+smoke      │                      │        ├─ 有非空 changeset ─▶ version   │
-│      +check:pack     │                      │       ├─ 无 changeset，但              │
-│  · verify-release-   │                      │       │  publish-plan 非空 ─▶ publish  │
-│    plan（仅 push）：  │                      │       └─ 都无 ─▶ none（全 skipped）     │
-│      根目录有 changeset ─▶ status 通过 ──┐    │       （publish 时上传 plan artifact）  │
-│          └ status 失败 ─▶ 兜底走 tag 豁免 ──┘    │                                       │
-│      根目录无 changeset ─▶ tag 豁免检查 ──┤    │                                       │
-│      未发布变更 ─▶ ❌ 拦截（CI 红）       │    │  ② gate job ── 轮询当前 commit 的      │
-└──────────────────────┴─────────────────┤    │      ci check-run（10s × 180 次）      │
-                                     │        │      ├─ success ─▶ 放行                │
-                                     │        │      └─ 失败/超时 ─▶ Release 失败       │
-                                     │        │      （CI 红绝不发布）                   │
-                                     │        └──────────────────┬─────────────────────┘
-                                     ▼                           ▼
-                CI 绿（check-run: ci / success）  （gate 等 CI 结论，放行后）
-                          │                          │
-                          └────────────┬─────────────┘
-                                       ▼
-┌────────────────── 阶段二 · alpha 通道（全自动，到 alpha 为止） ───────────────────────┐
-│  Release ③ version job（mode=version 时）：                                       │
-│    a. pnpm changeset status（校验待消费 changeset 合法）                            │
-│    b. Configure pre-release mode：feature → pnpm pre:enter-alpha                  │
-│       （生成 .changeset/pre.json，gitignored 不入库；main 且根包版本含 "-"            │
-│        → enter + exit，毕业安全网，正常流程不触发）                                   │
-│    c. pnpm ci:version = changeset version（pre 模式：0.0.1 → 0.0.2-alpha.0，       │
-│       消费的 changeset 移入 .changeset/pre/ 归档）                                  │
-│       → scripts/bump-root.mjs（根包 0.9.0 → 0.9.1-alpha.0，硬校验子包变⇒根包变）      │
-│       → scripts/verify-release.mjs（硬校验子包发布 ⇒ 根包必发）                     │
-│       → pnpm install（锁文件更新）                                                 │
-│    d. changesets/action/version：推送 changeset-release/feature 分支              │
-│       （chore: version packages）+ 创建/更新 PR「Version Packages (alpha) -        │
-│       2026-08-13」（base = 推送分支，pre 模式自动追加 alpha 后缀）                    │
-│    e. 等 version PR 的 CI 绿（轮询 PR head 的 check-run，action_required            │
-│       需人工 Approve 后放行）→ gh pr merge --squash 合并                            │
-│       —— main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）               │
-│        │                                                                         │
-│        ▼                                                                         │
-│  Version Packages PR（changeset-release/feature → feature）                       │
-│        │  · PR 的 CI（pull_request 事件）触发                                      │
-│        │  · 审批门禁：GitHub 对 bot 创建的 PR 的首次贡献者审批，run 显示                  │
-│        │    action_required，需人工 Approve（每次 version PR 一次）                     │
-│        │  · CI 通过 → version job 合并（分支随 delete_branch_on_merge 自动删）       │
-│        ▼                                                                         │
-│  GITHUB_TOKEN 触发的合并 push 不产生 workflow run（防递归限制），                     │
-│  由 version job 显式 gh workflow run 触发（workflow_dispatch 是例外，               │
-│  不受该限制）；dispatch run 的 gate 直接放行（合并前提即 CI 已绿）：                    │
-│    ① select-mode：无根目录 changeset（已消费）→ publish-plan 非空 → publish         │
-│    ② gate：dispatch 事件直接放行（PR CI 绿是合并前提）                               │
-│    ③ pack job：pnpm build → changesets/action/pack（按 publish-plan 打包）        │
-│    ④ publish job：                                                               │
-│       · pre enter alpha（生成 pre.json → dist-tag=alpha；main 不跑 → latest）      │
-│       · changesets/action/publish：拓扑序发布 5 子包                               │
-│         （types → zod → eslint-rules → utils → hooks）                            │
-│       · 自动打 git tag（@pawover/kit-hooks@0.0.2-alpha.0 等）并推送                 │
-│       · 根包：pnpm build + pnpm publish（幂等：npm view 已存在则跳过；                │
-│         feature 通道 --tag alpha 发 alpha tag，main 通道发 latest）                 │
-│        │                                                                          │
-│        ▼                                                                          │
-│  ✅ npm：@pawover/kit-hooks@0.0.2-alpha.0 等（dist-tag: alpha）                    │
-│                                                                                   │
-│  ⚠️ 守卫说明：alpha bump 提交合并后、版本发布前，feature 的 CI 不会被拦                  │
-│     （verify-release-plan 识别 version 通道产物：changeset 已消费/仅版本文件           │
-│     变更的 bump 与剥离提交直接放行）；                                                 │
-│     源码变更无 changeset 且版本未发布（无 tag）才会被拦截；                              │
-│     若发布环节异常中断，走「应急手动发布」或直接进入发布合并（见 FAQ）。                     │
-└──────────────────────────────────┬────────────────────────────────────────────────┘
-                                   ▼
-┌────────────────── 阶段三 · 发布合并（人工闸门） ──────────────────────────────────────┐
-│  人工：在 feature 分支运行 pnpm release:merge（脚本 scripts/release-merge.mjs）       │
-│    ① 前置校验：在 feature、工作区干净、无未完成合并、本地与 origin/feature 同步          │
-│       一致、无未消费 changeset（防止内容不完整或污染 main 判定）                         │
-│    ② git fetch origin + git merge origin/main --no-edit                          │
-│       ├─ 无冲突 → 继续                                                              │
-│       └─ 有冲突 → 脚本退出：版本号冲突一律保留 feature 侧（alpha 领先），                 │
-│          解决后 git add + git merge --continue，重跑同一命令续跑（幂等）               │
-│    ③ 剔除 .changeset/pre/ 归档（git rm -r）——防止污染 main 的 changeset 判定         │
-│    ④ 剥离 prerelease 后缀（strip-prerelease 逻辑内嵌）：                            │
-│       0.0.2-alpha.0 → 0.0.2（含根包 0.9.1-alpha.0 → 0.9.1），无则跳过（幂等）         │
-│    ⑤ 防撞车校验：npm view 检查 6 个包剥离后版本，已发布 → 报错停止                       │
-│       （防止静默失败：发布被幂等保护跳过却无人察觉）                                     │
-│    ⑥ 切到 release-main 分支并提交「剔除归档 + 剥离版本」变更                           │
-│       （feature 保持 alpha 状态：PR 被关闭也不会锁死 feature）                        │
-│    ⑦ 清理旧 release-main（本地 + 远端）→ 推新 release-main 分支                      │
-│    ⑧ 自动创建 PR（release-main → main，已有 open PR 则跳过）                        │
-│       · 标题：chore: 发布合并 feature（X.Y.Z）                                      │
-│       · 不启用 auto-merge！                                                        │
-│        │                                                                          │
-│        ▼                                                                          │
-│  🔴 人工确认节点（正式版发布的唯一入口）：                                             │
-│     审查版本号（0.0.2 / 0.1.1 / 0.9.1）、CHANGELOG 条目、diff → 手动 Merge           │
-│        │                                                                          │
-│        ▼                                                                          │
-│  main push → CI（守卫放行：main 相对自身 diff 为空）→ CI 绿                           │
-│  → Release：select-mode（无 changeset → publish-plan 非空）→ gate → pack           │
-│  → publish → 发布 0.0.2 / 0.1.1 / 0.9.1 到 latest + 打 git tag                     │
-│  → release-main 分支随 delete_branch_on_merge 自动删除                              │
-│        │                                                                          │
-│        ▼                                                                          │
-│  ✅ npm：0.0.2 / 0.1.1 / 0.9.1（dist-tag: latest）                                 │
-└──────────────────────────────────┬────────────────────────────────────────────────┘
-                                   ▼
-┌────────────────── 阶段四 · 基线同步（手动） ─────────────────────────────────────────┐
-│  feature 需要收回已发布版本号时：                                                    │
-│  git switch feature && git merge origin/main（冲突取 main 侧稳定版）&& push         │
-│  → 下一轮 alpha 从 0.0.2 之上递增（0.0.3-alpha.0），保持「feature 领先 main」          │
-│  （不同步的后果：alpha 剥离后撞已发布版本 → 被幂等保护静默跳过 → 正式版发不出）             │
-└──────────────────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    classDef manual fill:#fff3e0,stroke:#f5a623,stroke-width:2px
+    classDef success fill:#e6f7e6,stroke:#52c41a,stroke-width:2px
+    classDef fail fill:#fff1f0,stroke:#ff4d4f,stroke-width:2px
+    classDef guard fill:#f9f0ff,stroke:#722ed1,stroke-width:2px
+
+    %% ============ 阶段一 · 开发（手动） ============
+    subgraph S1["阶段一 · 开发（手动）"]
+        dev_code["在 feature 分支开发代码"]
+        dev_cs["pnpm changeset 生成 .changeset/xxxx.md<br/>bump 类型：patch / minor / major"]
+        dev_push["git add / commit / push feature"]
+        dev_code --> dev_cs --> dev_push
+    end
+
+    dev_push --> push_event{"push 事件<br/>main / feature"}
+
+    %% ============ CI workflow 与 Release workflow（并行） ============
+    subgraph CI["CI workflow"]
+        ci_run["Checkout（depth0）→ 物化 main 引用 → pnpm install → pnpm test:ci<br/>（类型检查 + 测试 + 构建 + smoke + check:pack）"]
+        ci_guard{"verify-release-plan（仅 push 事件）"}
+        ci_run --> ci_guard
+        ci_guard -->|"根目录有 changeset"| ci_status{"changeset status"}
+        ci_status -->|"通过"| ci_pass["✅ CI 绿（check-run: ci / success）"]
+        ci_status -->|"失败 → 兜底走 tag 豁免"| ci_tag
+        ci_guard -->|"根目录无 changeset"| ci_tag{"tag 豁免检查：源码变更子包已有匹配 tag？"}
+        ci_tag -->|"是（已发布）"| ci_pass
+        ci_tag -->|"否"| ci_block["❌ 拦截（CI 红）：源码变更无 changeset 且版本未发布"]
+        ci_guard -->|"仅版本文件变更 / changeset 已消费（bump 提交）"| ci_pass
+        ci_block -->|"补 changeset 后重新 push"| dev_cs
+    end
+
+    subgraph REL["Release workflow（concurrency 串行）"]
+        sel["① select-mode job<br/>feature 先跑 pre:enter-alpha 生成 pre.json<br/>（过滤 .changeset/pre/ 归档）"]
+        sel_mode{"读 .changeset 目录"}
+        sel --> sel_mode
+        sel_mode -->|"有非空 changeset"| mode_version["mode = version"]
+        sel_mode -->|"无 changeset 但 publish-plan 非空"| mode_publish["mode = publish<br/>（上传 plan artifact）"]
+        sel_mode -->|"都无"| mode_none["mode = none（全 skipped）"]
+        gate_job["② gate job：轮询当前 commit 的 ci check-run<br/>（10s × 180 次）"]
+        gate_job -->|"success 放行"| gate_pass["gate 放行"]
+        gate_job -->|"失败 / 超时"| gate_fail["❌ Release 失败（CI 红绝不发布）"]
+        gate_fail -->|"修 CI 后重新 push"| dev_push
+    end
+
+    push_event --> ci_run
+    push_event --> sel
+    ci_pass --> gate_job
+
+    %% ============ 阶段二 · alpha 通道（全自动，到 alpha 为止） ============
+    subgraph S2["阶段二 · alpha 通道（全自动，到 alpha 为止）"]
+        mode_version --> ver_a["a. pnpm changeset status（校验待消费 changeset 合法）"]
+        ver_a --> ver_b["b. pre mode：feature → pnpm pre:enter-alpha<br/>（main 且根包版本含 - → enter + exit 毕业安全网）"]
+        ver_b --> ver_c["c. pnpm ci:version = changeset version<br/>（pre 模式：0.0.1 → 0.0.2-alpha.0，消费的 changeset 移入 pre/ 归档）"]
+        ver_c --> ver_c2["→ scripts/bump-root.mjs：根包 0.9.0 → 0.9.1-alpha.0<br/>（硬校验子包变 ⇒ 根包变）"]
+        ver_c2 --> ver_c3["→ scripts/verify-release.mjs（子包发布 ⇒ 根包必发）"]
+        ver_c3 --> ver_c4["→ pnpm install（锁文件更新）"]
+        ver_c4 --> ver_d["d. changesets/action/version：推送 changeset-release/feature 分支<br/>+ 创建/更新 PR「Version Packages (alpha) - 2026-08-13」<br/>（base = 推送分支，pre 模式自动追加 alpha 后缀）"]
+        ver_d --> pr_node["Version Packages（alpha）PR<br/>changeset-release/feature → feature"]
+        pr_node --> pr_ci["PR 的 CI（pull_request 事件）"]
+        pr_ci -->|"action_required"| pr_approve["👆 人工 Approve<br/>（GitHub 对 bot 创建 PR 的首次贡献者审批，每次 version PR 一次）"]
+        pr_approve -->|"Approve 后 CI 重跑"| pr_ci
+        pr_ci -->|"CI 绿"| ver_e["e. version job 等 CI 绿 → gh pr merge --squash<br/>仅 feature 方向自动合并（分支自动删除）<br/>main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）"]
+        ver_e --> dispatch["gh workflow run 显式触发发布（dispatch）<br/>GITHUB_TOKEN 触发的合并 push 不产生 workflow run<br/>dispatch 是例外；dispatch run 的 gate 直接放行"]
+        dispatch --> mode_publish
+        mode_publish --> pack_job["④ pack job：pnpm build + changesets/action/pack<br/>（按 publish-plan 打包）"]
+        pack_job --> pub_job["⑤ publish job：pnpm pre:enter-alpha<br/>（生成 pre.json → dist-tag = alpha；main 不跑 → latest）"]
+        pub_job --> pub_subs["changesets/action/publish：拓扑序发布 5 子包<br/>types → zod → eslint-rules → utils → hooks<br/>自动打 git tag（@pawover/kit-hooks@0.0.2-alpha.0 等）并推送"]
+        pub_subs --> pub_root["根包：pnpm build + pnpm publish（幂等）<br/>npm view 已存在则跳过<br/>feature 通道 --tag alpha 发 alpha tag"]
+        pub_root --> alpha_ok["✅ npm：@pawover/kit-hooks@0.0.2-alpha.0 等<br/>dist-tag: alpha"]
+    end
+
+    %% ============ 阶段三 · 发布合并（人工闸门） ============
+    subgraph S3["阶段三 · 发布合并（人工闸门）"]
+        rm["👆 人工：在 feature 分支运行 pnpm release:merge<br/>（scripts/release-merge.mjs）"]
+        rm --> rm1["① 前置校验：在 feature / 工作区干净 / 无未完成合并<br/>与 origin/feature 同步 / 无未消费 changeset<br/>（防止内容不完整或污染 main 判定）"]
+        rm1 --> rm2["② git fetch + git merge origin/main --no-edit"]
+        rm2 -->|"无冲突"| rm3["③ 剔除 .changeset/pre/ 归档（git rm -r）<br/>（防止污染 main 的 changeset 判定）"]
+        rm2 -->|"有冲突"| rm_conf["脚本退出：版本号冲突一律保留 feature 侧（alpha 领先）<br/>→ git add + git merge --continue → 重跑同一命令续跑（幂等）"]
+        rm_conf -->|"重跑"| rm1
+        rm3 --> rm4["④ 剥离 prerelease 后缀：0.0.2-alpha.0 → 0.0.2<br/>（含根包 0.9.1-alpha.0 → 0.9.1，无则跳过，幂等）"]
+        rm4 --> rm5["⑤ 防撞车校验：npm view 检查 6 包剥离后版本"]
+        rm5 -->|"已发布 → 报错停止（防静默失败）"| rm_bump["先基线同步（merge main 取 main 侧）再重跑"]
+        rm_bump -->|"同步后重跑"| rm1
+        rm5 -->|"均未发布"| rm6["⑥ 切 release-main 分支并提交「剔除归档 + 剥离版本」<br/>（feature 保持 alpha 状态，PR 被关闭不锁死 feature）"]
+        rm6 --> rm7["⑦ 清理旧 release-main（本地 + 远端）→ 推新分支"]
+        rm7 --> rm8["⑧ 创建 PR：release-main → main<br/>标题：chore: 发布合并 feature（X.Y.Z）<br/>不启用 auto-merge"]
+        rm8 --> human["🔴 人工确认节点（正式版发布的唯一入口）：<br/>审查版本号 / CHANGELOG 条目 / diff → 手动 Merge"]
+        human --> main_push["main push → CI（守卫放行：main 相对自身 diff 为空）→ CI 绿"]
+        main_push --> main_pub["Release：select-mode（无 changeset → publish-plan 非空）<br/>→ gate → pack → publish<br/>（main 无 pre.json → dist-tag = latest）"]
+        main_pub --> main_subs["发布 0.0.2 / 0.1.1 / 0.9.1 到 latest + 打 git tag"]
+        main_subs --> latest_ok["✅ npm：0.0.2 / 0.1.1 / 0.9.1<br/>dist-tag: latest"]
+        main_pub --> branch_del["release-main 分支随 delete_branch_on_merge 自动删除"]
+    end
+
+    alpha_ok --> rm
+    latest_ok --> sync
+    branch_del --> sync
+
+    %% ============ 阶段四 · 基线同步（手动） ============
+    subgraph S4["阶段四 · 基线同步（手动）"]
+        sync["👆 git switch feature → git merge origin/main<br/>（冲突取 main 侧稳定版）→ git push"]
+        sync --> sync2["下一轮 alpha 从 0.0.2 之上递增（0.0.3-alpha.0）<br/>保持「feature 领先 main」"]
+        sync2 --> dev_code
+        sync -.->|"⚠️ 不执行基线同步的后果"| sync_note["alpha 剥离后撞已发布版本<br/>→ 被幂等保护静默跳过 → 正式版发不出"]
+    end
+
+    class dev_push,pr_approve,rm,human,sync manual
+    class ci_pass,alpha_ok,latest_ok success
+    class ci_block,gate_fail fail
+    class ci_guard,ci_status,ci_tag,rm5 guard
 ```
 
 ---
