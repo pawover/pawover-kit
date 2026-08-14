@@ -58,5 +58,5 @@ tsdown (build:source) → metadata 提取 (build:metadata) → turbo build
 ```
 
 - **tsdown** 负责打包与类型声明生成
-- **metadata.ts** 提取 utils / hooks 的运行时导出名，写入 `dist/metadata.json`
-- 所有子路径导出均带 `"development": "./src/index.ts"` 别名，开发工具链可直接使用源码
+- **sync-entry.ts**（根 postbuild）读取 utils / hooks 的 dist 导出名，生成 `entry/metadata.json` 与 `entry/hooks-metadata.json`
+- 仓库内测试（`test:types` / vitest）经 tsconfig `paths` 与 `resolve.alias` 直查源码，改源码无需先构建

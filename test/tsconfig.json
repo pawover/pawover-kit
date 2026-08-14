@@ -10,7 +10,20 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": false,
-    "customConditions": ["development"]
+    "customConditions": ["development"],
+    "paths": {
+      "@pawover/kit-utils": ["../packages/utils/src/index.ts"],
+      "@pawover/kit-utils/math": ["../packages/utils/src/math/index.ts"],
+      "@pawover/kit-utils/vite": ["../packages/utils/src/vite/index.ts"],
+      "@pawover/kit-hooks": ["../packages/hooks/src/index.ts"],
+      "@pawover/kit-hooks/alova": ["../packages/hooks/src/alova/index.ts"],
+      "@pawover/kit-hooks/react": ["../packages/hooks/src/react/index.ts"],
+      "@pawover/kit-types": ["../packages/types/src/index.ts"],
+      "@pawover/kit-types/react": ["../packages/types/src/react.ts"],
+      "@pawover/kit-zod": ["../packages/zod/src/index.ts"],
+      "@pawover/kit-eslint-rules": ["../packages/eslint-rules/src/index.ts"],
+      "@pawover/kit-eslint-rules/src/*": ["../packages/eslint-rules/src/*"]
+    }
   },
   "include": [
     "**/*.js",
@@ -25,7 +38,7 @@
     "../*.ts",
     "../*.jsx",
     "../*.tsx",
-    "../packages/hooks/src/alova/**/*.ts"
+    "../packages/*/src/**/*.ts"
   ],
   "exclude": ["**/node_modules", "**/dist"]
 }

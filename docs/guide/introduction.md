@@ -12,7 +12,7 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 - **ESLint 规则集** `@pawover/kit-eslint-rules`：9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）+ `GLOB_EXCLUDE` + `createRules`
 - **Zod v4 Schema** `@pawover/kit-zod`：id、string、number、boolean、bigint 等 30 个常用校验器
 - ESM / CJS 双格式产物，附带完整类型声明
-- `development` 导出条件，开发环境可直接使用源码，方便调试
+- `exports` 仅指向 `dist` 产物，任意工具链（node / vite / vitest / webpack 等）均可正常解析
 
 ## 包结构
 

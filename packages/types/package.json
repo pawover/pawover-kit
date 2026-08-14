@@ -26,7 +26,6 @@
   ],
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -37,7 +36,6 @@
       }
     },
     "./react": {
-      "development": "./src/react.ts",
       "import": {
         "types": "./dist/react.d.ts",
         "default": "./dist/react.js"

@@ -26,7 +26,6 @@
   ],
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -37,7 +36,6 @@
       }
     },
     "./math": {
-      "development": "./src/math/index.ts",
       "import": {
         "types": "./dist/math.d.ts",
         "default": "./dist/math.js"
@@ -48,7 +46,6 @@
       }
     },
     "./vite": {
-      "development": "./src/vite/index.ts",
       "import": {
         "types": "./dist/vite.d.ts",
         "default": "./dist/vite.js"
@@ -57,8 +54,7 @@
         "types": "./dist/vite.d.cts",
         "default": "./dist/vite.cjs"
       }
-    },
-    "./metadata.json": "./dist/metadata.json"
+    }
   },
   "scripts": {
     "build:source": "tsdown",

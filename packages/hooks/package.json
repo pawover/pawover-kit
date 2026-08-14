@@ -26,7 +26,6 @@
   ],
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -37,7 +36,6 @@
       }
     },
     "./alova": {
-      "development": "./src/alova/index.ts",
       "import": {
         "types": "./dist/alova.d.ts",
         "default": "./dist/alova.js"
@@ -48,7 +46,6 @@
       }
     },
     "./react": {
-      "development": "./src/react/index.ts",
       "import": {
         "types": "./dist/react.d.ts",
         "default": "./dist/react.js"
@@ -57,8 +54,7 @@
         "types": "./dist/react.d.cts",
         "default": "./dist/react.cjs"
       }
-    },
-    "./metadata.json": "./dist/metadata.json"
+    }
   },
   "scripts": {
     "build:source": "tsdown",
