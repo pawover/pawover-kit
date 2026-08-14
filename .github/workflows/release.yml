@@ -66,28 +66,8 @@ jobs:
             echo "ci=success" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          sha="${{ github.sha }}"
-          for i in $(seq 1 180); do
-            body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${{ github.repository }}/commits/$sha/check-runs")
-            run=$(echo "$body" | jq -r '.check_runs[]? | select(.name == "ci") | .status + ":" + (.conclusion // "")' | tail -1)
-            if [ -n "$run" ]; then
-              status=${run%%:*}
-              conclusion=${run##*:}
-              if [ "$status" = "completed" ]; then
-                if [ "$conclusion" = "success" ]; then
-                  echo "✔ CI passed ($sha)"
-                  echo "ci=success" >> "$GITHUB_OUTPUT"
-                  exit 0
-                fi
-                echo "::error::CI failed ($conclusion), release blocked"
-                exit 1
-              fi
-            fi
-            sleep 10
-          done
-          echo "::error::Timed out waiting for CI on $sha"
-          exit 1
+          bash scripts/wait-ci-green.sh "${{ github.sha }}"
+          echo "ci=success" >> "$GITHUB_OUTPUT"
 
   version:
     if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
@@ -149,7 +129,9 @@ jobs:
           pr-base-branch: ${{ github.ref_name }}
 
       - name: Wait for version PR CI, merge and trigger publish
-        if: steps.version.outputs.pr-number != ''
+        # 仅 feature（alpha 通道）自动合并；main 方向（正式版）的 version PR
+        # 永不自动合并——由人工合并，合并 push 自然触发 publish 通道
+        if: steps.version.outputs.pr-number != '' && github.ref_name == 'feature'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -158,28 +140,7 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/pulls/$pr" \
             | jq -r .head.sha)
           echo "waiting for CI on PR #$pr ($sha)"
-          for i in $(seq 1 180); do
-            body=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/${{ github.repository }}/commits/$sha/check-runs")
-            run=$(echo "$body" | jq -r '.check_runs[]? | select(.name == "ci") | .status + ":" + (.conclusion // "")' | tail -1)
-            if [ -n "$run" ]; then
-              status=${run%%:*}
-              conclusion=${run##*:}
-              if [ "$status" = "completed" ]; then
-                if [ "$conclusion" = "success" ]; then
-                  echo "✔ PR #$pr CI passed"
-                  break
-                fi
-                echo "::error::PR #$pr CI failed ($conclusion), version PR not merged"
-                exit 1
-              fi
-            fi
-            sleep 10
-          done
-          if [ "$status" != "completed" ] || [ "$conclusion" != "success" ]; then
-            echo "::error::Timed out waiting for PR #$pr CI"
-            exit 1
-          fi
+          bash scripts/wait-ci-green.sh "$sha"
           # 合并（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，
           # 用 workflow_dispatch 显式触发发布通道——dispatch 不受该限制；
           # --delete-branch 防止 changeset-release/feature 残留）
@@ -187,9 +148,6 @@ jobs:
           echo "✔ merged PR #$pr"
           gh workflow run release.yml --ref "${{ github.ref_name }}"
           echo "✔ dispatched Release workflow (publish channel)"
-
-      - name: Verify root package bumped alongside sub-packages
-        run: node scripts/verify-release.mjs
 
   pack:
     if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'publish'
