@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
+import { SUB_PACKAGE_DIRS, SUB_PACKAGE_NAMES } from "./packages.mjs";
 
 /**
  * 根包版本同步脚本：
@@ -19,20 +20,6 @@ import { readFileSync, writeFileSync } from "node:fs";
  *   1 子包版本变化但根包未同步 / 根包变化类型不一致
  */
 const ROOT_PACKAGE = "@pawover/kit";
-const SUB_PACKAGES = [
-  "@pawover/kit-eslint-rules",
-  "@pawover/kit-hooks",
-  "@pawover/kit-types",
-  "@pawover/kit-utils",
-  "@pawover/kit-zod",
-];
-const SUB_PACKAGE_PATHS = [
-  "packages/eslint-rules",
-  "packages/hooks",
-  "packages/types",
-  "packages/utils",
-  "packages/zod",
-];
 
 function getVersion(pkgPath) {
   return JSON.parse(readFileSync(pkgPath, "utf8")).version;
@@ -79,12 +66,12 @@ function bumpVersion(version, type, preTag, preCount) {
   } else if (type === "minor") {
     parts[1] += 1;
     parts[2] = 0;
-  } else if (oldPre != null && preTag != null) {
-    // pre 模式内 patch：仅递增 prerelease 计数（0.9.1-alpha.0 → 0.9.1-alpha.1）
-    // 与 changesets 的子包行为保持一致，避免根包主数字虚高膨胀
-  } else {
+  } else if (oldPre == null || preTag == null) {
     parts[2] += 1;
   }
+  // 否则（oldPre 与 preTag 均存在）：pre 模式内 patch，仅递增 prerelease 计数
+  // （0.9.1-alpha.0 → 0.9.1-alpha.1），与 changesets 的子包行为保持一致，
+  // 避免根包主数字虚高膨胀
   let next = parts.join(".");
   if (preTag != null && preCount != null) next += `-${preTag}.${preCount}`;
   return next;
@@ -97,8 +84,8 @@ let changedType = "none";
 let preTag = null;
 let preCount = null;
 
-for (let i = 0; i < SUB_PACKAGES.length; i++) {
-  const pkgPath = `${SUB_PACKAGE_PATHS[i]}/package.json`;
+for (let i = 0; i < SUB_PACKAGE_NAMES.length; i++) {
+  const pkgPath = `${SUB_PACKAGE_DIRS[i]}/package.json`;
   const oldVersion = readGitVersion(pkgPath);
   const newVersion = getVersion(pkgPath);
   if (oldVersion === newVersion) continue;

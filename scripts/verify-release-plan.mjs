@@ -1,6 +1,7 @@
 import { execSync } from "node:child_process";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import path from "node:path";
+import { SUB_PACKAGES, VERSION_FILES } from "./packages.mjs";
 
 /**
  * 发布计划守卫（tag 感知版）：
@@ -24,18 +25,6 @@ import path from "node:path";
  *   0 计划合法（存在待消费 changeset，或仅版本文件变更，或变更子包均已发布）
  *   1 存在子包源码变更但没有 changeset，且当前版本未发布
  */
-const SUB_PACKAGES = [
-  ["eslint-rules", "@pawover/kit-eslint-rules"],
-  ["hooks", "@pawover/kit-hooks"],
-  ["types", "@pawover/kit-types"],
-  ["utils", "@pawover/kit-utils"],
-  ["zod", "@pawover/kit-zod"],
-];
-const VERSION_FILES = new Set([
-  "package.json",
-  ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/package.json`),
-  ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/CHANGELOG.md`),
-]);
 
 function mergeBase() {
   try {

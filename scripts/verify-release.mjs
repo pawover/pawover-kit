@@ -1,5 +1,6 @@
 import { execSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { SUB_PACKAGE_DIRS } from "./packages.mjs";
 
 /**
  * 发布顺序复核脚本：
@@ -11,21 +12,13 @@ import { readFileSync } from "node:fs";
  * `changeset version` 之后同步递增。本脚本对比 git HEAD 与工作区的版本：
  * 若任一子包版本变化而根包版本未变，则校验失败。
  *
- * 用法（在 version 通道的 version action 之后运行）：
+ * 用法（在 ci:version 中，bump-root 之后运行）：
  *   node scripts/verify-release.mjs
  *
  * 退出码：
  *   0 校验通过（或无子包版本变化）
  *   1 子包版本变化但根包版本未变
  */
-const SUB_PACKAGE_PATHS = [
-  "packages/eslint-rules",
-  "packages/hooks",
-  "packages/types",
-  "packages/utils",
-  "packages/zod",
-];
-
 function gitShowVersion(pkgPath) {
   const out = execSync(`git show HEAD:${pkgPath}`, { encoding: "utf8" });
   return JSON.parse(out).version;
@@ -37,7 +30,7 @@ function worktreeVersion(pkgPath) {
 
 const rootOld = gitShowVersion("package.json");
 const rootNew = worktreeVersion("package.json");
-const changedSubs = SUB_PACKAGE_PATHS.filter((pkgPath) => {
+const changedSubs = SUB_PACKAGE_DIRS.filter((pkgPath) => {
   const file = `${pkgPath}/package.json`;
   return gitShowVersion(file) !== worktreeVersion(file);
 });

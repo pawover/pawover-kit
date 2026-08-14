@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "一个基于 TypeScript 的开发工具包",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "type": "module",
   "packageManager": "pnpm@11.20.0",
   "engines": {
@@ -175,8 +175,7 @@
     "package": "pnpm pack",
     "public": "turbo build && pnpm publish --access public",
     "changeset": "changeset",
-    "ci:version": "pnpm changeset version && node scripts/bump-root.mjs && pnpm install",
-    "ci:publish": "pnpm build && pnpm changeset publish",
+    "ci:version": "pnpm changeset version && node scripts/bump-root.mjs && node scripts/verify-release.mjs && pnpm install",
     "pre:enter-alpha": "pnpm changeset pre enter alpha",
     "pre:exit": "pnpm changeset pre exit",
     "release:merge": "node scripts/release-merge.mjs",
