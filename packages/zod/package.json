@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Zod v4 schemas: id, string, number, boolean and bigint validators",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "type": "module",
   "keywords": [
     "pawover",
@@ -26,7 +26,6 @@
   ],
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"

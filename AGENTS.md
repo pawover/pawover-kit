@@ -22,7 +22,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 **发布**（见 `.changeset/README.md` 与 README「发布」节）：由 Changesets v3 + GitHub Actions 驱动，**双通道分支模型**：
 
 - **feature = alpha 预发布通道**：`.changeset/pre.json` 不入库（gitignore），由 release.yml 在 feature push 时生成（`pnpm pre:enter-alpha`）。push 后经 select-mode → version 通道（`pnpm ci:version` = `changeset version` → `scripts/bump-root.mjs` → `pnpm install`）创建 **Version Packages PR（base = 推送分支）**；version job 等 PR CI 绿后 `gh pr merge --squash` 合并，再用 `gh workflow run`（workflow_dispatch）显式触发发布通道（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，dispatch 是例外），publish 通道按**拓扑序**发布（types/zod/eslint-rules → utils → hooks → 根包），dist-tag `alpha`（来自 pre.json；根包 `--tag alpha`），走 Trusted Publishing（OIDC，无 token）。
-- **main = 正式版通道**：无 pre.json。version 通道检测到根包版本含 prerelease 后缀时自动进入毕业模式（`pre:enter-alpha` + `pre:exit`，`changeset version` 将 `X.Y.Z-alpha.N` 毕业为 `X.Y.Z` 稳定版），发布走 `latest` dist-tag。
+- **main = 正式版通道**：无 pre.json。version 通道检测到根包版本含 prerelease 后缀时自动进入毕业模式（`pre:enter-alpha` + `pre:exit`，`changeset version` 将 `X.Y.Z-alpha.N` 毕业为 `X.Y.Z` 稳定版），发布走 `latest` dist-tag。发布成功后 **sync-baseline job 自动做基线同步**（`scripts/sync-baseline.mjs`：feature 上 `git merge origin/main -X theirs` 取 main 侧版本并 push；守卫：待消费 changeset / main 含源码差异时跳过并告警）——否则下一轮 alpha 从旧基线递增，剥离后撞已发布版本被防撞车拦截。
 - **CI 守卫**：ci.yml 的 push 事件跑 `scripts/verify-release-plan.mjs`——无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更须已有匹配 git tag（已发布豁免），否则拦截（源码变更无 changeset 且版本未发布）。`scripts/verify-release.mjs` 硬校验「子包发布 ⇒ 根包必发」。
 
 改发布流程后需在 CI 中跑 `pnpm test:ci` 验证。
@@ -39,7 +39,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 
 **根包为薄 re-export 结构**（`entry/` 目录）：发布物仅含 `entry/`（无子包 dist），`dependencies` 声明 5 个子包（`workspace:*`，发布时重写为实际版本）。因此**发布根包前必须先把 5 个子包发布**（尤其 `@pawover/kit-types`、`@pawover/kit-eslint-rules` 首次发布）；根包 `build` 任务（`scripts/sync-entry.ts`）在 turbo 流水线中同步 `entry/metadata.json`。改根包 exports / entry 后需 `pnpm build` 再跑 `check:eslint`（entry 与根 scripts 已在 eslint ignores）。
 
-所有子路径导出都有 `"development": "./src/index.ts"` 别名，允许构建工具在开发时直接使用源码。
+子包发布物 `exports` 仅指向 `dist` 产物（无 `development` 等指向 src 的条件——src 不在 `files` 里，指了会害死 vite dev / vitest 消费者）。仓库内「直查源码」由 test/tsconfig.json 的 `paths` 与 vitest.config.ts 的 `resolve.alias` 承担（见「测试注意事项」）。
 
 ## 构建流水线
 
@@ -56,10 +56,10 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/sync-entry.t
 - `test/` 是普通目录（不是 workspace 包）。测试按 `unit/` + `integration/` 组织。
 - **vitest 双项目**：`node` 环境用于 utils+zod，`jsdom` 环境用于 hooks。
 - `clearMocks: true` — mock 在测试间自动清除。
-- vitest.config.ts 中的 resolve alias 将 `@pawover/kit/*` 直接映射到源码 `.ts` 文件。
+- vitest.config.ts 中的 resolve alias 将 `@pawover/kit/*` 与 `@pawover/kit-*`（含子路径）直接映射到源码 `.ts` 文件（具体形式排前面，防止前缀误匹配）。
 - 类型检查测试：`test:types` 用 `test/tsconfig.json`（继承 `tsconfig.build.json` 但放宽了 `noUncheckedIndexedAccess: false`、`erasableSyntaxOnly: false` 等，并配置了 `customConditions: ["development"]`）。`check:types` 通过根 tsconfig（project references）可能遗漏某些错误 — **优先使用 `test:types` 检查测试文件类型**。
 - **根 scripts**：`scripts/tsconfig.json`（继承 `tsconfig.build.json`，`types: ["node"]`，`noEmit`）独立检查 `scripts/**/*.ts`（含 `sync-entry.ts`），由 `check:types` 的第二个 `tsc -p` 覆盖，并挂入根 tsconfig references。
-- **源码直查**：`test/tsconfig.json` 的 `customConditions: ["development"]` 使 `tsc` 经由子包 exports 的 `development` 条件解析 `@pawover/kit-*` 到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中子包 development）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias` + Vite 的 `development` 条件，同样直查源码。
+- **源码直查**：`test/tsconfig.json` 的 `paths` 把 `@pawover/kit-*`（含子路径）直接映射到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。
 - 覆盖率：v8 provider，`packages/**/src/**/*.{ts,tsx}`。阈值：lines:90 / branches:90 / functions:90 / statements:90。
 - **`test/types/**` 类型测试约定（全反向断言）**：类型断言**禁止正向写法**（`const x: T = api(...)`），所有断言必须为 `@ts-expect-error` 反向断言——将 API 结果赋给**错误的目标类型**（比正确类型更窄或字面量不同，如 `const bad: number = CurrencyUtil.toRealValue(math, "0.1")`，正确返回应为 `string`）。如此 API 一旦放宽为 `any` / 超类型（正向断言会静默通过）或收窄为目标类型（赋值不再报错），都会触发「Unused '@ts-expect-error' directive」错误，IDE 直接提示。断言写法要点：双向语义靠「cast 合法性 + 赋值报错」组合覆盖（如 `"abc" as IdType` 校验 `IdType` 包含 `string`，再赋给 `number` 校验未收窄）；允许保留非断言脚手架（`const math = create(all)`、`interface TreeNode`、供重赋值断言使用的 fixture 声明）。已知陷阱：lib.dom 中 `HTMLDivElement` 与 `HTMLSpanElement` 结构相同（均为空接口 extends HTMLElement）互为可赋值，区分元素类型须用 `HTMLInputElement` 等；`(a: number) => void` 可赋给 `(...arg: any[]) => any`（rest-any 不校验元数），反例断言可改用 `null`。参考实现：`test/types/utils/utilsApi.test.type.ts`、`test/types/types/typesApi.test.type.ts`。
 

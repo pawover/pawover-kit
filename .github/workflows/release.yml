@@ -255,3 +255,24 @@ jobs:
               pnpm publish --no-git-checks --access public
             fi
           fi
+
+  sync-baseline:
+    # main 正式版发布成功后，把稳定版版本号回推 feature（基线同步），
+    # 否则下一轮 alpha 从旧基线递增、剥离后撞已发布版本（防撞车拦截）。
+    # 发布本身已在此前完成，同步失败不阻断（脚本内部软失败并告警）。
+    if: github.ref_name == 'main'
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      HUSKY: "0"
+    steps:
+      - name: Checkout feature
+        uses: actions/checkout@v7
+        with:
+          ref: feature
+          fetch-depth: 0
+
+      - name: Sync stable baseline versions to feature
+        run: node scripts/sync-baseline.mjs

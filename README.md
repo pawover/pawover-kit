@@ -19,7 +19,7 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 - **ESLint 规则集** `@pawover/kit-eslint-rules`：9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）+ `GLOB_EXCLUDE` + `createRules`
 - **Zod v4 Schema** `@pawover/kit-zod`：id、string、number、boolean、bigint 等常用校验器
 - ESM / CJS 双格式产物，附带完整类型声明
-- `development` 导出条件，开发环境可直接使用源码，方便调试
+- `exports` 仅指向 `dist` 产物，任意工具链（node / vite / vitest / webpack 等）均可正常解析
 
 ## 包结构
 
@@ -116,7 +116,7 @@ pnpm install
 由 Changesets v3 + GitHub Actions 驱动的**双通道发布模型**（完整细节见 [.changeset/README.md](./.changeset/README.md)）：
 
 - **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verify-release-plan.mjs`）→ select-mode → version PR → version job 等 CI 绿后合并 → dispatch 触发 publish，发布 `alpha` dist-tag
-- **main = 正式版通道**：只通过**发布合并**收代码——`pnpm release:merge`（同步校验 → 剥离 prerelease → 防撞车校验 → 建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest`
+- **main = 正式版通道**：只通过**发布合并**收代码——`pnpm release:merge`（同步校验 → 剥离 prerelease → 防撞车校验 → 建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest` → CI 自动把稳定版版本号回推 feature（基线同步，下一轮 alpha 从新稳定版之上递增）
 - **核心设计**：alpha → 正式版之间必须经过人工确认节点，任何自动化都不会越过它
 
 常用命令：
@@ -126,7 +126,7 @@ pnpm install
 | 写变更说明 | `pnpm changeset` |
 | 发布 alpha（自动） | `git push origin feature` |
 | 发起正式版发布（人工闸门） | `pnpm release:merge` → 人工合并 PR |
-| 基线同步 | feature 上 `git merge origin/main`（取 main 侧版本） |
+| 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：feature 上 `git merge origin/main`（取 main 侧版本） |
 | 应急手动发布 | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |
 
 > Trusted Publishing / OIDC：全程无需 npm token；分支保护、守卫明细、FAQ 见 `.changeset/README.md`。
@@ -144,5 +144,5 @@ tsdown (build:source) → metadata 提取 (build:metadata) → turbo build
 ```
 
 - **tsdown** 负责打包与类型声明生成
-- **metadata.ts** 提取 utils / hooks 的运行时导出名，写入 `dist/metadata.json`
-- 所有子路径导出均带 `"development": "./src/index.ts"` 别名，开发工具链可直接使用源码
+- **sync-entry.ts**（根 postbuild）读取 utils / hooks 的 dist 导出名，生成 `entry/metadata.json` 与 `entry/hooks-metadata.json`
+- 仓库内测试（`test:types` / vitest）经 tsconfig `paths` 与 `resolve.alias` 直查源码，改源码无需先构建

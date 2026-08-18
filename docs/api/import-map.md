@@ -27,7 +27,7 @@
 | `@pawover/kit-eslint-rules` | ESLint 规则集 | `import eslintRules from "@pawover/kit-eslint-rules"` |
 | `@pawover/kit-zod` | Zod v4 Schema | `import { id } from "@pawover/kit-zod"` |
 
-## 双格式与 development 条件
+## 双格式与源码直查
 
 - ESM：`import` 条件（`.js` / `.d.ts`）；CJS：`require` 条件（`.cjs` / `.d.cts`）
-- 所有子路径带 `"development": "./src/index.ts"` 别名：开发工具链直接解析源码，改源码无需先构建
+- 发布物 `exports` 仅指向 `dist` 产物；仓库内开发经 tsconfig `paths` / vitest `resolve.alias` 直查源码，改源码无需先构建

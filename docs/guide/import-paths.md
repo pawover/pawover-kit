@@ -41,11 +41,11 @@ import type { PlainObject } from "@pawover/kit-types";
 - `import` 条件 → ESM（`.js` / `.d.ts`）
 - `require` 条件 → CJS（`.cjs` / `.d.cts`）
 
-## development 条件
+## 仓库内源码直查
 
-所有子路径导出都带 `"development": "./src/index.ts"` 别名：
+发布物 `exports` 仅指向 `dist` 产物（任意工具链均可正常解析），仓库内开发则直查源码：
 
-- 构建工具（Vite / vitest 等）在开发时经 `development` 条件直接解析到**源码**，方便调试
-- 生产构建走标准 `import` / `require` 条件，使用打包产物
+- `test:types`（`test/tsconfig.json`）经 `paths` 将 `@pawover/kit-*` 映射到源码 `.ts`
+- vitest 经 `resolve.alias` 将 `@pawover/kit/*` 与 `@pawover/kit-*` 映射到源码
 
-因此**修改源码后无需先构建**即可被本地工具链（如 vitest 的 resolve alias）消费。
+因此**修改源码后无需先构建**即可运行类型检查与测试。

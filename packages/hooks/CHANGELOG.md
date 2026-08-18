@@ -1,5 +1,24 @@
 # @pawover/kit-hooks
 
+## 0.0.7-alpha.0
+
+### Patch Changes
+
+- d408123: main 发布后自动回推版本基线到 feature
+- Updated dependencies [d408123]
+  - @pawover/kit-types@0.0.4-alpha.0
+  - @pawover/kit-utils@0.1.6-alpha.0
+
+## 0.0.6-alpha.1
+
+### Patch Changes
+
+- a8f0805: fix: exports 移除指向未打包 src 的 development 条件与失效的 ./metadata.json 导出，修复 vite/vitest 消费者解析失败
+- Updated dependencies [a8f0805]
+- Updated dependencies [a8f0805]
+  - @pawover/kit-types@0.0.3-alpha.1
+  - @pawover/kit-utils@0.1.5-alpha.1
+
 ## 0.0.6-alpha.0
 
 ### Patch Changes

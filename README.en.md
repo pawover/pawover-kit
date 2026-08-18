@@ -119,5 +119,5 @@ tsdown (build:source) → metadata extraction (build:metadata) → turbo build
 ```
 
 - **tsdown** produces the bundles and type declarations
-- **metadata.ts** extracts the runtime exports of utils / hooks into `dist/metadata.json`
-- Every subpath export ships a `"development": "./src/index.ts"` alias so dev toolchains can consume the source directly
+- **sync-entry.ts** (root postbuild) reads the runtime exports of utils / hooks from dist and writes `entry/metadata.json` and `entry/hooks-metadata.json`
+- In-repo tests (`test:types` / vitest) resolve the source directly via tsconfig `paths` and `resolve.alias` — no build needed before testing
