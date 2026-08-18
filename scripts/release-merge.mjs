@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { PACKAGE_FILES, SUB_PACKAGES } from "./packages.mjs";
+import { PACKAGE_FILES } from "./packages.mjs";
 
 /**
  * 发布合并脚本（feature → main 正式版发布入口）：
@@ -198,8 +198,8 @@ async function main() {
   run("git add -A");
   const staged = run("git diff --cached --name-only").trim();
   if (staged) {
-    run('git commit -m "chore: 发布合并准备（剔除归档 + 剥离 prerelease）"');
-    console.log("   ✔ 已提交到 release-main（feature 保持 alpha 状态）");
+    run('git commit -m "chore: 发布合并准备（剔除归档 + 剥离预发布）"');
+    console.log("   ✔ 已提交到 release-main（feature 分支版本号暂时保持 alpha 状态，待基线同步 main 分支后回推稳定版本）");
   } else {
     console.log("   ✔ 无变更可提交");
   }
