@@ -81,7 +81,7 @@ function warn(message) {
   console.log(`   ⚠ ${message}`);
 }
 
-function main() {
+async function main() {
   const noPush = process.argv.includes("--no-push");
   const branch = git("rev-parse", "--abbrev-ref", "HEAD");
   if (branch !== SYNC_BRANCH) {
@@ -156,7 +156,7 @@ function main() {
   }
   console.log(`④ 推送 origin/${SYNC_BRANCH}`);
   try {
-    git("push", `origin/${SYNC_BRANCH}`);
+    git("push", "origin", SYNC_BRANCH);
     console.log("   ✔ 基线同步完成（main 稳定版本已回推 feature）");
   } catch (err) {
     warn(
