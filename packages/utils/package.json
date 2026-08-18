@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Static utility classes: array, string, object, tree, currency, date, math and more",
-  "version": "0.1.6-alpha.0",
+  "version": "0.1.6",
   "type": "module",
   "keywords": [
     "pawover",
