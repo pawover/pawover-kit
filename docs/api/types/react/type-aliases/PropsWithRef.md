@@ -8,7 +8,7 @@
 
 > **PropsWithRef**\<`P`, `R`\> = `Readonly`\<`P`\> & `object`
 
-Defined in: [react.ts:60](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/types/src/react.ts#L60)
+Defined in: [react.ts:60](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/types/src/react.ts#L60)
 
 含 ref 的只读 Props 类型
 
