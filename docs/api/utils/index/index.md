@@ -13,6 +13,7 @@
 - [DateTimeUtil](classes/DateTimeUtil.md)
 - [EnvUtil](classes/EnvUtil.md)
 - [FunctionUtil](classes/FunctionUtil.md)
+- [I18nUtil](classes/I18nUtil.md)
 - [MimeUtil](classes/MimeUtil.md)
 - [NumberUtil](classes/NumberUtil.md)
 - [ObjectUtil](classes/ObjectUtil.md)
@@ -25,12 +26,18 @@
 ## Interfaces
 
 - [FormatterOptions](interfaces/FormatterOptions.md)
+- [ToLocaleDisplayNameOptions](interfaces/ToLocaleDisplayNameOptions.md)
 - [ZipOptions](interfaces/ZipOptions.md)
 
 ## Type Aliases
 
+- [CountryCode](type-aliases/CountryCode.md)
 - [CurrencyCode](type-aliases/CurrencyCode.md)
 - [CurrencyLocale](type-aliases/CurrencyLocale.md)
 - [MatchFunction](type-aliases/MatchFunction.md)
-- [THEME\_MODE\_TYPE](type-aliases/THEME_MODE_TYPE.md)
-- [THEME\_TYPE](type-aliases/THEME_TYPE.md)
+- [PrimaryLanguageEnum](type-aliases/PrimaryLanguageEnum.md)
+- [ThemeEnumValue](type-aliases/ThemeEnumValue.md)
+- [ThemeModeEnumValue](type-aliases/ThemeModeEnumValue.md)
+- [ToBaseLanguage](type-aliases/ToBaseLanguage.md)
+- [ToFullLocale](type-aliases/ToFullLocale.md)
+- [ToLocaleDisplayNameType](type-aliases/ToLocaleDisplayNameType.md)

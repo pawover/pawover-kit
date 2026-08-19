@@ -286,6 +286,37 @@ describe("StringUtil", () => {
     });
   });
 
+  describe("split", () => {
+    it("should split string by separator", () => {
+      expect(StringUtil.split("en-US", "-")).toEqual(["en", "US"]);
+    });
+
+    it("should split string with multiple separators", () => {
+      expect(StringUtil.split("a,b,c", ",")).toEqual(["a", "b", "c"]);
+    });
+
+    it("should return single-element array when separator not found", () => {
+      expect(StringUtil.split("hello", "-")).toEqual(["hello"]);
+    });
+
+    it("should split into characters with empty separator", () => {
+      expect(StringUtil.split("abc", "")).toEqual(["a", "b", "c"]);
+    });
+
+    it("should return empty array for null input", () => {
+      expect(StringUtil.split(null, "-")).toEqual([]);
+    });
+
+    it("should return empty array for undefined input", () => {
+      expect(StringUtil.split(undefined, "-")).toEqual([]);
+    });
+
+    it("should return empty array for blank string", () => {
+      expect(StringUtil.split("", "-")).toEqual([]);
+      expect(StringUtil.split("   ", "-")).toEqual([]);
+    });
+  });
+
   describe("trim", () => {
     it("should trim whitespace by default", () => {
       expect(StringUtil.trim("  hello  ")).toBe("hello");

@@ -6,7 +6,7 @@
 
 # Class: StringUtil
 
-Defined in: [string/stringUtil.ts:8](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L8)
+Defined in: [string/stringUtil.ts:8](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L8)
 
 字符串工具类
 
@@ -28,7 +28,7 @@ Defined in: [string/stringUtil.ts:8](https://github.com/pawover/pawover-kit/blob
 
 > `static` **cast**\<`T`\>(`candidate`, `checkNullish?`, `trim?`): `""`
 
-Defined in: [string/stringUtil.ts:48](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L48)
+Defined in: [string/stringUtil.ts:48](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L48)
 
 将任意值转换为字符串
 - 当传入数值字面量时，返回对应的字符串字面量类型
@@ -101,7 +101,7 @@ StringUtil.cast({}); // "[object Object]" (类型为 string)
 
 > `static` **cast**\<`T`\>(`candidate`, `checkNullish`, `trim?`): `Trim`\<`` `${T}` ``\>
 
-Defined in: [string/stringUtil.ts:49](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L49)
+Defined in: [string/stringUtil.ts:49](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L49)
 
 将任意值转换为字符串
 - 当传入数值字面量时，返回对应的字符串字面量类型
@@ -174,7 +174,7 @@ StringUtil.cast({}); // "[object Object]" (类型为 string)
 
 > `static` **cast**\<`T`\>(`candidate`, `checkNullish?`, `trim?`): `Trim`\<`` `${T}` ``\>
 
-Defined in: [string/stringUtil.ts:50](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L50)
+Defined in: [string/stringUtil.ts:50](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L50)
 
 将任意值转换为字符串
 - 当传入数值字面量时，返回对应的字符串字面量类型
@@ -247,7 +247,7 @@ StringUtil.cast({}); // "[object Object]" (类型为 string)
 
 > `static` **cast**\<`T`\>(`candidate`, `checkNullish`, `trim`): `` `${T}` ``
 
-Defined in: [string/stringUtil.ts:51](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L51)
+Defined in: [string/stringUtil.ts:51](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L51)
 
 将任意值转换为字符串
 - 当传入数值字面量时，返回对应的字符串字面量类型
@@ -320,7 +320,7 @@ StringUtil.cast({}); // "[object Object]" (类型为 string)
 
 > `static` **cast**(`candidate`, `checkNullish?`, `trim?`): `string`
 
-Defined in: [string/stringUtil.ts:52](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L52)
+Defined in: [string/stringUtil.ts:52](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L52)
 
 将任意值转换为字符串
 - 当传入数值字面量时，返回对应的字符串字面量类型
@@ -389,7 +389,7 @@ StringUtil.cast({}); // "[object Object]" (类型为 string)
 
 > `static` **replace**\<`I`, `S`, `R`\>(`input`, `search`, `replacement`): `Replace`\<`I`, `S`, `R`\>
 
-Defined in: [string/stringUtil.ts:470](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L470)
+Defined in: [string/stringUtil.ts:507](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L507)
 
 字符串替换
 - 替换第一个匹配项
@@ -442,11 +442,125 @@ StringUtil.replace("hello world", "world", "context"); // "hello context"
 
 ***
 
+### split()
+
+#### Call Signature
+
+> `static` **split**\<`T`, `D`\>(`input`, `separator`): `Split`\<`T`, `D`\>
+
+Defined in: [string/stringUtil.ts:338](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L338)
+
+字符串按分隔符分割为元组
+- 类型层面基于 type-fest 的 `Split` 推导：输入与分隔符均为字符串字面量时，返回逐字面量的元组（如 `"en-US"` 配 `"-"` → `["en", "US"]`）
+- 输入或分隔符为宽类型（`string`）时，`Split` 退化为 `string[]`（type-fest `strictLiteralChecks` 默认行为）
+- 无效输入（`null` / `undefined` / 空白字符串）返回 `[]`
+- ⚠️ 空白字符串字面量（`""`）类型层推导为 `[""]`，运行时按无效输入返回 `[]`
+
+##### Type Parameters
+
+###### T
+
+`T` *extends* `string`
+
+###### D
+
+`D` *extends* `string`
+
+##### Parameters
+
+###### input
+
+`T`
+
+待处理字符串
+
+###### separator
+
+`D`
+
+分隔符
+
+##### Returns
+
+`Split`\<`T`, `D`\>
+
+分割后的字符串元组，无效输入返回空数组
+
+##### Example
+
+```ts
+// 重载 1: 字符串输入 → Split 字面量元组
+StringUtil.split("en-US", "-"); // ["en", "US"] (类型为 ["en", "US"])
+StringUtil.split("a,b,c", ","); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+StringUtil.split("hello", "-"); // ["hello"] (类型为 ["hello"])
+StringUtil.split("abc", ""); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+
+// 宽类型输入 → 退化为 string[]
+const locale: string = "en-US";
+StringUtil.split(locale, "-"); // 类型为 string[]
+
+// 重载 2: null / undefined 输入 → []
+StringUtil.split(null, "-"); // []
+StringUtil.split(undefined, "-"); // []
+```
+
+#### Call Signature
+
+> `static` **split**(`input`, `separator`): `string`[]
+
+Defined in: [string/stringUtil.ts:339](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L339)
+
+字符串按分隔符分割为元组
+- 类型层面基于 type-fest 的 `Split` 推导：输入与分隔符均为字符串字面量时，返回逐字面量的元组（如 `"en-US"` 配 `"-"` → `["en", "US"]`）
+- 输入或分隔符为宽类型（`string`）时，`Split` 退化为 `string[]`（type-fest `strictLiteralChecks` 默认行为）
+- 无效输入（`null` / `undefined` / 空白字符串）返回 `[]`
+- ⚠️ 空白字符串字面量（`""`）类型层推导为 `[""]`，运行时按无效输入返回 `[]`
+
+##### Parameters
+
+###### input
+
+`string` \| `null` \| `undefined`
+
+待处理字符串
+
+###### separator
+
+`string`
+
+分隔符
+
+##### Returns
+
+`string`[]
+
+分割后的字符串元组，无效输入返回空数组
+
+##### Example
+
+```ts
+// 重载 1: 字符串输入 → Split 字面量元组
+StringUtil.split("en-US", "-"); // ["en", "US"] (类型为 ["en", "US"])
+StringUtil.split("a,b,c", ","); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+StringUtil.split("hello", "-"); // ["hello"] (类型为 ["hello"])
+StringUtil.split("abc", ""); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+
+// 宽类型输入 → 退化为 string[]
+const locale: string = "en-US";
+StringUtil.split(locale, "-"); // 类型为 string[]
+
+// 重载 2: null / undefined 输入 → []
+StringUtil.split(null, "-"); // []
+StringUtil.split(undefined, "-"); // []
+```
+
+***
+
 ### template()
 
 > `static` **template**(`input`, `template`, `regex?`): `string`
 
-Defined in: [string/stringUtil.ts:429](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L429)
+Defined in: [string/stringUtil.ts:466](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L466)
 
 字符串模板替换
 - 使用对象的属性值替换字符串中的 {{key}} 模板
@@ -489,7 +603,7 @@ StringUtil.template("Hello {{name}}", { name: "World" }); // "Hello World"
 
 > `static` **toInitialCase**(`input`, `caseType?`): `string`
 
-Defined in: [string/stringUtil.ts:207](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L207)
+Defined in: [string/stringUtil.ts:207](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L207)
 
 调整大小写
 - 每个单词（`\S+`）独立处理
@@ -539,7 +653,7 @@ StringUtil.toInitialCase("Hello"); // "Hello"
 
 > `static` **toJson**\<`D`\>(`input`): `D` \| `undefined`
 
-Defined in: [string/stringUtil.ts:295](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L295)
+Defined in: [string/stringUtil.ts:295](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L295)
 
 处理 JSON 字符串
 
@@ -578,7 +692,7 @@ StringUtil.toJson<{ a: number }>("invalid", { a: 0 }); // { a: 0 }
 
 > `static` **toJson**\<`D`\>(`input`, `fallback`): `D`
 
-Defined in: [string/stringUtil.ts:296](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L296)
+Defined in: [string/stringUtil.ts:296](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L296)
 
 处理 JSON 字符串
 
@@ -627,7 +741,7 @@ StringUtil.toJson<{ a: number }>("invalid", { a: 0 }); // { a: 0 }
 
 > `static` **toLowerCase**\<`T`\>(`input`): `Lowercase`\<`T`\>
 
-Defined in: [string/stringUtil.ts:148](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L148)
+Defined in: [string/stringUtil.ts:148](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L148)
 
 将字符串转换为小写
 - 将字符串字面量类型转换为其小写形式
@@ -667,7 +781,7 @@ StringUtil.toLowerCase(null); // ""
 
 > `static` **toLowerCase**(`input`): `""`
 
-Defined in: [string/stringUtil.ts:149](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L149)
+Defined in: [string/stringUtil.ts:149](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L149)
 
 将字符串转换为小写
 - 将字符串字面量类型转换为其小写形式
@@ -703,7 +817,7 @@ StringUtil.toLowerCase(null); // ""
 
 > `static` **toNumber**(`input`): `string`
 
-Defined in: [string/stringUtil.ts:80](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L80)
+Defined in: [string/stringUtil.ts:80](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L80)
 
 从字符串中提取数字字符串
 - 移除非数字字符，保留符号和小数点
@@ -735,7 +849,7 @@ StringUtil.toNumber("abc-123"); // "-123"
 
 > `static` **toPosix**(`input`, `removeLeadingSlash?`): `string`
 
-Defined in: [string/stringUtil.ts:256](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L256)
+Defined in: [string/stringUtil.ts:256](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L256)
 
 将路径转换为 POSIX 风格
 - 统一使用正斜杠 (/)
@@ -783,7 +897,7 @@ StringUtil.toPosix("folder\\subfolder\\file.txt"); // 相对路径: "folder/subf
 
 > `static` **toUpperCase**\<`T`\>(`input`): `Uppercase`\<`T`\>
 
-Defined in: [string/stringUtil.ts:174](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L174)
+Defined in: [string/stringUtil.ts:174](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L174)
 
 将字符串转换为大写
 - 将字符串字面量类型转换为其大写形式
@@ -823,7 +937,7 @@ StringUtil.toUpperCase(null); // ""
 
 > `static` **toUpperCase**(`input`): `""`
 
-Defined in: [string/stringUtil.ts:175](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L175)
+Defined in: [string/stringUtil.ts:175](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L175)
 
 将字符串转换为大写
 - 将字符串字面量类型转换为其大写形式
@@ -861,7 +975,7 @@ StringUtil.toUpperCase(null); // ""
 
 > `static` **toValues**(`input`, `valueType?`, `splitSymbol?`): `number`[]
 
-Defined in: [string/stringUtil.ts:332](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L332)
+Defined in: [string/stringUtil.ts:369](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L369)
 
 字符串分割为数组
 - 按指定分隔符分割字符串，并转换类型
@@ -910,7 +1024,7 @@ StringUtil.toValues("1,abc,3"); // [1, NaN, 3]
 
 > `static` **toValues**(`input`, `valueType`, `splitSymbol?`): `string`[]
 
-Defined in: [string/stringUtil.ts:333](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L333)
+Defined in: [string/stringUtil.ts:370](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L370)
 
 字符串分割为数组
 - 按指定分隔符分割字符串，并转换类型
@@ -961,7 +1075,7 @@ StringUtil.toValues("1,abc,3"); // [1, NaN, 3]
 
 > `static` **trim**(`input`, `charsToTrim?`): `string`
 
-Defined in: [string/stringUtil.ts:364](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L364)
+Defined in: [string/stringUtil.ts:401](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L401)
 
 从字符串中裁切掉所有的前缀和后缀字符
 
@@ -998,7 +1112,7 @@ StringUtil.trim("__hello__", "_"); // "hello"
 
 > `static` **truncate**(`input`, `maxLength`, `ellipsis?`): `string`
 
-Defined in: [string/stringUtil.ts:387](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/string/stringUtil.ts#L387)
+Defined in: [string/stringUtil.ts:424](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/string/stringUtil.ts#L424)
 
 截取字符串
 - 支持自定义省略符，不会截断在汉字中间（因为JS字符串本身按字符处理）

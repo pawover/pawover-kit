@@ -1,5 +1,5 @@
 import type { AnyObject, PlainObject } from "@pawover/kit-types";
-import type { Replace, Trim } from "type-fest";
+import type { Replace, Split, Trim } from "type-fest";
 import { TypeUtil } from "../type";
 
 /**
@@ -306,6 +306,43 @@ export class StringUtil {
     } catch (error) {
       return fallback;
     }
+  }
+
+  /**
+   * 字符串按分隔符分割为元组
+   * - 类型层面基于 type-fest 的 `Split` 推导：输入与分隔符均为字符串字面量时，返回逐字面量的元组（如 `"en-US"` 配 `"-"` → `["en", "US"]`）
+   * - 输入或分隔符为宽类型（`string`）时，`Split` 退化为 `string[]`（type-fest `strictLiteralChecks` 默认行为）
+   * - 无效输入（`null` / `undefined` / 空白字符串）返回 `[]`
+   * - ⚠️ 空白字符串字面量（`""`）类型层推导为 `[""]`，运行时按无效输入返回 `[]`
+   *
+   * @param input 待处理字符串
+   * @param separator 分隔符
+   * @returns 分割后的字符串元组，无效输入返回空数组
+   * @example
+   * ```ts
+   * // 重载 1: 字符串输入 → Split 字面量元组
+   * StringUtil.split("en-US", "-"); // ["en", "US"] (类型为 ["en", "US"])
+   * StringUtil.split("a,b,c", ","); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+   * StringUtil.split("hello", "-"); // ["hello"] (类型为 ["hello"])
+   * StringUtil.split("abc", ""); // ["a", "b", "c"] (类型为 ["a", "b", "c"])
+   *
+   * // 宽类型输入 → 退化为 string[]
+   * const locale: string = "en-US";
+   * StringUtil.split(locale, "-"); // 类型为 string[]
+   *
+   * // 重载 2: null / undefined 输入 → []
+   * StringUtil.split(null, "-"); // []
+   * StringUtil.split(undefined, "-"); // []
+   * ```
+   */
+  static split<const T extends string, const D extends string> (input: T, separator: D): Split<T, D>;
+  static split (input: string | null | undefined, separator: string): string[];
+  static split (input: string | null | undefined, separator: string): string[] {
+    if (!TypeUtil.isString(input, true)) {
+      return [];
+    }
+
+    return input.split(separator);
   }
 
   /**
