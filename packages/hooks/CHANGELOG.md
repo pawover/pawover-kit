@@ -1,5 +1,13 @@
 # @pawover/kit-hooks
 
+## 0.0.8-alpha.0
+
+### Patch Changes
+
+- Updated dependencies [fa67d73]
+- Updated dependencies [21302d3]
+  - @pawover/kit-utils@1.0.0-alpha.0
+
 ## 0.0.7-alpha.0
 
 ### Patch Changes
