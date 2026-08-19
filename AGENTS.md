@@ -12,7 +12,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 | `pnpm test:ci`                           | `test:types && test && build && test:smoke && check:pack` (串行失败则停止) |
 | `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build|
 | `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）    |
-| `pnpm check:types`                       | `tsc --noEmit`（根 tsconfig，通过 project references）                     |
+| `pnpm check:types`                       | `tsc --noEmit`（根 tsconfig 聚合检查：packages src + tsdown 配置 + scripts + 根配置文件，paths 直查源码） |
 | `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                   |
 | `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                             |
 | `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                |
@@ -39,7 +39,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个包在 `packag
 
 **根包为薄 re-export 结构**（`entry/` 目录）：发布物仅含 `entry/`（无子包 dist），`dependencies` 声明 5 个子包（`workspace:*`，发布时重写为实际版本）。因此**发布根包前必须先把 5 个子包发布**（尤其 `@pawover/kit-types`、`@pawover/kit-eslint-rules` 首次发布）；根包 `build` 任务（`scripts/sync-entry.ts`）在 turbo 流水线中同步 `entry/metadata.json`。改根包 exports / entry 后需 `pnpm build` 再跑 `check:eslint`（entry 与根 scripts 已在 eslint ignores）。
 
-子包发布物 `exports` 仅指向 `dist` 产物（无 `development` 等指向 src 的条件——src 不在 `files` 里，指了会害死 vite dev / vitest 消费者）。仓库内「直查源码」由 test/tsconfig.json 的 `paths` 与 vitest.config.ts 的 `resolve.alias` 承担（见「测试注意事项」）。
+子包发布物 `exports` 仅指向 `dist` 产物（无 `development` 等指向 src 的条件——src 不在 `files` 里，指了会害死 vite dev / vitest 消费者）。仓库内「直查源码」由根 tsconfig / test/tsconfig.json 的 `paths` 与 vitest.config.ts 的 `resolve.alias` 承担（见「测试注意事项」）。
 
 ## 构建流水线
 
@@ -57,15 +57,15 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/sync-entry.t
 - **vitest 双项目**：`node` 环境用于 utils+zod，`jsdom` 环境用于 hooks。
 - `clearMocks: true` — mock 在测试间自动清除。
 - vitest.config.ts 中的 resolve alias 将 `@pawover/kit/*` 与 `@pawover/kit-*`（含子路径）直接映射到源码 `.ts` 文件（具体形式排前面，防止前缀误匹配）。
-- 类型检查测试：`test:types` 用 `test/tsconfig.json`（继承 `tsconfig.build.json` 但放宽了 `noUncheckedIndexedAccess: false`、`erasableSyntaxOnly: false` 等，并配置了 `customConditions: ["development"]`）。`check:types` 通过根 tsconfig（project references）可能遗漏某些错误 — **优先使用 `test:types` 检查测试文件类型**。
-- **根 scripts**：`scripts/tsconfig.json`（继承 `tsconfig.build.json`，`types: ["node"]`，`noEmit`）独立检查 `scripts/**/*.ts`（含 `sync-entry.ts`），由 `check:types` 的第二个 `tsc -p` 覆盖，并挂入根 tsconfig references。
-- **源码直查**：`test/tsconfig.json` 的 `paths` 把 `@pawover/kit-*`（含子路径）直接映射到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。
+- 类型检查测试：`test:types` 用 `test/tsconfig.json`（继承 `tsconfig.build.json` 但放宽了 `noUncheckedIndexedAccess: false`、`erasableSyntaxOnly: false` 等，并配置了 `customConditions: ["development"]`）。`check:types` 走根 tsconfig（继承 `tsconfig.base.json` 全严格，覆盖 packages src + scripts + 根配置文件）——两者互补：**测试文件以 `test:types` 为准，包源码以 `check:types` 为准**。
+- **根 scripts**：`scripts/**/*.ts`（含 `sync-entry.ts`）由根 tsconfig 的 `include` 覆盖（继承 `types: ["node"]`，全严格），随 `check:types` 检查。
+- **源码直查**：根 tsconfig 与 `test/tsconfig.json` 的 `paths` 都把 `@pawover/kit-*`（含子路径）直接映射到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types` / `check:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。注意 `packages/*/tsconfig.json` 无 paths，IDE 中包间导入经 workspace 链接解析到 `dist` d.ts（构建后）。
 - 覆盖率：v8 provider，`packages/**/src/**/*.{ts,tsx}`。阈值：lines:90 / branches:90 / functions:90 / statements:90。
 - **`test/types/**` 类型测试约定（全反向断言）**：类型断言**禁止正向写法**（`const x: T = api(...)`），所有断言必须为 `@ts-expect-error` 反向断言——将 API 结果赋给**错误的目标类型**（比正确类型更窄或字面量不同，如 `const bad: number = CurrencyUtil.toRealValue(math, "0.1")`，正确返回应为 `string`）。如此 API 一旦放宽为 `any` / 超类型（正向断言会静默通过）或收窄为目标类型（赋值不再报错），都会触发「Unused '@ts-expect-error' directive」错误，IDE 直接提示。断言写法要点：双向语义靠「cast 合法性 + 赋值报错」组合覆盖（如 `"abc" as IdType` 校验 `IdType` 包含 `string`，再赋给 `number` 校验未收窄）；允许保留非断言脚手架（`const math = create(all)`、`interface TreeNode`、供重赋值断言使用的 fixture 声明）。已知陷阱：lib.dom 中 `HTMLDivElement` 与 `HTMLSpanElement` 结构相同（均为空接口 extends HTMLElement）互为可赋值，区分元素类型须用 `HTMLInputElement` 等；`(a: number) => void` 可赋给 `(...arg: any[]) => any`（rest-any 不校验元数），反例断言可改用 `null`。参考实现：`test/types/utils/utilsApi.test.type.ts`、`test/types/types/typesApi.test.type.ts`。
 
 ## TypeScript 严格程度
 
-通过 `tsconfig.base.json` 极度严格：启用了 `verbatimModuleSyntax`、`erasableSyntaxOnly`、`rewriteRelativeImportExtensions`、`exactOptionalPropertyTypes`、`noUncheckedIndexedAccess`、`noUnusedLocals/Parameters`、`noPropertyAccessFromIndexSignature`。TypeScript v6。
+通过 `tsconfig.base.json` 极度严格：启用了 `verbatimModuleSyntax`、`erasableSyntaxOnly`、`exactOptionalPropertyTypes`、`noUncheckedIndexedAccess`、`noUnusedLocals/Parameters`、`noPropertyAccessFromIndexSignature`。TypeScript v6。
 
 ## 工具链特性
 
