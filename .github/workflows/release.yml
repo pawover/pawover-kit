@@ -1,8 +1,8 @@
-﻿name: Release
+name: Release
 
 on:
   push:
-    branches: [main, feature]
+    branches: [ main, feature ]
   workflow_dispatch:
 
 permissions: {}
@@ -43,7 +43,7 @@ jobs:
 
       - name: Select Changesets mode
         id: select-mode
-        uses: changesets/action/select-mode@v2
+        uses: changesets/action/select-mode@v2.1.0
 
   gate:
     needs: select-mode
@@ -75,8 +75,9 @@ jobs:
           echo "ci=success" >> "$GITHUB_OUTPUT"
 
   version:
-    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
-    needs: [select-mode, gate]
+    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' &&
+      needs.select-mode.outputs.mode == 'version'
+    needs: [ select-mode, gate ]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -126,7 +127,7 @@ jobs:
 
       - name: Version packages and create/update pull request
         id: version
-        uses: changesets/action/version@v2
+        uses: changesets/action/version@v2.1.0
         with:
           script: pnpm ci:version
           commit-message: 'chore: version packages'
@@ -155,8 +156,9 @@ jobs:
           echo "✔ dispatched Release workflow (publish channel)"
 
   pack:
-    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'publish'
-    needs: [select-mode, gate]
+    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode ==
+      'publish'
+    needs: [ select-mode, gate ]
     runs-on: ubuntu-latest
     outputs:
       pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
@@ -194,7 +196,7 @@ jobs:
 
       - name: Pack packages
         id: pack
-        uses: changesets/action/pack@v2
+        uses: changesets/action/pack@v2.1.0
         with:
           publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
 
@@ -236,7 +238,7 @@ jobs:
         run: pnpm pre:enter-alpha
 
       - name: Publish packages
-        uses: changesets/action/publish@v2
+        uses: changesets/action/publish@v2.1.0
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
 
