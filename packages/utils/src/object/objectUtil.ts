@@ -118,7 +118,7 @@ export class ObjectUtil {
       return defaultResult;
     }
 
-    return this.entries(plainObject).reduce((acc, [key, value]) => {
+    return ObjectUtil.entries(plainObject).reduce((acc, [key, value]) => {
       const [newKey, newValue] = toEntry(key, value);
       Object.defineProperty(acc, newKey, { value: newValue, enumerable: true, writable: true, configurable: true });
 
@@ -227,7 +227,7 @@ export class ObjectUtil {
       return result;
     }
 
-    for (const [k, v] of this.entries(obj)) {
+    for (const [k, v] of ObjectUtil.entries(obj)) {
       if (TypeUtil.isString(v) || TypeUtil.isNumber(v) || TypeUtil.isSymbol(v)) {
         (result as AnyObject)[v] = k;
       }
@@ -301,7 +301,7 @@ export class ObjectUtil {
       throw Error("function [enumKeys] expected parameter to be a enum, and requires at least one member");
     }
 
-    const keys = this.keys(enumeration);
+    const keys = ObjectUtil.keys(enumeration);
 
     if (isBidirectionalEnum) {
       return keys.splice(keys.length / 2, keys.length / 2);
@@ -336,7 +336,7 @@ export class ObjectUtil {
       throw Error("function [enumValues] expected parameter to be a enum, and requires at least one member");
     }
 
-    const values = this.values(enumeration);
+    const values = ObjectUtil.values(enumeration);
 
     if (isBidirectionalEnum) {
       return values.splice(values.length / 2, values.length / 2);
@@ -371,7 +371,7 @@ export class ObjectUtil {
       throw Error("function [enumEntries] expected parameter to be a enum, and requires at least one member");
     }
 
-    const entries = this.entries(enumeration);
+    const entries = ObjectUtil.entries(enumeration);
 
     if (isBidirectionalEnum) {
       return entries.splice(entries.length / 2, entries.length / 2);

@@ -6,7 +6,7 @@
 
 # Class: ObjectUtil
 
-Defined in: [object/objectUtil.ts:9](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L9)
+Defined in: [object/objectUtil.ts:9](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L9)
 
 对象工具类
 
@@ -28,7 +28,7 @@ Defined in: [object/objectUtil.ts:9](https://github.com/pawover/pawover-kit/blob
 
 > `static` **crush**\<`T`\>(`plainObject`): `Crush`\<`T`\>
 
-Defined in: [object/objectUtil.ts:256](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L256)
+Defined in: [object/objectUtil.ts:256](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L256)
 
 压平对象
 - 将多层级的对象转换为单层级的对象，键名使用点号连接
@@ -69,7 +69,7 @@ ObjectUtil.crush(anyObj); // { "list.0.id": 1 }
 
 > `static` **crush**\<`T`\>(`anyObject`): `Crush`\<`T`\>
 
-Defined in: [object/objectUtil.ts:257](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L257)
+Defined in: [object/objectUtil.ts:257](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L257)
 
 压平对象
 - 将多层级的对象转换为单层级的对象，键名使用点号连接
@@ -112,7 +112,7 @@ ObjectUtil.crush(anyObj); // { "list.0.id": 1 }
 
 > `static` **entries**\<`S`\>(`string`): `TupleToEntries`\<`Split`\<`S`, `""`\>\>
 
-Defined in: [object/objectUtil.ts:90](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L90)
+Defined in: [object/objectUtil.ts:90](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L90)
 
 返回对象的可枚举属性的键/值数组
 
@@ -155,7 +155,7 @@ ObjectUtil.entries(anyObj); // [["x", 1]]
 
 > `static` **entries**\<`A`\>(`array`): `TupleToGroups`\<`A`\>
 
-Defined in: [object/objectUtil.ts:91](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L91)
+Defined in: [object/objectUtil.ts:91](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L91)
 
 返回对象的可枚举属性的键/值数组
 
@@ -198,7 +198,7 @@ ObjectUtil.entries(anyObj); // [["x", 1]]
 
 > `static` **entries**\<`O`\>(`plainObject`): \[\`$\{keyof \{ \[KeyType in string \| number \| symbol as Filter\<KeyType, symbol\>\]: O\[KeyType\] \}\}\`, `O`\[keyof \{ \[KeyType in string \| number \| symbol as Filter\<KeyType, symbol\>\]: O\[KeyType\] \}\]\][]
 
-Defined in: [object/objectUtil.ts:92](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L92)
+Defined in: [object/objectUtil.ts:92](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L92)
 
 返回对象的可枚举属性的键/值数组
 
@@ -241,7 +241,7 @@ ObjectUtil.entries(anyObj); // [["x", 1]]
 
 > `static` **entries**\<`O`\>(`anyObject`): \[\`$\{keyof \{ \[KeyType in string \| number \| symbol as Filter\<KeyType, symbol\>\]: O\[KeyType\] \}\}\`, `O`\[keyof \{ \[KeyType in string \| number \| symbol as Filter\<KeyType, symbol\>\]: O\[KeyType\] \}\]\][]
 
-Defined in: [object/objectUtil.ts:93](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L93)
+Defined in: [object/objectUtil.ts:93](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L93)
 
 返回对象的可枚举属性的键/值数组
 
@@ -286,7 +286,7 @@ ObjectUtil.entries(anyObj); // [["x", 1]]
 
 > `static` **entriesMap**\<`O`, `NK`, `NV`\>(`plainObject`, `toEntry`): `PlainObject`\<`NK`, `NV`\>
 
-Defined in: [object/objectUtil.ts:114](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L114)
+Defined in: [object/objectUtil.ts:114](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L114)
 
 映射对象条目
 - 将对象的键值对映射为新的键值对
@@ -343,7 +343,7 @@ ObjectUtil.entriesMap(obj, (k, v) => [`prefix_${String(k)}`, `${v}x`]); // { pre
 
 > `static` **enumEntries**\<`E`\>(`enumeration`): \[keyof `E`, `E`\[keyof `E`\]\][]
 
-Defined in: [object/objectUtil.ts:365](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L365)
+Defined in: [object/objectUtil.ts:365](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L365)
 
 获取所有枚举成员的键/值数组
 
@@ -384,7 +384,7 @@ ObjectUtil.enumEntries(anyEnum); // [["A", 0], ["B", 1]]
 
 > `static` **enumEntries**\<`E`\>(`enumeration`): \[keyof `E`, `E`\[keyof `E`\]\][]
 
-Defined in: [object/objectUtil.ts:366](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L366)
+Defined in: [object/objectUtil.ts:366](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L366)
 
 获取所有枚举成员的键/值数组
 
@@ -429,7 +429,7 @@ ObjectUtil.enumEntries(anyEnum); // [["A", 0], ["B", 1]]
 
 > `static` **enumKeys**\<`E`\>(`enumeration`): keyof `E`[]
 
-Defined in: [object/objectUtil.ts:295](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L295)
+Defined in: [object/objectUtil.ts:295](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L295)
 
 获取所有枚举成员的键
 
@@ -470,7 +470,7 @@ ObjectUtil.enumKeys(anyEnum); // ["A", "B"]
 
 > `static` **enumKeys**\<`E`\>(`enumeration`): keyof `E`[]
 
-Defined in: [object/objectUtil.ts:296](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L296)
+Defined in: [object/objectUtil.ts:296](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L296)
 
 获取所有枚举成员的键
 
@@ -515,7 +515,7 @@ ObjectUtil.enumKeys(anyEnum); // ["A", "B"]
 
 > `static` **enumValues**\<`E`\>(`enumeration`): `UnionToTuple`\<`ValueOf`\<`E`\>\>
 
-Defined in: [object/objectUtil.ts:330](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L330)
+Defined in: [object/objectUtil.ts:330](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L330)
 
 获取所有枚举成员的值
 
@@ -556,7 +556,7 @@ ObjectUtil.enumValues(anyEnum); // [0, 1]
 
 > `static` **enumValues**\<`E`\>(`enumeration`): `UnionToTuple`\<`ValueOf`\<`E`\>\>
 
-Defined in: [object/objectUtil.ts:331](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L331)
+Defined in: [object/objectUtil.ts:331](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L331)
 
 获取所有枚举成员的值
 
@@ -601,7 +601,7 @@ ObjectUtil.enumValues(anyEnum); // [0, 1]
 
 > `static` **invert**\<`O`\>(`plainObject`): `Invert`\<`O`\>
 
-Defined in: [object/objectUtil.ts:221](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L221)
+Defined in: [object/objectUtil.ts:221](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L221)
 
 尽可能地交换对象的键和值
 
@@ -639,7 +639,7 @@ ObjectUtil.invert(anyObj); // { [Symbol.for("s")]: "x" }
 
 > `static` **invert**\<`O`\>(`anyObject`): `Invert`\<`O`\>
 
-Defined in: [object/objectUtil.ts:222](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L222)
+Defined in: [object/objectUtil.ts:222](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L222)
 
 尽可能地交换对象的键和值
 
@@ -681,7 +681,7 @@ ObjectUtil.invert(anyObj); // { [Symbol.for("s")]: "x" }
 
 > `static` **keys**\<`S`\>(`string`): `UnionToTuple`\<`Range`\<`0`, `Split`\<`S`, `""`\>\[`"length"`\]\>\>
 
-Defined in: [object/objectUtil.ts:32](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L32)
+Defined in: [object/objectUtil.ts:32](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L32)
 
 返回对象可枚举属性和方法的名称
 - `Object.keys` 始终返回 `string[]` 类型，此函数可以返回具体类型
@@ -725,7 +725,7 @@ ObjectUtil.keys(anyObj); // ["x", "y"]
 
 > `static` **keys**\<`A`\>(`array`): `UnionToTuple`\<`Range`\<`0`, `A`\[`"length"`\]\>\>
 
-Defined in: [object/objectUtil.ts:33](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L33)
+Defined in: [object/objectUtil.ts:33](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L33)
 
 返回对象可枚举属性和方法的名称
 - `Object.keys` 始终返回 `string[]` 类型，此函数可以返回具体类型
@@ -769,7 +769,7 @@ ObjectUtil.keys(anyObj); // ["x", "y"]
 
 > `static` **keys**\<`O`\>(`plainObject`): \`$\{Extract\<keyof O, string \| number\>\}\`[]
 
-Defined in: [object/objectUtil.ts:34](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L34)
+Defined in: [object/objectUtil.ts:34](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L34)
 
 返回对象可枚举属性和方法的名称
 - `Object.keys` 始终返回 `string[]` 类型，此函数可以返回具体类型
@@ -813,7 +813,7 @@ ObjectUtil.keys(anyObj); // ["x", "y"]
 
 > `static` **keys**\<`O`\>(`anyObject`): \`$\{Extract\<keyof O, string \| number\>\}\`[]
 
-Defined in: [object/objectUtil.ts:35](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L35)
+Defined in: [object/objectUtil.ts:35](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L35)
 
 返回对象可枚举属性和方法的名称
 - `Object.keys` 始终返回 `string[]` 类型，此函数可以返回具体类型
@@ -861,7 +861,7 @@ ObjectUtil.keys(anyObj); // ["x", "y"]
 
 > `static` **omit**\<`O`, `K`\>(`plainObject`, `keys`): `Omit`\<`O`, `K`\>
 
-Defined in: [object/objectUtil.ts:182](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L182)
+Defined in: [object/objectUtil.ts:182](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L182)
 
 排除对象的指定属性
 
@@ -910,7 +910,7 @@ ObjectUtil.omit(anyObj, ["x"]); // { y: 2 }
 
 > `static` **omit**\<`O`, `K`\>(`anyObject`, `keys`): `PlainObject`
 
-Defined in: [object/objectUtil.ts:183](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L183)
+Defined in: [object/objectUtil.ts:183](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L183)
 
 排除对象的指定属性
 
@@ -961,7 +961,7 @@ ObjectUtil.omit(anyObj, ["x"]); // { y: 2 }
 
 > `static` **pick**\<`O`, `K`\>(`plainObject`, `keys`): `Pick`\<`O`, `K`\>
 
-Defined in: [object/objectUtil.ts:145](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L145)
+Defined in: [object/objectUtil.ts:145](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L145)
 
 选取对象的指定属性
 
@@ -1010,7 +1010,7 @@ ObjectUtil.pick(anyObj, ["x"]); // { x: 1 }
 
 > `static` **pick**\<`O`, `K`\>(`anyObject`, `keys`): `Pick`\<`O`, `K`\>
 
-Defined in: [object/objectUtil.ts:146](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L146)
+Defined in: [object/objectUtil.ts:146](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L146)
 
 选取对象的指定属性
 
@@ -1061,7 +1061,7 @@ ObjectUtil.pick(anyObj, ["x"]); // { x: 1 }
 
 > `static` **values**\<`S`\>(`string`): `Split`\<`S`, `""`\>
 
-Defined in: [object/objectUtil.ts:61](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L61)
+Defined in: [object/objectUtil.ts:61](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L61)
 
 返回对象可枚举属性的值的数组
 
@@ -1104,7 +1104,7 @@ ObjectUtil.values(anyObj); // [1, 2]
 
 > `static` **values**\<`A`\>(`array`): `A`
 
-Defined in: [object/objectUtil.ts:62](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L62)
+Defined in: [object/objectUtil.ts:62](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L62)
 
 返回对象可枚举属性的值的数组
 
@@ -1147,7 +1147,7 @@ ObjectUtil.values(anyObj); // [1, 2]
 
 > `static` **values**\<`O`\>(`plainObject`): `O`\[keyof `O`\][]
 
-Defined in: [object/objectUtil.ts:63](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L63)
+Defined in: [object/objectUtil.ts:63](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L63)
 
 返回对象可枚举属性的值的数组
 
@@ -1190,7 +1190,7 @@ ObjectUtil.values(anyObj); // [1, 2]
 
 > `static` **values**\<`O`\>(`anyObject`): `O`\[keyof `O`\][]
 
-Defined in: [object/objectUtil.ts:64](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/object/objectUtil.ts#L64)
+Defined in: [object/objectUtil.ts:64](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/object/objectUtil.ts#L64)
 
 返回对象可枚举属性的值的数组
 

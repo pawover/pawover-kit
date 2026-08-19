@@ -6,7 +6,7 @@
 
 # Interface: FormatterOptions
 
-Defined in: [currency/index.type.ts:39](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/currency/index.type.ts#L39)
+Defined in: [currency/index.type.ts:39](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/index.type.ts#L39)
 
 货币格式化选项
 - 由货币地区和 `Intl.NumberFormat` 选项组合而成
@@ -46,7 +46,7 @@ const native: FormatterOptions = {
 
 > **currencyFormatOptions**: `NumberFormatOptions`
 
-Defined in: [currency/index.type.ts:54](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/currency/index.type.ts#L54)
+Defined in: [currency/index.type.ts:54](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/index.type.ts#L54)
 
 `Intl.NumberFormat` 格式化选项（如 `style`、`currency`、`minimumFractionDigits` 等）
 
@@ -56,7 +56,7 @@ Defined in: [currency/index.type.ts:54](https://github.com/pawover/pawover-kit/b
 
 > `optional` **currencySign?**: `string` \| `null`
 
-Defined in: [currency/index.type.ts:50](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/currency/index.type.ts#L50)
+Defined in: [currency/index.type.ts:50](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/index.type.ts#L50)
 
 货币符号，支持三态：
 - 非空字符串：自定义符号（如 `¥`、`$`、`€`），从格式化结果中剥离后按 `currencySignPosition` 重新拼接
@@ -71,7 +71,7 @@ Defined in: [currency/index.type.ts:50](https://github.com/pawover/pawover-kit/b
 
 > **currencySignPosition**: `"start"` \| `"end"`
 
-Defined in: [currency/index.type.ts:52](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/currency/index.type.ts#L52)
+Defined in: [currency/index.type.ts:52](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/index.type.ts#L52)
 
 货币符号的位置：`"end"` 置于金额后，其余非 `"end"` 值（含非法值）运行时统一视为 `"start"`
 
@@ -81,6 +81,6 @@ Defined in: [currency/index.type.ts:52](https://github.com/pawover/pawover-kit/b
 
 > **locales**: \[[`CurrencyLocale`](../type-aliases/CurrencyLocale.md), [`CurrencyLocale`](../type-aliases/CurrencyLocale.md)\]
 
-Defined in: [currency/index.type.ts:41](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/currency/index.type.ts#L41)
+Defined in: [currency/index.type.ts:41](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/index.type.ts#L41)
 
 locale 元组，第一个为货币所属地区，第二个为格式化语言，`Intl.NumberFormat` 按序尝试，前者不可用时回退后者

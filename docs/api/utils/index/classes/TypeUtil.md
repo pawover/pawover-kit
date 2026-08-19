@@ -6,7 +6,7 @@
 
 # Class: TypeUtil
 
-Defined in: [type/typeUtil.ts:8](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L8)
+Defined in: [type/typeUtil.ts:8](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L8)
 
 类型工具类
 
@@ -26,7 +26,7 @@ Defined in: [type/typeUtil.ts:8](https://github.com/pawover/pawover-kit/blob/c7a
 
 > `static` **isAbortSignal**(`value`): `value is AbortSignal`
 
-Defined in: [type/typeUtil.ts:817](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L817)
+Defined in: [type/typeUtil.ts:817](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L817)
 
 检查 value 是否为 AbortSignal
 
@@ -56,7 +56,7 @@ TypeUtil.isAbortSignal(new AbortController().signal); // true
 
 > `static` **isArray**(`value`): `value is unknown[]`
 
-Defined in: [type/typeUtil.ts:557](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L557)
+Defined in: [type/typeUtil.ts:557](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L557)
 
 检查 value 是否为数组
 
@@ -86,7 +86,7 @@ TypeUtil.isArray([]); // true
 
 > `static` **isAsyncFunction**(`value`): `value is AnyAsyncFunction`
 
-Defined in: [type/typeUtil.ts:318](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L318)
+Defined in: [type/typeUtil.ts:318](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L318)
 
 检查 value 是否为 AsyncFunction
 
@@ -116,7 +116,7 @@ TypeUtil.isAsyncFunction(async () => {}); // true
 
 > `static` **isAsyncGeneratorFunction**(`value`): `value is AnyAsyncGeneratorFunction`
 
-Defined in: [type/typeUtil.ts:344](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L344)
+Defined in: [type/typeUtil.ts:344](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L344)
 
 检查 value 是否为 AsyncGeneratorFunction
 
@@ -146,7 +146,7 @@ TypeUtil.isAsyncGeneratorFunction(async function * a () {}); // true
 
 > `static` **isBigInt**(`value`): `value is bigint`
 
-Defined in: [type/typeUtil.ts:239](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L239)
+Defined in: [type/typeUtil.ts:239](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L239)
 
 检查 value 是否为 BigInt
 
@@ -176,7 +176,7 @@ TypeUtil.isBigInt(1n); // true
 
 > `static` **isBlob**(`value`): `value is Blob`
 
-Defined in: [type/typeUtil.ts:636](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L636)
+Defined in: [type/typeUtil.ts:636](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L636)
 
 检查 value 是否为 Blob
 
@@ -206,7 +206,7 @@ TypeUtil.isBlob(new Blob(["a"])); // true
 
 > `static` **isBoolean**(`value`): `value is boolean`
 
-Defined in: [type/typeUtil.ts:226](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L226)
+Defined in: [type/typeUtil.ts:226](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L226)
 
 检查 value 是否为 Boolean
 
@@ -236,7 +236,7 @@ TypeUtil.isBoolean(false); // true
 
 > `static` **isClass**(`value`): `value is Class<AnyObject, unknown[]>`
 
-Defined in: [type/typeUtil.ts:543](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L543)
+Defined in: [type/typeUtil.ts:543](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L543)
 
 检查 value 是否为 Class
 
@@ -268,7 +268,7 @@ TypeUtil.isClass(() => {}); // false
 
 > `static` **isDate**(`value`, `invalidCheck?`): `value is Date`
 
-Defined in: [type/typeUtil.ts:723](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L723)
+Defined in: [type/typeUtil.ts:723](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L723)
 
 检查 value 是否为 Date 对象
 
@@ -310,7 +310,7 @@ TypeUtil.isDate({}); // false
 
 > `static` **isEnumeration**(`enumeration`): \[`boolean`, `boolean`\]
 
-Defined in: [type/typeUtil.ts:433](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L433)
+Defined in: [type/typeUtil.ts:433](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L433)
 
 判断一个对象是否为有效的枚举
 - 枚举成员不能为空
@@ -346,7 +346,7 @@ TypeUtil.isEnumeration(A); // [true, true]
 
 > `static` **isError**(`value`): `value is Error`
 
-Defined in: [type/typeUtil.ts:755](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L755)
+Defined in: [type/typeUtil.ts:755](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L755)
 
 检查 value 是否为 Error 对象
 
@@ -376,7 +376,7 @@ TypeUtil.isError(new Error("x")); // true
 
 > `static` **isFalsy**(`value`): `boolean`
 
-Defined in: [type/typeUtil.ts:845](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L845)
+Defined in: [type/typeUtil.ts:845](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L845)
 
 检查 value 是否为 Falsy 值 (false, 0, "", null, undefined, NaN, 0n)
 - 处理非字符串形式的 falsy；字符串形式（`"null"`、`"0"` 等）请使用 `isFalsyLike`
@@ -407,7 +407,7 @@ TypeUtil.isFalsy(0); // true
 
 > `static` **isFalsyLike**(`value`): `boolean`
 
-Defined in: [type/typeUtil.ts:861](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L861)
+Defined in: [type/typeUtil.ts:861](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L861)
 
 检查 value 是否为 FalsyLike 值
 - 包含字符串形式的 `"null"`、`"undefined"`、`"false"`、`"0"` 等
@@ -439,7 +439,7 @@ TypeUtil.isFalsyLike("hello"); // false
 
 > `static` **isFile**(`value`): `value is File`
 
-Defined in: [type/typeUtil.ts:649](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L649)
+Defined in: [type/typeUtil.ts:649](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L649)
 
 检查 value 是否为 File
 
@@ -469,7 +469,7 @@ TypeUtil.isFile(new File(["a"], "a.txt")); // true
 
 > `static` **isFunction**(`value`): `value is AnyFunction`
 
-Defined in: [type/typeUtil.ts:305](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L305)
+Defined in: [type/typeUtil.ts:305](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L305)
 
 检查 value 是否为 Function
 
@@ -499,7 +499,7 @@ TypeUtil.isFunction(() => {}); // true
 
 > `static` **isGeneratorFunction**(`value`): `value is AnyGeneratorFunction`
 
-Defined in: [type/typeUtil.ts:331](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L331)
+Defined in: [type/typeUtil.ts:331](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L331)
 
 检查 value 是否为 GeneratorFunction
 
@@ -529,7 +529,7 @@ TypeUtil.isGeneratorFunction(function * a () {}); // true
 
 > `static` **isIframe**(`value`): `value is HTMLIFrameElement`
 
-Defined in: [type/typeUtil.ts:697](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L697)
+Defined in: [type/typeUtil.ts:697](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L697)
 
 检查 value 是否为 HTMLIFrameElement
 
@@ -559,7 +559,7 @@ TypeUtil.isIframe(document.createElement("iframe")); // true
 
 > `static` **isInfinity**(`value`): `value is number`
 
-Defined in: [type/typeUtil.ts:188](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L188)
+Defined in: [type/typeUtil.ts:188](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L188)
 
 检查 value 是否为 Infinity
 - 排除 `NaN`
@@ -589,7 +589,7 @@ TypeUtil.isInfinity(1); // false
 
 > `static` **isInfinityLike**(`value`): `boolean`
 
-Defined in: [type/typeUtil.ts:203](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L203)
+Defined in: [type/typeUtil.ts:203](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L203)
 
 检查 value 是否类似 Infinity
 - 排除 `NaN`
@@ -619,7 +619,7 @@ TypeUtil.isInfinityLike("123"); // false
 
 > `static` **isInteger**(`value`, `checkSafe?`): `value is number`
 
-Defined in: [type/typeUtil.ts:139](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L139)
+Defined in: [type/typeUtil.ts:139](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L139)
 
 检查 value 是否为整数
 
@@ -656,7 +656,7 @@ TypeUtil.isInteger(1.1); // false
 
 > `static` **isIterable**(`value`): `value is { [iterator]: () => Iterator<unknown> }`
 
-Defined in: [type/typeUtil.ts:830](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L830)
+Defined in: [type/typeUtil.ts:830](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L830)
 
 检查 value 是否为可迭代对象 (Iterable)
 
@@ -686,7 +686,7 @@ TypeUtil.isIterable([1, 2]); // true
 
 > `static` **isMap**(`value`): `value is Map<unknown, unknown>`
 
-Defined in: [type/typeUtil.ts:584](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L584)
+Defined in: [type/typeUtil.ts:584](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L584)
 
 检查 value 是否为 Map
 
@@ -716,7 +716,7 @@ TypeUtil.isMap(new Map()); // true
 
 > `static` **isNaN**(`value`): `value is number`
 
-Defined in: [type/typeUtil.ts:123](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L123)
+Defined in: [type/typeUtil.ts:123](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L123)
 
 检查 value 是否为 NaN
 - 禁止使用全局 `isNaN`，其会先进行隐式数字转换，可能导致误判（例如 `isNaN("foo") === true`）
@@ -748,7 +748,7 @@ TypeUtil.isNaN(NaN); // true
 
 > `static` **isNegativeInteger**(`value`, `checkSafe?`): `value is number`
 
-Defined in: [type/typeUtil.ts:173](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L173)
+Defined in: [type/typeUtil.ts:173](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L173)
 
 检查 value 是否为负整数
 - 此函数中 `0` 不被视为负整数
@@ -784,7 +784,7 @@ TypeUtil.isNegativeInteger(0); // false
 
 > `static` **isNull**(`value`): `value is null`
 
-Defined in: [type/typeUtil.ts:278](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L278)
+Defined in: [type/typeUtil.ts:278](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L278)
 
 检查 value 是否为 null
 
@@ -814,7 +814,7 @@ TypeUtil.isNull(null); // true
 
 > `static` **isNullish**(`value`): value is null \| undefined
 
-Defined in: [type/typeUtil.ts:292](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L292)
+Defined in: [type/typeUtil.ts:292](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L292)
 
 检查 value 是否为 null 或 undefined
 
@@ -845,7 +845,7 @@ TypeUtil.isNullish(undefined); // true
 
 > `static` **isNumber**(`value`, `checkNaN?`): `value is number`
 
-Defined in: [type/typeUtil.ts:107](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L107)
+Defined in: [type/typeUtil.ts:107](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L107)
 
 检查 value 是否为 number 类型
 - 默认会调用 `TypeUtil.isNaN`（内部基于 `Number.isNaN`）过滤掉 `NaN`
@@ -884,7 +884,7 @@ TypeUtil.isNumber(NaN, false); // true
 
 > `static` **isObject**(`value`): `value is object`
 
-Defined in: [type/typeUtil.ts:413](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L413)
+Defined in: [type/typeUtil.ts:413](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L413)
 
 判断是否为广义对象类型
 
@@ -918,7 +918,7 @@ TypeUtil.isObject("string"); // false
 
 > `static` **isPlainObject**(`value`, `prototypeCheck?`): `value is Record<PropertyKey, unknown>`
 
-Defined in: [type/typeUtil.ts:393](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L393)
+Defined in: [type/typeUtil.ts:393](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L393)
 
 判断是否为普通对象类型
 - 可选是否检查原型为 `Object.prototype`，防止原型链污染
@@ -961,7 +961,7 @@ TypeUtil.isPlainObject(Object.create(null), false) // true
 
 > `static` **isPositiveInteger**(`value`, `checkSafe?`): `value is number`
 
-Defined in: [type/typeUtil.ts:157](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L157)
+Defined in: [type/typeUtil.ts:157](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L157)
 
 检查 value 是否为正整数
 - 此函数中 `0` 不被视为正整数
@@ -997,7 +997,7 @@ TypeUtil.isPositiveInteger(0); // false
 
 > `static` **isPromise**(`value`): `value is Promise<unknown>`
 
-Defined in: [type/typeUtil.ts:357](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L357)
+Defined in: [type/typeUtil.ts:357](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L357)
 
 检查 value 是否为 Promise
 
@@ -1027,7 +1027,7 @@ TypeUtil.isPromise(Promise.resolve(1)); // true
 
 > `static` **isPromiseLike**(`value`): `value is PromiseLike<unknown>`
 
-Defined in: [type/typeUtil.ts:371](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L371)
+Defined in: [type/typeUtil.ts:371](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L371)
 
 检查 value 是否为 PromiseLike
 - 可识别拥有 then 方法的非 Promise 对象
@@ -1058,7 +1058,7 @@ TypeUtil.isPromiseLike({ then: () => {} }); // true
 
 > `static` **isReadableStream**(`value`): `value is ReadableStream<any>`
 
-Defined in: [type/typeUtil.ts:667](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L667)
+Defined in: [type/typeUtil.ts:667](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L667)
 
 检查 value 是否为 ReadableStream
 - Uses `Object.prototype.toString` where supported (modern browsers, Node.js ≥18).
@@ -1092,7 +1092,7 @@ TypeUtil.isReadableStream(new ReadableStream()); // true
 
 > `static` **isRegExp**(`value`): `value is RegExp`
 
-Defined in: [type/typeUtil.ts:768](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L768)
+Defined in: [type/typeUtil.ts:768](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L768)
 
 检查 value 是否为 RegExp
 
@@ -1122,7 +1122,7 @@ TypeUtil.isRegExp(/a/); // true
 
 > `static` **isSet**(`value`): `value is Set<unknown>`
 
-Defined in: [type/typeUtil.ts:610](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L610)
+Defined in: [type/typeUtil.ts:610](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L610)
 
 检查 value 是否为 Set
 
@@ -1152,7 +1152,7 @@ TypeUtil.isSet(new Set()); // true
 
 > `static` **isString**(`value`, `checkNullish?`): `value is string`
 
-Defined in: [type/typeUtil.ts:89](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L89)
+Defined in: [type/typeUtil.ts:89](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L89)
 
 检查 value 是否为 string 类型
 - 当 `checkNullish` 为 `true` 时，会先 trim 再判断是否为空
@@ -1193,7 +1193,7 @@ TypeUtil.isString(" a ", true); // true
 
 > `static` **isSymbol**(`value`): `value is symbol`
 
-Defined in: [type/typeUtil.ts:252](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L252)
+Defined in: [type/typeUtil.ts:252](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L252)
 
 检查 value 是否为 Symbol
 
@@ -1223,7 +1223,7 @@ TypeUtil.isSymbol(Symbol("a")); // true
 
 > `static` **isTypedArray**(`value`): `value is TypedArray`
 
-Defined in: [type/typeUtil.ts:571](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L571)
+Defined in: [type/typeUtil.ts:571](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L571)
 
 检查 value 是否为 TypedArray
 
@@ -1253,7 +1253,7 @@ TypeUtil.isTypedArray(new Int8Array()); // true
 
 > `static` **isUndefined**(`value`): `value is undefined`
 
-Defined in: [type/typeUtil.ts:265](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L265)
+Defined in: [type/typeUtil.ts:265](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L265)
 
 检查 value 是否为 undefined
 
@@ -1283,7 +1283,7 @@ TypeUtil.isUndefined(undefined); // true
 
 > `static` **isURLSearchParams**(`value`): `value is URLSearchParams`
 
-Defined in: [type/typeUtil.ts:804](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L804)
+Defined in: [type/typeUtil.ts:804](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L804)
 
 检查 value 是否为 URLSearchParams
 
@@ -1313,7 +1313,7 @@ TypeUtil.isURLSearchParams(new URLSearchParams("a=1")); // true
 
 > `static` **isWeakMap**(`value`): `value is WeakMap<AnyObject, unknown>`
 
-Defined in: [type/typeUtil.ts:597](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L597)
+Defined in: [type/typeUtil.ts:597](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L597)
 
 检查 value 是否为 WeakMap
 
@@ -1343,7 +1343,7 @@ TypeUtil.isWeakMap(new WeakMap()); // true
 
 > `static` **isWeakSet**(`value`): `value is WeakSet<AnyObject>`
 
-Defined in: [type/typeUtil.ts:623](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L623)
+Defined in: [type/typeUtil.ts:623](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L623)
 
 检查 value 是否为 WeakSet
 
@@ -1373,7 +1373,7 @@ TypeUtil.isWeakSet(new WeakSet()); // true
 
 > `static` **isWebSocket**(`value`): `value is WebSocket`
 
-Defined in: [type/typeUtil.ts:791](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L791)
+Defined in: [type/typeUtil.ts:791](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L791)
 
 检查 value 是否为 WebSocket
 
@@ -1403,7 +1403,7 @@ TypeUtil.isWebSocket(new WebSocket("wss://echo.websocket.events")); // true
 
 > `static` **isWindow**(`value`): `value is Window`
 
-Defined in: [type/typeUtil.ts:684](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/type/typeUtil.ts#L684)
+Defined in: [type/typeUtil.ts:684](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/type/typeUtil.ts#L684)
 
 检查 value 是否为 Window
 

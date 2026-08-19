@@ -90,7 +90,7 @@ export class TreeUtil {
     }
 
     for (const root of result) {
-      this.forEach(root, (node) => {
+      TreeUtil.forEach(root, (node) => {
         const record = node as Record<string, unknown>;
         const children = record[childrenKey];
 
@@ -134,7 +134,7 @@ export class TreeUtil {
       return result;
     }
 
-    this.forEach(tree, (t) => result.push({ ...t, [childrenKey]: undefined }), options);
+    TreeUtil.forEach(tree, (t) => result.push({ ...t, [childrenKey]: undefined }), options);
 
     return result;
   }

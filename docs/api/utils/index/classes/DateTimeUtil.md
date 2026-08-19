@@ -6,7 +6,7 @@
 
 # Class: DateTimeUtil
 
-Defined in: [dateTime/dateTimeUtil.ts:4](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L4)
+Defined in: [dateTime/dateTimeUtil.ts:4](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L4)
 
 日期工具类
 
@@ -26,7 +26,7 @@ Defined in: [dateTime/dateTimeUtil.ts:4](https://github.com/pawover/pawover-kit/
 
 > `readonly` `static` **DAY\_PER\_MONTH**: `number` = `30`
 
-Defined in: [dateTime/dateTimeUtil.ts:75](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L75)
+Defined in: [dateTime/dateTimeUtil.ts:75](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L75)
 
 每月天数
 
@@ -42,7 +42,7 @@ DateTimeUtil.DAY_PER_MONTH; // 30
 
 > `readonly` `static` **DAY\_PER\_WEEK**: `number` = `7`
 
-Defined in: [dateTime/dateTimeUtil.ts:66](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L66)
+Defined in: [dateTime/dateTimeUtil.ts:66](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L66)
 
 每周天数
 
@@ -58,7 +58,7 @@ DateTimeUtil.DAY_PER_WEEK; // 7
 
 > `readonly` `static` **DAY\_PER\_YEAR**: `number` = `365`
 
-Defined in: [dateTime/dateTimeUtil.ts:84](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L84)
+Defined in: [dateTime/dateTimeUtil.ts:84](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L84)
 
 每年天数
 
@@ -74,7 +74,7 @@ DateTimeUtil.DAY_PER_YEAR; // 365
 
 > `readonly` `static` **FORMAT**: `object`
 
-Defined in: [dateTime/dateTimeUtil.ts:122](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L122)
+Defined in: [dateTime/dateTimeUtil.ts:122](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L122)
 
 常用时间格式模板集合
 
@@ -215,7 +215,7 @@ DateTimeUtil.FORMAT.CN_DATE_TIME; // "yyyy年MM月dd日 HH时mm分ss秒"
 
 > `readonly` `static` **HOUR\_PER\_DAY**: `number` = `24`
 
-Defined in: [dateTime/dateTimeUtil.ts:48](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L48)
+Defined in: [dateTime/dateTimeUtil.ts:48](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L48)
 
 每天小时数
 
@@ -231,7 +231,7 @@ DateTimeUtil.HOUR_PER_DAY; // 24
 
 > `readonly` `static` **MILLISECONDS\_PER\_SECOND**: `number` = `1000`
 
-Defined in: [dateTime/dateTimeUtil.ts:12](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L12)
+Defined in: [dateTime/dateTimeUtil.ts:12](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L12)
 
 每秒的毫秒数
 
@@ -247,7 +247,7 @@ DateTimeUtil.MILLISECONDS_PER_SECOND; // 1000
 
 > `readonly` `static` **MINUTE\_PER\_HOUR**: `number` = `60`
 
-Defined in: [dateTime/dateTimeUtil.ts:30](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L30)
+Defined in: [dateTime/dateTimeUtil.ts:30](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L30)
 
 每小时的分钟数
 
@@ -263,7 +263,7 @@ DateTimeUtil.MINUTE_PER_HOUR; // 60
 
 > `readonly` `static` **MONTH\_PER\_YEAR**: `number` = `12`
 
-Defined in: [dateTime/dateTimeUtil.ts:93](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L93)
+Defined in: [dateTime/dateTimeUtil.ts:93](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L93)
 
 每年月数
 
@@ -279,7 +279,7 @@ DateTimeUtil.MONTH_PER_YEAR; // 12
 
 > `readonly` `static` **SECOND\_PER\_DAY**: `number`
 
-Defined in: [dateTime/dateTimeUtil.ts:57](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L57)
+Defined in: [dateTime/dateTimeUtil.ts:57](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L57)
 
 每天秒数
 
@@ -295,7 +295,7 @@ DateTimeUtil.SECOND_PER_DAY; // 86400
 
 > `readonly` `static` **SECOND\_PER\_HOUR**: `number`
 
-Defined in: [dateTime/dateTimeUtil.ts:39](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L39)
+Defined in: [dateTime/dateTimeUtil.ts:39](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L39)
 
 每小时的秒数
 
@@ -311,7 +311,7 @@ DateTimeUtil.SECOND_PER_HOUR; // 3600
 
 > `readonly` `static` **SECOND\_PER\_MINUTE**: `number` = `60`
 
-Defined in: [dateTime/dateTimeUtil.ts:21](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L21)
+Defined in: [dateTime/dateTimeUtil.ts:21](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L21)
 
 每分钟的秒数
 
@@ -327,7 +327,7 @@ DateTimeUtil.SECOND_PER_MINUTE; // 60
 
 > `readonly` `static` **WEEK\_PER\_MONTH**: `number` = `4`
 
-Defined in: [dateTime/dateTimeUtil.ts:111](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L111)
+Defined in: [dateTime/dateTimeUtil.ts:111](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L111)
 
 每月平均周
 
@@ -343,7 +343,7 @@ DateTimeUtil.WEEK_PER_MONTH; // 4
 
 > `readonly` `static` **WEEK\_PER\_YEAR**: `number` = `52`
 
-Defined in: [dateTime/dateTimeUtil.ts:102](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L102)
+Defined in: [dateTime/dateTimeUtil.ts:102](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L102)
 
 每年平均周
 
@@ -359,7 +359,7 @@ DateTimeUtil.WEEK_PER_YEAR; // 52
 
 > `static` **getTimeZone**(): `object`
 
-Defined in: [dateTime/dateTimeUtil.ts:184](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/dateTime/dateTimeUtil.ts#L184)
+Defined in: [dateTime/dateTimeUtil.ts:184](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/dateTime/dateTimeUtil.ts#L184)
 
 获取当前时区信息
 

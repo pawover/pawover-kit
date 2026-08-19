@@ -546,7 +546,7 @@ export class ArrayUtil {
     const options = last && !TypeUtil.isArray(last) ? (last as ZipOptions) : undefined;
     const arrays = options ? (arraysAndOptions.slice(0, -1) as (readonly T[])[]) : (arraysAndOptions as (readonly T[])[]);
 
-    return this.unzip(arrays, options);
+    return ArrayUtil.unzip(arrays, options);
   }
 
   /**

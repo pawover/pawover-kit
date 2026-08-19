@@ -6,7 +6,7 @@
 
 # Class: ViteUtil
 
-Defined in: [vite/viteUtil.ts:6](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/vite/viteUtil.ts#L6)
+Defined in: [vite/viteUtil.ts:6](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/vite/viteUtil.ts#L6)
 
 Vite 工具类
 
@@ -26,7 +26,7 @@ Vite 工具类
 
 > `static` **toProxy**\<`L`\>(`proxyList`, `options?`): `Record`\<`string`, `ProxyOptions`\>
 
-Defined in: [vite/viteUtil.ts:25](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/vite/viteUtil.ts#L25)
+Defined in: [vite/viteUtil.ts:25](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/vite/viteUtil.ts#L25)
 
 开发服务器反向代理配置
 

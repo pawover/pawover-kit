@@ -6,7 +6,7 @@
 
 # Class: TreeUtil
 
-Defined in: [tree/treeUtil.ts:16](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L16)
+Defined in: [tree/treeUtil.ts:16](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L16)
 
 树结构工具类
 
@@ -32,7 +32,7 @@ Defined in: [tree/treeUtil.ts:16](https://github.com/pawover/pawover-kit/blob/c7
 
 > `static` **filter**\<`T`, `CK`\>(`tree`, `callback`, `options?`): `T`[]
 
-Defined in: [tree/treeUtil.ts:222](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L222)
+Defined in: [tree/treeUtil.ts:222](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L222)
 
 过滤树节点
 - 返回新的树结构，包含所有回调返回 true 的节点
@@ -90,7 +90,7 @@ TreeUtil.filter(tree[0], (node) => node.visible); // { id: 1, visible: true, chi
 
 > `static` **filter**\<`T`, `CK`\>(`tree`, `callback`, `options?`): `T`
 
-Defined in: [tree/treeUtil.ts:223](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L223)
+Defined in: [tree/treeUtil.ts:223](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L223)
 
 过滤树节点
 - 返回新的树结构，包含所有回调返回 true 的节点
@@ -150,7 +150,7 @@ TreeUtil.filter(tree[0], (node) => node.visible); // { id: 1, visible: true, chi
 
 > `static` **find**\<`T`, `CK`\>(`tree`, `callback`, `options?`): `T` \| `undefined`
 
-Defined in: [tree/treeUtil.ts:183](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L183)
+Defined in: [tree/treeUtil.ts:183](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L183)
 
 查找树节点
 - 返回第一个回调返回 true 的节点
@@ -204,7 +204,7 @@ TreeUtil.find(tree, (node) => node.id === 2); // { id: 2, ... }
 
 > `static` **forEach**\<`T`, `CK`\>(`tree`, `callback`, `options?`): `void`
 
-Defined in: [tree/treeUtil.ts:155](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L155)
+Defined in: [tree/treeUtil.ts:155](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L155)
 
 遍历树节点
 
@@ -258,7 +258,7 @@ TreeUtil.forEach(tree, (node) => ids.push(node.id)); // ids: [1, 2] (pre-order d
 
 > `static` **map**\<`R`, `T`, `CK`\>(`tree`, `callback`, `options?`): `TreeLike`\<`R`, `CK`\>[]
 
-Defined in: [tree/treeUtil.ts:253](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L253)
+Defined in: [tree/treeUtil.ts:253](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L253)
 
 映射树节点
 - 返回新的树结构，保持层级关系
@@ -321,7 +321,7 @@ TreeUtil.map(tree[0], (node) => ({ ...node, val: node.val * 2 }));
 
 > `static` **map**\<`R`, `T`, `CK`\>(`tree`, `callback`, `options?`): `TreeLike`\<`R`, `CK`\>
 
-Defined in: [tree/treeUtil.ts:254](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L254)
+Defined in: [tree/treeUtil.ts:254](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L254)
 
 映射树节点
 - 返回新的树结构，保持层级关系
@@ -386,7 +386,7 @@ TreeUtil.map(tree[0], (node) => ({ ...node, val: node.val * 2 }));
 
 > `static` **rowsToTree**\<`T`, `CK`, `R`, `RK`, `PK`\>(`rows`, `options?`): `R`[]
 
-Defined in: [tree/treeUtil.ts:35](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L35)
+Defined in: [tree/treeUtil.ts:35](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L35)
 
 行结构 转 树结构
 - 将平铺的数组转换为树形结构
@@ -451,7 +451,7 @@ TreeUtil.rowsToTree(rows); // [{ id: 1, parentId: null, children: [{ id: 2, pare
 
 > `static` **treeToRows**\<`T`, `CK`, `R`\>(`tree`, `options?`): `R`[]
 
-Defined in: [tree/treeUtil.ts:122](https://github.com/pawover/pawover-kit/blob/c7ad4b28b853dd71e18102c2f8a46a19c98bd3fd/packages/utils/src/tree/treeUtil.ts#L122)
+Defined in: [tree/treeUtil.ts:122](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/tree/treeUtil.ts#L122)
 
 树结构 转 行结构
 - 将树形结构扁平化为数组
