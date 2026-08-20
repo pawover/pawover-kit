@@ -1,4 +1,8 @@
-# pawover-kit
+<div align="center">
+  <img src="site/public/logo.svg" width="64" alt="pawover-kit logo">
+  <h1>pawover-kit</h1>
+  <p><b>简体中文</b> | <a href="README.en.md">English</a></p>
+</div>
 
 [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
 [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
@@ -14,7 +18,7 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 ## 特性
 
 - **纯类型工具** `@pawover/kit-types`：无运行时代码，提供 `AnyObject`、`TreeLike`、`AnyFunction` 族、`AdvancedRecord`、`ApiNameCheck` 等常用类型
-- **静态工具类** `@pawover/kit-utils`：数组、字符串、对象、树、货币、日期、数学等 14+ 个工具类
+- **静态工具类** `@pawover/kit-utils`：数组、字符串、对象、树、货币、日期、数学等 15+ 个工具类
 - **React / Alova Hooks** `@pawover/kit-hooks`：`useMount`、`useUnmount`、`useLatest`、`useResponsive`、`useTitle` 与 Alova 请求系列 Hooks
 - **ESLint 规则集** `@pawover/kit-eslint-rules`：9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）+ `GLOB_EXCLUDE` + `createRules`
 - **Zod v4 Schema** `@pawover/kit-zod`：id、string、number、boolean、bigint 等常用校验器
@@ -103,12 +107,12 @@ pnpm install
 
 | 命令 | 说明 |
 | :--- | :--- |
-| `pnpm test` | vitest 全量运行（801 条测试 / 31 个文件，node + jsdom 双环境） |
+| `pnpm test` | vitest 全量运行（814 条测试 / 31 个文件，node + jsdom 双环境） |
 | `pnpm test:types` | 测试文件的类型检查 |
 | `pnpm test:ci` | 完整 CI 流程：类型检查 → 测试 → 构建 → 冒烟 → pack 检查 |
 | `pnpm build` | turbo 构建全部子包（tsdown 生成 ESM/CJS 双格式与类型声明） |
 | `pnpm check` | 并行运行 types / eslint / format 检查 |
-| `pnpm docs:dev` | 本地预览文档站（VitePress，源码见 `docs/`） |
+| `pnpm docs:dev` | 本地预览文档站（VitePress，源码见 `site/`） |
 | `pnpm docs:gen` | 从源码 JSDoc 重新生成 API 参考页（改源码注释后需重新生成） |
 
 ## 发布
@@ -139,7 +143,7 @@ pnpm install
 
 ## 构建流水线
 
-```
+```text
 tsdown (build:source) → metadata 提取 (build:metadata) → turbo build
 ```
 
