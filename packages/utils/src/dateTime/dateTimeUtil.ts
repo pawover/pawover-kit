@@ -36,7 +36,7 @@ export class DateTimeUtil {
    * DateTimeUtil.SECOND_PER_HOUR; // 3600
    * ```
    */
-  static readonly SECOND_PER_HOUR: number = this.SECOND_PER_MINUTE ** 2;
+  static readonly SECOND_PER_HOUR: number = DateTimeUtil.SECOND_PER_MINUTE ** 2;
 
   /**
    * 每天小时数
@@ -54,7 +54,7 @@ export class DateTimeUtil {
    * DateTimeUtil.SECOND_PER_DAY; // 86400
    * ```
    */
-  static readonly SECOND_PER_DAY: number = this.SECOND_PER_HOUR * this.HOUR_PER_DAY;
+  static readonly SECOND_PER_DAY: number = DateTimeUtil.SECOND_PER_HOUR * DateTimeUtil.HOUR_PER_DAY;
 
   /**
    * 每周天数
@@ -185,8 +185,8 @@ export class DateTimeUtil {
     const offsetMinutes = 0 - new Date().getTimezoneOffset();
     const sign = offsetMinutes >= 0 ? "+" : "-";
     const absMinutes = Math.abs(offsetMinutes);
-    const hours = Math.floor(absMinutes / this.MINUTE_PER_HOUR);
-    const minutes = absMinutes % this.MINUTE_PER_HOUR;
+    const hours = Math.floor(absMinutes / DateTimeUtil.MINUTE_PER_HOUR);
+    const minutes = absMinutes % DateTimeUtil.MINUTE_PER_HOUR;
 
     return {
       UTC: `UTC${sign}${hours}${minutes ? `:${String(minutes).padStart(2, "0")}` : ""}`,

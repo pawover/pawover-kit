@@ -6,7 +6,7 @@ import type { Class } from "./index.type";
  * 类型工具类
  */
 export class TypeUtil {
-  private static readonly PROTOTYPE_TAGS = {
+  private static readonly PROTOTYPE_TAGS_ENUM = {
     STRING: "[object String]",
     NUMBER: "[object Number]",
     BOOLEAN: "[object Boolean]",
@@ -105,7 +105,7 @@ export class TypeUtil {
    * ```
    */
   static isNumber (value: unknown, checkNaN = true): value is number {
-    return typeof value === "number" && (!checkNaN || !this.isNaN(value));
+    return typeof value === "number" && (!checkNaN || !TypeUtil.isNaN(value));
   }
 
   /**
@@ -155,7 +155,7 @@ export class TypeUtil {
    * ```
    */
   static isPositiveInteger (value: unknown, checkSafe = true): value is number {
-    return this.isInteger(value, checkSafe) && value > 0;
+    return TypeUtil.isInteger(value, checkSafe) && value > 0;
   }
 
   /**
@@ -171,7 +171,7 @@ export class TypeUtil {
    * ```
    */
   static isNegativeInteger (value: unknown, checkSafe = true): value is number {
-    return this.isInteger(value, checkSafe) && value < 0;
+    return TypeUtil.isInteger(value, checkSafe) && value < 0;
   }
 
   /**
@@ -186,7 +186,7 @@ export class TypeUtil {
    * ```
    */
   static isInfinity (value: unknown): value is number {
-    return this.isNumber(value) && (Number.POSITIVE_INFINITY === value || Number.NEGATIVE_INFINITY === value);
+    return TypeUtil.isNumber(value) && (Number.POSITIVE_INFINITY === value || Number.NEGATIVE_INFINITY === value);
   }
 
   /**
@@ -201,7 +201,7 @@ export class TypeUtil {
    * ```
    */
   static isInfinityLike (value: unknown): boolean {
-    const check = this.isInfinity(value);
+    const check = TypeUtil.isInfinity(value);
 
     if (check) {
       return check;
@@ -290,7 +290,7 @@ export class TypeUtil {
    * ```
    */
   static isNullish (value: unknown): value is null | undefined {
-    return this.isNull(value) || this.isUndefined(value);
+    return TypeUtil.isNull(value) || TypeUtil.isUndefined(value);
   }
 
   /**
@@ -316,7 +316,7 @@ export class TypeUtil {
    * ```
    */
   static isAsyncFunction (value: unknown): value is AnyAsyncFunction {
-    return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ASYNC_FUNCTION;
+    return TypeUtil.isFunction(value) && TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.ASYNC_FUNCTION;
   }
 
   /**
@@ -329,7 +329,7 @@ export class TypeUtil {
    * ```
    */
   static isGeneratorFunction (value: unknown): value is AnyGeneratorFunction {
-    return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.GENERATOR_FUNCTION;
+    return TypeUtil.isFunction(value) && TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.GENERATOR_FUNCTION;
   }
 
   /**
@@ -342,7 +342,7 @@ export class TypeUtil {
    * ```
    */
   static isAsyncGeneratorFunction (value: unknown): value is AnyAsyncGeneratorFunction {
-    return this.isFunction(value) && this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ASYNC_GENERATOR_FUNCTION;
+    return TypeUtil.isFunction(value) && TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.ASYNC_GENERATOR_FUNCTION;
   }
 
   /**
@@ -355,7 +355,7 @@ export class TypeUtil {
    * ```
    */
   static isPromise (value: unknown): value is Promise<unknown> {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.PROMISE;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.PROMISE;
   }
 
   /**
@@ -369,7 +369,7 @@ export class TypeUtil {
    * ```
    */
   static isPromiseLike (value: unknown): value is PromiseLike<unknown> {
-    return this.isPromise(value) || (this.isPlainObject(value, false) && this.isFunction(value["then"]));
+    return TypeUtil.isPromise(value) || (TypeUtil.isPlainObject(value, false) && TypeUtil.isFunction(value["then"]));
   }
 
   /**
@@ -391,7 +391,7 @@ export class TypeUtil {
    * ```
    */
   static isPlainObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
-    const check = this.getPrototypeString(value) === this.PROTOTYPE_TAGS.OBJECT;
+    const check = TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.OBJECT;
 
     return prototypeCheck ? check && Object.getPrototypeOf(value) === Object.prototype : check;
   }
@@ -541,7 +541,7 @@ export class TypeUtil {
    * ```
    */
   static isClass (value: unknown): value is Class<AnyObject> {
-    return this.isFunction(value) && !this.isAsyncFunction(value) && Function.prototype.toString.call(value).startsWith("class ") && value.prototype !== undefined;
+    return TypeUtil.isFunction(value) && !TypeUtil.isAsyncFunction(value) && Function.prototype.toString.call(value).startsWith("class ") && value.prototype !== undefined;
   }
 
   /**
@@ -569,7 +569,7 @@ export class TypeUtil {
    * ```
    */
   static isTypedArray (value: unknown): value is TypedArray {
-    return typeof value === "object" && value !== null && this.TYPED_ARRAY_TAGS.has(this.getPrototypeString(value));
+    return typeof value === "object" && value !== null && TypeUtil.TYPED_ARRAY_TAGS.has(TypeUtil.getPrototypeString(value));
   }
 
   /**
@@ -582,7 +582,7 @@ export class TypeUtil {
    * ```
    */
   static isMap (value: unknown): value is Map<unknown, unknown> {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.MAP;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.MAP;
   }
 
   /**
@@ -595,7 +595,7 @@ export class TypeUtil {
    * ```
    */
   static isWeakMap (value: unknown): value is WeakMap<AnyObject, unknown> {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEAK_MAP;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.WEAK_MAP;
   }
 
   /**
@@ -608,7 +608,7 @@ export class TypeUtil {
    * ```
    */
   static isSet (value: unknown): value is Set<unknown> {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.SET;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.SET;
   }
 
   /**
@@ -621,7 +621,7 @@ export class TypeUtil {
    * ```
    */
   static isWeakSet (value: unknown): value is WeakSet<AnyObject> {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEAK_SET;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.WEAK_SET;
   }
 
   /**
@@ -634,7 +634,7 @@ export class TypeUtil {
    * ```
    */
   static isBlob (value: unknown): value is Blob {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.BLOB;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.BLOB;
   }
 
   /**
@@ -647,7 +647,7 @@ export class TypeUtil {
    * ```
    */
   static isFile (value: unknown): value is File {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.FILE;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.FILE;
   }
 
   /**
@@ -665,11 +665,11 @@ export class TypeUtil {
    * ```
    */
   static isReadableStream (value: unknown): value is ReadableStream {
-    if (this.getPrototypeString(value) === this.PROTOTYPE_TAGS.READABLE_STREAM) {
+    if (TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.READABLE_STREAM) {
       return true;
     }
 
-    return this.isPlainObject(value) && this.isFunction(value["getReader"]) && this.isFunction(value["pipeThrough"]);
+    return TypeUtil.isPlainObject(value) && TypeUtil.isFunction(value["getReader"]) && TypeUtil.isFunction(value["pipeThrough"]);
   }
 
   /**
@@ -682,7 +682,7 @@ export class TypeUtil {
    * ```
    */
   static isWindow (value: unknown): value is Window {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WINDOW;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.WINDOW;
   }
 
   /**
@@ -699,7 +699,7 @@ export class TypeUtil {
       return false;
     }
 
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.IFRAME;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.IFRAME;
   }
 
   /**
@@ -725,7 +725,7 @@ export class TypeUtil {
       return false;
     }
 
-    if (this.getPrototypeString(value) !== this.PROTOTYPE_TAGS.DATE) {
+    if (TypeUtil.getPrototypeString(value) !== TypeUtil.PROTOTYPE_TAGS_ENUM.DATE) {
       return false;
     }
 
@@ -753,7 +753,7 @@ export class TypeUtil {
    * ```
    */
   static isError (value: unknown): value is Error {
-    return value instanceof Error || this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ERROR;
+    return value instanceof Error || TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.ERROR;
   }
 
   /**
@@ -773,7 +773,7 @@ export class TypeUtil {
     try {
       const regex = value as unknown as RegExp;
 
-      return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.REG_EXP && this.isString(regex.source) && this.isString(regex.flags) && this.isBoolean(regex.global) && this.isFunction(regex.test);
+      return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.REG_EXP && TypeUtil.isString(regex.source) && TypeUtil.isString(regex.flags) && TypeUtil.isBoolean(regex.global) && TypeUtil.isFunction(regex.test);
     } catch (error) {
       return false;
     }
@@ -789,7 +789,7 @@ export class TypeUtil {
    * ```
    */
   static isWebSocket (value: unknown): value is WebSocket {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.WEB_SOCKET;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.WEB_SOCKET;
   }
 
   /**
@@ -802,7 +802,7 @@ export class TypeUtil {
    * ```
    */
   static isURLSearchParams (value: unknown): value is URLSearchParams {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.URL_SEARCH_PARAMS;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.URL_SEARCH_PARAMS;
   }
 
   /**
@@ -815,7 +815,7 @@ export class TypeUtil {
    * ```
    */
   static isAbortSignal (value: unknown): value is AbortSignal {
-    return this.getPrototypeString(value) === this.PROTOTYPE_TAGS.ABORT_SIGNAL;
+    return TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.ABORT_SIGNAL;
   }
 
   /**
@@ -843,7 +843,7 @@ export class TypeUtil {
    * ```
    */
   static isFalsy (value: unknown): boolean {
-    return this.isNaN(value) || this.isNullish(value) || value === false || value === 0 || value === 0n || value === "";
+    return TypeUtil.isNaN(value) || TypeUtil.isNullish(value) || value === false || value === 0 || value === 0n || value === "";
   }
 
   /**
@@ -859,7 +859,7 @@ export class TypeUtil {
    * ```
    */
   static isFalsyLike (value: unknown): boolean {
-    if (this.isFalsy(value)) {
+    if (TypeUtil.isFalsy(value)) {
       return true;
     }
 

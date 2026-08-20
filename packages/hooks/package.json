@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "React hooks (mount, unmount, latest, title, responsive) and Alova request hooks",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "type": "module",
   "keywords": [
     "pawover",
@@ -68,7 +68,7 @@
   "dependencies": {
     "@pawover/kit-types": "workspace:*",
     "@pawover/kit-utils": "workspace:*",
-    "es-toolkit": "^1.50.0",
+    "es-toolkit": "^1.51.0",
     "type-fest": "^5.8.0"
   },
   "peerDependencies": {

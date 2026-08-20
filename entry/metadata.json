@@ -4,6 +4,7 @@
   "DateTimeUtil",
   "EnvUtil",
   "FunctionUtil",
+  "I18nUtil",
   "MimeUtil",
   "NumberUtil",
   "ObjectUtil",

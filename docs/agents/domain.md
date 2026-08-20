@@ -13,7 +13,7 @@
 
 多上下文仓库（根目录存在 `CONTEXT-MAP.md`）：
 
-```
+```text
 /
 ├── CONTEXT-MAP.md
 ├── docs/adr/                          ← 全局决策

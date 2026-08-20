@@ -1,5 +1,5 @@
 /**
- * 从源码 JSDoc 生成 API 参考页（docs/api/*）
+ * 从源码 JSDoc 生成 API 参考页（site/api/*）
  *
  * 每个子包一个 typedoc 调用，产物提交进仓库（GitHub Pages 构建不再重复生成）。
  * 入口策略按包的实际导出结构配置：
@@ -16,12 +16,12 @@ const typedocBin = resolve("node_modules/.bin/typedoc");
 const packages = [
   {
     name: "@pawover/kit-types",
-    out: "docs/api/types",
+    out: "site/api/types",
     entryPoints: ["packages/types/src/index.ts", "packages/types/src/react.ts"],
   },
   {
     name: "@pawover/kit-utils",
-    out: "docs/api/utils",
+    out: "site/api/utils",
     entryPoints: [
       "packages/utils/src/index.ts",
       "packages/utils/src/math/index.ts",
@@ -30,17 +30,17 @@ const packages = [
   },
   {
     name: "@pawover/kit-hooks",
-    out: "docs/api/hooks",
+    out: "site/api/hooks",
     entryPoints: ["packages/hooks/src/react/index.ts", "packages/hooks/src/alova/index.ts"],
   },
   {
     name: "@pawover/kit-eslint-rules",
-    out: "docs/api/eslint-rules",
+    out: "site/api/eslint-rules",
     entryPoints: ["packages/eslint-rules/src/index.ts"],
   },
   {
     name: "@pawover/kit-zod",
-    out: "docs/api/zod",
+    out: "site/api/zod",
     entryPoints: ["packages/zod/src/index.ts"],
   },
 ];

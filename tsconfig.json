@@ -1,12 +1,27 @@
 {
-  "files": [],
-  "include": [],
-  "references": [
-    { "path": "./packages/utils/tsconfig.json" },
-    { "path": "./packages/hooks/tsconfig.json" },
-    { "path": "./packages/types/tsconfig.json" },
-    { "path": "./packages/eslint-rules/tsconfig.json" },
-    { "path": "./packages/zod/tsconfig.json" },
-    { "path": "./test/tsconfig.json" }
-  ]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "WebWorker"],
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "types": ["node"],
+    "noEmit": true,
+    "paths": {
+      "@pawover/kit-utils": ["./packages/utils/src/index.ts"],
+      "@pawover/kit-utils/math": ["./packages/utils/src/math/index.ts"],
+      "@pawover/kit-utils/vite": ["./packages/utils/src/vite/index.ts"],
+      "@pawover/kit-hooks": ["./packages/hooks/src/index.ts"],
+      "@pawover/kit-hooks/alova": ["./packages/hooks/src/alova/index.ts"],
+      "@pawover/kit-hooks/react": ["./packages/hooks/src/react/index.ts"],
+      "@pawover/kit-types": ["./packages/types/src/index.ts"],
+      "@pawover/kit-types/react": ["./packages/types/src/react.ts"],
+      "@pawover/kit-zod": ["./packages/zod/src/index.ts"],
+      "@pawover/kit-eslint-rules": ["./packages/eslint-rules/src/index.ts"],
+      "@pawover/kit-eslint-rules/src/*": ["./packages/eslint-rules/src/*"]
+    }
+  },
+  "include": ["packages/*/src/**/*.ts", "packages/*/*.ts", "scripts/**/*.ts", "*.ts", "*.js", "*.cjs"],
+  "exclude": ["**/node_modules", "**/dist"]
 }

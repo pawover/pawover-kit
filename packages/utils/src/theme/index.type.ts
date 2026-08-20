@@ -1,5 +1,22 @@
 import type { ValueOf } from "type-fest";
 import type { ThemeUtil } from "./themeUtil";
 
-export type THEME_TYPE = ValueOf<typeof ThemeUtil.THEME>;
-export type THEME_MODE_TYPE = ValueOf<typeof ThemeUtil.THEME_MODE>;
+/**
+ * 固定主题类型（仅亮色/暗色），对应 `ThemeUtil.THEME`
+ *
+ * @example
+ * ```ts
+ * const theme: ThemeEnumValue = ThemeUtil.THEME.DARK;
+ * ```
+ */
+export type ThemeEnumValue = ValueOf<typeof ThemeUtil.THEME>;
+
+/**
+ * 主题模式类型（支持跟随系统），对应 `ThemeUtil.THEME_MODE`
+ *
+ * @example
+ * ```ts
+ * const themeMode: ThemeModeEnumValue = ThemeUtil.THEME_MODE.SYSTEM;
+ * ```
+ */
+export type ThemeModeEnumValue = ValueOf<typeof ThemeUtil.THEME_MODE>;

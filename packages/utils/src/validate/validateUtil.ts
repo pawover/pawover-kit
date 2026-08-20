@@ -12,7 +12,7 @@ export class ValidateUtil {
    * ```
    */
   static isPhone (input: string): boolean {
-    return this._phone.test(input.toString());
+    return ValidateUtil._phone.test(input.toString());
   }
 
   static _telephone = /^(((0\d{2,3})-)?((\d{7,8})|(400\d{7})|(800\d{7}))(-(\d{1,4}))?)$/;
@@ -24,7 +24,7 @@ export class ValidateUtil {
    * ```
    */
   static isTelephone (input: string): boolean {
-    return this._telephone.test(input.toString());
+    return ValidateUtil._telephone.test(input.toString());
   }
 
   static _IMEI = /^\d{15,17}$/;
@@ -36,7 +36,7 @@ export class ValidateUtil {
    * ```
    */
   static isIMEI (input: string): boolean {
-    return this._IMEI.test(input.toString());
+    return ValidateUtil._IMEI.test(input.toString());
   }
 
   static _email = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i;
@@ -48,7 +48,7 @@ export class ValidateUtil {
    * ```
    */
   static isEmail (input: string): boolean {
-    return this._email.test(input.toString());
+    return ValidateUtil._email.test(input.toString());
   }
 
   static _link = /^(https?:\/\/)?(([\w-]+(\.[\w-]+)*\.[a-z]{2,6})|((\d{1,3}\.){3}\d{1,3}))(:\d+)?(\/\S*)?$/i;
@@ -60,7 +60,7 @@ export class ValidateUtil {
    * ```
    */
   static isHttpLink (input: string): boolean {
-    return this._link.test(input.toString());
+    return ValidateUtil._link.test(input.toString());
   }
 
   static _portLink = /^(https?:\/\/)?[\w-]+(\.[\w-]+)+:\d{1,5}\/?$/i;
@@ -72,7 +72,7 @@ export class ValidateUtil {
    * ```
    */
   static isPortLink (input: string): boolean {
-    return this._portLink.test(input.toString());
+    return ValidateUtil._portLink.test(input.toString());
   }
 
   static _thunderLink = /^thunderx?:\/\/[a-zA-Z\d]+=$/i;
@@ -84,7 +84,7 @@ export class ValidateUtil {
    * ```
    */
   static isThunderLink (input: string): boolean {
-    return this._thunderLink.test(input.toString());
+    return ValidateUtil._thunderLink.test(input.toString());
   }
 
   static _uscc = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/;
@@ -103,7 +103,7 @@ export class ValidateUtil {
    * ```
    */
   static isUSCC (input: string): boolean {
-    return this._uscc.test(input.toString());
+    return ValidateUtil._uscc.test(input.toString());
   }
 
   /**
@@ -120,7 +120,7 @@ export class ValidateUtil {
    * ```
    */
   static isUSCCS (input: string): boolean {
-    return this.isUSCC(input);
+    return ValidateUtil.isUSCC(input);
   }
 
   static _dirPathWindows = /^[a-z]:\\(?:\w+\\?)*$/i;
@@ -132,7 +132,7 @@ export class ValidateUtil {
    * ```
    */
   static isDirPathWindows (input: string): boolean {
-    return this._dirPathWindows.test(input.toString());
+    return ValidateUtil._dirPathWindows.test(input.toString());
   }
 
   static _filePathWindows = /^[a-z]:\\(?:\w+\\)*\w+\.\w+$/i;
@@ -144,7 +144,7 @@ export class ValidateUtil {
    * ```
    */
   static isFilePathWindows (input: string): boolean {
-    return this._filePathWindows.test(input.toString());
+    return ValidateUtil._filePathWindows.test(input.toString());
   }
 
   static _dirPathLinux = /^\/(?:[^\\/\s]+\/)*$/;
@@ -156,7 +156,7 @@ export class ValidateUtil {
    * ```
    */
   static isDirPathLinux (input: string): boolean {
-    return this._dirPathLinux.test(input.toString());
+    return ValidateUtil._dirPathLinux.test(input.toString());
   }
 
   static _filePathLinux = /^(\/$|\/(?:[^\\/\s]+\/)*[^\\/\s]+$)/;
@@ -168,7 +168,7 @@ export class ValidateUtil {
    * ```
    */
   static isFilePathLinux (input: string): boolean {
-    return this._filePathLinux.test(input.toString());
+    return ValidateUtil._filePathLinux.test(input.toString());
   }
 
   static _EVCarNumber = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z](([DF]((?![IO])[a-zA-Z0-9](?![IO]))\d{4})|(\d{5}[DF]))$/;
@@ -180,7 +180,7 @@ export class ValidateUtil {
    * ```
    */
   static isEVCarNumber (input: string): boolean {
-    return this._EVCarNumber.test(input.toString());
+    return ValidateUtil._EVCarNumber.test(input.toString());
   }
 
   static _GVCarNumber = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-HJ-NP-Z][A-HJ-NP-Z0-9]{4,5}[A-HJ-NP-Z0-9挂学警港澳]$/;
@@ -192,7 +192,7 @@ export class ValidateUtil {
    * ```
    */
   static isGVCarNumber (input: string): boolean {
-    return this._GVCarNumber.test(input.toString());
+    return ValidateUtil._GVCarNumber.test(input.toString());
   }
 
   static _chineseName = /^[一-龢][一·-龢]*$/;
@@ -204,7 +204,7 @@ export class ValidateUtil {
    * ```
    */
   static isChineseName (input: string): boolean {
-    return this._chineseName.test(input.toString());
+    return ValidateUtil._chineseName.test(input.toString());
   }
 
   static _chineseId = /^\d{6}((((((19|20)\d{2})(0[13-9]|1[012])(0[1-9]|[12]\d|30))|(((19|20)\d{2})(0[13578]|1[02])31)|((19|20)\d{2})02(0[1-9]|1\d|2[0-8])|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))0229))\d{3})|((((\d{2})(0[13-9]|1[012])(0[1-9]|[12]\d|30))|((\d{2})(0[13578]|1[02])31)|((\d{2})02(0[1-9]|1\d|2[0-8]))|(([13579][26]|[2468][048]|0[048])0229))\d{2}))([\dX])$/i;
@@ -217,7 +217,7 @@ export class ValidateUtil {
    * ```
    */
   static isChineseID (input: string): boolean {
-    return this._chineseId.test(input.toString());
+    return ValidateUtil._chineseId.test(input.toString());
   }
 
   static _chineseProvince = /^(?:安徽|澳门|北京|重庆|福建|甘肃|广东|广西|贵州|海南|河北|河南|黑龙江|湖北|湖南|吉林|江苏|江西|辽宁|内蒙古|宁夏|青海|山东|山西|陕西|上海|四川|台湾|天津|西藏|香港|新疆|云南|浙江)$/;
@@ -229,7 +229,7 @@ export class ValidateUtil {
    * ```
    */
   static isChineseProvince (input: string): boolean {
-    return this._chineseProvince.test(input.toString());
+    return ValidateUtil._chineseProvince.test(input.toString());
   }
 
   static _chineseNation = /^(?:汉族|蒙古族|回族|藏族|维吾尔族|苗族|彝族|壮族|布依族|朝鲜族|满族|侗族|瑶族|白族|土家族|哈尼族|哈萨克族|傣族|黎族|傈僳族|佤族|畲族|高山族|拉祜族|水族|东乡族|纳西族|景颇族|柯尔克孜族|土族|达斡尔族|仫佬族|羌族|布朗族|撒拉族|毛南族|仡佬族|锡伯族|阿昌族|普米族|塔吉克族|怒族|乌孜别克族|俄罗斯族|鄂温克族|德昂族|保安族|裕固族|京族|塔塔尔族|独龙族|鄂伦春族|赫哲族|门巴族|珞巴族|基诺族|其它未识别民族|外国人入中国籍)$/;
@@ -241,7 +241,7 @@ export class ValidateUtil {
    * ```
    */
   static isChineseNation (input: string): boolean {
-    return this._chineseNation.test(input.toString());
+    return ValidateUtil._chineseNation.test(input.toString());
   }
 
   static _letter = /^[a-z]+$/i;
@@ -253,7 +253,7 @@ export class ValidateUtil {
    * ```
    */
   static isLetter (input: string): boolean {
-    return this._letter.test(input.toString());
+    return ValidateUtil._letter.test(input.toString());
   }
 
   static _letterLowercase = /^[a-z]+$/;
@@ -265,7 +265,7 @@ export class ValidateUtil {
    * ```
    */
   static isLetterLowercase (input: string): boolean {
-    return this._letterLowercase.test(input.toString());
+    return ValidateUtil._letterLowercase.test(input.toString());
   }
 
   static _letterUppercase = /^[A-Z]+$/;
@@ -277,7 +277,7 @@ export class ValidateUtil {
    * ```
    */
   static isLetterUppercase (input: string): boolean {
-    return this._letterUppercase.test(input.toString());
+    return ValidateUtil._letterUppercase.test(input.toString());
   }
 
   static _letterOmit = /^[^A-Z]*$/i;
@@ -289,7 +289,7 @@ export class ValidateUtil {
    * ```
    */
   static isLetterOmit (input: string): boolean {
-    return this._letterOmit.test(input.toString());
+    return ValidateUtil._letterOmit.test(input.toString());
   }
 
   static _LetterAndNumber = /^[A-Z0-9]+$/i;
@@ -301,7 +301,7 @@ export class ValidateUtil {
    * ```
    */
   static isLetterAndNumber (input: string): boolean {
-    return this._LetterAndNumber.test(input.toString());
+    return ValidateUtil._LetterAndNumber.test(input.toString());
   }
 
   static _signedFloat = /^[+-]?(\d+(\.\d+)?|\.\d+)$/;
@@ -313,7 +313,7 @@ export class ValidateUtil {
    * ```
    */
   static isSignedFloat (input: string): boolean {
-    return this._signedFloat.test(input.toString());
+    return ValidateUtil._signedFloat.test(input.toString());
   }
 
   static _unsignedFloat = /^\+?(\d+(\.\d+)?|\.\d+)$/;
@@ -325,7 +325,7 @@ export class ValidateUtil {
    * ```
    */
   static isUnsignedFloat (input: string): boolean {
-    return this._unsignedFloat.test(input.toString());
+    return ValidateUtil._unsignedFloat.test(input.toString());
   }
 
   static _signedInteger = /^[+-]?\d+$/;
@@ -337,7 +337,7 @@ export class ValidateUtil {
    * ```
    */
   static isSignedInteger (input: string): boolean {
-    return this._signedInteger.test(input.toString());
+    return ValidateUtil._signedInteger.test(input.toString());
   }
 
   static _unsignedInteger = /^\+?\d+$/;
@@ -349,7 +349,7 @@ export class ValidateUtil {
    * ```
    */
   static isUnsignedInteger (input: string): boolean {
-    return this._unsignedInteger.test(input.toString());
+    return ValidateUtil._unsignedInteger.test(input.toString());
   }
 
   static _spaceInclude = /\s/;
@@ -361,7 +361,7 @@ export class ValidateUtil {
    * ```
    */
   static isSpaceInclude (input: string): boolean {
-    return this._spaceInclude.test(input.toString());
+    return ValidateUtil._spaceInclude.test(input.toString());
   }
 
   static _spaceStart = /^\s/;
@@ -373,7 +373,7 @@ export class ValidateUtil {
    * ```
    */
   static isSpaceStart (input: string): boolean {
-    return this._spaceStart.test(input.toString());
+    return ValidateUtil._spaceStart.test(input.toString());
   }
 
   static _spaceEnd = /\s$/;
@@ -385,7 +385,7 @@ export class ValidateUtil {
    * ```
    */
   static isSpaceEnd (input: string): boolean {
-    return this._spaceEnd.test(input.toString());
+    return ValidateUtil._spaceEnd.test(input.toString());
   }
 
   /**
@@ -396,6 +396,6 @@ export class ValidateUtil {
    * ```
    */
   static isSpaceStartOrEnd (input: string): boolean {
-    return this.isSpaceStart(input) || this.isSpaceEnd(input);
+    return ValidateUtil.isSpaceStart(input) || ValidateUtil.isSpaceEnd(input);
   }
 }

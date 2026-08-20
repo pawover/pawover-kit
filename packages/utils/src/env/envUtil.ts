@@ -34,7 +34,7 @@ export class EnvUtil {
    * ```
    */
   static isBrowser (): boolean {
-    return this._isBrowser;
+    return EnvUtil._isBrowser;
   }
 
   /**
@@ -47,7 +47,7 @@ export class EnvUtil {
    * ```
    */
   static isWebWorker (): boolean {
-    return this._isWebWorker;
+    return EnvUtil._isWebWorker;
   }
 
   /**
@@ -60,7 +60,7 @@ export class EnvUtil {
    * ```
    */
   static isReactNative (): boolean {
-    return this._isReactNative;
+    return EnvUtil._isReactNative;
   }
 
   /**
@@ -155,7 +155,7 @@ export class EnvUtil {
 
     const isWindows = /Windows/i.test(navigator.userAgent);
 
-    return isWindows && this.isDesktop(minWidth, minScreenSize, dpi);
+    return isWindows && EnvUtil.isDesktop(minWidth, minScreenSize, dpi);
   }
 
   /**
@@ -178,7 +178,7 @@ export class EnvUtil {
 
     const isMac = /Macintosh/i.test(navigator.userAgent);
 
-    return isMac && this.isDesktop(minWidth, minScreenSize, dpi);
+    return isMac && EnvUtil.isDesktop(minWidth, minScreenSize, dpi);
   }
 
   /**
@@ -241,7 +241,7 @@ export class EnvUtil {
 
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    return isIOS && this.isMobile(maxWidth, dpi);
+    return isIOS && EnvUtil.isMobile(maxWidth, dpi);
   }
 
   /**

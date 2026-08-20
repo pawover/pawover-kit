@@ -3,6 +3,7 @@ export * from "./currency";
 export * from "./dateTime";
 export * from "./env";
 export * from "./function";
+export * from "./i18n";
 export * from "./mime";
 export * from "./number";
 export * from "./object";

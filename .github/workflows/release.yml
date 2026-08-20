@@ -1,4 +1,4 @@
-﻿name: Release
+name: Release
 
 on:
   push:
@@ -43,7 +43,7 @@ jobs:
 
       - name: Select Changesets mode
         id: select-mode
-        uses: changesets/action/select-mode@v2
+        uses: changesets/action/select-mode@v2.1.0
 
   gate:
     needs: select-mode
@@ -126,10 +126,10 @@ jobs:
 
       - name: Version packages and create/update pull request
         id: version
-        uses: changesets/action/version@v2
+        uses: changesets/action/version@v2.1.0
         with:
           script: pnpm ci:version
-          commit-message: 'chore: version packages'
+          commit-message: "chore: version packages"
           pr-title: ${{ steps.title.outputs.title }}
           pr-base-branch: ${{ github.ref_name }}
 
@@ -194,7 +194,7 @@ jobs:
 
       - name: Pack packages
         id: pack
-        uses: changesets/action/pack@v2
+        uses: changesets/action/pack@v2.1.0
         with:
           publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
 
@@ -236,7 +236,7 @@ jobs:
         run: pnpm pre:enter-alpha
 
       - name: Publish packages
-        uses: changesets/action/publish@v2
+        uses: changesets/action/publish@v2.1.0
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
 

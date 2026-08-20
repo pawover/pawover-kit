@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
     "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "allowImportingTsExtensions": true,
-    "allowUmdGlobalAccess": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": true,
-    "experimentalDecorators": true,
     "erasableSyntaxOnly": true,
-    "noImplicitAny": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "noImplicitOverride": true,
@@ -22,8 +16,6 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "useDefineForClassFields": true,
-    "verbatimModuleSyntax": true,
-    "rewriteRelativeImportExtensions": true
+    "verbatimModuleSyntax": true
   }
 }
