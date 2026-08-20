@@ -23,11 +23,11 @@ pnpm install
 | 命令 | 说明 |
 | :--- | :--- |
 | `pnpm docs:dev` | 本地开发预览（VitePress） |
-| `pnpm docs:build` | 构建文档站点（输出到 `docs/.vitepress/dist`） |
-| `pnpm docs:gen` | 从源码 JSDoc 重新生成 API 参考页（`docs/api/*`） |
+| `pnpm docs:build` | 构建文档站点（输出到 `site/.vitepress/dist`） |
+| `pnpm docs:gen` | 从源码 JSDoc 重新生成 API 参考页（`site/api/*`） |
 
 > [!NOTE]
-> `docs:gen` 生成物（`docs/api/*`）**提交进仓库**，GitHub Pages 构建时不再重复生成，避免版本漂移。改源码 JSDoc 后请重新生成并一并提交。
+> `docs:gen` 生成物（`site/api/*`）**提交进仓库**，GitHub Pages 构建时不再重复生成，避免版本漂移。改源码 JSDoc 后请重新生成并一并提交。
 
 ## 测试
 
@@ -53,7 +53,7 @@ pnpm install
 
 ## 构建流水线
 
-```
+```text
 tsdown (build:source) → metadata 提取 (build:metadata) → turbo build
 ```
 

@@ -3,7 +3,7 @@ name: Docs
 on:
   push:
     branches: [main]
-    paths: ["docs/**", "packages/**/src/**", "package.json", "pnpm-lock.yaml"]
+    paths: ["site/**", "packages/**/src/**", "package.json", "pnpm-lock.yaml"]
   workflow_dispatch:
 
 permissions:
@@ -42,7 +42,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: docs/.vitepress/dist
+          path: site/.vitepress/dist
 
   deploy:
     needs: build

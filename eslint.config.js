@@ -31,7 +31,7 @@ const plugins = {
 
 export default defineConfig([
   {
-    ignores: [...eslintRules.GLOB_EXCLUDE, "**/.cache", "entry/**", "scripts/**", "docs/**"],
+    ignores: [...eslintRules.GLOB_EXCLUDE, "**/.cache", "entry/**", "scripts/**", "site/**", "docs/**"],
   },
   {
     files: ["**/*.{js,cjs,mjs,jsx,ts,tsx}"],

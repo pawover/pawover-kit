@@ -27,7 +27,7 @@ module.exports = {
     { name: "release（发布流程：scripts 发布脚本、.changeset/、release.yml）", value: "release" },
     { name: "ci（CI/CD：.github/workflows、CI 脚本）", value: "ci" },
     { name: "test（测试：test/ 目录 unit / integration / types）", value: "test" },
-    { name: "docs（文档：docs/、README、AGENTS.md、CONTRIBUTING）", value: "docs" },
+    { name: "docs（文档：site/、docs/、README、AGENTS.md、CONTRIBUTING）", value: "docs" },
     { name: "tooling（工具配置：eslint / tsconfig / prettier / cz / turbo / tsdown）", value: "tooling" },
     { name: "deps（依赖变更：pnpm-lock.yaml、依赖增删升级）", value: "deps" },
   ],
