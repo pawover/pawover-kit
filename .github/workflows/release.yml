@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    branches: [ main, feature ]
+    branches: [main, feature]
   workflow_dispatch:
 
 permissions: {}
@@ -75,9 +75,8 @@ jobs:
           echo "ci=success" >> "$GITHUB_OUTPUT"
 
   version:
-    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' &&
-      needs.select-mode.outputs.mode == 'version'
-    needs: [ select-mode, gate ]
+    if: github.event_name == 'push' && needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'version'
+    needs: [select-mode, gate]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -130,7 +129,7 @@ jobs:
         uses: changesets/action/version@v2.1.0
         with:
           script: pnpm ci:version
-          commit-message: 'chore: version packages'
+          commit-message: "chore: version packages"
           pr-title: ${{ steps.title.outputs.title }}
           pr-base-branch: ${{ github.ref_name }}
 
@@ -156,9 +155,8 @@ jobs:
           echo "✔ dispatched Release workflow (publish channel)"
 
   pack:
-    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode ==
-      'publish'
-    needs: [ select-mode, gate ]
+    if: needs.gate.outputs.ci == 'success' && needs.select-mode.outputs.mode == 'publish'
+    needs: [select-mode, gate]
     runs-on: ubuntu-latest
     outputs:
       pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
