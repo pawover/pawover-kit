@@ -211,7 +211,7 @@ async function main() {
     return;
   }
   const pr = await api("POST", `/repos/${repo}/pulls`, {
-    title: "chore: 同步 feature 内容至 main（非发布）",
+    title: "chore: Sync feature content to main (non-release)",
     head: HEAD_BRANCH,
     base: "main",
     body:

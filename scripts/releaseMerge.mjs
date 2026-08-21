@@ -219,7 +219,7 @@ async function main() {
 
   console.log("⑥ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
   const rootVersion = versionOf("package.json");
-  const title = `chore: 发布合并 feature（${rootVersion}）`;
+  const title = `chore: Release merge from feature (${rootVersion})`;
   const body =
     "发布合并 PR：将 feature 最新代码与稳定版本号合入 main，合并后自动发布 latest。\n\n" +
     "**此 PR 不启用 auto-merge，需人工审查版本号后手动合并。**";
