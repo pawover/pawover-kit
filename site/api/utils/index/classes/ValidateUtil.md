@@ -6,7 +6,7 @@
 
 # Class: ValidateUtil
 
-Defined in: [validate/validateUtil.ts:5](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L5)
+Defined in: [validate/validateUtil.ts:5](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L5)
 
 验证工具类
 
@@ -26,7 +26,7 @@ Defined in: [validate/validateUtil.ts:5](https://github.com/pawover/pawover-kit/
 
 > `static` **\_chineseId**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:210](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L210)
+Defined in: [validate/validateUtil.ts:210](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L210)
 
 ***
 
@@ -34,7 +34,7 @@ Defined in: [validate/validateUtil.ts:210](https://github.com/pawover/pawover-ki
 
 > `static` **\_chineseName**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:198](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L198)
+Defined in: [validate/validateUtil.ts:198](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L198)
 
 ***
 
@@ -42,7 +42,7 @@ Defined in: [validate/validateUtil.ts:198](https://github.com/pawover/pawover-ki
 
 > `static` **\_chineseNation**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:235](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L235)
+Defined in: [validate/validateUtil.ts:235](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L235)
 
 ***
 
@@ -50,7 +50,7 @@ Defined in: [validate/validateUtil.ts:235](https://github.com/pawover/pawover-ki
 
 > `static` **\_chineseProvince**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:223](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L223)
+Defined in: [validate/validateUtil.ts:223](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L223)
 
 ***
 
@@ -58,7 +58,7 @@ Defined in: [validate/validateUtil.ts:223](https://github.com/pawover/pawover-ki
 
 > `static` **\_dirPathLinux**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:150](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L150)
+Defined in: [validate/validateUtil.ts:150](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L150)
 
 ***
 
@@ -66,7 +66,7 @@ Defined in: [validate/validateUtil.ts:150](https://github.com/pawover/pawover-ki
 
 > `static` **\_dirPathWindows**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:126](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L126)
+Defined in: [validate/validateUtil.ts:126](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L126)
 
 ***
 
@@ -74,7 +74,7 @@ Defined in: [validate/validateUtil.ts:126](https://github.com/pawover/pawover-ki
 
 > `static` **\_email**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:42](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L42)
+Defined in: [validate/validateUtil.ts:42](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L42)
 
 ***
 
@@ -82,7 +82,7 @@ Defined in: [validate/validateUtil.ts:42](https://github.com/pawover/pawover-kit
 
 > `static` **\_EVCarNumber**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:174](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L174)
+Defined in: [validate/validateUtil.ts:174](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L174)
 
 ***
 
@@ -90,7 +90,7 @@ Defined in: [validate/validateUtil.ts:174](https://github.com/pawover/pawover-ki
 
 > `static` **\_filePathLinux**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:162](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L162)
+Defined in: [validate/validateUtil.ts:162](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L162)
 
 ***
 
@@ -98,7 +98,7 @@ Defined in: [validate/validateUtil.ts:162](https://github.com/pawover/pawover-ki
 
 > `static` **\_filePathWindows**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:138](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L138)
+Defined in: [validate/validateUtil.ts:138](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L138)
 
 ***
 
@@ -106,7 +106,7 @@ Defined in: [validate/validateUtil.ts:138](https://github.com/pawover/pawover-ki
 
 > `static` **\_GVCarNumber**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:186](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L186)
+Defined in: [validate/validateUtil.ts:186](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L186)
 
 ***
 
@@ -114,7 +114,7 @@ Defined in: [validate/validateUtil.ts:186](https://github.com/pawover/pawover-ki
 
 > `static` **\_IMEI**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:30](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L30)
+Defined in: [validate/validateUtil.ts:30](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L30)
 
 ***
 
@@ -122,7 +122,7 @@ Defined in: [validate/validateUtil.ts:30](https://github.com/pawover/pawover-kit
 
 > `static` **\_letter**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:247](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L247)
+Defined in: [validate/validateUtil.ts:247](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L247)
 
 ***
 
@@ -130,7 +130,7 @@ Defined in: [validate/validateUtil.ts:247](https://github.com/pawover/pawover-ki
 
 > `static` **\_LetterAndNumber**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:295](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L295)
+Defined in: [validate/validateUtil.ts:295](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L295)
 
 ***
 
@@ -138,7 +138,7 @@ Defined in: [validate/validateUtil.ts:295](https://github.com/pawover/pawover-ki
 
 > `static` **\_letterLowercase**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:259](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L259)
+Defined in: [validate/validateUtil.ts:259](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L259)
 
 ***
 
@@ -146,7 +146,7 @@ Defined in: [validate/validateUtil.ts:259](https://github.com/pawover/pawover-ki
 
 > `static` **\_letterOmit**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:283](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L283)
+Defined in: [validate/validateUtil.ts:283](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L283)
 
 ***
 
@@ -154,7 +154,7 @@ Defined in: [validate/validateUtil.ts:283](https://github.com/pawover/pawover-ki
 
 > `static` **\_letterUppercase**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:271](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L271)
+Defined in: [validate/validateUtil.ts:271](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L271)
 
 ***
 
@@ -162,7 +162,7 @@ Defined in: [validate/validateUtil.ts:271](https://github.com/pawover/pawover-ki
 
 > `static` **\_link**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:54](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L54)
+Defined in: [validate/validateUtil.ts:54](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L54)
 
 ***
 
@@ -170,7 +170,7 @@ Defined in: [validate/validateUtil.ts:54](https://github.com/pawover/pawover-kit
 
 > `static` **\_phone**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:6](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L6)
+Defined in: [validate/validateUtil.ts:6](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L6)
 
 ***
 
@@ -178,7 +178,7 @@ Defined in: [validate/validateUtil.ts:6](https://github.com/pawover/pawover-kit/
 
 > `static` **\_portLink**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:66](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L66)
+Defined in: [validate/validateUtil.ts:66](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L66)
 
 ***
 
@@ -186,7 +186,7 @@ Defined in: [validate/validateUtil.ts:66](https://github.com/pawover/pawover-kit
 
 > `static` **\_signedFloat**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:307](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L307)
+Defined in: [validate/validateUtil.ts:307](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L307)
 
 ***
 
@@ -194,7 +194,7 @@ Defined in: [validate/validateUtil.ts:307](https://github.com/pawover/pawover-ki
 
 > `static` **\_signedInteger**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:331](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L331)
+Defined in: [validate/validateUtil.ts:331](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L331)
 
 ***
 
@@ -202,7 +202,7 @@ Defined in: [validate/validateUtil.ts:331](https://github.com/pawover/pawover-ki
 
 > `static` **\_spaceEnd**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:379](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L379)
+Defined in: [validate/validateUtil.ts:379](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L379)
 
 ***
 
@@ -210,7 +210,7 @@ Defined in: [validate/validateUtil.ts:379](https://github.com/pawover/pawover-ki
 
 > `static` **\_spaceInclude**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:355](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L355)
+Defined in: [validate/validateUtil.ts:355](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L355)
 
 ***
 
@@ -218,7 +218,7 @@ Defined in: [validate/validateUtil.ts:355](https://github.com/pawover/pawover-ki
 
 > `static` **\_spaceStart**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:367](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L367)
+Defined in: [validate/validateUtil.ts:367](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L367)
 
 ***
 
@@ -226,7 +226,7 @@ Defined in: [validate/validateUtil.ts:367](https://github.com/pawover/pawover-ki
 
 > `static` **\_telephone**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:18](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L18)
+Defined in: [validate/validateUtil.ts:18](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L18)
 
 ***
 
@@ -234,7 +234,7 @@ Defined in: [validate/validateUtil.ts:18](https://github.com/pawover/pawover-kit
 
 > `static` **\_thunderLink**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:78](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L78)
+Defined in: [validate/validateUtil.ts:78](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L78)
 
 ***
 
@@ -242,7 +242,7 @@ Defined in: [validate/validateUtil.ts:78](https://github.com/pawover/pawover-kit
 
 > `static` **\_unsignedFloat**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:319](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L319)
+Defined in: [validate/validateUtil.ts:319](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L319)
 
 ***
 
@@ -250,7 +250,7 @@ Defined in: [validate/validateUtil.ts:319](https://github.com/pawover/pawover-ki
 
 > `static` **\_unsignedInteger**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:343](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L343)
+Defined in: [validate/validateUtil.ts:343](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L343)
 
 ***
 
@@ -258,7 +258,7 @@ Defined in: [validate/validateUtil.ts:343](https://github.com/pawover/pawover-ki
 
 > `static` **\_uscc**: `RegExp`
 
-Defined in: [validate/validateUtil.ts:90](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L90)
+Defined in: [validate/validateUtil.ts:90](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L90)
 
 ## Methods
 
@@ -266,7 +266,7 @@ Defined in: [validate/validateUtil.ts:90](https://github.com/pawover/pawover-kit
 
 > `static` **isChineseID**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:219](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L219)
+Defined in: [validate/validateUtil.ts:219](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L219)
 
 验证是否为中国身份证号
 - ⚠️ 仅校验 18 位格式（含生日合法性），**不验证第 18 位校验位**，伪造码可通过校验
@@ -293,7 +293,7 @@ ValidateUtil.isChineseID("11010519491231002X"); // true
 
 > `static` **isChineseName**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:206](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L206)
+Defined in: [validate/validateUtil.ts:206](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L206)
 
 验证是否为中文姓名
 
@@ -319,7 +319,7 @@ ValidateUtil.isChineseName("张三"); // true
 
 > `static` **isChineseNation**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:243](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L243)
+Defined in: [validate/validateUtil.ts:243](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L243)
 
 验证是否为中华民族
 
@@ -345,7 +345,7 @@ ValidateUtil.isChineseNation("汉族"); // true
 
 > `static` **isChineseProvince**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:231](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L231)
+Defined in: [validate/validateUtil.ts:231](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L231)
 
 验证是否为中国省份
 
@@ -371,7 +371,7 @@ ValidateUtil.isChineseProvince("浙江"); // true
 
 > `static` **isDirPathLinux**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:158](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L158)
+Defined in: [validate/validateUtil.ts:158](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L158)
 
 验证是否为 Linux 系统文件夹路径
 
@@ -397,7 +397,7 @@ ValidateUtil.isDirPathLinux("/usr/local/"); // true
 
 > `static` **isDirPathWindows**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:134](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L134)
+Defined in: [validate/validateUtil.ts:134](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L134)
 
 验证是否为 Windows 系统文件夹路径
 
@@ -423,7 +423,7 @@ ValidateUtil.isDirPathWindows("C:\\Users\\pawover\\"); // true
 
 > `static` **isEmail**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:50](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L50)
+Defined in: [validate/validateUtil.ts:50](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L50)
 
 验证是否为电子邮箱
 
@@ -449,7 +449,7 @@ ValidateUtil.isEmail("dev@example.com"); // true
 
 > `static` **isEVCarNumber**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:182](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L182)
+Defined in: [validate/validateUtil.ts:182](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L182)
 
 验证是否为新能源车牌号
 
@@ -475,7 +475,7 @@ ValidateUtil.isEVCarNumber("粤AD12345"); // true
 
 > `static` **isFilePathLinux**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:170](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L170)
+Defined in: [validate/validateUtil.ts:170](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L170)
 
 验证是否为 Linux 系统文件路径
 
@@ -501,7 +501,7 @@ ValidateUtil.isFilePathLinux("/usr/local/bin/node"); // true
 
 > `static` **isFilePathWindows**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:146](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L146)
+Defined in: [validate/validateUtil.ts:146](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L146)
 
 验证是否为 Windows 系统文件路径
 
@@ -527,7 +527,7 @@ ValidateUtil.isFilePathWindows("C:\\Users\\pawover\\a.txt"); // true
 
 > `static` **isGVCarNumber**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:194](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L194)
+Defined in: [validate/validateUtil.ts:194](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L194)
 
 验证是否为燃油车车牌号
 
@@ -553,7 +553,7 @@ ValidateUtil.isGVCarNumber("粤B12345"); // true
 
 > `static` **isHttpLink**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:62](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L62)
+Defined in: [validate/validateUtil.ts:62](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L62)
 
 验证是否为 http(s) 链接
 
@@ -579,7 +579,7 @@ ValidateUtil.isHttpLink("https://example.com/path"); // true
 
 > `static` **isIMEI**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:38](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L38)
+Defined in: [validate/validateUtil.ts:38](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L38)
 
 验证是否为移动设备识别码
 
@@ -605,7 +605,7 @@ ValidateUtil.isIMEI("490154203237518"); // true
 
 > `static` **isLetter**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:255](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L255)
+Defined in: [validate/validateUtil.ts:255](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L255)
 
 验证是否只包含字母
 
@@ -631,7 +631,7 @@ ValidateUtil.isLetter("abcDEF"); // true
 
 > `static` **isLetterAndNumber**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:303](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L303)
+Defined in: [validate/validateUtil.ts:303](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L303)
 
 验证是否为数字和字母组合
 
@@ -657,7 +657,7 @@ ValidateUtil.isLetterAndNumber("A1B2"); // true
 
 > `static` **isLetterLowercase**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:267](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L267)
+Defined in: [validate/validateUtil.ts:267](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L267)
 
 验证是否只包含小写字母
 
@@ -683,7 +683,7 @@ ValidateUtil.isLetterLowercase("abc"); // true
 
 > `static` **isLetterOmit**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:291](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L291)
+Defined in: [validate/validateUtil.ts:291](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L291)
 
 验证是否不包含字母
 
@@ -709,7 +709,7 @@ ValidateUtil.isLetterOmit("123_-"); // true
 
 > `static` **isLetterUppercase**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:279](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L279)
+Defined in: [validate/validateUtil.ts:279](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L279)
 
 验证是否只包含大写字母
 
@@ -735,7 +735,7 @@ ValidateUtil.isLetterUppercase("ABC"); // true
 
 > `static` **isPhone**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:14](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L14)
+Defined in: [validate/validateUtil.ts:14](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L14)
 
 验证是否为手机号码
 
@@ -761,7 +761,7 @@ ValidateUtil.isPhone("13800138000"); // true
 
 > `static` **isPortLink**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:74](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L74)
+Defined in: [validate/validateUtil.ts:74](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L74)
 
 验证是否为端口号链接
 
@@ -787,7 +787,7 @@ ValidateUtil.isPortLink("http://example.com:8080"); // true
 
 > `static` **isSignedFloat**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:315](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L315)
+Defined in: [validate/validateUtil.ts:315](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L315)
 
 验证是否为有符号浮点数
 
@@ -813,7 +813,7 @@ ValidateUtil.isSignedFloat("-12.34"); // true
 
 > `static` **isSignedInteger**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:339](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L339)
+Defined in: [validate/validateUtil.ts:339](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L339)
 
 验证是否为有符号整数
 
@@ -839,7 +839,7 @@ ValidateUtil.isSignedInteger("-12"); // true
 
 > `static` **isSpaceEnd**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:387](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L387)
+Defined in: [validate/validateUtil.ts:387](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L387)
 
 验证是否以空格结尾
 
@@ -865,7 +865,7 @@ ValidateUtil.isSpaceEnd("abc "); // true
 
 > `static` **isSpaceInclude**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:363](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L363)
+Defined in: [validate/validateUtil.ts:363](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L363)
 
 验证是否包含空格
 
@@ -891,7 +891,7 @@ ValidateUtil.isSpaceInclude("a b"); // true
 
 > `static` **isSpaceStart**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:375](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L375)
+Defined in: [validate/validateUtil.ts:375](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L375)
 
 验证是否以空格开头
 
@@ -917,7 +917,7 @@ ValidateUtil.isSpaceStart(" abc"); // true
 
 > `static` **isSpaceStartOrEnd**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:398](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L398)
+Defined in: [validate/validateUtil.ts:398](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L398)
 
 验证是否以空格开头或结尾
 
@@ -943,7 +943,7 @@ ValidateUtil.isSpaceStartOrEnd(" abc"); // true
 
 > `static` **isTelephone**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:26](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L26)
+Defined in: [validate/validateUtil.ts:26](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L26)
 
 验证是否为固定电话
 
@@ -969,7 +969,7 @@ ValidateUtil.isTelephone("010-12345678"); // true
 
 > `static` **isThunderLink**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:86](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L86)
+Defined in: [validate/validateUtil.ts:86](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L86)
 
 验证是否为迅雷链接
 
@@ -995,7 +995,7 @@ ValidateUtil.isThunderLink("thunder://QUFodHRwOi8vZXhhbXBsZS5jb20vZmlsZQ=="); //
 
 > `static` **isUnsignedFloat**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:327](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L327)
+Defined in: [validate/validateUtil.ts:327](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L327)
 
 验证是否为无符号浮点数
 
@@ -1021,7 +1021,7 @@ ValidateUtil.isUnsignedFloat("12.34"); // true
 
 > `static` **isUnsignedInteger**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:351](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L351)
+Defined in: [validate/validateUtil.ts:351](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L351)
 
 验证是否为无符号整数
 
@@ -1047,7 +1047,7 @@ ValidateUtil.isUnsignedInteger("12"); // true
 
 > `static` **isUSCC**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:105](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L105)
+Defined in: [validate/validateUtil.ts:105](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L105)
 
 验证是否为统一社会信用代码（USCC / USCI / USCCS）
 - 固定 18 位：1 位登记管理部门码 + 1 位机构类别码 + 6 位行政区划码 + 9 位主体标识码 + 1 位校验码
@@ -1081,7 +1081,7 @@ ValidateUtil.isUSCC("A1350100M000100Y43"); // true (A 开头"其他"部门码)
 
 > `static` **isUSCCS**(`input`): `boolean`
 
-Defined in: [validate/validateUtil.ts:122](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/validate/validateUtil.ts#L122)
+Defined in: [validate/validateUtil.ts:122](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/validate/validateUtil.ts#L122)
 
 验证是否为统一社会信用代码（同 `isUSCC`）
 - USCC / USCI / USCCS 均指统一社会信用代码，固定 18 位

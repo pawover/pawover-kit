@@ -6,7 +6,7 @@
 
 # Class: EnvUtil
 
-Defined in: [env/envUtil.ts:8](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L8)
+Defined in: [env/envUtil.ts:8](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L8)
 
 环境检查工具类
 - ⚠️ `isBrowser` / `isWebWorker` / `isReactNative` 基于静态字段判定，在**模块加载时**求值一次。
@@ -28,7 +28,7 @@ Defined in: [env/envUtil.ts:8](https://github.com/pawover/pawover-kit/blob/75626
 
 > `readonly` `static` **BREAK\_POINT**: `object`
 
-Defined in: [env/envUtil.ts:22](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L22)
+Defined in: [env/envUtil.ts:22](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L22)
 
 断点阈值常量表 —— 设备分类默认参数（768 / 1200）的唯一来源
 
@@ -53,7 +53,7 @@ EnvUtil.BREAK_POINT.XL; // 1200
 
 > `static` **isBrowser**(): `boolean`
 
-Defined in: [env/envUtil.ts:36](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L36)
+Defined in: [env/envUtil.ts:36](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L36)
 
 检测是否处于浏览器环境
 
@@ -75,7 +75,7 @@ EnvUtil.isBrowser(); // true: 浏览器, false: Node.js
 
 > `static` **isDesktop**(`minWidth?`, `minScreenSize?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:108](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L108)
+Defined in: [env/envUtil.ts:108](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L108)
 
 检测当前设备是否为桌面设备
 
@@ -121,7 +121,7 @@ EnvUtil.isDesktop(1440, 13); // 更严格的桌面检测
 
 > `static` **isIframe**(): `boolean`
 
-Defined in: [env/envUtil.ts:75](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L75)
+Defined in: [env/envUtil.ts:75](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L75)
 
 检查是否在 iframe 环境中
 
@@ -143,7 +143,7 @@ EnvUtil.isIframe(); // true: 当前页面在 iframe 中
 
 > `static` **isIOSMobile**(`maxWidth?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:237](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L237)
+Defined in: [env/envUtil.ts:237](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L237)
 
 检测当前设备是否为IOS移动设备
 
@@ -180,7 +180,7 @@ EnvUtil.isIOSMobile(); // true
 
 > `static` **isMacOSDesktop**(`minWidth?`, `minScreenSize?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:174](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L174)
+Defined in: [env/envUtil.ts:174](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L174)
 
 检测当前设备是否为 macOS 桌面设备
 
@@ -223,7 +223,7 @@ EnvUtil.isMacOSDesktop(); // true
 
 > `static` **isMobile**(`maxWidth?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:196](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L196)
+Defined in: [env/envUtil.ts:196](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L196)
 
 检测当前设备是否为移动设备
 
@@ -260,7 +260,7 @@ EnvUtil.isMobile(); // true
 
 > `static` **isReactNative**(): `boolean`
 
-Defined in: [env/envUtil.ts:62](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L62)
+Defined in: [env/envUtil.ts:62](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L62)
 
 检测是否处于 React Native 环境
 
@@ -282,7 +282,7 @@ EnvUtil.isReactNative(); // true: React Native, false: Web/Node.js
 
 > `static` **isTablet**(`minWidth?`, `maxWidth?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:261](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L261)
+Defined in: [env/envUtil.ts:261](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L261)
 
 检测当前设备是否为平板
 
@@ -326,7 +326,7 @@ EnvUtil.isTablet(); // true
 
 > `static` **isWebWorker**(): `boolean`
 
-Defined in: [env/envUtil.ts:49](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L49)
+Defined in: [env/envUtil.ts:49](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L49)
 
 检测是否处于 Web Worker 环境
 
@@ -348,7 +348,7 @@ EnvUtil.isWebWorker(); // true: Worker, false: 主线程/Node.js
 
 > `static` **isWindowsDesktop**(`minWidth?`, `minScreenSize?`, `dpi?`): `boolean`
 
-Defined in: [env/envUtil.ts:151](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/env/envUtil.ts#L151)
+Defined in: [env/envUtil.ts:151](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/env/envUtil.ts#L151)
 
 检测当前设备是否为 Windows 桌面设备
 

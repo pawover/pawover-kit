@@ -8,7 +8,7 @@
 
 > **useMount**(`effect`): `void`
 
-Defined in: [react/useMount.ts:24](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/react/useMount.ts#L24)
+Defined in: [react/useMount.ts:24](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/react/useMount.ts#L24)
 
 在组件初始化时执行的 Hook
 - 即使在严格模式（React StrictMode）也只执行一次

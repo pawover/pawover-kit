@@ -6,11 +6,11 @@
 
 # Class: I18nUtil
 
-Defined in: [i18n/i18nUtil.ts:10](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L10)
+Defined in: [i18n/i18nUtil.ts:10](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L10)
 
 国际化（i18n）工具类
 - 统一处理 BCP 47 语言标签（如 `"en"` / `"en-US"`）的规范化、拆分与展示名称查询
-- `LOCALE_ENUM` 与 `PRIMARY_LANGUAGE_ENUM` 提供完整的 Locale / 代表语言条目枚举
+- `LOCALE_ENUM` 与 `PRIMARY_LANGUAGE_ENUM` 提供完整的 Locale / 主要代表语言枚举
 
 ## Constructors
 
@@ -28,10 +28,10 @@ Defined in: [i18n/i18nUtil.ts:10](https://github.com/pawover/pawover-kit/blob/75
 
 > `readonly` `static` **LOCALE\_ENUM**: `object`
 
-Defined in: [i18n/i18nUtil.ts:28](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L28)
+Defined in: [i18n/i18nUtil.ts:28](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L28)
 
 全部国家/地区的完整 Locale 枚举（BCP 47 格式）
-- 键为 ISO 3166-1 alpha-2 国家/地区代码（共 248 项，南极洲 AQ 无常驻人口及官方语言故不收录），值为该国家/地区代表语言的完整 Locale（`语言-地区` 规范形式）
+- 键为 ISO 3166-1 alpha-2 国家/地区代码（共 248 项，南极洲 AQ 无常驻人口及官方语言故不收录），值为该国家/地区的地区收录语言的完整 Locale（`语言-地区` 规范形式）
 - 按联合国 M.49 地理区域分组，组内按国家/地区代码字母序排列
 - 用于 `Intl` API 的本地化格式化，其值覆盖 `PRIMARY_LANGUAGE_ENUM` 的映射范围
 
@@ -1541,9 +1541,9 @@ new Intl.NumberFormat(I18nUtil.LOCALE_ENUM.US).format(1234.56); // "1,234.56"
 
 > `readonly` `static` **PRIMARY\_LANGUAGE\_ENUM**: `object`
 
-Defined in: [i18n/i18nUtil.ts:556](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L556)
+Defined in: [i18n/i18nUtil.ts:556](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L556)
 
-代表语言条目枚举：语言子标签（小写）→ 代表地区的完整 Locale（BCP 47 格式）
+主要代表语言枚举：语言子标签（小写）→ 代表地区的完整 Locale（BCP 47 格式）
 - 覆盖 `LOCALE_ENUM` 出现的全部 74 种语言，值为各语言的代表国家/地区完整 Locale
 - 作为 `toFullLocale` 的规范化映射源：输入语言子标签时按此表映射（大小写不敏感）
 - 键为 ISO 639-1 语言代码（唯一例外：比斯拉马语 `bi` 无 639-1 码，采用 ISO 639-2/3）
@@ -2013,7 +2013,7 @@ new Intl.DateTimeFormat(I18nUtil.PRIMARY_LANGUAGE_ENUM.de).format(new Date());
 
 > `static` **toBaseLanguage**\<`T`\>(`locale`, `fallback?`): [`ToBaseLanguage`](../type-aliases/ToBaseLanguage.md)\<`T`\>
 
-Defined in: [i18n/i18nUtil.ts:839](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L839)
+Defined in: [i18n/i18nUtil.ts:839](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L839)
 
 提取语言子标签（去掉地区子标签）
 - 按 `-` 切分并取首段：`"en-US"` → `"en"`，`"en"` → `"en"`
@@ -2073,7 +2073,7 @@ I18nUtil.toBaseLanguage(undefined); // undefined
 
 > `static` **toBaseLanguage**(`locale`, `fallback`): `string`
 
-Defined in: [i18n/i18nUtil.ts:840](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L840)
+Defined in: [i18n/i18nUtil.ts:840](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L840)
 
 提取语言子标签（去掉地区子标签）
 - 按 `-` 切分并取首段：`"en-US"` → `"en"`，`"en"` → `"en"`
@@ -2127,7 +2127,7 @@ I18nUtil.toBaseLanguage(undefined); // undefined
 
 > `static` **toBaseLanguage**(`locale`, `fallback?`): `string` \| `null` \| `undefined`
 
-Defined in: [i18n/i18nUtil.ts:841](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L841)
+Defined in: [i18n/i18nUtil.ts:841](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L841)
 
 提取语言子标签（去掉地区子标签）
 - 按 `-` 切分并取首段：`"en-US"` → `"en"`，`"en"` → `"en"`
@@ -2185,7 +2185,7 @@ I18nUtil.toBaseLanguage(undefined); // undefined
 
 > `static` **toFullLocale**\<`T`\>(`locale`, `fallback?`): [`ToFullLocale`](../type-aliases/ToFullLocale.md)\<`T`\>
 
-Defined in: [i18n/i18nUtil.ts:742](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L742)
+Defined in: [i18n/i18nUtil.ts:742](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L742)
 
 规范化为完整 Locale（语言 + 地区，BCP 47）
 - 输入为语言子标签（如 `"en"`、`"zh"`）时，按 `PRIMARY_LANGUAGE_ENUM` 映射为对应语言的代表国家/地区完整 Locale（如 `"en-US"`、`"zh-CN"`），查找对大小写不敏感
@@ -2246,7 +2246,7 @@ I18nUtil.toFullLocale(undefined); // undefined
 
 > `static` **toFullLocale**(`locale`, `fallback`): `string`
 
-Defined in: [i18n/i18nUtil.ts:743](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L743)
+Defined in: [i18n/i18nUtil.ts:743](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L743)
 
 规范化为完整 Locale（语言 + 地区，BCP 47）
 - 输入为语言子标签（如 `"en"`、`"zh"`）时，按 `PRIMARY_LANGUAGE_ENUM` 映射为对应语言的代表国家/地区完整 Locale（如 `"en-US"`、`"zh-CN"`），查找对大小写不敏感
@@ -2301,7 +2301,7 @@ I18nUtil.toFullLocale(undefined); // undefined
 
 > `static` **toFullLocale**(`locale`, `fallback?`): `string` \| `null` \| `undefined`
 
-Defined in: [i18n/i18nUtil.ts:744](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L744)
+Defined in: [i18n/i18nUtil.ts:744](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L744)
 
 规范化为完整 Locale（语言 + 地区，BCP 47）
 - 输入为语言子标签（如 `"en"`、`"zh"`）时，按 `PRIMARY_LANGUAGE_ENUM` 映射为对应语言的代表国家/地区完整 Locale（如 `"en-US"`、`"zh-CN"`），查找对大小写不敏感
@@ -2360,7 +2360,7 @@ I18nUtil.toFullLocale(undefined); // undefined
 
 > `static` **toLocaleDisplayName**(`input`, `options?`): `string`
 
-Defined in: [i18n/i18nUtil.ts:789](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L789)
+Defined in: [i18n/i18nUtil.ts:789](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L789)
 
 获取展示名称（本地化名称，基于 `Intl.DisplayNames`，名称数据来自 CLDR）
 - 输入形态决定缺省名称类型：2 字母大写 = 国家/地区代码（`CountryCode`）→ 地区名（如 `"US"` → `"美国"`）；其余（语言子标签 / 完整 Locale）→ 语言名（如 `"en"` → `"英语"`、`"en-US"` → 含语言与地区的名称，如「美国英语」）
@@ -2413,7 +2413,7 @@ I18nUtil.toLocaleDisplayName(undefined); // undefined
 
 > `static` **toLocaleDisplayName**(`input`, `options?`): `string` \| `null` \| `undefined`
 
-Defined in: [i18n/i18nUtil.ts:790](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/i18n/i18nUtil.ts#L790)
+Defined in: [i18n/i18nUtil.ts:790](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/i18n/i18nUtil.ts#L790)
 
 获取展示名称（本地化名称，基于 `Intl.DisplayNames`，名称数据来自 CLDR）
 - 输入形态决定缺省名称类型：2 字母大写 = 国家/地区代码（`CountryCode`）→ 地区名（如 `"US"` → `"美国"`）；其余（语言子标签 / 完整 Locale）→ 语言名（如 `"en"` → `"英语"`、`"en-US"` → 含语言与地区的名称，如「美国英语」）

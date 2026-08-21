@@ -6,7 +6,7 @@
 
 # Class: MathUtil
 
-Defined in: [math/mathUtil.ts:9](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/math/mathUtil.ts#L9)
+Defined in: [math/mathUtil.ts:9](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/math/mathUtil.ts#L9)
 
 数学工具类
 - 基于 [`mathjs`](https://mathjs.org)
@@ -27,7 +27,7 @@ Defined in: [math/mathUtil.ts:9](https://github.com/pawover/pawover-kit/blob/756
 
 > `static` **toBignumber**(`mathJsInstance`, `value`, `fallback?`): `BigNumber`
 
-Defined in: [math/mathUtil.ts:24](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/math/mathUtil.ts#L24)
+Defined in: [math/mathUtil.ts:24](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/math/mathUtil.ts#L24)
 
 将任意类型的值转换为 `math.bignumber`
 
@@ -73,7 +73,7 @@ MathUtil.toBignumber(math, "0.1");
 
 > `static` **toDecimal**(`mathJsInstance`, `value`, `precision?`, `isFormat?`): `string`
 
-Defined in: [math/mathUtil.ts:55](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/math/mathUtil.ts#L55)
+Defined in: [math/mathUtil.ts:55](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/math/mathUtil.ts#L55)
 
 将任意类型的值转换为十进制数字字符串
 
@@ -123,7 +123,7 @@ MathUtil.toDecimal(math, 0.12345, 2, false); // BigNumber(0.12345)
 
 > `static` **toDecimal**(`mathJsInstance`, `value`, `precision?`, `isFormat?`): `BigNumber`
 
-Defined in: [math/mathUtil.ts:56](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/math/mathUtil.ts#L56)
+Defined in: [math/mathUtil.ts:56](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/math/mathUtil.ts#L56)
 
 将任意类型的值转换为十进制数字字符串
 
@@ -175,7 +175,7 @@ MathUtil.toDecimal(math, 0.12345, 2, false); // BigNumber(0.12345)
 
 > `static` **toEvaluate**(`mathJsInstance`, `expr`, `scope?`): `string`
 
-Defined in: [math/mathUtil.ts:78](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/math/mathUtil.ts#L78)
+Defined in: [math/mathUtil.ts:78](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/math/mathUtil.ts#L78)
 
 数学表达式求值
 

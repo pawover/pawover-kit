@@ -8,7 +8,7 @@
 
 > **useResponsive**(`options?`): `object`
 
-Defined in: [react/useResponsive.ts:72](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/react/useResponsive.ts#L72)
+Defined in: [react/useResponsive.ts:72](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/react/useResponsive.ts#L72)
 
 屏幕响应式 Hook，监听窗口尺寸变化并返回各断点命中状态
 - 全局仅注册一个 resize 监听器，按「断点 token 签名」共享计算结果：token 相同的实例共享一次计算与状态

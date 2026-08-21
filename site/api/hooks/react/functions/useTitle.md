@@ -8,7 +8,7 @@
 
 > **useTitle**(`title`, `options?`): `void`
 
-Defined in: [react/useTitle.ts:19](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/react/useTitle.ts#L19)
+Defined in: [react/useTitle.ts:19](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/react/useTitle.ts#L19)
 
 设置页面标题
 - 轻量级，适用于无路由库时设置页面标题

@@ -8,6 +8,6 @@
 
 > `const` **integerPositiveAllowEmpty**: `ZodOptional`\<`ZodNullable`\<`ZodNumber`\>\>
 
-Defined in: [type.ts:26](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/zod/src/type.ts#L26)
+Defined in: [type.ts:26](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/zod/src/type.ts#L26)
 
 整数-正整数和零-可空
