@@ -1,12 +1,12 @@
-import { pathToFileURL } from "node:url";
-import { resolve } from "node:path";
-import { createRequire } from "node:module";
-
 /**
  * Post-build smoke test.
  * Run after `pnpm build` to verify dist entries are importable.
- * Usage: node test/scripts/smoke.mjs
+ * Usage: node test/scripts/smoke.ts
  */
+
+import { createRequire } from "node:module";
+import { resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 
 const root = resolve(import.meta.dirname, "../..");
 const require = createRequire(import.meta.url);

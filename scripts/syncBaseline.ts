@@ -1,7 +1,3 @@
-import { execSync } from "node:child_process";
-import { readdirSync } from "node:fs";
-import { PACKAGE_FILES, VERSION_FILES } from "./packages.mjs";
-
 /**
  * 发布后基线同步脚本（main 发布成功 → 稳定版版本号回推 feature）。
  *
@@ -22,36 +18,43 @@ import { PACKAGE_FILES, VERSION_FILES } from "./packages.mjs";
  *  - 推送失败不阻断（警告 + 退出 0）：发布已完成，同步是善后动作。
  *
  * 用法：
- *   node scripts/syncBaseline.mjs            # 完整执行（合并 + 推送）
- *   node scripts/syncBaseline.mjs --no-push  # 仅合并，不推送（本地演练）
+ *   node scripts/syncBaseline.ts            # 完整执行（合并 + 推送）
+ *   node scripts/syncBaseline.ts --no-push  # 仅合并，不推送（本地演练）
  *
  * 退出码：
  *   0 同步完成 / 无需同步 / 守卫跳过（原因已打印）
  *   1 环境异常（非 feature 分支 / 工作区不干净 / 合并异常）
  */
+
+import { execSync } from "node:child_process";
+import { readdirSync } from "node:fs";
+import { PACKAGE_FILES, VERSION_FILES } from "./packages.ts";
+
 const SYNC_BRANCH = "feature";
 const MAIN_BRANCH = "main";
 
-function run(cmd, options = {}) {
+function run (cmd: string, options = {}) {
   return execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options });
 }
 
-function git(...args) {
+function git (...args: string[]) {
   return run(`git ${args.map((a) => JSON.stringify(a)).join(" ")}`).trim();
 }
 
-function isAncestor(ancestor, descendant) {
+function isAncestor (ancestor: string, descendant: string) {
   try {
     run(`git merge-base --is-ancestor ${ancestor} ${descendant}`, { stdio: "ignore" });
+
     return true;
   } catch {
     return false;
   }
 }
 
-function hasMergeInProgress() {
+function hasMergeInProgress () {
   try {
     run("git rev-parse --verify --quiet MERGE_HEAD", { stdio: "ignore" });
+
     return true;
   } catch {
     return false;
@@ -59,17 +62,17 @@ function hasMergeInProgress() {
 }
 
 /** 允许随同步进入 feature 的路径：版本文件 + pre 模式归档。 */
-function isAllowed(file) {
+function isAllowed (file: string) {
   return VERSION_FILES.has(file) || file.startsWith(".changeset/pre/");
 }
 
 /** 根目录待消费 changeset（pre/ 是子目录，天然被 .md 过滤排除）。 */
-function pendingChangesets() {
+function pendingChangesets () {
   return readdirSync(".changeset").filter((f) => f.endsWith(".md") && f !== "README.md");
 }
 
 /** git config --get 失败（未设置）时返回空串。 */
-function gitConfig(name) {
+function gitConfig (name: string) {
   try {
     return run(`git config --get ${name}`).trim();
   } catch {
@@ -77,11 +80,11 @@ function gitConfig(name) {
   }
 }
 
-function warn(message) {
+function warn (message: string) {
   console.log(`   ⚠ ${message}`);
 }
 
-async function main() {
+async function main () {
   const noPush = process.argv.includes("--no-push");
   const branch = git("rev-parse", "--abbrev-ref", "HEAD");
   if (branch !== SYNC_BRANCH) {
@@ -100,6 +103,7 @@ async function main() {
 
   if (pendingChangesets().length > 0) {
     warn(`feature 存在待消费 changeset（${pendingChangesets().join(", ")}），跳过基线同步（version PR 流程优先）`);
+
     return;
   }
 
@@ -111,26 +115,30 @@ async function main() {
   const unexpected = mainChanged.filter((f) => !isAllowed(f));
   if (unexpected.length > 0) {
     warn(
-      `main 相对合并基含 feature 没有的变更（${unexpected.join(", ")}），` +
-        `跳过自动基线同步，请手动 git merge origin/${MAIN_BRANCH} 后重跑`,
+      `main 相对合并基含 feature 没有的变更（${unexpected.join(", ")}），`
+      + `跳过自动基线同步，请手动 git merge origin/${MAIN_BRANCH} 后重跑`,
     );
+
     return;
   }
 
   console.log("② 合并 origin/main（冲突取 main 侧稳定版本）");
   if (isAncestor(`origin/${MAIN_BRANCH}`, "HEAD")) {
     console.log("   ✔ 基线已是最新，无需同步");
+
     return;
   }
   if (!gitConfig("user.name") || !gitConfig("user.email")) {
-    run('git config user.name "github-actions[bot]"');
-    run('git config user.email "41898282+github-actions[bot]@users.noreply.github.com"');
+    run("git config user.name \"github-actions[bot]\"");
+    run("git config user.email \"41898282+github-actions[bot]@users.noreply.github.com\"");
   }
   try {
     git("merge", `origin/${MAIN_BRANCH}`, "--no-edit", "-X", "theirs");
   } catch (err) {
-    if (hasMergeInProgress()) run("git merge --abort", { stdio: "ignore" });
-    throw new Error(`合并 origin/${MAIN_BRANCH} 失败（已回滚）：${String(err.stderr ?? err.message).trim().slice(0, 300)}`);
+    if (hasMergeInProgress()) {
+      run("git merge --abort", { stdio: "ignore" });
+    }
+    throw new Error(`合并 origin/${MAIN_BRANCH} 失败（已回滚）：${String((err as any).stderr ?? (err as any).message).trim().slice(0, 300)}`);
   }
 
   console.log("③ 校验合并结果（相对 origin/feature 应仅版本文件 + pre 归档）");
@@ -152,6 +160,7 @@ async function main() {
 
   if (noPush) {
     console.log("④ 跳过推送（--no-push）");
+
     return;
   }
   console.log(`④ 推送 origin/${SYNC_BRANCH}`);
@@ -160,8 +169,8 @@ async function main() {
     console.log("   ✔ 基线同步完成（main 稳定版本已回推 feature）");
   } catch (err) {
     warn(
-      `推送失败：${String(err.stderr ?? err.message).trim().slice(0, 200)}。` +
-        `请手动运行 git push origin ${SYNC_BRANCH}（或按文档手动基线同步）`,
+      `推送失败：${String((err as any).stderr ?? (err as any).message).trim().slice(0, 200)}。`
+      + `请手动运行 git push origin ${SYNC_BRANCH}（或按文档手动基线同步）`,
     );
   }
 }

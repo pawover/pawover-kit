@@ -117,7 +117,7 @@ Common commands:
 
 A **dual-channel release model** driven by Changesets v3 + GitHub Actions (full details in [.changeset/README.md](./.changeset/README.md)):
 
-- **feature = alpha pre-release channel**: pushing to `feature` is fully automatic — CI guard (`verifyReleasePlan.mjs`) → select-mode → version PR → version job merges once CI is green → dispatch triggers publish, releasing under the `alpha` dist-tag
+- **feature = alpha pre-release channel**: pushing to `feature` is fully automatic — CI guard (`verifyReleasePlan.ts`) → select-mode → version PR → version job merges once CI is green → dispatch triggers publish, releasing under the `alpha` dist-tag
 - **main = stable channel**: code only lands via a **release merge** — `pnpm release:merge` (sync checks → strip prerelease → collision guard → create release-main PR) → **manual merge of the PR** (the human gate for stable releases) → publish `latest` → CI pushes the stable version back to `feature` (baseline sync, next alpha bumps on top of the new stable)
 - **Core design**: there is always a human gate between alpha and stable — no automation ever crosses it
 

@@ -1,8 +1,3 @@
-import { execSync } from "node:child_process";
-import { readFileSync, readdirSync, existsSync } from "node:fs";
-import path from "node:path";
-import { SUB_PACKAGES, VERSION_FILES } from "./packages.mjs";
-
 /**
  * 发布计划守卫（tag 感知版）：
  * 在 CI push 时运行，校验「子包有源码变更 ⇒ 必须有待消费 changeset」，
@@ -19,14 +14,19 @@ import { SUB_PACKAGES, VERSION_FILES } from "./packages.mjs";
  *  - 源码变更 + 无 tag → 拦截（开发改动没有 changeset）。
  *
  * 用法（在 ci.yml 的 push 事件步骤中）：
- *   node scripts/verifyReleasePlan.mjs
+ *   node scripts/verifyReleasePlan.ts
  *
  * 退出码：
  *   0 计划合法（存在待消费 changeset，或仅版本文件变更，或变更子包均已发布）
  *   1 存在子包源码变更但没有 changeset，且当前版本未发布
  */
 
-function mergeBase() {
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import path from "node:path";
+import { SUB_PACKAGES, VERSION_FILES } from "./packages.ts";
+
+function mergeBase () {
   try {
     return execSync("git merge-base main HEAD", { encoding: "utf8" }).trim();
   } catch {
@@ -39,8 +39,11 @@ function mergeBase() {
  * v3.0.0 的 pre 模式 version 会把消费的 changeset 移动到 .changeset/pre/，
  * 这些归档不应被当作待消费 changeset，否则 status 会被归档撑起、守卫失效。
  */
-function pendingChangesets() {
-  if (!existsSync(".changeset")) return [];
+function pendingChangesets () {
+  if (!existsSync(".changeset")) {
+    return [];
+  }
+
   return readdirSync(".changeset").filter((file) => file.endsWith(".md") && file !== "README.md");
 }
 
@@ -77,8 +80,11 @@ const changedStatuses = execSync(`git diff --name-status ${base} HEAD`, { encodi
   .filter(Boolean);
 const changesetConsumed = changedStatuses.some((line) => {
   const [status, file] = line.split("\t");
-  if (!file || !file.startsWith(".changeset/")) return false;
-  return status.startsWith("D") || file.startsWith(".changeset/pre/");
+  if (!file || !file.startsWith(".changeset/")) {
+    return false;
+  }
+
+  return status?.startsWith("D") || file?.startsWith(".changeset/pre/");
 });
 
 // 无子包源码变更 → 放行。覆盖三类提交：
@@ -112,6 +118,8 @@ if (unreleased.length === 0) {
 
 console.error("❌ 发布计划校验失败：");
 console.error("   以下子包存在源码变更但没有待消费 changeset，且当前版本尚未发布：");
-for (const { dir, version } of unreleased) console.error(`   - packages/${dir}（${version}）`);
+for (const { dir, version } of unreleased) {
+  console.error(`   - packages/${dir}（${version}）`);
+}
 console.error("   请运行 pnpm changeset add 添加 changeset（或 changeset add --empty 声明无需发版）。");
 process.exit(1);

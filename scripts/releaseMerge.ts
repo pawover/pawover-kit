@@ -1,8 +1,3 @@
-import { execSync } from "node:child_process";
-import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import path from "node:path";
-import { PACKAGE_FILES } from "./packages.mjs";
-
 /**
  * 发布合并脚本（feature → main 正式版发布入口）：
  * 在 feature 分支上运行，完成发布合并的所有准备动作并自动打开 PR。
@@ -29,66 +24,80 @@ import { PACKAGE_FILES } from "./packages.mjs";
  *  0 成功（PR 已创建或已存在）
  *  1 前置校验失败 / 合并冲突 / 版本撞车 / 网络或 API 错误
  */
+
+import { execSync } from "node:child_process";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { PACKAGE_FILES } from "./packages.ts";
+
 const HEAD_BRANCH = "release-main";
 
-function isAncestor(ancestor, descendant) {
+function isAncestor (ancestor: string, descendant: string) {
   try {
     run(`git merge-base --is-ancestor ${ancestor} ${descendant}`, { stdio: "ignore" });
+
     return true;
   } catch {
     return false;
   }
 }
 
-function run(cmd, options = {}) {
+function run (cmd: string, options = {}) {
   return execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options });
 }
 
-function git(...args) {
+function git (...args: string[]) {
   return run(`git ${args.map((a) => JSON.stringify(a)).join(" ")}`).trim();
 }
 
-function hasMergeInProgress() {
+function hasMergeInProgress () {
   try {
     run("git rev-parse --verify --quiet MERGE_HEAD", { stdio: "ignore" });
+
     return true;
   } catch {
     return false;
   }
 }
 
-function getToken() {
-  if (process.env.GH_TOKEN) return process.env.GH_TOKEN;
+function getToken () {
+  if (process.env["GH_TOKEN"]) {
+    return process.env["GH_TOKEN"];
+  }
   const out = run("git credential fill", { input: "protocol=https\nhost=github.com\n\n" });
   const match = out.match(/^password=(.+)$/m);
-  if (!match) throw new Error("git credential 未返回 password，请设置 GH_TOKEN 环境变量");
-  return match[1].trim();
+  if (!match) {
+    throw new Error("git credential 未返回 password，请设置 GH_TOKEN 环境变量");
+  }
+
+  return match[1]!.trim();
 }
 
-async function api(method, url, body) {
+async function api (method: string, url: string, body?: unknown) {
   const token = getToken();
   const res = await fetch(`https://api.github.com${url}`, {
     method,
     headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: "application/vnd.github+json",
+      "Authorization": `Bearer ${token}`,
+      "Accept": "application/vnd.github+json",
       "User-Agent": "pawover-kit-release-merge",
       "Content-Type": "application/json",
     },
-    body: body ? JSON.stringify(body) : undefined,
+    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
   });
   const text = await res.text();
   if (!res.ok) {
     throw new Error(`GitHub API ${method} ${url} -> ${res.status}: ${text.slice(0, 300)}`);
   }
+
   return text ? JSON.parse(text) : null;
 }
 
-function versionOf(file) {
+function versionOf (file: string): string {
   return JSON.parse(readFileSync(file, "utf8")).version;
 }
 
-async function main() {
+async function main () {
   const branch = git("rev-parse", "--abbrev-ref", "HEAD");
   if (branch !== "feature") {
     throw new Error(`必须在 feature 分支运行（当前：${branch}）`);
@@ -108,25 +117,25 @@ async function main() {
     if (isAncestor(remoteHead, localHead)) {
       // 本地领先（冲突解决后 git merge --continue 重跑本脚本即此场景）：
       // 放行，领先提交随 release-main 推送，feature 稍后由用户 push
-      console.log(`   ⚠ 本地 feature（${localHead.slice(0, 7)}）领先 origin/feature（${remoteHead.slice(0, 7)}），` +
-        "放行续跑（领先提交将随 release-main 推送，feature 请稍后 push）");
+      console.log(`   ⚠ 本地 feature（${localHead.slice(0, 7)}）领先 origin/feature（${remoteHead.slice(0, 7)}），`
+        + "放行续跑（领先提交将随 release-main 推送，feature 请稍后 push）");
     } else if (isAncestor(localHead, remoteHead)) {
       throw new Error(
-        `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），` +
-          "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
+        `本地 feature（${localHead.slice(0, 7)}）落后于 origin/feature（${remoteHead.slice(0, 7)}），`
+        + "请先 git pull --rebase origin feature 后再运行（否则发布合并内容不完整）",
       );
     } else {
       throw new Error(
-        `本地 feature（${localHead.slice(0, 7)}）与 origin/feature（${remoteHead.slice(0, 7)}）已分叉，` +
-          "请先 git pull --rebase origin feature 后再运行",
+        `本地 feature（${localHead.slice(0, 7)}）与 origin/feature（${remoteHead.slice(0, 7)}）已分叉，`
+        + "请先 git pull --rebase origin feature 后再运行",
       );
     }
   }
   const pending = readdirSync(".changeset").filter((f) => f.endsWith(".md") && f !== "README.md");
   if (pending.length > 0) {
     throw new Error(
-      `存在未消费 changeset：${pending.join(", ")}。发布合并前必须消费（走 version 通道）` +
-        "或删除，否则会污染 main 的 changeset 判定并触发幽灵 version PR",
+      `存在未消费 changeset：${pending.join(", ")}。发布合并前必须消费（走 version 通道）`
+      + "或删除，否则会污染 main 的 changeset 判定并触发幽灵 version PR",
     );
   }
 
@@ -150,7 +159,7 @@ async function main() {
     run(`git rm -r -q ${preDir}`);
     console.log("   ✔ 已剔除 .changeset/pre/ 归档（避免污染 main 的 changeset 判定）");
   }
-  const stripped = [];
+  const stripped: { name: string; version: string }[] = [];
   for (const file of PACKAGE_FILES) {
     const pkg = JSON.parse(readFileSync(file, "utf8"));
     const mainVersion = pkg.version.split("-")[0];
@@ -160,8 +169,12 @@ async function main() {
       stripped.push({ name: pkg.name, version: mainVersion });
     }
   }
-  for (const { name, version } of stripped) console.log(`   ✔ ${name}: 剥离为 ${version}`);
-  if (stripped.length === 0) console.log("   ✔ 无 prerelease 版本");
+  for (const { name, version } of stripped) {
+    console.log(`   ✔ ${name}: 剥离为 ${version}`);
+  }
+  if (stripped.length === 0) {
+    console.log("   ✔ 无 prerelease 版本");
+  }
 
   console.log("③ 防撞车校验（仅检查本次剥离的版本）");
   for (const { name, version } of stripped) {
@@ -170,13 +183,13 @@ async function main() {
       const out = run(`npm view ${name}@${version} version`);
       exists = out.trim() !== "";
     } catch (err) {
-      const stderr = String(err.stderr ?? "");
+      const stderr = String((err as any).stderr ?? "");
       if (/E404|is not in this registry/i.test(stderr)) {
         exists = false;
       } else {
         throw new Error(
-          `防撞车检查失败（npm registry 访问异常，无法确认 ${name}@${version} 是否已发布）：` +
-            stderr.trim().slice(0, 200),
+          `防撞车检查失败（npm registry 访问异常，无法确认 ${name}@${version} 是否已发布）：`
+          + stderr.trim().slice(0, 200),
         );
       }
     }
@@ -198,7 +211,7 @@ async function main() {
   run("git add -A");
   const staged = run("git diff --cached --name-only").trim();
   if (staged) {
-    run('git commit -m "chore: 发布合并准备（剔除归档 + 剥离预发布）"');
+    run("git commit -m \"chore: 发布合并准备（剔除归档 + 剥离预发布）\"");
     console.log("   ✔ 已提交到 release-main（feature 分支版本号暂时保持 alpha 状态，待基线同步 main 分支后回推稳定版本）");
   } else {
     console.log("   ✔ 无变更可提交");
@@ -207,11 +220,13 @@ async function main() {
   console.log("⑤ 清理远端旧 release-main 并推送新分支");
   try {
     const remoteHas = run(`git ls-remote --heads origin ${HEAD_BRANCH}`).trim() !== "";
-    if (remoteHas) run(`git push origin --delete ${HEAD_BRANCH}`);
+    if (remoteHas) {
+      run(`git push origin --delete ${HEAD_BRANCH}`);
+    }
   } catch (err) {
     throw new Error(
-      `清理远端 ${HEAD_BRANCH} 分支失败：${String(err.stderr ?? err.message ?? err).trim().slice(0, 200)}` +
-        `（可能受分支保护，请手动删除后重试）`,
+      `清理远端 ${HEAD_BRANCH} 分支失败：${String((err as any).stderr ?? (err as any).message ?? err).trim().slice(0, 200)}`
+      + "（可能受分支保护，请手动删除后重试）",
     );
   }
   run(`git push -u origin ${HEAD_BRANCH}`);
@@ -220,11 +235,11 @@ async function main() {
   console.log("⑥ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
   const rootVersion = versionOf("package.json");
   const title = `chore: Release merge from feature (${rootVersion})`;
-  const body =
-    "发布合并 PR：将 feature 最新代码与稳定版本号合入 main，合并后自动发布 latest。\n\n" +
-    "**此 PR 不启用 auto-merge，需人工审查版本号后手动合并。**";
+  const body
+    = "发布合并 PR：将 feature 最新代码与稳定版本号合入 main，合并后自动发布 latest。\n\n"
+      + "**此 PR 不启用 auto-merge，需人工审查版本号后手动合并。**";
   const repoUrl = git("config", "--get", "remote.origin.url");
-  const repo = repoUrl.replace(/\.git$/, "").replace(/^.*github\.com[:\/]/, "");
+  const repo = repoUrl.replace(/\.git$/, "").replace(/^.*github\.com[:/]/, "");
   const owner = repo.split("/")[0];
   const existing = await api(
     "GET",
@@ -234,6 +249,7 @@ async function main() {
     console.log(`   ✔ 已存在 open 发布合并 PR #${existing[0].number}：${existing[0].html_url}`);
     console.log("   → 如需重建，请先关闭该 PR 后重跑");
     await cleanup();
+
     return;
   }
   const pr = await api("POST", `/repos/${repo}/pulls`, {
@@ -243,11 +259,11 @@ async function main() {
     body,
   });
   console.log(`   ✔ PR #${pr.number} 已创建：${pr.html_url}`);
-  console.log(`   → 请人工审查版本号后合并（合并后自动发布 latest 正式版）`);
+  console.log("   → 请人工审查版本号后合并（合并后自动发布 latest 正式版）");
   await cleanup();
 }
 
-async function cleanup() {
+async function cleanup () {
   console.log("⑦ 清理本地 release-main 并切回 feature");
   git("switch", "feature");
   try {

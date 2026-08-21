@@ -21,7 +21,7 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 
 根包（`entry/` 目录）发布物仅含 `entry/`（无子包 dist），`dependencies` 声明 5 个子包（`workspace:*`，发布时重写为实际版本）。
 
-**因此发布根包前必须先发布 5 个子包**（尤其 `@pawover/kit-types`、`@pawover/kit-eslint-rules` 首次发布）。`scripts/verifyRelease.mjs` 硬校验「子包发布 ⇒ 根包必发」，防止根包落后。
+**因此发布根包前必须先发布 5 个子包**（尤其 `@pawover/kit-types`、`@pawover/kit-eslint-rules` 首次发布）。`scripts/verifyRelease.ts` 硬校验「子包发布 ⇒ 根包必发」，防止根包落后。
 
 根包 `build` 任务（`scripts/syncEntry.ts`）在 turbo 流水线中同步 `entry/metadata.json` 与 `entry/hooks-metadata.json`（见「构建流水线」）。改根包 exports / entry 后需 `pnpm build` 再跑 `check:eslint`（entry 与根 scripts 已在 eslint ignores）。
 

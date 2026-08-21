@@ -9,19 +9,21 @@
  * 见其 dist/index.cjs 的 module.exports = 与 d.cts 的 export default 形状不一致，待单独修复）。
  * 用法：pnpm check:pack
  */
+
 import { execSync } from "node:child_process";
 import { mkdtempSync, readdirSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { SUB_PACKAGE_DIRS } from "./packages.mjs";
+import { SUB_PACKAGE_DIRS } from "./packages.ts";
 
 const root = resolve(import.meta.dirname, "..");
 
-function collectTargets (node, targets) {
+function collectTargets (node: unknown, targets: string[]): void {
   if (typeof node === "string") {
     if (node.startsWith("./")) {
       targets.push(node);
     }
+
     return;
   }
   if (node !== null && typeof node === "object") {
@@ -31,15 +33,15 @@ function collectTargets (node, targets) {
   }
 }
 
-function validateExportsTargets (packDir, tarball) {
-  const packed = JSON.parse(execSync(`tar -xOf "${join(packDir, tarball)}" package/package.json`, { encoding: "utf8" }));
-  const files = new Set(
+function validateExportsTargets (packDir: string, tarball: string): void {
+  const packed: Record<"exports" | "name", unknown> = JSON.parse(execSync(`tar -xOf "${join(packDir, tarball)}" package/package.json`, { encoding: "utf8" }));
+  const files = new Set<string>(
     execSync(`tar -tf "${join(packDir, tarball)}"`, { encoding: "utf8" })
       .split("\n")
       .map((f) => f.replace(/\r$/, "").replace(/^package\//, ""))
       .filter(Boolean),
   );
-  const targets = [];
+  const targets: string[] = [];
   collectTargets(packed.exports, targets);
   const missing = targets.filter((t) => !t.includes("*") && !files.has(t.replace(/^\.\//, "")));
   if (missing.length > 0) {
