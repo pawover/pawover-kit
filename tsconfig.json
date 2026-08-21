@@ -19,6 +19,7 @@
       "@pawover/kit-types/react": ["./packages/types/src/react.ts"],
       "@pawover/kit-zod": ["./packages/zod/src/index.ts"],
       "@pawover/kit-eslint-rules": ["./packages/eslint-rules/src/index.ts"],
+      "@pawover/kit-internal": ["./packages/internal/src/index.ts"],
       "@pawover/kit-eslint-rules/src/*": ["./packages/eslint-rules/src/*"]
     }
   },

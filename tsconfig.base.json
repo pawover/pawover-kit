@@ -4,6 +4,7 @@
     "allowJs": true,
     "checkJs": true,
     "strict": true,
+    "allowImportingTsExtensions": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "exactOptionalPropertyTypes": true,
