@@ -62,3 +62,36 @@ _Avoid_: 国家名（狭义，仅地区名）、语言名（狭义，仅语言�
 
 联合国 M.49 的大洲级分组（美洲 / 亚洲 / 欧洲 / 非洲 / 大洋洲 / 南极洲）。`LOCALE_ENUM` 仅以注释分组展示，非类型承诺。
 _Avoid_: 地区、区域
+
+## 构建与包结构
+
+### 内部包（Internal Package）
+
+private、不发布、只服务仓库自身构建/脚本流程的包（当前仅 `@pawover/kit-internal`）。
+_Avoid_: 私有包（宽泛）、工具包（指包内模块层级时）
+
+### 发布包（Published Package）
+
+可独立发布到 npm 的 5 个子包（types / utils / hooks / eslint-rules / zod），被根包聚合 re-export。
+_Avoid_: 子包（口语可沿用，正式文档用发布包）
+
+### 内部工具（Internal Tool）
+
+内部包内的一个导出模块（如 `tsdownFixCtsStubs`、`tsdownVisualizerPlugins`）。
+
+### 源码直出（Source-Direct）
+
+包的 `exports` 直接指向 `./src/index.ts`，无需构建产物即可消费：Node ≥ 22.18 type stripping 直跑，TS 经 `preserveSymlinks` 以 node_modules 路径直查源码。
+_Avoid_: 源码直查（另一概念——paths 直查）
+
+### 包边界守卫（Package Boundary Guard）
+
+子包 tsconfig 的 `rootDir` / `composite` 对「包内代码 import 包外 `.ts` 源码」的拦截（TS6059 / TS6307）。内部包经 preserveSymlinks 豁免，但守卫对其他包外 import 保持有效。
+
+### 即时反馈（Instant Feedback）
+
+改内部包源码后，IDE / tsc 无需构建即反映类型错误（源码直出 + preserveSymlinks 的产物）。
+
+### 消费端（Published Artifact）
+
+发布包打出的产物。约定：内部包代码不允许出现在消费端——内部工具仅构建期使用（如 `tsdown.config.ts`），禁止从发布包 `src` 导入内部包（否则会被打包进 dist，违反约定）。

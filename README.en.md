@@ -2,12 +2,12 @@
   <img src="site/public/logo.svg" width="64" alt="pawover-kit logo">
   <h1>pawover-kit</h1>
   <p><a href="README.md">简体中文</a> | <b>English</b></p>
-</div>
 
-[![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
-[![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
+  [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
+  [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  [![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
+</div>
 
 > An open-source TypeScript toolkit: type utilities, static utility classes, React / Alova hooks, ESLint rulesets and Zod schemas, ready to use with complete type definitions.
 
@@ -17,47 +17,45 @@ pawover-kit is a pnpm monorepo made of 5 independently publishable packages. The
 
 ## Features
 
-- **Type-only utilities** `@pawover/kit-types`: no runtime code, providing `AnyObject`, `TreeLike`, the `AnyFunction` family, `AdvancedRecord`, `ApiNameCheck` and more
-- **Static utility classes** `@pawover/kit-utils`: 15+ utility classes covering arrays, strings, objects, trees, currency, dates, math and more
-- **React / Alova hooks** `@pawover/kit-hooks`: `useMount`, `useUnmount`, `useLatest`, `useResponsive`, `useTitle` and Alova request hooks
-- **ESLint rulesets** `@pawover/kit-eslint-rules`: 9 rule groups (javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort) plus `GLOB_EXCLUDE` and `createRules`
-- **Zod v4 schemas** `@pawover/kit-zod`: common validators for id, string, number, boolean, bigint and more
 - Dual ESM / CJS builds with full type declarations
 - `exports` only points to `dist` outputs, resolvable by any toolchain (node / vite / vitest / webpack, etc.)
 
 ## Packages
 
-| Package | Description | Import path |
-| :--- | :--- | :--- |
-| `@pawover/kit-types` | Type-only utilities (no runtime code) | `@pawover/kit/types`, React types via `@pawover/kit/types/react` |
-| `@pawover/kit-utils` | Static utility classes | `@pawover/kit/utils` (also `./math` and `./vite` subpaths) |
-| `@pawover/kit-hooks` | React + Alova hooks | `@pawover/kit/hooks/react`, `@pawover/kit/hooks/alova` |
-| `@pawover/kit-eslint-rules` | ESLint rulesets | `@pawover/kit/eslint-rules` |
-| `@pawover/kit-zod` | Zod v4 schemas | `@pawover/kit/zod` |
+| Package | Description | Import path | Latest version | Downloads |
+| :-- | :-- | :-- | :-- | :-- |
+| `@pawover/kit` | Umbrella root package re-exporting every subpackage | `@pawover/kit/utils`, `@pawover/kit/hooks/react`, etc. | [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) |
+| `@pawover/kit-types` | Type-only utilities (no runtime code): `AnyObject`, `TreeLike`, the `AnyFunction` family and more | `@pawover/kit/types`, React types via `@pawover/kit/types/react` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) |
+| `@pawover/kit-utils` | 15+ static utility classes: arrays, strings, objects, trees, currency, dates, math and more | `@pawover/kit/utils` (also `./math` and `./vite` subpaths) | [![npm version](https://img.shields.io/npm/v/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) |
+| `@pawover/kit-hooks` | 5 React hooks (`useMount` and friends) + Alova request hooks (`useAlovaRequest` and friends) | `@pawover/kit/hooks/react`, `@pawover/kit/hooks/alova` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) |
+| `@pawover/kit-eslint-rules` | 9 rule groups + `GLOB_EXCLUDE` + `createRules` + `Severity` types, flat-config ready | `@pawover/kit/eslint-rules` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) |
+| `@pawover/kit-zod` | Zod v4 validators: id, string, number, boolean, bigint and more | `@pawover/kit/zod` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) |
 
-> [!NOTE]
-> The root export of `@pawover/kit-hooks` is empty. Always import from the `@pawover/kit/hooks/react` or `@pawover/kit/hooks/alova` subpaths.
+<blockquote style="background: rgba(9, 105, 218, 0.05); border-left: 4px solid #0969da; border-radius: 6px; padding: 12px 16px;">
+  <b>📝 Note</b>: The root export of <code>@pawover/kit-hooks</code> is empty. Always import from the <code>@pawover/kit/hooks/react</code> or <code>@pawover/kit/hooks/alova</code> subpaths.
+</blockquote>
 
 ## Installation
 
 Install the umbrella package:
 
 ```bash
-npm install @pawover/kit
+pnpm add @pawover/kit
 ```
 
 Or install individual subpackages:
 
 ```bash
-npm install @pawover/kit-types
-npm install @pawover/kit-utils
-npm install @pawover/kit-hooks
-npm install @pawover/kit-eslint-rules
-npm install @pawover/kit-zod
+pnpm add @pawover/kit-types
+pnpm add @pawover/kit-utils
+pnpm add @pawover/kit-hooks
+pnpm add @pawover/kit-eslint-rules
+pnpm add @pawover/kit-zod
 ```
 
-> [!WARNING]
-> `alova`, `mathjs`, `react`, `vite` and `zod` are optional peer dependencies: install them yourself when using the related features (for example `alova` and `react` are required for `@pawover/kit/hooks/alova`).
+<blockquote style="background: rgba(191, 135, 16, 0.05); border-left: 4px solid #bf870f; border-radius: 6px; padding: 12px 16px;">
+  <b>⚠️ Warning</b>: <code>alova</code>, <code>mathjs</code>, <code>react</code>, <code>vite</code> and <code>zod</code> are optional peer dependencies: install them yourself when using the related features (for example <code>alova</code> and <code>react</code> are required for <code>@pawover/kit/hooks/alova</code>).
+</blockquote>
 
 ## Quick start
 
@@ -119,7 +117,7 @@ Common commands:
 
 A **dual-channel release model** driven by Changesets v3 + GitHub Actions (full details in [.changeset/README.md](./.changeset/README.md)):
 
-- **feature = alpha pre-release channel**: pushing to `feature` is fully automatic — CI guard (`verify-release-plan.mjs`) → select-mode → version PR → version job merges once CI is green → dispatch triggers publish, releasing under the `alpha` dist-tag
+- **feature = alpha pre-release channel**: pushing to `feature` is fully automatic — CI guard (`verifyReleasePlan.mjs`) → select-mode → version PR → version job merges once CI is green → dispatch triggers publish, releasing under the `alpha` dist-tag
 - **main = stable channel**: code only lands via a **release merge** — `pnpm release:merge` (sync checks → strip prerelease → collision guard → create release-main PR) → **manual merge of the PR** (the human gate for stable releases) → publish `latest` → CI pushes the stable version back to `feature` (baseline sync, next alpha bumps on top of the new stable)
 - **Core design**: there is always a human gate between alpha and stable — no automation ever crosses it
 
@@ -148,5 +146,5 @@ tsdown (build:source) → metadata extraction (build:metadata) → turbo build
 ```
 
 - **tsdown** produces the bundles and type declarations
-- **sync-entry.ts** (root postbuild) reads the runtime exports of utils / hooks from dist and writes `entry/metadata.json` and `entry/hooks-metadata.json`
+- **syncEntry.ts** (root postbuild) reads the runtime exports of utils / hooks from dist and writes `entry/metadata.json` and `entry/hooks-metadata.json`
 - In-repo tests (`test:types` / vitest) resolve the source directly via tsconfig `paths` and `resolve.alias` — no build needed before testing
