@@ -63,8 +63,8 @@ flowchart TD
         mode_version --> ver_a["a. pnpm changeset status（校验待消费 changeset 合法）"]
         ver_a --> ver_b["b. pre mode：feature → pnpm pre:enter-alpha<br/>（main 且根包版本含 - → enter + exit 毕业安全网）"]
         ver_b --> ver_c["c. pnpm ci:version = changeset version<br/>（pre 模式：0.0.1 → 0.0.2-alpha.0，消费的 changeset 移入 pre/ 归档）"]
-        ver_c --> ver_c2["→ scripts/bumpRoot.mjs：根包 0.9.0 → 0.9.1-alpha.0<br/>（硬校验子包变 ⇒ 根包变）"]
-        ver_c2 --> ver_c3["→ scripts/verifyRelease.mjs（子包发布 ⇒ 根包必发）"]
+        ver_c --> ver_c2["→ scripts/bumpRoot.ts：根包 0.9.0 → 0.9.1-alpha.0<br/>（硬校验子包变 ⇒ 根包变）"]
+        ver_c2 --> ver_c3["→ scripts/verifyRelease.ts（子包发布 ⇒ 根包必发）"]
         ver_c3 --> ver_c4["→ pnpm install（锁文件更新）"]
         ver_c4 --> ver_d["d. changesets/action/version：推送 changeset-release/feature 分支<br/>+ 创建/更新 PR「Version Packages (alpha) - 2026-08-13」<br/>（base = 推送分支，pre 模式自动追加 alpha 后缀）"]
         ver_d --> pr_node["Version Packages（alpha）PR<br/>changeset-release/feature → feature"]
@@ -83,7 +83,7 @@ flowchart TD
 
     %% ============ 阶段三 · 发布合并（人工闸门） ============
     subgraph S3["阶段三 · 发布合并（人工闸门）"]
-        rm["👆 人工：在 feature 分支运行 pnpm release:merge<br/>（scripts/releaseMerge.mjs）"]
+        rm["👆 人工：在 feature 分支运行 pnpm release:merge<br/>（scripts/releaseMerge.ts）"]
         rm --> rm1["① 前置校验：在 feature / 工作区干净 / 无未完成合并<br/>与 origin/feature 同步 / 无未消费 changeset<br/>（防止内容不完整或污染 main 判定）"]
         rm1 --> rm2["② git fetch + git merge origin/main --no-edit"]
         rm2 -->|"无冲突"| rm3["③ 剔除 .changeset/pre/ 归档（git rm -r）<br/>（防止污染 main 的 changeset 判定）"]
@@ -134,7 +134,7 @@ flowchart TD
 | alpha bump（pre 模式） | `0.1.0-alpha.0` | minor | `0.2.0-alpha.0` |
 | 发布合并剥离 | `0.0.2-alpha.0` | — | `0.0.2`（数字不变，剥 prerelease） |
 
-- 根包版本由 `bumpRoot.mjs` 按子包 bump 类型 + pre 计数同步：首次进入 pre 时主数字 +1（`0.9.0 → 0.9.1-alpha.0`），pre 模式内 patch 仅递增 pre 计数（`0.9.1-alpha.0 → 0.9.1-alpha.1`），与 changesets 子包行为一致。
+- 根包版本由 `bumpRoot.ts` 按子包 bump 类型 + pre 计数同步：首次进入 pre 时主数字 +1（`0.9.0 → 0.9.1-alpha.0`），pre 模式内 patch 仅递增 pre 计数（`0.9.1-alpha.0 → 0.9.1-alpha.1`），与 changesets 子包行为一致。
 - 剥离后的版本必须大于 main 已发布版本（单调），且不等于任何已发布版本（防撞车）。
 - **release:merge 合并冲突必须取 feature 侧版本**——pre 计数从当前版本号推导，取 main 侧会把已发布的 alpha 版本号丢弃，导致下一轮重复 bump 到已发布版本：
 
@@ -147,9 +147,9 @@ flowchart TD
 
 | 守卫 | 位置 | 作用 |
 | --- | --- | --- |
-| `verifyReleasePlan.mjs` | CI push 事件 | 无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截 |
-| `verifyRelease.mjs` | ci:version 内（bump-root 之后） | 子包发布 ⇒ 根包必发 |
-| `bumpRoot.mjs` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
+| `verifyReleasePlan.ts` | CI push 事件 | 无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截 |
+| `verifyRelease.ts` | ci:version 内（bump-root 之后） | 子包发布 ⇒ 根包必发 |
+| `bumpRoot.ts` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |
 | `release:merge` 防撞车 | 发布合并脚本 | 剥离后版本已发布 → 停止 |
 | `sync-baseline` | 发布后（main 通道） | main 稳定版版本号回推 feature（合并取 main 侧 + 守卫跳过） |

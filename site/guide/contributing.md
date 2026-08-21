@@ -39,7 +39,7 @@ pnpm install
 
 由 Changesets v3 + GitHub Actions 驱动的**双通道发布模型**（完整细节见仓库根目录 `.changeset/README.md`）：
 
-- **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verifyReleasePlan.mjs`）→ select-mode → version PR → 合并 → dispatch 触发 publish，发布 `alpha` dist-tag
+- **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verifyReleasePlan.ts`）→ select-mode → version PR → 合并 → dispatch 触发 publish，发布 `alpha` dist-tag
 - **main = 正式版通道**：只通过发布合并收代码——`pnpm release:merge`（剥离 prerelease、防撞车校验、建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest`
 
 常用命令：`pnpm changeset`（写变更说明）｜`git push origin feature`（发布 alpha）｜`pnpm release:merge`（发起正式版发布）。

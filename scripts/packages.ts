@@ -9,13 +9,14 @@
  *  - PACKAGE_FILES：含根包在内的 package.json 相对路径数组；
  *  - VERSION_FILES：版本通道产物的完整文件集合（package.json + CHANGELOG.md）。
  */
+
 export const SUB_PACKAGES = [
   ["eslint-rules", "@pawover/kit-eslint-rules"],
   ["hooks", "@pawover/kit-hooks"],
   ["types", "@pawover/kit-types"],
   ["utils", "@pawover/kit-utils"],
   ["zod", "@pawover/kit-zod"],
-];
+] as const;
 
 export const SUB_PACKAGE_DIRS = SUB_PACKAGES.map(([dir]) => `packages/${dir}`);
 

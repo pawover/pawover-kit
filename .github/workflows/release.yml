@@ -275,4 +275,4 @@ jobs:
           fetch-depth: 0
 
       - name: Sync stable baseline versions to feature
-        run: node scripts/syncBaseline.mjs
+        run: node scripts/syncBaseline.ts
