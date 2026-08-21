@@ -22,14 +22,14 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 
 ## 子包
 
-| 包 | 说明 | 导入路径 | 最新版本 | 下载量 |
-| :-- | :-- | :-- | :-- | :-- |
-| `@pawover/kit` | 聚合根包，重新导出所有子包 | `@pawover/kit/utils`、`@pawover/kit/hooks/react` 等 | [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) |
-| `@pawover/kit-types` | 纯类型工具包（无运行时代码），提供 `AnyObject`、`TreeLike`、`AnyFunction` 族等常用类型 | `@pawover/kit/types`，React 类型见 `@pawover/kit/types/react` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) |
-| `@pawover/kit-utils` | 数组、字符串、对象、树、货币、日期、数学等 15+ 个静态工具类 | `@pawover/kit/utils`（另有 `./math`、`./vite` 子路径） | [![npm version](https://img.shields.io/npm/v/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) |
-| `@pawover/kit-hooks` | `useMount` 等 5 个 React Hooks + `useAlovaRequest` 等 Alova 请求系列 Hooks | `@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) |
-| `@pawover/kit-eslint-rules` | 9 大规则组 + `GLOB_EXCLUDE` + `createRules` + `Severity` 族类型，flat config 开箱即用 | `@pawover/kit/eslint-rules` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) |
-| `@pawover/kit-zod` | id、string、number、boolean、bigint 等 Zod v4 校验器 | `@pawover/kit/zod` | [![npm version](https://img.shields.io/npm/v/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) |
+| 包 | 说明 | 最新版本 | 下载量 |
+| :-- | :-- | :-- | :-- |
+| `@pawover/kit` | 聚合根包，重新导出所有子包 | [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) |
+| `@pawover/kit-types` | 纯类型工具包（无运行时代码） | [![npm version](https://img.shields.io/npm/v/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) |
+| `@pawover/kit-utils` | 15+ 个静态工具类 | [![npm version](https://img.shields.io/npm/v/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) |
+| `@pawover/kit-hooks` | React + Alova Hooks | [![npm version](https://img.shields.io/npm/v/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) |
+| `@pawover/kit-eslint-rules` | ESLint 规则集（flat config） | [![npm version](https://img.shields.io/npm/v/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) |
+| `@pawover/kit-zod` | Zod v4 校验器 | [![npm version](https://img.shields.io/npm/v/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) |
 
 <blockquote style="background: rgba(9, 105, 218, 0.05); border-left: 4px solid #0969da; border-radius: 6px; padding: 12px 16px;">
   <b>📝 注意</b>：<code>@pawover/kit-hooks</code> 的根导出为空，请始终从 <code>@pawover/kit/hooks/react</code> 或 <code>@pawover/kit/hooks/alova</code> 子路径导入。
