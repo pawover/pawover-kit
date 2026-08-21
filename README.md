@@ -2,12 +2,12 @@
   <img src="site/public/logo.svg" width="64" alt="pawover-kit logo">
   <h1>pawover-kit</h1>
   <p><b>简体中文</b> | <a href="README.en.md">English</a></p>
-</div>
 
-[![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
-[![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
+  [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
+  [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+  [![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
+</div>
 
 > 一个基于 TypeScript 的开源工具包合集：类型工具、静态工具类、React / Alova Hooks、ESLint 规则集与 Zod Schema，开箱即用、类型完备。
 
@@ -17,47 +17,45 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 
 ## 特性
 
-- **纯类型工具** `@pawover/kit-types`：无运行时代码，提供 `AnyObject`、`TreeLike`、`AnyFunction` 族、`AdvancedRecord`、`ApiNameCheck` 等常用类型
-- **静态工具类** `@pawover/kit-utils`：数组、字符串、对象、树、货币、日期、数学等 15+ 个工具类
-- **React / Alova Hooks** `@pawover/kit-hooks`：`useMount`、`useUnmount`、`useLatest`、`useResponsive`、`useTitle` 与 Alova 请求系列 Hooks
-- **ESLint 规则集** `@pawover/kit-eslint-rules`：9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）+ `GLOB_EXCLUDE` + `createRules`
-- **Zod v4 Schema** `@pawover/kit-zod`：id、string、number、boolean、bigint 等常用校验器
 - ESM / CJS 双格式产物，附带完整类型声明
 - `exports` 仅指向 `dist` 产物，任意工具链（node / vite / vitest / webpack 等）均可正常解析
 
-## 包结构
+## 子包
 
-| 包 | 说明 | 导入路径 |
-| :--- | :--- | :--- |
-| `@pawover/kit-types` | 纯类型工具包（无运行时代码） | `@pawover/kit/types`，react 相关类型见 `@pawover/kit/types/react` |
-| `@pawover/kit-utils` | 静态工具类 | `@pawover/kit/utils`（另有 `./math`、`./vite` 子路径） |
-| `@pawover/kit-hooks` | React + Alova Hooks | `@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova` |
-| `@pawover/kit-eslint-rules` | ESLint 规则集 | `@pawover/kit/eslint-rules` |
-| `@pawover/kit-zod` | Zod v4 Schema | `@pawover/kit/zod` |
+| 包 | 说明 | 最新版本 | 下载量 |
+| :-- | :-- | :-- | :-- |
+| `@pawover/kit` | 聚合根包，重新导出所有子包 | [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit) |
+| `@pawover/kit-types` | 纯类型工具包（无运行时代码） | [![npm version](https://img.shields.io/npm/v/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-types.svg)](https://www.npmjs.com/package/@pawover/kit-types) |
+| `@pawover/kit-utils` | 15+ 个静态工具类 | [![npm version](https://img.shields.io/npm/v/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-utils.svg)](https://www.npmjs.com/package/@pawover/kit-utils) |
+| `@pawover/kit-hooks` | React + Alova Hooks | [![npm version](https://img.shields.io/npm/v/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-hooks.svg)](https://www.npmjs.com/package/@pawover/kit-hooks) |
+| `@pawover/kit-eslint-rules` | ESLint 规则集（flat config） | [![npm version](https://img.shields.io/npm/v/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-eslint-rules.svg)](https://www.npmjs.com/package/@pawover/kit-eslint-rules) |
+| `@pawover/kit-zod` | Zod v4 校验器 | [![npm version](https://img.shields.io/npm/v/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) | [![npm downloads](https://img.shields.io/npm/dm/@pawover/kit-zod.svg)](https://www.npmjs.com/package/@pawover/kit-zod) |
 
-> [!NOTE]
-> `@pawover/kit-hooks` 的根导出为空，请始终从 `@pawover/kit/hooks/react` 或 `@pawover/kit/hooks/alova` 子路径导入。
+<blockquote style="background: rgba(9, 105, 218, 0.05); border-left: 4px solid #0969da; border-radius: 6px; padding: 12px 16px;">
+  <b>📝 注意</b>：<code>@pawover/kit-hooks</code> 的根导出为空，请始终从 <code>@pawover/kit/hooks/react</code> 或 <code>@pawover/kit/hooks/alova</code> 子路径导入。
+</blockquote>
 
 ## 安装
 
 使用根包聚合导入：
 
 ```bash
-npm install @pawover/kit
+pnpm add @pawover/kit
 ```
 
 或按需安装单个子包：
 
 ```bash
-npm install @pawover/kit-types
-npm install @pawover/kit-utils
-npm install @pawover/kit-hooks
-npm install @pawover/kit-eslint-rules
-npm install @pawover/kit-zod
+pnpm add @pawover/kit-types
+pnpm add @pawover/kit-utils
+pnpm add @pawover/kit-hooks
+pnpm add @pawover/kit-eslint-rules
+pnpm add @pawover/kit-zod
 ```
 
-> [!WARNING]
-> `alova`、`mathjs`、`react`、`vite`、`zod` 为可选 peer 依赖：使用对应功能前需自行安装（如使用 `@pawover/kit/hooks/alova` 需要 `alova` 与 `react`）。
+<blockquote style="background: rgba(191, 135, 16, 0.05); border-left: 4px solid #bf870f; border-radius: 6px; padding: 12px 16px;">
+  <b>⚠️ 警告</b>：<code>alova</code>、<code>mathjs</code>、<code>react</code>、<code>vite</code>、<code>zod</code> 为可选 peer 依赖：使用对应功能前需自行安装（如使用 <code>@pawover/kit/hooks/alova</code> 需要 <code>alova</code> 与 <code>react</code>）。
+</blockquote>
 
 ## 快速开始
 
@@ -119,7 +117,7 @@ pnpm install
 
 由 Changesets v3 + GitHub Actions 驱动的**双通道发布模型**（完整细节见 [.changeset/README.md](./.changeset/README.md)）：
 
-- **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verify-release-plan.mjs`）→ select-mode → version PR → version job 等 CI 绿后合并 → dispatch 触发 publish，发布 `alpha` dist-tag
+- **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verifyReleasePlan.mjs`）→ select-mode → version PR → version job 等 CI 绿后合并 → dispatch 触发 publish，发布 `alpha` dist-tag
 - **main = 正式版通道**：只通过**发布合并**收代码——`pnpm release:merge`（同步校验 → 剥离 prerelease → 防撞车校验 → 建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest` → CI 自动把稳定版版本号回推 feature（基线同步，下一轮 alpha 从新稳定版之上递增）
 - **核心设计**：alpha → 正式版之间必须经过人工确认节点，任何自动化都不会越过它
 
@@ -130,6 +128,7 @@ pnpm install
 | 写变更说明 | `pnpm changeset` |
 | 发布 alpha（自动） | `git push origin feature` |
 | 发起正式版发布（人工闸门） | `pnpm release:merge` → 人工合并 PR |
+| 非发布内容同步到 main | `pnpm sync:main` → 人工合并 PR（版本保持 main 侧，不触发发布） |
 | 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：feature 上 `git merge origin/main`（取 main 侧版本） |
 | 应急手动发布 | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |
 
@@ -148,5 +147,5 @@ tsdown (build:source) → metadata 提取 (build:metadata) → turbo build
 ```
 
 - **tsdown** 负责打包与类型声明生成
-- **sync-entry.ts**（根 postbuild）读取 utils / hooks 的 dist 导出名，生成 `entry/metadata.json` 与 `entry/hooks-metadata.json`
+- **syncEntry.ts**（根 postbuild）读取 utils / hooks 的 dist 导出名，生成 `entry/metadata.json` 与 `entry/hooks-metadata.json`
 - 仓库内测试（`test:types` / vitest）经 tsconfig `paths` 与 `resolve.alias` 直查源码，改源码无需先构建

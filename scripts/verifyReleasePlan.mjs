@@ -19,7 +19,7 @@ import { SUB_PACKAGES, VERSION_FILES } from "./packages.mjs";
  *  - 源码变更 + 无 tag → 拦截（开发改动没有 changeset）。
  *
  * 用法（在 ci.yml 的 push 事件步骤中）：
- *   node scripts/verify-release-plan.mjs
+ *   node scripts/verifyReleasePlan.mjs
  *
  * 退出码：
  *   0 计划合法（存在待消费 changeset，或仅版本文件变更，或变更子包均已发布）

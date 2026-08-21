@@ -8,12 +8,12 @@ import { SUB_PACKAGE_DIRS } from "./packages.mjs";
  * 复核「子包版本变化 ⇒ 根包必变」规则，防止 ci:version 被改坏后根包漏发。
  *
  * changesets 的包列表不包含根包（getPackages 将根包单独放在 rootPackage），
- * 根包无法进入 changesets 的 releases；根包版本由 scripts/bump-root.mjs 在
+ * 根包无法进入 changesets 的 releases；根包版本由 scripts/bumpRoot.mjs 在
  * `changeset version` 之后同步递增。本脚本对比 git HEAD 与工作区的版本：
  * 若任一子包版本变化而根包版本未变，则校验失败。
  *
- * 用法（在 ci:version 中，bump-root 之后运行）：
- *   node scripts/verify-release.mjs
+ * 用法（在 ci:version 中，bumpRoot 之后运行）：
+ *   node scripts/verifyRelease.mjs
  *
  * 退出码：
  *   0 校验通过（或无子包版本变化）
@@ -40,7 +40,7 @@ if (changedSubs.length > 0 && rootOld === rootNew) {
   console.error(`   子包版本已变化：${changedSubs.join(", ")}`);
   console.error(`   但根包 @pawover/kit 版本未变化（仍为 ${rootNew}）。`);
   console.error(`   根包直接依赖全部子包（workspace:*），子包发布时根包必须同步发布。`);
-  console.error(`   请检查 scripts/bump-root.mjs 与 ci:version 配置。`);
+  console.error(`   请检查 scripts/bumpRoot.mjs 与 ci:version 配置。`);
   process.exit(1);
 }
 

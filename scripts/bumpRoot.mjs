@@ -13,7 +13,7 @@ import { SUB_PACKAGE_DIRS, SUB_PACKAGE_NAMES } from "./packages.mjs";
  * 并硬校验「子包版本变化 ⇒ 根包必变」，失败时退出码为 1。
  *
  * 用法（在 ci:version 中，changeset version 之后）：
- *   node scripts/bump-root.mjs
+ *   node scripts/bumpRoot.mjs
  *
  * 退出码：
  *   0 根包版本已正确同步（或无子包版本变化）
@@ -116,6 +116,6 @@ if (rootPackage.version !== expected) {
   console.error(`❌ 根包版本同步失败：`);
   console.error(`   子包已发布（${changedType}${preTag ? ` / ${preTag}.${preCount}` : ""}），`);
   console.error(`   但根包 ${ROOT_PACKAGE} 版本仍为 ${rootPackage.version}（期望 ${expected}）。`);
-  console.error(`   请检查 scripts/bump-root.mjs 或发布流程配置。`);
+  console.error(`   请检查 scripts/bumpRoot.mjs 或发布流程配置。`);
   process.exit(1);
 }

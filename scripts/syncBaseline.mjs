@@ -22,8 +22,8 @@ import { PACKAGE_FILES, VERSION_FILES } from "./packages.mjs";
  *  - 推送失败不阻断（警告 + 退出 0）：发布已完成，同步是善后动作。
  *
  * 用法：
- *   node scripts/sync-baseline.mjs            # 完整执行（合并 + 推送）
- *   node scripts/sync-baseline.mjs --no-push  # 仅合并，不推送（本地演练）
+ *   node scripts/syncBaseline.mjs            # 完整执行（合并 + 推送）
+ *   node scripts/syncBaseline.mjs --no-push  # 仅合并，不推送（本地演练）
  *
  * 退出码：
  *   0 同步完成 / 无需同步 / 守卫跳过（原因已打印）

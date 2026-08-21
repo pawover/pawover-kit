@@ -10,7 +10,6 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": false,
-    "customConditions": ["development"],
     "paths": {
       "@pawover/kit-utils": ["../packages/utils/src/index.ts"],
       "@pawover/kit-utils/math": ["../packages/utils/src/math/index.ts"],
@@ -38,7 +37,11 @@
     "../*.ts",
     "../*.jsx",
     "../*.tsx",
-    "../packages/*/src/**/*.ts"
+    "../packages/types/src/**/*.ts",
+    "../packages/utils/src/**/*.ts",
+    "../packages/hooks/src/**/*.ts",
+    "../packages/eslint-rules/src/**/*.ts",
+    "../packages/zod/src/**/*.ts"
   ],
   "exclude": ["**/node_modules", "**/dist", "../node_modules", "../dist"]
 }

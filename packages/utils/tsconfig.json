@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
-    "rootDir": "."
+    "rootDir": ".",
+    "preserveSymlinks": true
   }
 }

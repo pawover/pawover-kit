@@ -71,6 +71,9 @@
     "es-toolkit": "^1.51.0",
     "type-fest": "^5.8.0"
   },
+  "devDependencies": {
+    "@pawover/kit-internal": "workspace:*"
+  },
   "peerDependencies": {
     "@types/react": "^19.2.14",
     "alova": "^3.5.1",
