@@ -15,14 +15,15 @@
 
 ```text
 /
-├── CONTEXT-MAP.md
+├── CONTEXT-MAP.md                     ← 多上下文索引
+├── CONTEXT.md                         ← 跨包/根 上下文（共享领域词汇）
 ├── docs/adr/                          ← 全局决策
 └── packages/
     ├── types/
     │   ├── CONTEXT.md
     │   └── docs/adr/                  ← 上下文级决策
     ├── utils/
-    │   ├── CONTEXT.md
+    │   ├── CONTEXT.md                 ← 本包上下文（已收录 I18n 词汇）
     │   └── docs/adr/
     └── ...
 ```
