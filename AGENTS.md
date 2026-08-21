@@ -90,7 +90,7 @@ import type { PlainObject } from "@pawover/kit-types"; // 类型工具（子包�
 
 ### Issue tracker
 
-Issues 存于 GitHub Issues，用 `gh` CLI 操作。详见 `docs/agents/issue-tracker.md`。
+本仓库的议题（issues）与规格（specs）统一使用 GitHub Issues 管理（通过 `gh` CLI 操作）。详见 `docs/agents/issue-tracker.md`。
 
 ### Triage labels
 
@@ -98,4 +98,4 @@ Issues 存于 GitHub Issues，用 `gh` CLI 操作。详见 `docs/agents/issue-tr
 
 ### Domain docs
 
-多上下文布局：根 `CONTEXT-MAP.md` 指向各包 `CONTEXT.md`。详见 `docs/agents/domain.md`。
+采用多上下文布局：根目录 `CONTEXT-MAP.md` 指向各子包的 `CONTEXT.md`。详见 `docs/agents/domain.md`。

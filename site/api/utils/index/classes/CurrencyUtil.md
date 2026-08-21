@@ -6,7 +6,7 @@
 
 # Class: CurrencyUtil
 
-Defined in: [currency/currencyUtil.ts:17](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L17)
+Defined in: [currency/currencyUtil.ts:17](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L17)
 
 货币工具类
 - 基于 [`Intl.NumberFormat`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) 进行本地化格式化
@@ -28,7 +28,7 @@ Defined in: [currency/currencyUtil.ts:17](https://github.com/pawover/pawover-kit
 
 > `readonly` `static` **CURRENCY\_ENUM**: `object`
 
-Defined in: [currency/currencyUtil.ts:37](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L37)
+Defined in: [currency/currencyUtil.ts:37](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L37)
 
 货币代码到 Locale 的映射枚举
 - 键为 ISO 4217 货币代码，值为 BCP 47 语言标签
@@ -345,7 +345,7 @@ new Intl.NumberFormat(CurrencyUtil.CURRENCY_ENUM.USD, {
 
 > `static` **currencyFormatter**(`value`, `options`): `string` \| `null`
 
-Defined in: [currency/currencyUtil.ts:194](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L194)
+Defined in: [currency/currencyUtil.ts:194](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L194)
 
 货币格式化
 - 使用 `Intl.NumberFormat` 进行本地化数字格式化
@@ -410,7 +410,7 @@ CurrencyUtil.currencyFormatter(undefined, options); // null
 
 > `static` **currencyFormatter**(`value`, `options`): `string` \| `null`
 
-Defined in: [currency/currencyUtil.ts:195](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L195)
+Defined in: [currency/currencyUtil.ts:195](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L195)
 
 货币格式化
 - 使用 `Intl.NumberFormat` 进行本地化数字格式化
@@ -479,7 +479,7 @@ CurrencyUtil.currencyFormatter(undefined, options); // null
 
 > `static` **toRealValue**\<`T`\>(`mathJsInstance`, `value`, `precision?`, `stringMode?`): `ToRealValueResult`\<`T`, `string`\>
 
-Defined in: [currency/currencyUtil.ts:269](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L269)
+Defined in: [currency/currencyUtil.ts:269](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L269)
 
 将任意数值转换为精确的十进制值
 - 基于 `mathjs` 的 `bignumber` 处理，避免浮点数精度问题
@@ -555,7 +555,7 @@ CurrencyUtil.toRealValue(math, value, 2, getMode()); // null | 0.1 | "0.1"
 
 > `static` **toRealValue**\<`T`\>(`mathJsInstance`, `value`, `precision`, `stringMode`): `ToRealValueResult`\<`T`, `number`\>
 
-Defined in: [currency/currencyUtil.ts:270](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L270)
+Defined in: [currency/currencyUtil.ts:270](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L270)
 
 将任意数值转换为精确的十进制值
 - 基于 `mathjs` 的 `bignumber` 处理，避免浮点数精度问题
@@ -631,7 +631,7 @@ CurrencyUtil.toRealValue(math, value, 2, getMode()); // null | 0.1 | "0.1"
 
 > `static` **toRealValue**\<`T`\>(`mathJsInstance`, `value`, `precision`, `stringMode`): `ToRealValueResult`\<`T`, `string` \| `number`\>
 
-Defined in: [currency/currencyUtil.ts:271](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/currency/currencyUtil.ts#L271)
+Defined in: [currency/currencyUtil.ts:271](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/currency/currencyUtil.ts#L271)
 
 将任意数值转换为精确的十进制值
 - 基于 `mathjs` 的 `bignumber` 处理，避免浮点数精度问题

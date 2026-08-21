@@ -6,7 +6,7 @@
 
 # Class: ThemeUtil
 
-Defined in: [theme/themeUtil.ts:4](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/theme/themeUtil.ts#L4)
+Defined in: [theme/themeUtil.ts:4](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/theme/themeUtil.ts#L4)
 
 主题工具类
 
@@ -26,7 +26,7 @@ Defined in: [theme/themeUtil.ts:4](https://github.com/pawover/pawover-kit/blob/7
 
 > `readonly` `static` **THEME**: `object`
 
-Defined in: [theme/themeUtil.ts:14](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/theme/themeUtil.ts#L14)
+Defined in: [theme/themeUtil.ts:14](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/theme/themeUtil.ts#L14)
 
 固定主题类型（仅亮色/暗色）
 
@@ -51,7 +51,7 @@ ThemeUtil.THEME.DARK; // "dark"
 
 > `readonly` `static` **THEME\_MODE**: `object`
 
-Defined in: [theme/themeUtil.ts:28](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/theme/themeUtil.ts#L28)
+Defined in: [theme/themeUtil.ts:28](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/theme/themeUtil.ts#L28)
 
 主题模式（支持跟随系统）
 

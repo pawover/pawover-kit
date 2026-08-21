@@ -8,7 +8,7 @@
 
 > **useAlovaRequest**\<`AG`, `Args`\>(`methodHandler`, `hookOptions?`): `UseHookExposure`\<`AG`, `Args`, `unknown`\>
 
-Defined in: [alova/useAlovaRequest.ts:7](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/alova/useAlovaRequest.ts#L7)
+Defined in: [alova/useAlovaRequest.ts:7](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/alova/useAlovaRequest.ts#L7)
 
 ## Type Parameters
 

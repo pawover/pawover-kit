@@ -6,7 +6,7 @@
 
 # Interface: ResponsiveHookOptions
 
-Defined in: [react/useResponsive.ts:52](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/react/useResponsive.ts#L52)
+Defined in: [react/useResponsive.ts:52](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/react/useResponsive.ts#L52)
 
 ## Properties
 
@@ -14,6 +14,6 @@ Defined in: [react/useResponsive.ts:52](https://github.com/pawover/pawover-kit/b
 
 > `optional` **breakPointTokens?**: `Partial`\<[`BreakPointTokens`](../type-aliases/BreakPointTokens.md)\>
 
-Defined in: [react/useResponsive.ts:54](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/hooks/src/react/useResponsive.ts#L54)
+Defined in: [react/useResponsive.ts:54](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/hooks/src/react/useResponsive.ts#L54)
 
 屏幕响应断点 token 覆盖配置（在默认表之上合并）

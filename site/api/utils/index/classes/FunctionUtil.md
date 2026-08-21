@@ -6,7 +6,7 @@
 
 # Class: FunctionUtil
 
-Defined in: [function/functionUtil.ts:7](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/function/functionUtil.ts#L7)
+Defined in: [function/functionUtil.ts:7](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/function/functionUtil.ts#L7)
 
 函数工具类
 
@@ -26,7 +26,7 @@ Defined in: [function/functionUtil.ts:7](https://github.com/pawover/pawover-kit/
 
 > `static` **to**\<`T`, `U`\>(`promise`, `errorExt?`): `Promise`\<\[`U`, `undefined`\] \| \[`null`, `T`\]\>
 
-Defined in: [function/functionUtil.ts:19](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/function/functionUtil.ts#L19)
+Defined in: [function/functionUtil.ts:19](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/function/functionUtil.ts#L19)
 
 将 Promise 转换为 `[err, result]` 格式，方便 async/await 错误处理
 
@@ -72,7 +72,7 @@ const [err, data] = await FunctionUtil.to(someAsyncFunc());
 
 > `static` **toArgs**\<`T`\>(`args`, `start?`): `T`[]
 
-Defined in: [function/functionUtil.ts:87](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/function/functionUtil.ts#L87)
+Defined in: [function/functionUtil.ts:87](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/function/functionUtil.ts#L87)
 
 将 Arguments 对象转换为数组
 
@@ -136,7 +136,7 @@ function skipFirst(...args: unknown[]) {
 
 > `static` **toPromise**\<`T`\>(`fn`): `Promise`\<`T`\>
 
-Defined in: [function/functionUtil.ts:114](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/function/functionUtil.ts#L114)
+Defined in: [function/functionUtil.ts:114](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/function/functionUtil.ts#L114)
 
 将同步或异步函数统一包装为 Promise
 - 自动捕获同步异常

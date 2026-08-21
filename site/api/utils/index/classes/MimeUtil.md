@@ -6,7 +6,7 @@
 
 # Class: MimeUtil
 
-Defined in: [mime/mimeUtil.ts:6](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/mime/mimeUtil.ts#L6)
+Defined in: [mime/mimeUtil.ts:6](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/mime/mimeUtil.ts#L6)
 
 MIME 工具类
 
@@ -26,7 +26,7 @@ MIME 工具类
 
 > `readonly` `static` **FILE\_MIME**: `object`
 
-Defined in: [mime/mimeUtil.ts:11](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/mime/mimeUtil.ts#L11)
+Defined in: [mime/mimeUtil.ts:11](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/mime/mimeUtil.ts#L11)
 
 文件类型 MIME 常量
 - 每个类型对应具体的文件扩展名
@@ -637,7 +637,7 @@ Zstandard 压缩文件（.zst）
 
 > `readonly` `static` **PROTOCOL\_MIME**: `object`
 
-Defined in: [mime/mimeUtil.ts:218](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/mime/mimeUtil.ts#L218)
+Defined in: [mime/mimeUtil.ts:218](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/mime/mimeUtil.ts#L218)
 
 协议/内容类型 MIME 常量
 - 用于 HTTP 请求/响应内容协商，无对应文件扩展名
@@ -690,7 +690,7 @@ JSON Merge Patch（RFC 7386）
 
 > `static` **fromExtension**(`extension`): readonly \[`string`, `string`\] \| `undefined`
 
-Defined in: [mime/mimeUtil.ts:251](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/mime/mimeUtil.ts#L251)
+Defined in: [mime/mimeUtil.ts:251](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/mime/mimeUtil.ts#L251)
 
 根据文件后缀名获取对应的标准 MIME 类型（含历史兼容值）
 - 支持带 `.` 或不带 `.` 的后缀名，不区分大小写
@@ -726,7 +726,7 @@ MimeUtil.fromExtension(".xyz");  // undefined
 
 > `static` **toExtension**(`mime`): readonly \[`string`, `string`\] \| `undefined`
 
-Defined in: [mime/mimeUtil.ts:274](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/utils/src/mime/mimeUtil.ts#L274)
+Defined in: [mime/mimeUtil.ts:274](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/mime/mimeUtil.ts#L274)
 
 根据 MIME 类型获取对应的文件后缀名列表
 - 一个 MIME 类型可能对应多个后缀名（如 `text/html` → `.html` / `.htm`）

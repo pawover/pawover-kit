@@ -8,7 +8,7 @@
 
 > **ApiNameCheck**\<`N`, `P`\> = `N` *extends* `` `${infer L extends ValidChar}${infer R}` `` ? `ApiNameCheck`\<`R`, `` `${P}${L}` ``\> : `P` *extends* `` `${infer S}_` `` ? `S` : `P`
 
-Defined in: [api.ts:27](https://github.com/pawover/pawover-kit/blob/75626c4cae689650e8ceffe5d82e9ff45999463c/packages/types/src/api.ts#L27)
+Defined in: [api.ts:27](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/types/src/api.ts#L27)
 
 API 命名检查
 
