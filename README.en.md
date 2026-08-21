@@ -128,6 +128,7 @@ Common commands:
 | Write a changeset | `pnpm changeset` |
 | Publish alpha (automatic) | `git push origin feature` |
 | Start a stable release (human gate) | `pnpm release:merge` → manually merge the PR |
+| Sync non-release content to main | `pnpm sync:main` → manually merge the PR (version stays on main side, no publish) |
 | Baseline sync | Automatic (CI pushes back after a main release); manual fallback: `git merge origin/main` on `feature` (take the main-side version) |
 | Emergency manual release | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |
 

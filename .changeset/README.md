@@ -168,6 +168,7 @@ flowchart TD
 | Version Packages（alpha） | `changeset-release/feature` → `feature` | version job（bot） | 版本 bump 提交 | **version job 等 CI 绿后合并 + dispatch 发布**（仅 feature 方向） |
 | Version Packages | `changeset-release/main` → `main` | version job（bot） | 版本 bump 提交（罕见） | **人工** |
 | 发布合并 | `release-main` → `main` | `pnpm release:merge` | 代码 + 稳定版版本号 | **人工（正式版闸门）** |
+| 非发布同步 | `sync-main` → `main` | `pnpm sync:main` | 文档等非发布内容（版本保持 main 侧） | **人工** |
 
 ## 六、常见问题与异常处理
 
@@ -196,5 +197,6 @@ pnpm publish --no-git-checks --access public
 | 生成变更说明 | `pnpm changeset` |
 | 发布 alpha（自动） | `git push origin feature` |
 | 发布正式版（人工闸门） | `pnpm release:merge` → 人工合并 PR |
+| 非发布内容同步到 main | `pnpm sync:main` → 人工合并 PR（版本保持 main 侧，不触发发布） |
 | 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：`git merge origin/main`（feature 上，取 main 侧） |
 | 手动预发布（应急） | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |

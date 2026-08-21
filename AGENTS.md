@@ -1,4 +1,4 @@
-﻿# pawover-kit
+# pawover-kit
 
 pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个发布包 + 1 个内部包在 `packages/*` 下。
 
@@ -18,6 +18,7 @@ pnpm 单体仓库 (pnpm 11 / Node >=22)。Turborepo 构建。5 个发布包 + 1 
 | `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                            |
 | `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）                              |
 | `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）                              |
+| `pnpm sync:main`                          | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发发布通道）                  |
 
 ## 发布
 

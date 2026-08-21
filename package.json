@@ -180,6 +180,7 @@
     "pre:enter-alpha": "pnpm changeset pre enter alpha",
     "pre:exit": "pnpm changeset pre exit",
     "release:merge": "node scripts/releaseMerge.mjs",
+    "sync:main": "node scripts/syncMain.mjs",
     "docs:dev": "vitepress dev site",
     "docs:build": "vitepress build site",
     "docs:preview": "vitepress preview site",

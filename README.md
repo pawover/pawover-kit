@@ -128,6 +128,7 @@ pnpm install
 | 写变更说明 | `pnpm changeset` |
 | 发布 alpha（自动） | `git push origin feature` |
 | 发起正式版发布（人工闸门） | `pnpm release:merge` → 人工合并 PR |
+| 非发布内容同步到 main | `pnpm sync:main` → 人工合并 PR（版本保持 main 侧，不触发发布） |
 | 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：feature 上 `git merge origin/main`（取 main 侧版本） |
 | 应急手动发布 | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |
 
