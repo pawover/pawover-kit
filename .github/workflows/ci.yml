@@ -54,4 +54,4 @@ jobs:
 
       - name: Verify release plan (changesets cover unreleased package changes)
         if: github.event_name == 'push'
-        run: node scripts/verify-release-plan.mjs
+        run: node scripts/verifyReleasePlan.mjs
