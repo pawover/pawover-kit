@@ -5,12 +5,12 @@ import type { ToBaseLanguage, ToFullLocale, ToLocaleDisplayNameOptions } from ".
 /**
  * 国际化（i18n）工具类
  * - 统一处理 BCP 47 语言标签（如 `"en"` / `"en-US"`）的规范化、拆分与展示名称查询
- * - `LOCALE_ENUM` 与 `PRIMARY_LANGUAGE_ENUM` 提供完整的 Locale / 代表语言条目枚举
+ * - `LOCALE_ENUM` 与 `PRIMARY_LANGUAGE_ENUM` 提供完整的 Locale / 主要代表语言枚举
  */
 export class I18nUtil {
   /**
    * 全部国家/地区的完整 Locale 枚举（BCP 47 格式）
-   * - 键为 ISO 3166-1 alpha-2 国家/地区代码（共 248 项，南极洲 AQ 无常驻人口及官方语言故不收录），值为该国家/地区代表语言的完整 Locale（`语言-地区` 规范形式）
+   * - 键为 ISO 3166-1 alpha-2 国家/地区代码（共 248 项，南极洲 AQ 无常驻人口及官方语言故不收录），值为该国家/地区的地区收录语言的完整 Locale（`语言-地区` 规范形式）
    * - 按联合国 M.49 地理区域分组，组内按国家/地区代码字母序排列
    * - 用于 `Intl` API 的本地化格式化，其值覆盖 `PRIMARY_LANGUAGE_ENUM` 的映射范围
    *
@@ -536,7 +536,7 @@ export class I18nUtil {
   } as const;
 
   /**
-   * 代表语言条目枚举：语言子标签（小写）→ 代表地区的完整 Locale（BCP 47 格式）
+   * 主要代表语言枚举：语言子标签（小写）→ 代表地区的完整 Locale（BCP 47 格式）
    * - 覆盖 `LOCALE_ENUM` 出现的全部 74 种语言，值为各语言的代表国家/地区完整 Locale
    * - 作为 `toFullLocale` 的规范化映射源：输入语言子标签时按此表映射（大小写不敏感）
    * - 键为 ISO 639-1 语言代码（唯一例外：比斯拉马语 `bi` 无 639-1 码，采用 ISO 639-2/3）
