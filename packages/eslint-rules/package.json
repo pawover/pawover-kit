@@ -55,6 +55,9 @@
   "publishConfig": {
     "access": "public"
   },
+  "devDependencies": {
+    "@pawover/kit-internal": "workspace:*"
+  },
   "peerDependencies": {
     "@eslint-react/eslint-plugin": "^5.9.0",
     "@stylistic/eslint-plugin": "^5.10.0",

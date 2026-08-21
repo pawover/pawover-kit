@@ -46,7 +46,8 @@
     "access": "public"
   },
   "devDependencies": {
-    "zod": "^4.4.3"
+    "zod": "^4.4.3",
+    "@pawover/kit-internal": "workspace:*"
   },
   "peerDependencies": {
     "zod": "^4.1.0"

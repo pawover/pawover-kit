@@ -3,7 +3,8 @@
   "tasks": {
     "build:source": {
       "outputs": ["dist/**"],
-      "dependsOn": ["^build:source"]
+      "dependsOn": ["^build:source"],
+      "env": ["VISUALIZER"]
     },
     "build": {
       "dependsOn": ["build:source"]
