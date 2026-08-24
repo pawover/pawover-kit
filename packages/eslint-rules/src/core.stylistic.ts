@@ -2,23 +2,18 @@ import preset from "./preset.js";
 
 export default {
   /**
-   * @desc 强制数组方括号前/后换行
-   * @descEN Enforce linebreaks after opening and before closing array brackets
-   * @see https://eslint.style/rules/array-bracket-newline
+   * @desc 统一强制数组/对象/函数参数等列表结构的括号间距与换行风格（取代原分散的 7 条规则）
+   * @descEN Enforce consistent spacing and line break styles inside brackets (arrays, objects, function arguments)
+   * @see https://eslint.style/rules/list-style
    */
-  "stylistic/array-bracket-newline": [2, "consistent"],
-  /**
-   * @desc 强制数组方括号内间距一致
-   * @descEN Enforce consistent spacing inside array brackets
-   * @see https://eslint.style/rules/array-bracket-spacing
-   */
-  "stylistic/array-bracket-spacing": [2, "never"],
-  /**
-   * @desc 强制数组元素间换行风格
-   * @descEN Enforce line breaks after each array element
-   * @see https://eslint.style/rules/array-element-newline
-   */
-  "stylistic/array-element-newline": [2, "consistent"],
+  "stylistic/list-style": [2, {
+    empty: "never",
+    singleLine: { spacing: "never", maxItems: Number.POSITIVE_INFINITY },
+    multiLine: { minItems: 0 },
+    overrides: {
+      "{}": { singleLine: { spacing: "always" } },
+    },
+  }],
   /**
    * @desc 要求箭头函数参数使用圆括号
    * @descEN Require parentheses around arrow function arguments
@@ -86,23 +81,11 @@ export default {
    */
   "stylistic/eol-last": 0,
   /**
-   * @desc 强制函数调用参数间换行风格
-   * @descEN Enforce line breaks between arguments of a function call
-   * @see https://eslint.style/rules/function-call-argument-newline
-   */
-  "stylistic/function-call-argument-newline": [2, "consistent"],
-  /**
    * @desc 要求或禁止函数标识符及其调用间的空格
    * @descEN Require or disallow spacing between function identifiers and their invocations
    * @see https://eslint.style/rules/function-call-spacing
    */
   "stylistic/function-call-spacing": 2,
-  /**
-   * @desc 强制函数括号内换行风格
-   * @descEN Enforce consistent line breaks inside function parentheses
-   * @see https://eslint.style/rules/function-paren-newline
-   */
-  "stylistic/function-paren-newline": [2, "multiline-arguments"],
   /**
    * @desc 强制 generator 函数中 * 周边间距一致
    * @descEN Enforce consistent spacing around `*` operators in generator functions
@@ -385,18 +368,6 @@ export default {
    * @see https://eslint.style/rules/nonblock-statement-body-position
    */
   "stylistic/nonblock-statement-body-position": 0,
-  /**
-   * @desc 强制对象花括号内换行风格
-   * @descEN Enforce consistent line breaks after opening and before closing braces
-   * @see https://eslint.style/rules/object-curly-newline
-   */
-  "stylistic/object-curly-newline": [2, { consistent: true }],
-  /**
-   * @desc 强制对象花括号内间距一致
-   * @descEN Enforce consistent spacing inside braces
-   * @see https://eslint.style/rules/object-curly-spacing
-   */
-  "stylistic/object-curly-spacing": [2, "always", { emptyObjects: "never" }],
   /**
    * @desc 强制对象属性分行放置
    * @descEN Enforce placing object properties on separate lines
