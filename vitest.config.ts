@@ -5,6 +5,7 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   plugins: [react()],
   resolve: {
+    dedupe: ["alova"],
     alias: [
       { find: "@pawover/kit/utils/math", replacement: resolve("packages/utils/src/math/index.ts") },
       { find: "@pawover/kit/utils/vite", replacement: resolve("packages/utils/src/vite/index.ts") },
