@@ -59,8 +59,8 @@
     "type-fest": "^5.8.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@pawover/kit-internal": "workspace:*"
+    "@pawover/kit-internal": "workspace:*",
+    "@types/react": "^19.2.18"
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",
