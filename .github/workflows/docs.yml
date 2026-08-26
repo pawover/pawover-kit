@@ -2,7 +2,7 @@ name: Docs
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
     paths: ["site/**", "packages/**/src/**", "package.json", "pnpm-lock.yaml"]
   workflow_dispatch:
 
