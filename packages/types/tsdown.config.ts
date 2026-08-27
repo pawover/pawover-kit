@@ -10,7 +10,7 @@ export default defineConfig({
   dts: { cjsReexport: true },
   target: "es2022",
   platform: "neutral",
-  tsconfig: "tsconfig.build.json",
+  tsconfig: true,
   plugins: tsdownVisualizerPlugins(),
   hooks: {
     "build:done": tsdownFixCtsStubs,
