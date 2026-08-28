@@ -18,31 +18,59 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
       },
       "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/index.cjs"
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
       }
     },
     "./react": {
       "import": {
-        "types": "./dist/react.d.ts",
-        "default": "./dist/react.js"
+        "types": "./src/react.ts",
+        "default": "./src/react.ts"
       },
       "require": {
-        "types": "./dist/react.d.cts",
-        "default": "./dist/react.cjs"
+        "types": "./src/react.ts",
+        "default": "./src/react.ts"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      },
+      "./react": {
+        "import": {
+          "types": "./dist/react.d.ts",
+          "default": "./dist/react.js"
+        },
+        "require": {
+          "types": "./dist/react.d.cts",
+          "default": "./dist/react.cjs"
+        }
       }
     }
   },
@@ -51,9 +79,6 @@
     "package": "pnpm pack",
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "type-fest": "^5.8.0"

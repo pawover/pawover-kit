@@ -158,6 +158,9 @@
     },
     "./metadata.json": "./entry/metadata.json"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
@@ -272,9 +275,6 @@
     "zod": {
       "optional": true
     }
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "config": {
     "commitizen": {
