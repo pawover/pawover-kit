@@ -24,6 +24,7 @@ module.exports = {
     { name: "kit-types（纯类型工具包）", value: "kit-types" },
     { name: "kit-zod（Zod v4 schema）", value: "kit-zod" },
     { name: "kit-eslint-rules（ESLint 规则集）", value: "kit-eslint-rules" },
+    { name: "kit-internal（内部工具包：tsdown 构建修复、构建分析）", value: "kit-internal" },
     { name: "release（发布流程：scripts 发布脚本、.changeset/、release.yml）", value: "release" },
     { name: "ci（CI/CD：.github/workflows、CI 脚本）", value: "ci" },
     { name: "test（测试：test/ 目录 unit / integration / types）", value: "test" },
