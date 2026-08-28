@@ -5,7 +5,9 @@
   "type": "module",
   "license": "MIT",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./tsconfig.json": "./tsconfig.json",
+    "./tsconfig.base.json": "./tsconfig.base.json"
   },
   "scripts": {
     "build:source": "tsdown"

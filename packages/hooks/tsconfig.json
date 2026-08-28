@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.build.json",
+  "extends": "@pawover/kit-internal/tsconfig.json",
   "compilerOptions": {
     "rootDir": ".",
     "jsx": "react-jsx",

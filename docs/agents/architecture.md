@@ -38,7 +38,7 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 - 根 tsconfig 与 `test/tsconfig.json` 的 `paths` 把 `@pawover/kit-*`（含子路径）直接映射到源码 `.ts`。slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths。
 - **改源码后无需先 `pnpm build` 即可跑 `test:types` / `check:types`**；`dist` 过期不再是误导性错误的来源。
 - vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。
-- 注意 `packages/*/tsconfig.json` 无 paths，IDE 中包间导入经 workspace 链接解析到 `dist` d.ts（构建后）；唯一例外是 `@pawover/kit-internal`——子包 tsconfig 开 `preserveSymlinks: true`，以 node_modules 路径直查其 src 源码（TS 对 node_modules 路径文件豁免 rootDir/composite，因此包边界守卫不失效）。
+- 注意 `packages/*/tsconfig.json` 无 paths，IDE 中包间导入经 workspace 链接解析到 `dist` d.ts（构建后）；唯一例外是 `@pawover/kit-internal`——子包 tsconfig 开 `preserveSymlinks: true`，以 node_modules 路径直查其 src 源码（TS 对 node_modules 路径文件豁免 rootDir 检查，因此包边界守卫不失效）。
 
 ## 构建流水线
 
@@ -46,7 +46,7 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 tsdown (build:source) → build (turbo) → 根 postbuild（scripts/syncEntry.ts 生成 entry metadata）
 ```
 
-- **tsdown** 打包每个包（配置在每个包目录下，如 `packages/utils/tsdown.config.ts`）。tsdown 配置（`tsdown.config.ts`）由各子包 tsconfig 检查；`packages/internal` 是纯源码包（`exports` → `./src/index.ts`，Node 24 type stripping 直跑），子包 tsconfig 开 `preserveSymlinks: true` 使 IDE/tsc 以 node_modules 路径直查其源码——改 internal 源码后**无需构建**即生效，且不触发 rootDir/composite 检查（TS 对 node_modules 路径文件豁免），包边界守卫（TS6059/TS6307）保持完整。
+- **tsdown** 打包每个包（配置在每个包目录下，如 `packages/utils/tsdown.config.ts`）。tsdown 配置（`tsdown.config.ts`）由各子包 tsconfig 检查；`packages/internal` 是纯源码包（`exports` → `./src/index.ts`，Node 24 type stripping 直跑），子包 tsconfig 开 `preserveSymlinks: true` 使 IDE/tsc 以 node_modules 路径直查其源码——改 internal 源码后**无需构建**即生效，且不触发 rootDir 检查（TS 对 node_modules 路径文件豁免），包边界守卫（TS6059/TS6307）保持完整。
 - **tsc** 仅用于类型检查；tsdown 的 `dts: true` 负责生成声明文件。
 - **syncEntry.ts**（根 postbuild）读取 utils/hooks 的 dist 导出名，生成 `entry/metadata.json`（数组形状）与 `entry/hooks-metadata.json`（`{alova, react}` 形状）；源缺失即抛错。两文件已提交（gitignore 例外），干净检出可直接 pack。
 

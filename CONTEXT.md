@@ -51,7 +51,7 @@ _Avoid_: 源码直查（另一概念——paths 直查）
 
 ### 包边界守卫（Package Boundary Guard）
 
-子包 tsconfig 的 `rootDir` / `composite` 对「包内代码 import 包外 `.ts` 源码」的拦截（TS6059 / TS6307）。内部包经 preserveSymlinks 豁免，但守卫对其他包外 import 保持有效。
+子包 tsconfig 的 `rootDir` 对「包内代码 import 包外 `.ts` 源码」的拦截（TS6059 / TS6307）。内部包经 preserveSymlinks 豁免，但守卫对其他包外 import 保持有效。
 
 ### 即时反馈（Instant Feedback）
 

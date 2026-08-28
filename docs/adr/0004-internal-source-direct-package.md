@@ -1,6 +1,6 @@
 # ADR-0004: 内部包采用源码直出 + preserveSymlinks 直查
 
-新建 private 包 `@pawover/kit-internal` 统一承载仓库内部构建工具（tsdown 共享插件 / hooks），其 `exports` 直接指向 `./src/index.ts`（源码直出），子包 tsconfig 开 `preserveSymlinks: true`，使 IDE / tsc 以 node_modules 路径直查其源码——TS 对 node_modules 路径下的文件豁免 rootDir / composite 检查，因此「包边界守卫」（TS6059 / TS6307）保持完整，且改内部包源码无需构建即获即时反馈（Node ≥ 22.18 type stripping 直跑 `.ts`，src 内部相对导入须带 `.ts` 扩展名）。
+新建 private 包 `@pawover/kit-internal` 统一承载仓库内部构建工具（tsdown 共享插件 / hooks），其 `exports` 直接指向 `./src/index.ts`（源码直出），子包 tsconfig 开 `preserveSymlinks: true`，使 IDE / tsc 以 node_modules 路径直查其源码——TS 对 node_modules 路径下的文件豁免 rootDir 检查，因此「包边界守卫」（TS6059 / TS6307）保持完整，且改内部包源码无需构建即获即时反馈（Node ≥ 22.18 type stripping 直跑 `.ts`，src 内部相对导入须带 `.ts` 扩展名）。
 
 曾评估的三条路：A) 子包 tsconfig 加 paths + include 白名单 + rootDir 放宽 + noEmit——实测 `noEmit` 使 TS6307 失效、rootDir 放宽使 TS6059 失效，包边界守卫静默丢失，且每包 +5 行配置特例，被否；B) exports → dist 产物 + turbo 构建顺序——守卫完整但 IDE 无即时反馈，被否；C) 本方案。保留 internal 的 `build:source` 任务（turbo 依赖边 `^build:source` 要求其存在，产物冗余但无害，兼作构建自检）。
 
