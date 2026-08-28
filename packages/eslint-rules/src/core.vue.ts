@@ -1,4 +1,4 @@
-import preset from "./preset.js";
+import preset from "./preset.ts";
 
 export default {
   // Base Rules

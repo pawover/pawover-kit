@@ -1,12 +1,12 @@
-import antfuRules from "./core.antfu.js";
-import importsRules from "./core.imports.js";
-import simpleImportSortRules from "./core.importsSort.js";
-import javascriptRules from "./core.javascript.js";
-import reactRules from "./core.react.js";
-import reactHooksRules from "./core.reactHooks.js";
-import stylisticRules from "./core.stylistic.js";
-import typescriptRules from "./core.typescript.js";
-import vueRules from "./core.vue.js";
+import antfuRules from "./core.antfu.ts";
+import importsRules from "./core.imports.ts";
+import simpleImportSortRules from "./core.importsSort.ts";
+import javascriptRules from "./core.javascript.ts";
+import reactRules from "./core.react.ts";
+import reactHooksRules from "./core.reactHooks.ts";
+import stylisticRules from "./core.stylistic.ts";
+import typescriptRules from "./core.typescript.ts";
+import vueRules from "./core.vue.ts";
 
 /**
  * 全局忽略目录列表
