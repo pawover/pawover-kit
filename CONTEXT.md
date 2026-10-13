@@ -42,11 +42,11 @@ _Avoid_: 子包（口语可沿用，正式文档用发布包）
 
 ### 内部工具（Internal Tool）
 
-内部包内的一个导出模块（如 `tsdownFixCtsStubs`、`tsdownVisualizerPlugins`）。
+内部包内的一个导出模块（如 `tsdownVisualizerPlugins`）。
 
 ### 源码直出（Source-Direct）
 
-包的 `exports` 直接指向 `./src/index.ts`，无需构建产物即可消费：Node ≥ 22.18 type stripping 直跑，TS 经 `preserveSymlinks` 以 node_modules 路径直查源码。
+包的 `exports` 直接指向 `./src/index.ts`，无需构建产物即可消费：Node ≥ 22.18 type stripping 直跑（源码相对导入需显式 `.ts` 扩展名），TS 经 `preserveSymlinks` 以 node_modules 路径直查源码。当前用于 `internal` 与 `eslint-rules`；4 个发布包为混合策略——`types` 条件指源码、`default` 条件指 dist。
 _Avoid_: 源码直查（另一概念——paths 直查）
 
 ### 包边界守卫（Package Boundary Guard）

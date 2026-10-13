@@ -9,3 +9,4 @@
 连带决策：`packages/internal/tsconfig.json` 为**自包含配置**（不 extends 根 build.json）——tsserver 会以 symlink 路径下的 tsconfig 镜像建项目（如 `packages/utils/node_modules/@pawover/kit-internal/tsconfig.json`），相对 `extends` 按 symlink 路径解析错位（TS5083）导致配置退化（无 `types: ["node"]`，IDE 报「找不到 process / node:fs」及类型链连锁错误）；自包含后镜像与真实项目配置一致。**改 base/build.json 严格项时需同步 internal tsconfig**。
 
 Status: accepted
+Related: ADR-0006, ADR-0007

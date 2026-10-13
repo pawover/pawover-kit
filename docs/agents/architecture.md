@@ -12,7 +12,7 @@ packages/utils/      静态类工具集（ArrayUtil / StringUtil / TypeUtil / Ob
 packages/hooks/      React hooks + Alova hooks（根导出为空，须走子路径导入）
 packages/eslint-rules/  ESLint 规则集（默认导出聚合全部）
 packages/zod/        Zod v4 schema
-packages/internal/   内部工具包（private，不发布）：tsdown 共享插件 / hooks 等
+packages/internal/   内部工具包（private，不发布）：tsdown 共享插件（构建分析）
 ```
 
 导入路径：`@pawover/kit/utils`、`@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova`、`@pawover/kit/types`、`@pawover/kit/eslint-rules`、`@pawover/kit/zod`。
@@ -25,20 +25,27 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 
 根包 `build` 任务（`scripts/syncEntry.ts`）在 turbo 流水线中同步 `entry/metadata.json` 与 `entry/hooks-metadata.json`（见「构建流水线」）。改根包 exports / entry 后需 `pnpm build` 再跑 `check:eslint`（entry 与根 scripts 已在 eslint ignores）。
 
-## 子包 exports 仅指向 dist
+## 子包 exports 策略（开发态与发布物分离）
 
-子包发布物 `exports` 仅指向 `dist` 产物，**无 `development` 等指向 src 的条件**——src 不在 `files` 里，指了会害死 vite dev / vitest 消费者（消费者解析到源码路径但打包产物没有该文件）。
+**发布物**（`publishConfig`）：5 个发布包的 `exports` 仅指向 `dist` 产物，**无指向 src 的条件**——src 不在 `files` 里，指了会害死 vite dev / vitest 消费者（消费者解析到源码路径但打包产物没有该文件）。
 
-**例外：`packages/internal`**（private 不发布、无 files 限制）的 `exports` 直接指向 `./src/index.ts`，消费方（子包 tsdown.config.ts）运行时经 Node 24 type stripping 直跑源码，类型经子包 tsconfig 的 `preserveSymlinks: true` 直查——即时反馈且零构建依赖（见「构建流水线」）。**约定：内部包代码不允许出现在消费端**（发布包 src 禁止 import internal，见 ADR-0004）。
+**开发态**（工作区内的包解析）分两类：
 
-仓库内「直查源码」由根 tsconfig / test/tsconfig.json 的 `paths` 与 vitest.config.ts 的 `resolve.alias` 承担，不是靠 exports 条件。
+1. **utils / hooks / types / zod**——混合策略：`exports.types` → `./src/**/*.ts`（子包 tsconfig 无 paths，IDE/tsc 经 node_modules → exports 直查源码、跳转落源码）；`exports.default` → `./dist/**`（Node 运行时消费构建产物，工作区与消费者行为一致）。顶层 `main`/`module`/`types` 与 default 对齐指 dist。**注意：该策略下 `syncEntry` / `test:smoke` 等 Node 脚本必须在 `pnpm build` 之后运行**（`test:ci` 顺序已天然满足）。
+2. **eslint-rules / internal**——源码直出：`exports` 直接指向 `./src`，Node 24 type stripping 直跑。为满足 Node ESM 解析，源码相对导入使用**显式 `.ts` 扩展名**（目录导入写 `/index.ts`）。
+   - eslint-rules：`eslint.config.js` 由 Node 直接执行，必须源码直跑。
+   - internal：private 不发布、无 files 限制；消费方（子包 tsdown.config.ts）运行时直跑，类型经子包 tsconfig 的 `preserveSymlinks: true` 直查——即时反馈且零构建依赖。**约定：内部包代码不允许出现在消费端**（发布包 src 禁止 import internal，见 ADR-0004）。
+
+仓库内「直查源码」由三套机制分担：根 tsconfig / `test/tsconfig.json` 的 `paths`（类型）、`vitest.config.ts` 的 `resolve.alias`（测试运行时）、4 包开发态 `exports.types`（子包视角 IDE/tsc）。Node 直跑源码仅限 eslint-rules / internal。
+
+策略的决策背景与否决备选见 ADR-0006。
 
 ## 直查源码方案
 
 - 根 tsconfig 与 `test/tsconfig.json` 的 `paths` 把 `@pawover/kit-*`（含子路径）直接映射到源码 `.ts`。slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths。
 - **改源码后无需先 `pnpm build` 即可跑 `test:types` / `check:types`**；`dist` 过期不再是误导性错误的来源。
 - vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。
-- 注意 `packages/*/tsconfig.json` 无 paths，IDE 中包间导入经 workspace 链接解析到 `dist` d.ts（构建后）；唯一例外是 `@pawover/kit-internal`——子包 tsconfig 开 `preserveSymlinks: true`，以 node_modules 路径直查其 src 源码（TS 对 node_modules 路径文件豁免 rootDir 检查，因此包边界守卫不失效）。
+- 注意 `packages/*/tsconfig.json` 无 paths，IDE 中包间导入经 workspace 链接 → 包开发态 `exports.types` 直查源码；TS 对 node_modules 路径文件豁免 rootDir 检查（`preserveSymlinks: true`），包边界守卫不受影响。
 
 ## 构建流水线
 
@@ -52,4 +59,4 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/syncEntry.ts
 
 ## eslint-rules 包特殊注意
 
-仓库自身 eslint.config.js 经 node 解析包 exports → `dist`，**改本包源码后必须先 `pnpm build` 再跑 `check:eslint` / lint-staged**。这是「直查源码」规则唯一不适用的场景——ESLint 配置解析不经过 tsconfig paths 或 vitest alias。
+`eslint.config.js` 由 Node 直接执行（ESLint 加载配置不走 tsconfig paths / vitest alias），因此 eslint-rules 开发态 `exports` 直指源码、源码采用显式 `.ts` 扩展名——改其源码后**无需** `pnpm build` 即可跑 `check:eslint` / lint-staged。
