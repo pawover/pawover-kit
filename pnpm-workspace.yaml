@@ -1,3 +1,5 @@
+nodeVersion: 24.21.0
+engineStrict: true
 packages:
   - packages/*
 allowBuilds:
