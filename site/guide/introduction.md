@@ -29,7 +29,7 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 
 ## 环境要求
 
-- Node.js >= 22.20.0
+- Node.js >= 24.21.0
 - pnpm >= 11（开发与发布）
 
 ## 下一步

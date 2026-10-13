@@ -4,7 +4,7 @@
   <p><b>简体中文</b> | <a href="README.en.md">English</a></p>
 
   [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
-  [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
+  [![Node version](https://img.shields.io/badge/node-%3E%3D24.21.0-brightgreen.svg)](https://nodejs.org)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
   [![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
 </div>
@@ -87,7 +87,7 @@ id.parse("abc"); // "abc"
 
 ## 环境要求
 
-- Node.js >= 22.20.0
+- Node.js >= 24.21.0
 - pnpm >= 11
 
 ## 开发

@@ -56,4 +56,4 @@ MimeUtil.fromExtension(".HTML"); // 同上
 
 ## Node 版本要求？
 
-Node.js >= 22.20.0（仓库开发与发布要求 pnpm >= 11）。作为依赖使用时无 Node 版本约束——它只是普通 ESM/CJS 包。
+Node.js >= 24.21.0（仓库开发与发布要求 pnpm >= 11）。作为依赖使用时无 Node 版本约束——它只是普通 ESM/CJS 包。
