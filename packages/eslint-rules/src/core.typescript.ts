@@ -3,12 +3,7 @@ import preset from "./preset.ts";
 /**
  * `typescript` 规则组配置
  *
- * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.typescript` / `createRules("typescript")`）。
- *
- * @example
- * ```ts
- * import { rules } from "@pawover/kit-eslint-rules/src/core.typescript";
- * ```
+ * 规则名 → 严重级别/配置的映射：`typescript` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `ts`。
  */
 const rules = {
   /**
@@ -17,6 +12,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/class-methods-use-this
    */
   "class-methods-use-this": 0,
+  /**
+   * @desc 要求函数返回语句要么都指定值要么都不指定
+   * @descEN Require `return` statements to either always or never specify values
+   * @see https://typescript-eslint.io/rules/consistent-return
+   */
+  "consistent-return": 0,
   /**
    * @desc 强制默认参数在最后
    * @descEN Enforce default parameters to be last
@@ -60,6 +61,12 @@ const rules = {
    */
   "no-empty-function": 0,
   /**
+   * @desc 禁止在类或类式对象之外使用 this
+   * @descEN Disallow `this` keywords outside of classes or class-like objects
+   * @see https://typescript-eslint.io/rules/no-invalid-this
+   */
+  "no-invalid-this": 0,
+  /**
    * @desc 禁止使用类似 eval 的函数
    * @descEN Disallow the use of eval()-like functions
    * @see https://typescript-eslint.io/rules/no-implied-eval
@@ -101,6 +108,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/no-unused-expressions
    */
   "no-unused-expressions": 0,
+  /**
+   * @desc 禁止未使用的私有类成员
+   * @descEN Disallow unused private class members
+   * @see https://typescript-eslint.io/rules/no-unused-private-class-members
+   */
+  "no-unused-private-class-members": 0,
   /**
    * @desc 禁止未使用的变量
    * @descEN Disallow unused variables
@@ -192,6 +205,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/consistent-indexed-object-style
    */
   "ts/consistent-indexed-object-style": 0,
+  /**
+   * @desc 要求函数返回语句要么都指定值要么都不指定
+   * @descEN Require `return` statements to either always or never specify values
+   * @see https://typescript-eslint.io/rules/consistent-return
+   */
+  "ts/consistent-return": 0,
   /**
    * @desc 强制类型断言风格一致
    * @descEN Enforce consistent usage of type assertions
@@ -379,6 +398,12 @@ const rules = {
    */
   "ts/no-for-in-array": 0,
   /**
+   * @desc 禁止解析为 "empty object" 类型的类型操作
+   * @descEN Disallow type operations that resolve to the "empty object" type
+   * @see https://typescript-eslint.io/rules/no-generated-empty-object-type
+   */
+  "ts/no-generated-empty-object-type": 0,
+  /**
    * @desc 禁止使用类似 eval 的函数
    * @descEN Disallow the use of eval()-like functions
    * @see https://typescript-eslint.io/rules/no-implied-eval
@@ -396,6 +421,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/no-inferrable-types
    */
   "ts/no-inferrable-types": [2, { ignoreParameters: true, ignoreProperties: true }],
+  /**
+   * @desc 禁止在类或类式对象之外使用 this
+   * @descEN Disallow `this` keywords outside of classes or class-like objects
+   * @see https://typescript-eslint.io/rules/no-invalid-this
+   */
+  "ts/no-invalid-this": 0,
   /**
    * @desc 禁止在泛型或返回类型之外使用 void 类型
    * @descEN Disallow void type outside of generic or return types
@@ -559,6 +590,12 @@ const rules = {
    */
   "ts/no-unnecessary-type-constraint": 2,
   /**
+   * @desc 禁止不改变类型或值的类型转换惯用法
+   * @descEN Disallow conversion idioms when they do not change the type or value of the expression
+   * @see https://typescript-eslint.io/rules/no-unnecessary-type-conversion
+   */
+  "ts/no-unnecessary-type-conversion": 0,
+  /**
    * @desc 禁止未多次使用的类型参数
    * @descEN Disallow type parameters that aren't used multiple times
    * @see https://typescript-eslint.io/rules/no-unnecessary-type-parameters
@@ -588,6 +625,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/no-unsafe-declaration-merging
    */
   "ts/no-unsafe-declaration-merging": 0,
+  /**
+   * @desc 禁止将非枚举值赋值给枚举类型位置
+   * @descEN Disallow assigning non-enum values to enum typed locations
+   * @see https://typescript-eslint.io/rules/no-unsafe-enum-assignment
+   */
+  "ts/no-unsafe-enum-assignment": 2,
   /**
    * @desc 禁止将枚举值与非枚举值比较
    * @descEN Disallow comparing an enum value with a non-enum value
@@ -631,6 +674,12 @@ const rules = {
    */
   "ts/no-unused-expressions": [1, { ignoreDirectives: true, allowShortCircuit: true }],
   /**
+   * @desc 禁止未使用的私有类成员
+   * @descEN Disallow unused private class members
+   * @see https://typescript-eslint.io/rules/no-unused-private-class-members
+   */
+  "ts/no-unused-private-class-members": 1,
+  /**
    * @desc 禁止未使用的变量
    * @descEN Disallow unused variables
    * @see https://typescript-eslint.io/rules/no-unused-vars
@@ -648,6 +697,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/no-useless-constructor
    */
   "ts/no-useless-constructor": 0,
+  /**
+   * @desc 禁止永远不会生效的默认值
+   * @descEN Disallow default values that will never be used
+   * @see https://typescript-eslint.io/rules/no-useless-default-assignment
+   */
+  "ts/no-useless-default-assignment": 0,
   /**
    * @desc 禁止不改变模块文件内容的空导出
    * @descEN Disallow empty exports that don't change anything in a module file
@@ -834,6 +889,12 @@ const rules = {
    * @see https://typescript-eslint.io/rules/strict-boolean-expressions
    */
   "ts/strict-boolean-expressions": 0,
+  /**
+   * @desc 禁止把有返回值的函数传入接受 void 的位置
+   * @descEN Disallow passing a value-returning function in a position accepting a void function
+   * @see https://typescript-eslint.io/rules/strict-void-return
+   */
+  "ts/strict-void-return": 1,
   /**
    * @desc 要求 switch-case 语句穷尽所有可能
    * @descEN Require switch-case statements to be exhaustive

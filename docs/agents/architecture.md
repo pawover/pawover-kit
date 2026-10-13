@@ -10,7 +10,7 @@
 packages/types/      纯类型工具（无运行时代码）
 packages/utils/      静态类工具集（ArrayUtil / StringUtil / TypeUtil / ObjectUtil …）
 packages/hooks/      React hooks + Alova hooks（根导出为空，须走子路径导入）
-packages/eslint-rules/  ESLint 规则集（默认导出聚合全部）
+packages/eslint-rules/  自包含 ESLint flat config 预设（默认导出工厂）
 packages/zod/        Zod v4 schema
 packages/internal/   内部工具包（private，不发布）：tsdown 共享插件（构建分析）
 ```

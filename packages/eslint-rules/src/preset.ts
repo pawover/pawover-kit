@@ -1,14 +1,7 @@
 /**
  * 预设配置
  *
- * 供各规则组共享的基础预设：缩进大小与 TypeScript 类成员排序规则。
- *
- * @example
- * ```ts
- * import preset from "@pawover/kit-eslint-rules/src/preset";
- *
- * console.log(preset.indent); // 2
- * ```
+ * 供各规则组共享的基础预设（缩进大小与 TypeScript 类成员排序规则），仅内部使用，不构成包公开 API。
  */
 export default {
   /** 缩进大小 */

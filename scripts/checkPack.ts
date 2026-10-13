@@ -17,6 +17,15 @@ import { SUB_PACKAGE_DIRS } from "./packages.ts";
 
 const root = resolve(import.meta.dirname, "..");
 
+/**
+ * attw 规则忽略表（按包名）。
+ * eslint-rules 为单 ESM 产物（依赖链含 ESM-only 插件），require 条件经 Node 的 require(esm)（>= 22.12）可达；
+ * attw 的 cjs-resolves-to-esm 判定与 Node 实际行为不符，故忽略（依据见 ADR-0008）。
+ */
+const ATTW_IGNORED_RULES: Record<string, string[]> = {
+  "@pawover/kit-eslint-rules": ["cjs-resolves-to-esm"],
+};
+
 function collectTargets (node: unknown, targets: string[]): void {
   if (typeof node === "string") {
     if (node.startsWith("./")) {
@@ -32,7 +41,7 @@ function collectTargets (node: unknown, targets: string[]): void {
   }
 }
 
-function validateExportsTargets (packDir: string, tarball: string): void {
+function validateExportsTargets (packDir: string, tarball: string): string {
   const packed: Record<"exports" | "name", unknown> = JSON.parse(
     execSync(`tar -xOf "${tarball}" package/package.json`, { encoding: "utf8", cwd: packDir }),
   );
@@ -49,6 +58,8 @@ function validateExportsTargets (packDir: string, tarball: string): void {
     console.error(`[check-pack] ${packed.name} exports 引用了包内不存在的文件：\n  ${missing.join("\n  ")}`);
     process.exit(1);
   }
+
+  return String(packed.name);
 }
 
 const packDir = mkdtempSync(join(tmpdir(), "pawover-kit-attw-"));
@@ -63,13 +74,19 @@ try {
     process.exit(1);
   }
   for (const tarball of tarballs) {
-    validateExportsTargets(packDir, tarball);
+    const name = validateExportsTargets(packDir, tarball);
+    const ignoredRules = ATTW_IGNORED_RULES[name] ?? [];
+    const ignoreFlag = ignoredRules.length > 0 ? ` --ignore-rules ${ignoredRules.join(" ")}` : "";
     const tarballPath = join(packDir, tarball);
     try {
-      execSync(`pnpm exec attw ${tarballPath} --profile node16 --quiet`);
+      execSync(`pnpm exec attw ${tarballPath} --profile node16 --quiet${ignoreFlag}`);
     } catch {
       console.error(`[check-pack] ${tarball} 类型解析失败，完整报告：`);
-      execSync(`pnpm exec attw ${tarballPath} --profile node16`, { stdio: "inherit" });
+      try {
+        execSync(`pnpm exec attw ${tarballPath} --profile node16${ignoreFlag}`, { stdio: "inherit" });
+      } catch {
+        // 报告已在 stderr 输出，继续以失败退出
+      }
       process.exit(1);
     }
     console.log(`✔ ${tarball} 类型解析通过`);

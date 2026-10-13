@@ -3,12 +3,7 @@ import preset from "./preset.ts";
 /**
  * `antfu` 规则组配置
  *
- * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.antfu` / `createRules("antfu")`）。
- *
- * @example
- * ```ts
- * import { rules } from "@pawover/kit-eslint-rules/src/core.antfu";
- * ```
+ * 规则名 → 严重级别/配置的映射：`antfu` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `antfu`。
  */
 const rules = {
   /**

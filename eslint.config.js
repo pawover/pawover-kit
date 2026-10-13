@@ -1,67 +1,34 @@
 // @ts-nocheck
 import { defineConfig } from "eslint/config";
 
-import eslintPluginReact from "@eslint-react/eslint-plugin";
-import eslintPluginStylistic from "@stylistic/eslint-plugin";
-import eslintPluginAntfu from "eslint-plugin-antfu";
-import eslintPluginImports from "eslint-plugin-import-lite";
-import eslintPluginReactHooks from "eslint-plugin-react-hooks";
-import eslintTs from "typescript-eslint";
+import pawover from "@pawover/kit-eslint-rules";
 
-import eslintRules from "@pawover/kit-eslint-rules";
+const preset = pawover({
+  typescript: true,
+  stylistic: true,
+  antfu: true,
+  imports: true,
+  react: true,
+  parserOptions: {
+    tsconfigRootDir: import.meta.dirname,
+  },
+});
 
-const plugins = {
-  typescript: {
-    ts: eslintTs.plugin,
-  },
-  stylistic: {
-    stylistic: eslintPluginStylistic,
-  },
-  antfu: {
-    antfu: eslintPluginAntfu,
-  },
-  imports: {
-    imports: eslintPluginImports.configs.all.plugins["import-lite"],
-  },
-  react: {
-    "react": eslintPluginReact,
-    "react-hooks": eslintPluginReactHooks,
-  },
-};
+// 测试文件中禁用全部预设规则：从预设产物反推规则清单
+const allRules = {};
+for (const config of preset) {
+  Object.assign(allRules, config.rules);
+}
+const offTestFiles = Object.fromEntries(Object.keys(allRules).map((rule) => [rule, 0]));
 
 export default defineConfig([
+  ...preset,
   {
-    ignores: [...eslintRules.GLOB_EXCLUDE, "**/.cache", "entry/**", "site/**", "docs/**"],
+    ignores: ["entry/**", "site/**", "docs/**"],
   },
   {
     files: ["**/*.{js,cjs,mjs,jsx,ts,tsx}"],
-    languageOptions: {
-      parser: eslintTs.parser,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-        sourceType: "module",
-        ecmaVersion: 2022,
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
-    plugins: {
-      ...plugins.typescript,
-      ...plugins.stylistic,
-      ...plugins.antfu,
-      ...plugins.imports,
-      ...plugins.react,
-    },
     rules: {
-      ...eslintRules.javascript,
-      ...eslintRules.typescript,
-      ...eslintRules.stylistic,
-      ...eslintRules.antfu,
-      ...eslintRules.imports,
-      ...eslintRules.react,
-      ...eslintRules.reactHooks,
       "antfu/no-import-dist": 0,
       "ts/no-explicit-any": 0,
       "stylistic/no-multiple-empty-lines": [2, { max: 1, maxEOF: 1, maxBOF: 0 }],
@@ -69,20 +36,6 @@ export default defineConfig([
   },
   {
     files: ["**/*.test.{js,jsx,ts,tsx}", "**/*.test.type.ts"],
-    rules: {
-      ...Object.keys({
-        ...eslintRules.javascript,
-        ...eslintRules.typescript,
-        ...eslintRules.stylistic,
-        ...eslintRules.antfu,
-        ...eslintRules.imports,
-        ...eslintRules.react,
-        ...eslintRules.reactHooks,
-      }).reduce((acc, key) => {
-        acc[key] = 0;
-
-        return acc;
-      }, {}),
-    },
+    rules: offTestFiles,
   },
 ]);

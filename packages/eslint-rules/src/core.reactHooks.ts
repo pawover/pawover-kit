@@ -1,12 +1,7 @@
 /**
  * `reactHooks` 规则组配置
  *
- * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.reactHooks` / `createRules("reactHooks")`）。
- *
- * @example
- * ```ts
- * import { rules } from "@pawover/kit-eslint-rules/src/core.reactHooks";
- * ```
+ * 规则名 → 严重级别/配置的映射：`reactHooks` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `react-hooks`。
  */
 const rules = {
   /**

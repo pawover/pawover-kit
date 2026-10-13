@@ -147,6 +147,7 @@ async function main () {
     if (hasMergeInProgress()) {
       throw new Error(
         "合并存在冲突：请手动解决（版本号保留 feature 侧），完成后 git add 全部文件并 git merge --continue，再重跑 pnpm release:merge",
+        { cause: err },
       );
     }
     throw err;
@@ -190,6 +191,7 @@ async function main () {
         throw new Error(
           `防撞车检查失败（npm registry 访问异常，无法确认 ${name}@${version} 是否已发布）：`
           + stderr.trim().slice(0, 200),
+          { cause: err },
         );
       }
     }
@@ -227,6 +229,7 @@ async function main () {
     throw new Error(
       `清理远端 ${HEAD_BRANCH} 分支失败：${String((err as any).stderr ?? (err as any).message ?? err).trim().slice(0, 200)}`
       + "（可能受分支保护，请手动删除后重试）",
+      { cause: err },
     );
   }
   run(`git push -u origin ${HEAD_BRANCH}`);

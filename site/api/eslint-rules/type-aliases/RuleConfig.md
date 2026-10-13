@@ -8,7 +8,7 @@
 
 > **RuleConfig**\<`RuleOptions`\> = [`Severity`](Severity.md) \| \[[`Severity`](Severity.md), `...Partial<RuleOptions>`\]
 
-Defined in: [index.ts:111](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/eslint-rules/src/index.ts#L111)
+Defined in: [index.ts:56](https://github.com/pawover/pawover-kit/blob/85a3a9b16d60837c188ee91ecdd23fad35562864/packages/eslint-rules/src/index.ts#L56)
 
 规则配置
 

@@ -64,7 +64,7 @@ import { TypeUtil } from "@pawover/kit/utils";
 import { useMount } from "@pawover/kit/hooks/react";
 import { useAlovaRequest } from "@pawover/kit/hooks/alova";
 import type { AnyObject } from "@pawover/kit/types";
-import eslintRules from "@pawover/kit/eslint-rules";
+import pawover from "@pawover/kit/eslint-rules";
 import { id } from "@pawover/kit/zod";
 
 // Type utilities
@@ -78,11 +78,8 @@ useMount(() => {
   console.log("mounted");
 });
 
-// ESLint rulesets (flat config)
-export default [
-  { ignores: eslintRules.GLOB_EXCLUDE },
-  { files: ["**/*.ts"], rules: { ...eslintRules.javascript, ...eslintRules.typescript } },
-];
+// ESLint flat config preset (self-contained)
+export default pawover({ typescript: true });
 
 // Zod schemas
 id.parse("abc"); // "abc"

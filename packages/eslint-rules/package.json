@@ -5,7 +5,7 @@
     "email": "pawover@outlook.com",
     "url": "https://github.com/pawover"
   },
-  "description": "ESLint rulesets: javascript, typescript, react, vue, stylistic, antfu and import rules with presets",
+  "description": "Self-contained ESLint flat config preset: javascript, typescript, react, vue, stylistic, antfu and import rules, with pinned bundled plugins",
   "version": "0.0.6-alpha.0",
   "type": "module",
   "keywords": [
@@ -38,20 +38,11 @@
         "default": "./src/index.ts"
       }
     },
-    "./src/*": {
-      "import": {
-        "types": "./src/*",
-        "default": "./src/*"
-      },
-      "require": {
-        "types": "./src/*",
-        "default": "./src/*"
-      }
-    }
+    "./package.json": "./package.json"
   },
   "publishConfig": {
     "access": "public",
-    "main": "./dist/index.cjs",
+    "main": "./dist/index.js",
     "module": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
@@ -61,20 +52,11 @@
           "default": "./dist/index.js"
         },
         "require": {
-          "types": "./dist/index.d.cts",
-          "default": "./dist/index.cjs"
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
         }
       },
-      "./src/*": {
-        "import": {
-          "types": "./dist/*.d.ts",
-          "default": "./dist/*.js"
-        },
-        "require": {
-          "types": "./dist/*.d.cts",
-          "default": "./dist/*.cjs"
-        }
-      }
+      "./package.json": "./package.json"
     }
   },
   "scripts": {
@@ -83,47 +65,26 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
+  "dependencies": {
+    "@eslint-react/eslint-plugin": "5.26.1",
+    "@stylistic/eslint-plugin": "6.0.0-beta.6",
+    "eslint-plugin-antfu": "3.2.3",
+    "eslint-plugin-import-lite": "0.6.0",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "eslint-plugin-simple-import-sort": "13.0.0",
+    "eslint-plugin-vue": "10.10.0",
+    "typescript-eslint": "8.71.1",
+    "vue-eslint-parser": "10.4.1"
+  },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*"
   },
   "peerDependencies": {
-    "@eslint-react/eslint-plugin": "^5.9.0",
-    "@stylistic/eslint-plugin": "^6.0.0-beta.6",
     "eslint": "^10.0.0",
-    "eslint-plugin-antfu": "^3.2.2",
-    "eslint-plugin-import-lite": "^0.6.0",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-simple-import-sort": "^13.0.0",
-    "eslint-plugin-vue": "^10.8.0",
-    "typescript": "^5.9.3 || ^6.0.0",
-    "typescript-eslint": "^8.57.0"
+    "typescript": "^5.9.3 || ^6.0.0"
   },
   "peerDependenciesMeta": {
-    "@eslint-react/eslint-plugin": {
-      "optional": true
-    },
-    "@stylistic/eslint-plugin": {
-      "optional": true
-    },
-    "eslint-plugin-antfu": {
-      "optional": true
-    },
-    "eslint-plugin-import-lite": {
-      "optional": true
-    },
-    "eslint-plugin-react-hooks": {
-      "optional": true
-    },
-    "eslint-plugin-simple-import-sort": {
-      "optional": true
-    },
-    "eslint-plugin-vue": {
-      "optional": true
-    },
     "typescript": {
-      "optional": true
-    },
-    "typescript-eslint": {
       "optional": true
     }
   }

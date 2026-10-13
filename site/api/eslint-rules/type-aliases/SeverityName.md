@@ -8,7 +8,7 @@
 
 > **SeverityName** = `"off"` \| `"warn"` \| `"error"`
 
-Defined in: [index.ts:83](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/eslint-rules/src/index.ts#L83)
+Defined in: [index.ts:28](https://github.com/pawover/pawover-kit/blob/85a3a9b16d60837c188ee91ecdd23fad35562864/packages/eslint-rules/src/index.ts#L28)
 
 规则严重级别（名称形式）
 

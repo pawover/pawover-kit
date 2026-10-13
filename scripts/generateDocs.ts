@@ -53,7 +53,7 @@ const baseArgs = [
   "--githubPages",
   "false",
   "--tsconfig",
-  "tsconfig.build.json",
+  "tsconfig.json",
   "--plugin",
   "typedoc-plugin-markdown",
   "--entryFileName",

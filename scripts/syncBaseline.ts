@@ -138,7 +138,10 @@ async function main () {
     if (hasMergeInProgress()) {
       run("git merge --abort", { stdio: "ignore" });
     }
-    throw new Error(`合并 origin/${MAIN_BRANCH} 失败（已回滚）：${String((err as any).stderr ?? (err as any).message).trim().slice(0, 300)}`);
+    throw new Error(
+      `合并 origin/${MAIN_BRANCH} 失败（已回滚）：${String((err as any).stderr ?? (err as any).message).trim().slice(0, 300)}`,
+      { cause: err },
+    );
   }
 
   console.log("③ 校验合并结果（相对 origin/feature 应仅版本文件 + pre 归档）");

@@ -3,12 +3,7 @@ import preset from "./preset.ts";
 /**
  * `stylistic` 规则组配置
  *
- * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.stylistic` / `createRules("stylistic")`）。
- *
- * @example
- * ```ts
- * import { rules } from "@pawover/kit-eslint-rules/src/core.stylistic";
- * ```
+ * 规则名 → 严重级别/配置的映射：`stylistic` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `stylistic`。
  */
 const rules = {
   /**
@@ -90,6 +85,12 @@ const rules = {
    * @see https://eslint.style/rules/eol-last
    */
   "stylistic/eol-last": 0,
+  /**
+   * @desc 强制 JSX 属性的换行风格一致（实验性规则）
+   * @descEN Enforce consistent line break styles for JSX props
+   * @see https://eslint.style/rules/jsx-props-style
+   */
+  "stylistic/exp-jsx-props-style": 0,
   /**
    * @desc 要求或禁止函数标识符及其调用间的空格
    * @descEN Require or disallow spacing between function identifiers and their invocations
@@ -216,6 +217,18 @@ const rules = {
    * @see https://eslint.style/rules/jsx-self-closing-comp
    */
   "stylistic/jsx-self-closing-comp": 2,
+  /**
+   * @desc 强制 JSX 布尔属性简写
+   * @descEN Enforce shorthand for boolean JSX attributes
+   * @see https://eslint.style/rules/jsx-shorthand-boolean
+   */
+  "stylistic/jsx-shorthand-boolean": 0,
+  /**
+   * @desc 强制 JSX 片段简写语法
+   * @descEN Enforce shorthand fragment syntax
+   * @see https://eslint.style/rules/jsx-shorthand-fragment
+   */
+  "stylistic/jsx-shorthand-fragment": 2,
   /**
    * @desc 强制 JSX 标签内和标签周围空格
    * @descEN Enforce whitespace in and around the JSX opening and closing brackets

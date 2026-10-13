@@ -4,6 +4,10 @@
 
 # @pawover/kit-eslint-rules
 
+## Interfaces
+
+- [PawoverOptions](interfaces/PawoverOptions.md)
+
 ## Type Aliases
 
 - [RuleConfig](type-aliases/RuleConfig.md)
@@ -13,4 +17,8 @@
 
 ## Variables
 
-- [default](variables/default.md)
+- [GLOB\_EXCLUDE](variables/GLOB_EXCLUDE.md)
+
+## Functions
+
+- [default](functions/default.md)

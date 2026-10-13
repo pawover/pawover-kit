@@ -1,12 +1,7 @@
 /**
  * `react` 规则组配置
  *
- * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.react` / `createRules("react")`）。
- *
- * @example
- * ```ts
- * import { rules } from "@pawover/kit-eslint-rules/src/core.react";
- * ```
+ * 规则名 → 严重级别/配置的映射：`react` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `react`。
  */
 const rules = {
   /**
@@ -261,6 +256,12 @@ const rules = {
    * @see https://www.eslint-react.xyz/docs/rules/no-unused-props
    */
   "react/no-unused-props": 1,
+  /**
+   * @desc 警告已定义但从未使用的 state 变量
+   * @descEN Warns about state variables that are defined but never used
+   * @see https://www.eslint-react.xyz/docs/rules/no-unused-state
+   */
+  "react/no-unused-state": 0,
   /**
    * @desc 将 useContext 替换为 use
    * @descEN Replaces usage of useContext with use
@@ -530,37 +531,6 @@ const rules = {
    * @see https://www.eslint-react.xyz/docs/rules/naming-convention-ref-name
    */
   "react/naming-convention-ref-name": 2,
-
-  /**
-   * @desc 以 JSON 格式报告所有函数组件
-   * @descEN Reports all function components in JSON format
-   * @see https://www.eslint-react.xyz/docs/rules/debug-function-component
-   */
-  "react/debug-function-component": 0,
-  /**
-   * @desc 以 JSON 格式报告所有 Hooks
-   * @descEN Reports all React Hooks in JSON format
-   * @see https://www.eslint-react.xyz/docs/rules/debug-hook
-   */
-  "react/debug-hook": 0,
-  /**
-   * @desc 以 JSON 格式报告所有从 React 初始化的标识符
-   * @descEN Reports all identifiers initialized from React in JSON format
-   * @see https://www.eslint-react.xyz/docs/rules/debug-is-from-react
-   */
-  "react/debug-is-from-react": 0,
-  /**
-   * @desc 以 JSON 格式报告所有从 ref 初始化或派生的标识符
-   * @descEN Reports all identifiers initialized or derived from refs in JSON format
-   * @see https://www.eslint-react.xyz/docs/rules/debug-is-from-ref
-   */
-  "react/debug-is-from-ref": 0,
-  /**
-   * @desc 以 JSON 格式报告所有 JSX 元素和片段
-   * @descEN Reports all JSX elements and fragments in JSON format
-   * @see https://www.eslint-react.xyz/docs/rules/debug-jsx
-   */
-  "react/debug-jsx": 0,
 };
 
 export { rules };

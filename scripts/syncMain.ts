@@ -153,6 +153,7 @@ async function main () {
     if (hasMergeInProgress()) {
       throw new Error(
         "合并存在冲突：请手动解决（版本号可任取，第③步会还原为 main 侧），完成后 git add 全部文件并 git merge --continue，再重跑 pnpm sync:main",
+        { cause: err },
       );
     }
     throw err;
@@ -210,6 +211,7 @@ async function main () {
     throw new Error(
       `清理远端 ${HEAD_BRANCH} 分支失败：${String((err as any).stderr ?? (err as any).message ?? err).trim().slice(0, 200)}`
       + "（可能受分支保护，请手动删除后重试）",
+      { cause: err },
     );
   }
   run(`git push -u origin ${HEAD_BRANCH}`);
