@@ -1,6 +1,16 @@
 import preset from "./preset.ts";
 
-export default {
+/**
+ * `vue` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.vue` / `createRules("vue")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.vue";
+ * ```
+ */
+const rules = {
   // Base Rules
   "vue/comment-directive": 2,
   "vue/jsx-uses-vars": 2,
@@ -262,3 +272,6 @@ export default {
   "vue/space-unary-ops": 2,
   "vue/template-curly-spacing": 2,
 };
+
+export { rules };
+export default rules;

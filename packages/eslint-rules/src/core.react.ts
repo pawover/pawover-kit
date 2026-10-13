@@ -1,4 +1,14 @@
-export default {
+/**
+ * `react` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.react` / `createRules("react")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.react";
+ * ```
+ */
+const rules = {
   /**
    * @desc 验证子组件错误是否使用 Error Boundaries 而非 try/catch
    * @descEN Validates usage of Error Boundaries instead of try/catch for errors in child components
@@ -552,3 +562,6 @@ export default {
    */
   "react/debug-jsx": 0,
 };
+
+export { rules };
+export default rules;

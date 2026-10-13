@@ -1,6 +1,16 @@
 import preset from "./preset.ts";
 
-export default {
+/**
+ * `typescript` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.typescript` / `createRules("typescript")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.typescript";
+ * ```
+ */
+const rules = {
   /**
    * @desc 强制类方法使用 this
    * @descEN Enforce that class methods utilize this
@@ -861,3 +871,6 @@ export default {
    */
   "ts/use-unknown-in-catch-callback-variable": 0,
 };
+
+export { rules };
+export default rules;

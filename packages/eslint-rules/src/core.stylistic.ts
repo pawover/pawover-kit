@@ -1,6 +1,16 @@
 import preset from "./preset.ts";
 
-export default {
+/**
+ * `stylistic` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.stylistic` / `createRules("stylistic")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.stylistic";
+ * ```
+ */
+const rules = {
   /**
    * @desc 统一强制数组/对象/函数参数等列表结构的括号间距与换行风格（取代原分散的 7 条规则）
    * @descEN Enforce consistent spacing and line break styles inside brackets (arrays, objects, function arguments)
@@ -531,3 +541,6 @@ export default {
    */
   "stylistic/yield-star-spacing": 0,
 };
+
+export { rules };
+export default rules;

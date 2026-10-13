@@ -1,4 +1,14 @@
-export default {
+/**
+ * `javascript` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.javascript` / `createRules("javascript")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.javascript";
+ * ```
+ */
+const rules = {
   // Possible Problems
   /**
    * @desc 强制数组回调函数中必须包含 return 语句
@@ -1179,3 +1189,6 @@ export default {
    */
   "yoda": [2, "never", { onlyEquality: true }],
 };
+
+export { rules };
+export default rules;

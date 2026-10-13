@@ -175,6 +175,8 @@ function createRules (rule: keyof typeof rules, prefix?: string) {
   return result;
 }
 
+export { createRules, GLOB_EXCLUDE };
+
 /**
  * 默认导出
  *

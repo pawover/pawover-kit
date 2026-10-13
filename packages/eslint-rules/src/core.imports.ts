@@ -1,4 +1,14 @@
-export default {
+/**
+ * `imports` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.imports` / `createRules("imports")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.imports";
+ * ```
+ */
+const rules = {
   /**
    * @desc 强制类型导入的标记风格保持一致（顶级或内联）
    * @descEN Enforce consistent style for type-only import specifiers (top-level vs inline)
@@ -54,3 +64,6 @@ export default {
    */
   "imports/prefer-default-export": 0,
 };
+
+export { rules };
+export default rules;

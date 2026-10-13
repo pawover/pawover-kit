@@ -1,6 +1,16 @@
 import preset from "./preset.ts";
 
-export default {
+/**
+ * `antfu` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射，聚合进包根默认导出（`eslintRules.antfu` / `createRules("antfu")`）。
+ *
+ * @example
+ * ```ts
+ * import { rules } from "@pawover/kit-eslint-rules/src/core.antfu";
+ * ```
+ */
+const rules = {
   /**
    * @desc 强制链式成员访问的换行风格保持一致
    * @descEN Enforce consistent line breaks for chaining member access
@@ -68,3 +78,6 @@ export default {
    */
   "antfu/top-level-function": 2,
 };
+
+export { rules };
+export default rules;
