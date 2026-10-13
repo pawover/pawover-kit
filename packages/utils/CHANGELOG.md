@@ -1,5 +1,11 @@
 # @pawover/kit-utils
 
+## 1.0.1-alpha.0
+
+### Patch Changes
+
+- a8bac64: `TreeUtil.treeToRows` 内部遍历回调改为块体写法（修正 `ts/strict-void-return` 告警，行为不变）。
+
 ## 1.0.0-alpha.0
 
 ### Major Changes

@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Self-contained ESLint flat config preset: javascript, typescript, react, vue, stylistic, antfu and import rules, with pinned bundled plugins",
-  "version": "0.0.6-alpha.0",
+  "version": "0.1.0-alpha.1",
   "type": "module",
   "keywords": [
     "pawover",
