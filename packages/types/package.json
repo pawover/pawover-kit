@@ -18,9 +18,12 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "engines": {
+    "node": ">=24.21.0"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -28,21 +31,21 @@
     ".": {
       "import": {
         "types": "./src/index.ts",
-        "default": "./src/index.ts"
+        "default": "./dist/index.js"
       },
       "require": {
         "types": "./src/index.ts",
-        "default": "./src/index.ts"
+        "default": "./dist/index.cjs"
       }
     },
     "./react": {
       "import": {
         "types": "./src/react.ts",
-        "default": "./src/react.ts"
+        "default": "./dist/react.js"
       },
       "require": {
         "types": "./src/react.ts",
-        "default": "./src/react.ts"
+        "default": "./dist/react.cjs"
       }
     }
   },
@@ -81,11 +84,11 @@
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
-    "type-fest": "^5.8.0"
+    "type-fest": "^5.10.0"
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*",
-    "@types/react": "^19.2.18"
+    "@types/react": "^19.3.0"
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",

@@ -18,9 +18,12 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
-  "main": "./src/index.ts",
-  "module": "./src/index.ts",
-  "types": "./src/index.ts",
+  "engines": {
+    "node": ">=24.21.0"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -28,31 +31,31 @@
     ".": {
       "import": {
         "types": "./src/index.ts",
-        "default": "./src/index.ts"
+        "default": "./dist/index.js"
       },
       "require": {
         "types": "./src/index.ts",
-        "default": "./src/index.ts"
+        "default": "./dist/index.cjs"
       }
     },
     "./alova": {
       "import": {
         "types": "./src/alova/index.ts",
-        "default": "./src/alova/index.ts"
+        "default": "./dist/alova.js"
       },
       "require": {
         "types": "./src/alova/index.ts",
-        "default": "./src/alova/index.ts"
+        "default": "./dist/alova.cjs"
       }
     },
     "./react": {
       "import": {
         "types": "./src/react/index.ts",
-        "default": "./src/react/index.ts"
+        "default": "./dist/react.js"
       },
       "require": {
         "types": "./src/react/index.ts",
-        "default": "./src/react/index.ts"
+        "default": "./dist/react.cjs"
       }
     }
   },
@@ -103,8 +106,8 @@
   "dependencies": {
     "@pawover/kit-types": "workspace:*",
     "@pawover/kit-utils": "workspace:*",
-    "es-toolkit": "^1.51.0",
-    "type-fest": "^5.8.0"
+    "es-toolkit": "^1.52.0",
+    "type-fest": "^5.10.0"
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*"
