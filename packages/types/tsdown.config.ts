@@ -1,4 +1,4 @@
-import { tsdownFixCtsStubs, tsdownVisualizerPlugins } from "@pawover/kit-internal";
+import { tsdownVisualizerPlugins } from "@pawover/kit-internal";
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
@@ -7,12 +7,9 @@ export default defineConfig({
     react: "src/react.ts",
   },
   format: ["esm", "cjs"],
-  dts: { cjsReexport: true },
+  dts: true,
   target: "es2022",
   platform: "neutral",
   tsconfig: true,
   plugins: tsdownVisualizerPlugins(),
-  hooks: {
-    "build:done": tsdownFixCtsStubs,
-  },
 });
