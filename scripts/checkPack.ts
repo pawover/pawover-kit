@@ -4,9 +4,8 @@
  * （npm 读不懂 pnpm 的 workspace: 协议，在 monorepo 中不稳定），改为：
  * `pnpm pack`（pnpm 原生处理 workspace 协议）→ atw 直查生成的 tgz → 清理临时目录。
  * 覆盖根包 + 5 个子包；额外校验：exports 声明的每个目标文件必须存在于 tgz 内
- * （防止指向未打包的 src / 失效的 metadata.json 等）。
- * 注意：attw 仅检查根包（子包 eslint-rules 存在预存问题 FalseExportDefault，
- * 见其 dist/index.cjs 的 module.exports = 与 d.cts 的 export default 形状不一致，待单独修复）。
+ * （防止指向未打包的 src / 失效的 metadata.json 等）；attw（node16 profile）
+ * 对全部 tarball 逐一检查类型解析。
  * 用法：pnpm check:pack
  */
 
@@ -34,9 +33,11 @@ function collectTargets (node: unknown, targets: string[]): void {
 }
 
 function validateExportsTargets (packDir: string, tarball: string): void {
-  const packed: Record<"exports" | "name", unknown> = JSON.parse(execSync(`tar -xOf "${join(packDir, tarball)}" package/package.json`, { encoding: "utf8" }));
+  const packed: Record<"exports" | "name", unknown> = JSON.parse(
+    execSync(`tar -xOf "${tarball}" package/package.json`, { encoding: "utf8", cwd: packDir }),
+  );
   const files = new Set<string>(
-    execSync(`tar -tf "${join(packDir, tarball)}"`, { encoding: "utf8" })
+    execSync(`tar -tf "${tarball}"`, { encoding: "utf8", cwd: packDir })
       .split("\n")
       .map((f) => f.replace(/\r$/, "").replace(/^package\//, ""))
       .filter(Boolean),
@@ -56,19 +57,23 @@ try {
     execSync(`pnpm pack --pack-destination ${packDir}`, { stdio: "inherit", cwd: join(root, dir) });
   }
   const tarballs = readdirSync(packDir).filter((f) => f.endsWith(".tgz"));
-  if (tarballs.length === 0) {
-    console.error("[check-pack] pnpm pack did not produce any tarball");
+  const expected = 1 + SUB_PACKAGE_DIRS.length;
+  if (tarballs.length !== expected) {
+    console.error(`[check-pack] expected ${expected} tarballs, got ${tarballs.length}`);
     process.exit(1);
   }
   for (const tarball of tarballs) {
     validateExportsTargets(packDir, tarball);
+    const tarballPath = join(packDir, tarball);
+    try {
+      execSync(`pnpm exec attw ${tarballPath} --profile node16 --quiet`);
+    } catch {
+      console.error(`[check-pack] ${tarball} 类型解析失败，完整报告：`);
+      execSync(`pnpm exec attw ${tarballPath} --profile node16`, { stdio: "inherit" });
+      process.exit(1);
+    }
+    console.log(`✔ ${tarball} 类型解析通过`);
   }
-  const rootTarball = tarballs.find((f) => f.startsWith("pawover-kit-"));
-  if (!rootTarball) {
-    console.error("[check-pack] root tarball not found");
-    process.exit(1);
-  }
-  execSync(`pnpm exec attw ${join(packDir, rootTarball)} --profile node16`, { stdio: "inherit" });
 } finally {
   rmSync(packDir, { recursive: true, force: true });
 }
