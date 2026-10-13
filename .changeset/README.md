@@ -131,10 +131,10 @@ flowchart TD
 | alpha bump（pre 模式） | `0.0.1` | patch | `0.0.2-alpha.0` |
 | alpha bump（pre 模式） | `0.0.1` | minor | `0.1.0-alpha.0` |
 | alpha bump（pre 模式） | `0.0.2-alpha.0` | patch | `0.0.2-alpha.1`（pre 计数递增，主数字不变） |
-| alpha bump（pre 模式） | `0.1.0-alpha.0` | minor | `0.2.0-alpha.0` |
+| alpha bump（pre 模式） | `0.1.0-alpha.0` | minor | `0.2.0-alpha.1`（pre 计数在整轮 pre 内单调递增，不归零） |
 | 发布合并剥离 | `0.0.2-alpha.0` | — | `0.0.2`（数字不变，剥 prerelease） |
 
-- 根包版本由 `bumpRoot.ts` 按子包 bump 类型 + pre 计数同步：首次进入 pre 时主数字 +1（`0.9.0 → 0.9.1-alpha.0`），pre 模式内 patch 仅递增 pre 计数（`0.9.1-alpha.0 → 0.9.1-alpha.1`），与 changesets 子包行为一致。
+- 根包版本由 `bumpRoot.ts` 按**子包最高 bump 类型**同步，pre 计数取自**根包自身**并单调 +1（与 changesets 子包行为一致）：非 pre 时 patch 主数字 +1 且计数从 0 起（`0.9.0 → 0.9.1-alpha.0`）；pre 内 patch 主数字不变、计数 +1（`0.9.1-alpha.0 → 0.9.1-alpha.1`）；pre 内 minor 升次数字、计数 +1（`1.0.1-alpha.0 → 1.1.0-alpha.1`）。
 - 剥离后的版本必须大于 main 已发布版本（单调），且不等于任何已发布版本（防撞车）。
 - **release:merge 合并冲突必须取 feature 侧版本**——pre 计数从当前版本号推导，取 main 侧会把已发布的 alpha 版本号丢弃，导致下一轮重复 bump 到已发布版本：
 
