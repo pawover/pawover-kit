@@ -9,10 +9,12 @@ pnpm 单体仓库 (pnpm 11 / Node ≥24.21)。Turborepo 构建。5 个发布包 
 | `pnpm test`                              | `vitest run` — 双项目 (node + jsdom)                                                |
 | `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                                 |
 | `pnpm test:coverage`                     | 全量运行 + v8 覆盖率（阈值见 vitest.config.ts）                                             |
-| `pnpm test:ci`                           | `test:types && test && build && test:smoke && check:pack` (串行失败则停止)                |
+| `pnpm test:global-types`                 | `node test/scripts/globalTypes.ts` — 全局类型入口消费校验（tsconfig types，需先 build）      |
+| `pnpm test:ci`                           | `test:types && check:types:packages && test && build && test:smoke && test:global-types && check:pack` (串行失败则停止) |
 | `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build                 |
 | `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）                  |
-| `pnpm check:types`                       | `tsc --noEmit`（根 tsconfig 聚合检查：packages src + tsdown 配置 + scripts + 根配置文件） |
+| `pnpm check:types`                       | `tsc --noEmit` + `check:types:packages`（根 tsconfig 聚合检查：packages src + tsdown 配置 + scripts + 根配置文件；含各包项目） |
+| `pnpm check:types:packages`              | 逐包 `tsc -p packages/*/tsconfig.json` — 各包 tsconfig 项目（IDE 归属项目）的类型检查                 |
 | `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                                  |
 | `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                                            |
 | `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                            |
@@ -26,7 +28,7 @@ pnpm 单体仓库 (pnpm 11 / Node ≥24.21)。Turborepo 构建。5 个发布包 
 
 ## 架构
 
-- **`@pawover/kit-types`** (`packages/types/`) — 纯类型工具包（无运行时代码）：`AnyObject`、`PlainObject`、`TreeLike`、`TreeLikeOptionalChildren`、`AnyFunction` 族、`Primitive`、`AdvancedRecord`、`ApiNameCheck` 等。入口：`src/index.ts`，子路径：`.`（核心）、`./react`（`Props` / `PropsWithChildren` / `PropsWithRef`）。测试见 `test/types/types/typesApi.test.type.ts`。
+- **`@pawover/kit-types`** (`packages/types/`) — 纯类型工具包（无运行时代码）：`AnyObject`、`PlainObject`、`TreeLike`、`TreeLikeOptionalChildren`、`AnyFunction` 族、`Primitive`、`AdvancedRecord`、`ApiNameCheck` 等。入口：`src/index.ts`，子路径：`.`（核心）、`./react`（`Props` / `PropsWithChildren` / `PropsWithRef`）、`./global` 与 `./react/global`（全局类型入口，tsconfig `types` 消费；见 ADR-0009）。测试见 `test/types/types/typesApi.test.type.ts`。
 - **`@pawover/kit-utils`** (`packages/utils/`) — 静态类工具集：`ArrayUtil`、`StringUtil`、`TypeUtil`、`ObjectUtil` 等。入口：`src/index.ts`。子路径：`.`（核心）、`./math`、`./vite`。
 - **`@pawover/kit-hooks`** (`packages/hooks/`) — React hooks （`src/react/`：5 个）+ Alova hooks（`src/alova/`：4 个导出）。**根导出为空**（`export {}`）。需从 `@pawover/kit/hooks/react` 或 `@pawover/kit/hooks/alova` 导入。
 - **`@pawover/kit-eslint-rules`** (`packages/eslint-rules/`) — 自包含 ESLint flat config 预设（默认导出工厂 `pawover(options?)`）：`javascript` 常开，typescript / stylistic / antfu / imports / importsSort / react / vue 显式开关；9 个上游插件（含 vue-eslint-parser）作为**精确锁定的 dependencies** 由工厂自动注册，用户只需安装本包。保留导出：`GLOB_EXCLUDE` + `PawoverOptions` / `Severity` 族类型；无子路径（仅主入口）；单 ESM 产物（`require` 条件经 Node `require(esm)` 可达，见 ADR-0008）。规则映射（`core.*.ts`）与 `preset.ts` 均为内部模块。**仓库自身 eslint.config.js 由 Node 直跑本包源码（相对导入用显式 `.ts` 扩展名），改源码后无需构建即可跑 `check:eslint`/lint-staged**。
@@ -58,6 +60,7 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/syncEntry.ts
 - **源码直查**：根 tsconfig 与 `test/tsconfig.json` 的 `paths` 都把 `@pawover/kit-*`（含子路径）直接映射到**源码 `.ts`**（slash 形式 `@pawover/kit/utils` 先经根包 entry/*.d.ts 静态 re-export，再命中 paths）。因此**改源码后无需先 `pnpm build` 即可跑 `test:types` / `check:types`**；`dist` 过期不再是误导性错误的来源。vitest 运行时走 `resolve.alias`（根形式 + 子包直引），同样直查源码。注意 `packages/*/tsconfig.json` 无 paths，包间导入经包开发态 `exports.types` 直查源码（4 个发布包），或源码直出（internal / eslint-rules）。
 - 覆盖率：v8 provider，`packages/**/src/**/*.{ts,tsx}`。阈值：lines:90 / branches:90 / functions:90 / statements:90。
 - **`test/types/**` 类型测试约定（全反向断言）**：所有断言必须为 `@ts-expect-error` 反向断言，禁止正向写法。规则与陷阱见 `docs/agents/type-tests.md`。
+- **包级 tsconfig（IDE 归属项目）**：各包已显式 `"exclude": ["**/node_modules", "**/dist"]`——继承的 exclude 相对源配置目录解析、对子包无效，曾致 dist 产物（含 `declare global`）被 IDE 项目收录引发重复报错；`check:types:packages`（`test:ci` 一环）逐包 `tsc -p` 检查（见 ADR-0009）。
 
 ## TypeScript 严格程度
 
@@ -68,8 +71,8 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/syncEntry.ts
 - **Node 基准**：24.21.0——`pnpm-workspace.yaml`（`nodeVersion` + `engineStrict`）、根包与 5 个发布包的 `engines`、根 `devEngines`、workflows（setup-node）多处对齐，调整基准需同步修改。
 - **Prettier**：printWidth 120；`.type.ts` 和 `.test.ts` 文件为 240
 - **ESLint**：测试文件中所有规则禁用（eslint.config.js）。`antfu/no-import-dist: 0`。
-- **Git**：`AGENTS.md` 被 gitignore（不提交）。Husky pre-commit 运行 lint-staged；pre-push 运行 `test:ci`（紧急可用 `--no-verify` 跳过）。Commitizen 提交（中英双语提示）。
-- **Peer 依赖**：全部可选（`alova`、`mathjs`、`react`、`vite`、`zod`）。
+- **Git**：`AGENTS.md` 已纳入版本控制（随改动提交）。Husky pre-commit 运行 lint-staged；pre-push 运行 `test:ci`（紧急可用 `--no-verify` 跳过）。Commitizen 提交（中英双语提示）。
+- **Peer 依赖**：全部可选（`alova`、`mathjs`、`react`、`typescript`、`vite`、`zod`）。
 
 ## 导入风格
 

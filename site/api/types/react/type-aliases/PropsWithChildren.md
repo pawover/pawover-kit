@@ -8,7 +8,7 @@
 
 > **PropsWithChildren**\<`P`\> = `Readonly`\<`P`\> & `object`
 
-Defined in: [react.ts:39](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/types/src/react.ts#L39)
+Defined in: [react.ts:39](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/react.ts#L39)
 
 含 children 的只读 Props 类型
 

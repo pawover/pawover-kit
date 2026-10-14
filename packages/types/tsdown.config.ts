@@ -6,6 +6,7 @@ export default defineConfig({
     index: "src/index.ts",
     react: "src/react.ts",
   },
+  copy: ["src/global.d.ts", "src/react-global.d.ts"],
   format: ["esm", "cjs"],
   dts: true,
   target: "es2022",

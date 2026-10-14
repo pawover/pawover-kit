@@ -19,11 +19,16 @@ const root = resolve(import.meta.dirname, "..");
 
 /**
  * attw 规则忽略表（按包名）。
- * eslint-rules 为单 ESM 产物（依赖链含 ESM-only 插件），require 条件经 Node 的 require(esm)（>= 22.12）可达；
- * attw 的 cjs-resolves-to-esm 判定与 Node 实际行为不符，故忽略（依据见 ADR-0008）。
+ * - eslint-rules：单 ESM 产物（依赖链含 ESM-only 插件），require 条件经 Node 的 require(esm)（>= 22.12）可达；
+ *   attw 的 cjs-resolves-to-esm 判定与 Node 实际行为不符，故忽略（依据见 ADR-0008）。
+ * - kit / kit-types：`./types/global`（及 `./global`、`./react/global`）为 type-only 子路径（仅 types 条件、
+ *   无运行时产物）；attw 在 CJS 模式会把 types 条件的类型解析视作 runtime 解析、误报 cjs-resolves-to-esm。
+ *   真实 CJS require 该路径因无匹配条件而失败属预期设计，类型消费经 tsconfig types 不经此解析（见 ADR-0009）。
  */
 const ATTW_IGNORED_RULES: Record<string, string[]> = {
   "@pawover/kit-eslint-rules": ["cjs-resolves-to-esm"],
+  "@pawover/kit": ["cjs-resolves-to-esm"],
+  "@pawover/kit-types": ["cjs-resolves-to-esm"],
 };
 
 function collectTargets (node: unknown, targets: string[]): void {

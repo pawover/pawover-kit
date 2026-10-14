@@ -175,20 +175,6 @@ export type AnyGeneratorFunction<P extends any[] = any[], T = any, R = any, N = 
 export type AnyAsyncGeneratorFunction<P extends any[] = any[], T = any, R = any, N = any> = (...args: P) => AsyncGenerator<T, R, N>;
 
 /**
- * 描述无返回值函数
- *
- * 不接受参数且返回 `void` 的函数类型。
- *
- * @example
- * ```ts
- * const fn: VoidFunction = () => {
- *   console.log("hello");
- * };
- * ```
- */
-export type VoidFunction = () => void;
-
-/**
  * 判断是否为原始类型
  *
  * 若 `T` 为原始类型则结果为 `true`，否则为 `false`。

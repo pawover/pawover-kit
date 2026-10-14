@@ -17,6 +17,8 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 
 导入路径：`@pawover/kit/utils`、`@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova`、`@pawover/kit/types`、`@pawover/kit/eslint-rules`、`@pawover/kit/zod`。
 
+类型全局入口（经 tsconfig `types` 消费，不做导入）：`@pawover/kit/types/global`、`@pawover/kit/types/react/global`（`declare global` 注入；子包直引 `@pawover/kit-types/global`、`@pawover/kit-types/react/global`。决策见 ADR-0009）。
+
 ## 根包为薄 re-export 结构
 
 根包（`entry/` 目录）发布物仅含 `entry/`（无子包 dist），`dependencies` 声明 5 个子包（`workspace:*`，发布时重写为实际版本）。
@@ -39,6 +41,10 @@ packages/internal/   内部工具包（private，不发布）：tsdown 共享插
 仓库内「直查源码」由三套机制分担：根 tsconfig / `test/tsconfig.json` 的 `paths`（类型）、`vitest.config.ts` 的 `resolve.alias`（测试运行时）、4 包开发态 `exports.types`（子包视角 IDE/tsc）。Node 直跑源码仅限 eslint-rules / internal。
 
 策略的决策背景与否决备选见 ADR-0006。
+
+## 子包 tsconfig 项目（IDE 归属）
+
+子包 `tsconfig.json` 不含自有 include（默认全量通配），且 extends 继承的 exclude 相对「源配置目录」解析、对子包无效——若不显式排除，IDE 项目会收录 `dist/` 产物（`declare global` 产物曾致全量重复报错）与对 `node_modules` 的全量扫描。**五个子包 tsconfig 各自显式 `"exclude": ["**/node_modules", "**/dist"]`**（相对各自目录解析）；`check:types:packages`（逐包 `tsc -p`，`test:ci` 一环）将包项目编译纳入 CI。
 
 ## 直查源码方案
 

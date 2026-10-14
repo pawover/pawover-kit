@@ -23,6 +23,8 @@ import type { PlainObject } from "@pawover/kit-types";
 | :--- | :--- |
 | `@pawover/kit/types` | 全部类型工具（`AnyObject`、`TreeLike`、`AdvancedRecord`…） |
 | `@pawover/kit/types/react` | React 相关类型（`Props`、`PropsWithChildren`、`PropsWithRef`） |
+| `@pawover/kit/types/global` | 基础类型的全局入口（填 tsconfig `types`，非导入用；子包直引 `@pawover/kit-types/global`） |
+| `@pawover/kit/types/react/global` | React 类型的全局入口（填 tsconfig `types`，非导入用；子包直引 `@pawover/kit-types/react/global`） |
 | `@pawover/kit/utils` | 核心 13 个工具类（array / currency / dateTime / env / function / mime / number / object / string / theme / tree / type / validate） |
 | `@pawover/kit/utils/math` | `MathUtil`（别名 `@pawover/kit/math`） |
 | `@pawover/kit/utils/vite` | `ViteUtil`（别名 `@pawover/kit/vite`） |

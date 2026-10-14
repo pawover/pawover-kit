@@ -3,5 +3,6 @@
   "compilerOptions": {
     "rootDir": ".",
     "preserveSymlinks": true
-  }
+  },
+  "exclude": ["**/node_modules", "**/dist"]
 }

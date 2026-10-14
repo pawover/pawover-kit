@@ -12,6 +12,8 @@
       "@pawover/kit-hooks/react": ["./packages/hooks/src/react/index.ts"],
       "@pawover/kit-types": ["./packages/types/src/index.ts"],
       "@pawover/kit-types/react": ["./packages/types/src/react.ts"],
+      "@pawover/kit-types/global": ["./packages/types/src/global.d.ts"],
+      "@pawover/kit-types/react/global": ["./packages/types/src/react-global.d.ts"],
       "@pawover/kit-zod": ["./packages/zod/src/index.ts"],
       "@pawover/kit-eslint-rules": ["./packages/eslint-rules/src/index.ts"],
       "@pawover/kit-internal": ["./packages/internal/src/index.ts"],

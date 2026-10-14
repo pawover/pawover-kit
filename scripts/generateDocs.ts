@@ -3,7 +3,8 @@
  *
  * 每个子包一个 typedoc 调用，产物提交进仓库（GitHub Pages 构建不再重复生成）。
  * 入口策略按包的实际导出结构配置：
- *   - types: 核心 index + react 子路径（react 不参与核心导出，需单独入口）
+ *   - types: 核心 index + react 子路径（react 不参与核心导出，需单独入口）；`./global` 与 `./react/global`
+ *     为 `declare global` 注入入口（无导出），不纳入 typedoc，用法见 site/api/types.md
  *   - utils: 核心 index + math / vite 子路径（二者不在核心入口内）
  *   - hooks: react / alova 两个子路径（根导出为空）
  *   - eslint-rules / zod: 单入口

@@ -4,5 +4,6 @@
     "rootDir": ".",
     "jsx": "react-jsx",
     "preserveSymlinks": true
-  }
+  },
+  "exclude": ["**/node_modules", "**/dist"]
 }

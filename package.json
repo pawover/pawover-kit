@@ -146,6 +146,12 @@
         "default": "./entry/types-react.cjs"
       }
     },
+    "./types/global": {
+      "types": "./entry/types-global.d.ts"
+    },
+    "./types/react/global": {
+      "types": "./entry/types-react-global.d.ts"
+    },
     "./eslint-rules": {
       "import": {
         "types": "./entry/eslint-rules.d.ts",
@@ -169,7 +175,8 @@
     "test:integration": "vitest run test/integration",
     "test:types": "tsc -p test/tsconfig.json --noEmit",
     "test:smoke": "node test/scripts/smoke.ts",
-    "test:ci": "pnpm test:types && pnpm test && pnpm build && pnpm test:smoke && pnpm check:pack",
+    "test:global-types": "node test/scripts/globalTypes.ts",
+    "test:ci": "pnpm test:types && pnpm check:types:packages && pnpm test && pnpm build && pnpm test:smoke && pnpm test:global-types && pnpm check:pack",
     "postbuild": "node scripts/syncEntry.ts",
     "build": "turbo build",
     "build:analyze": "cross-env VISUALIZER=1 turbo build",
@@ -189,7 +196,8 @@
     "docs:preview": "vitepress preview site",
     "docs:gen": "node scripts/generateDocs.ts",
     "check": "pnpm check:types & pnpm check:eslint & pnpm check:format",
-    "check:types": "tsc --noEmit",
+    "check:types": "tsc --noEmit && node scripts/checkPackageTypes.ts",
+    "check:types:packages": "node scripts/checkPackageTypes.ts",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
     "check:format": "prettier --write \"**/*.{html,json,jsonc}\" --cache-location=.cache/prettier.cache.json --cache",
     "check:pack": "cross-env HUSKY=0 node scripts/checkPack.ts",
