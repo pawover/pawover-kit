@@ -1,5 +1,12 @@
 # @pawover/kit-utils
 
+## 1.0.1-alpha.1
+
+### Patch Changes
+
+- Updated dependencies [6f485dc]
+  - @pawover/kit-types@0.1.0-alpha.0
+
 ## 1.0.1-alpha.0
 
 ### Patch Changes
