@@ -67,6 +67,12 @@ const rules = {
    */
   "antfu/no-ts-export-equal": 2,
   /**
+   * @desc 强制复杂对象、数组与三元表达式换行
+   * @descEN Enforce multiline objects, arrays and ternaries when they are complex
+   * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/reasonable-newline.md
+   */
+  "antfu/reasonable-newline": 0,
+  /**
    * @desc 强制顶层函数使用 function 关键字声明
    * @descEN Enforce top-level functions to be declared with the `function` keyword
    * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/top-level-function.md
