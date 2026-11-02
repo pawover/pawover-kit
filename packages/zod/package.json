@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=24.21.0"
+    "node": ">=24.22.2"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*",
-    "zod": "^4.6.6"
+    "zod": "^4.6.7"
   },
   "peerDependencies": {
     "zod": "^4.1.0"

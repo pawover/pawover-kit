@@ -1,6 +1,6 @@
 # pawover-kit
 
-pnpm 单体仓库 (pnpm 11 / Node ≥24.21)。Turborepo 构建。5 个发布包 + 1 个内部包在 `packages/*` 下。
+pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布包 + 1 个内部包在 `packages/*` 下。
 
 ## 命令
 
@@ -68,7 +68,7 @@ tsdown (build:source) → build (turbo) → 根 postbuild（scripts/syncEntry.ts
 
 ## 工具链特性
 
-- **Node 基准**：24.21.0——`pnpm-workspace.yaml`（`nodeVersion` + `engineStrict`）、根包与 5 个发布包的 `engines`、根 `devEngines`、workflows（setup-node）多处对齐，调整基准需同步修改。
+- **Node 基准**：24.22.2——`pnpm-workspace.yaml`（`nodeVersion` + `engineStrict`）、根包与 5 个发布包的 `engines`、根 `devEngines`、workflows（setup-node）多处对齐，调整基准需同步修改。
 - **Prettier**：printWidth 120；`.type.ts` 和 `.test.ts` 文件为 240
 - **ESLint**：测试文件中所有规则禁用（eslint.config.js）。`antfu/no-import-dist: 0`。
 - **Git**：`AGENTS.md` 已纳入版本控制（随改动提交）。Husky pre-commit 运行 lint-staged；pre-push 运行 `test:ci`（紧急可用 `--no-verify` 跳过）。Commitizen 提交（中英双语提示）。
