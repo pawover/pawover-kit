@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 /** 空 */
-export const empty = z.union([z.null(), z.undefined()]);
+export const empty = z.union([
+  z.null(),
+  z.undefined(),
+]);
 
 /** 字符串 */
 export const string = z.string();

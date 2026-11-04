@@ -43,7 +43,11 @@ function isAncestor (ancestor: string, descendant: string) {
 }
 
 function run (cmd: string, options = {}) {
-  return execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options });
+  return execSync(cmd, {
+    encoding: "utf8",
+    stdio: ["pipe", "pipe", "pipe"],
+    ...options,
+  });
 }
 
 function git (...args: string[]) {
@@ -83,14 +87,20 @@ async function api (method: string, url: string, body?: unknown) {
       "User-Agent": "pawover-kit-release-merge",
       "Content-Type": "application/json",
     },
-    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+    ...(body !== undefined
+      ? {
+        body: JSON.stringify(body),
+      }
+      : {}),
   });
   const text = await res.text();
   if (!res.ok) {
     throw new Error(`GitHub API ${method} ${url} -> ${res.status}: ${text.slice(0, 300)}`);
   }
 
-  return text ? JSON.parse(text) : null;
+  return text
+    ? JSON.parse(text)
+    : null;
 }
 
 function versionOf (file: string): string {

@@ -92,8 +92,16 @@ function runScenario (name: string, tsconfig: object, files: Record<string, stri
 
 // —— 防线②：源码级严格场景（不依赖构建，直接严格编译声明文件） ——
 const sourceScenarios = [
-  { name: "源码级：src/global.d.ts（严格）", entry: resolve(typesDir, "src/global.d.ts"), usage: baseUsage },
-  { name: "源码级：src/react-global.d.ts（严格）", entry: resolve(typesDir, "src/react-global.d.ts"), usage: reactUsage },
+  {
+    name: "源码级：src/global.d.ts（严格）",
+    entry: resolve(typesDir, "src/global.d.ts"),
+    usage: baseUsage,
+  },
+  {
+    name: "源码级：src/react-global.d.ts（严格）",
+    entry: resolve(typesDir, "src/react-global.d.ts"),
+    usage: reactUsage,
+  },
 ];
 for (const scenario of sourceScenarios) {
   runScenario(
@@ -107,9 +115,14 @@ for (const scenario of sourceScenarios) {
         module: "ESNext",
         moduleResolution: "Bundler",
         skipLibCheck: false,
-        paths: { react: [reactTypesPath] },
+        paths: {
+          react: [reactTypesPath],
+        },
       },
-      include: ["main.ts", scenario.entry.replaceAll("\\", "/")],
+      include: [
+        "main.ts",
+        scenario.entry.replaceAll("\\", "/"),
+      ],
     },
     { "main.ts": scenario.usage },
   );
@@ -169,9 +182,33 @@ writeFileSync(
 );
 
 const scenarios = [
-  { name: "@pawover/kit-types/global（ES2023 + DOM，严格）", types: ["@pawover/kit-types/global"], libs: ["ES2023", "DOM"], usage: baseUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
-  { name: "@pawover/kit-types/global（ES2023，无 DOM，严格）", types: ["@pawover/kit-types/global"], libs: ["ES2023"], usage: noDomUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
-  { name: "@pawover/kit-types/global（ES2022 + WebWorker，严格）", types: ["@pawover/kit-types/global"], libs: ["ES2022", "WebWorker"], usage: baseUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
+  {
+    name: "@pawover/kit-types/global（ES2023 + DOM，严格）",
+    types: ["@pawover/kit-types/global"],
+    libs: ["ES2023", "DOM"],
+    usage: baseUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
+  {
+    name: "@pawover/kit-types/global（ES2023，无 DOM，严格）",
+    types: ["@pawover/kit-types/global"],
+    libs: ["ES2023"],
+    usage: noDomUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
+  {
+    name: "@pawover/kit-types/global（ES2022 + WebWorker，严格）",
+    types: ["@pawover/kit-types/global"],
+    libs: ["ES2022", "WebWorker"],
+    usage: baseUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
   {
     name: "@pawover/kit-types/global（DOM + WebWorker + DOM.Iterable，skipLibCheck）",
     types: ["@pawover/kit-types/global"],
@@ -181,12 +218,60 @@ const scenarios = [
     module: "ESNext",
     moduleResolution: "Bundler",
   },
-  { name: "@pawover/kit-types/global（Node16 解析，严格）", types: ["@pawover/kit-types/global"], libs: ["ES2023", "DOM"], usage: baseUsage, skipLibCheck: false, module: "Node16", moduleResolution: "Node16" },
-  { name: "@pawover/kit/types/global（Node16 解析，严格）", types: ["@pawover/kit/types/global"], libs: ["ES2023", "DOM"], usage: baseUsage, skipLibCheck: false, module: "Node16", moduleResolution: "Node16" },
-  { name: "@pawover/kit-types/react/global（Node16 解析，严格）", types: ["@pawover/kit-types/react/global"], libs: ["ES2023", "DOM"], usage: reactUsage, skipLibCheck: false, module: "Node16", moduleResolution: "Node16" },
-  { name: "@pawover/kit/types/global（ES2023 + DOM，严格）", types: ["@pawover/kit/types/global"], libs: ["ES2023", "DOM"], usage: baseUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
-  { name: "@pawover/kit-types/react/global（ES2023 + DOM，严格）", types: ["@pawover/kit-types/react/global"], libs: ["ES2023", "DOM"], usage: reactUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
-  { name: "@pawover/kit/types/react/global（ES2023 + DOM，严格）", types: ["@pawover/kit/types/react/global"], libs: ["ES2023", "DOM"], usage: reactUsage, skipLibCheck: false, module: "ESNext", moduleResolution: "Bundler" },
+  {
+    name: "@pawover/kit-types/global（Node16 解析，严格）",
+    types: ["@pawover/kit-types/global"],
+    libs: ["ES2023", "DOM"],
+    usage: baseUsage,
+    skipLibCheck: false,
+    module: "Node16",
+    moduleResolution: "Node16",
+  },
+  {
+    name: "@pawover/kit/types/global（Node16 解析，严格）",
+    types: ["@pawover/kit/types/global"],
+    libs: ["ES2023", "DOM"],
+    usage: baseUsage,
+    skipLibCheck: false,
+    module: "Node16",
+    moduleResolution: "Node16",
+  },
+  {
+    name: "@pawover/kit-types/react/global（Node16 解析，严格）",
+    types: ["@pawover/kit-types/react/global"],
+    libs: ["ES2023", "DOM"],
+    usage: reactUsage,
+    skipLibCheck: false,
+    module: "Node16",
+    moduleResolution: "Node16",
+  },
+  {
+    name: "@pawover/kit/types/global（ES2023 + DOM，严格）",
+    types: ["@pawover/kit/types/global"],
+    libs: ["ES2023", "DOM"],
+    usage: baseUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
+  {
+    name: "@pawover/kit-types/react/global（ES2023 + DOM，严格）",
+    types: ["@pawover/kit-types/react/global"],
+    libs: ["ES2023", "DOM"],
+    usage: reactUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
+  {
+    name: "@pawover/kit/types/react/global（ES2023 + DOM，严格）",
+    types: ["@pawover/kit/types/react/global"],
+    libs: ["ES2023", "DOM"],
+    usage: reactUsage,
+    skipLibCheck: false,
+    module: "ESNext",
+    moduleResolution: "Bundler",
+  },
 ];
 for (const scenario of scenarios) {
   runScenario(
@@ -201,7 +286,10 @@ for (const scenario of scenarios) {
         moduleResolution: scenario.moduleResolution,
         skipLibCheck: scenario.skipLibCheck,
         types: scenario.types,
-        paths: { "type-fest": [typeFestPath], "react": [reactTypesPath] },
+        paths: {
+          "type-fest": [typeFestPath],
+          "react": [reactTypesPath],
+        },
       },
       include: ["main.ts"],
     },

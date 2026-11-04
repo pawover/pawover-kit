@@ -32,7 +32,9 @@ export class ArrayUtil {
       return [];
     }
 
-    return TypeUtil.isArray(candidate) ? [...candidate] : [candidate as T];
+    return TypeUtil.isArray(candidate)
+      ? [...candidate]
+      : [candidate as T];
   }
 
   /**
@@ -251,7 +253,10 @@ export class ArrayUtil {
       return [...initialList];
     }
     if (!TypeUtil.isFunction(match)) {
-      return Array.from(new Set([...initialList, ...mergeList]));
+      return Array.from(new Set([
+        ...initialList,
+        ...mergeList,
+      ]));
     }
 
     const keys = new Map();
@@ -262,7 +267,9 @@ export class ArrayUtil {
     return initialList.map((prevItem, index) => {
       const key = match(prevItem, index);
 
-      return keys.has(key) ? keys.get(key)! : prevItem;
+      return keys.has(key)
+        ? keys.get(key)!
+        : prevItem;
     });
   }
 
@@ -343,7 +350,11 @@ export class ArrayUtil {
     for (let i = 0; i < initialList.length; i++) {
       const item = initialList[i]!;
       if (match(item, i)) {
-        return [...initialList.slice(0, i), newItem, ...initialList.slice(i + 1, initialList.length)] as (T | K)[];
+        return [
+          ...initialList.slice(0, i),
+          newItem,
+          ...initialList.slice(i + 1, initialList.length),
+        ] as (T | K)[];
       }
     }
 
@@ -448,7 +459,9 @@ export class ArrayUtil {
 
     if (TypeUtil.isArray(initialList)) {
       initialList.forEach((item, index) => {
-        forked[match(item, index) ? 0 : 1].push(item);
+        forked[match(item, index)
+          ? 0
+          : 1].push(item);
       });
     }
 
@@ -543,8 +556,12 @@ export class ArrayUtil {
   static zip (): [];
   static zip<T> (...arraysAndOptions: (readonly T[] | ZipOptions)[]): T[][] {
     const last = arraysAndOptions[arraysAndOptions.length - 1];
-    const options = last && !TypeUtil.isArray(last) ? (last as ZipOptions) : undefined;
-    const arrays = options ? (arraysAndOptions.slice(0, -1) as (readonly T[])[]) : (arraysAndOptions as (readonly T[])[]);
+    const options = last && !TypeUtil.isArray(last)
+      ? (last as ZipOptions)
+      : undefined;
+    const arrays = options
+      ? (arraysAndOptions.slice(0, -1) as (readonly T[])[])
+      : (arraysAndOptions as (readonly T[])[]);
 
     return ArrayUtil.unzip(arrays, options);
   }
@@ -578,10 +595,19 @@ export class ArrayUtil {
       return result;
     }
 
-    const getValue = TypeUtil.isFunction(values) ? values : TypeUtil.isArray(values) ? (_k: K, i: number) => values[i] : (_k: K, _i: number) => values;
+    const getValue = TypeUtil.isFunction(values)
+      ? values
+      : TypeUtil.isArray(values)
+        ? (_k: K, i: number) => values[i]
+        : (_k: K, _i: number) => values;
 
     return keys.reduce((acc, key, idx) => {
-      Object.defineProperty(acc, key, { value: getValue(key, idx) as V, enumerable: true, writable: true, configurable: true });
+      Object.defineProperty(acc, key, {
+        value: getValue(key, idx) as V,
+        enumerable: true,
+        writable: true,
+        configurable: true,
+      });
 
       return acc;
     }, result);

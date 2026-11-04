@@ -27,7 +27,10 @@ const rules = {
    * @descEN Enforce one or more empty lines after the last top-level import or require
    * @see https://github.com/9romise/eslint-plugin-import-lite/blob/main/src/rules/newline-after-import/README.md
    */
-  "imports/newline-after-import": [2, { count: 1 }],
+  "imports/newline-after-import": [
+    2,
+    { count: 1 },
+  ],
   /**
    * @desc 禁止使用默认导出
    * @descEN Disallow default exports

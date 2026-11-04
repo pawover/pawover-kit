@@ -225,7 +225,9 @@ export class CurrencyUtil {
       return numberText;
     }
 
-    return isSignAtEnd ? `${numberText} ${sign}` : `${sign} ${numberText}`;
+    return isSignAtEnd
+      ? `${numberText} ${sign}`
+      : `${sign} ${numberText}`;
   }
 
   /**
@@ -276,6 +278,8 @@ export class CurrencyUtil {
 
     const precisionValue = MathUtil.toDecimal(mathJsInstance, value, precision);
 
-    return stringMode === false ? Number(precisionValue) : precisionValue;
+    return stringMode === false
+      ? Number(precisionValue)
+      : precisionValue;
   }
 }

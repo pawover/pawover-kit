@@ -6,6 +6,8 @@
 export default {
   /** 缩进大小 */
   indent: 2,
+  /** 常规文件行宽 */
+  printWidth: 120,
   /** TypeScript 类成员排序 */
   tsMemberOrder: [
     // 1. 签名

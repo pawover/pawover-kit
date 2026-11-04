@@ -23,7 +23,12 @@ const dirs = readdirSync(packagesDir, { withFileTypes: true })
 
 let failed = false;
 for (const dir of dirs) {
-  const result = spawnSync(process.execPath, [tscJs, "-p", resolve(packagesDir, dir, "tsconfig.json"), "--noEmit"], { encoding: "utf8" });
+  const result = spawnSync(process.execPath, [
+    tscJs,
+    "-p",
+    resolve(packagesDir, dir, "tsconfig.json"),
+    "--noEmit",
+  ], { encoding: "utf8" });
   if (result.status === 0) {
     console.log(`  ✓ packages/${dir}`);
   } else {

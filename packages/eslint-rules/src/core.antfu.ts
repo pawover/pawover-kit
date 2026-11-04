@@ -41,7 +41,13 @@ const rules = {
    * @descEN Enforce consistent indentation inside `unindent` tagged template strings
    * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/indent-unindent.md
    */
-  "antfu/indent-unindent": [2, { indent: preset.indent, tags: ["$", "unindent", "unIndent"] }],
+  "antfu/indent-unindent": [
+    2,
+    {
+      indent: preset.indent,
+      tags: ["$", "unindent", "unIndent"],
+    },
+  ],
   /**
    * @desc 禁止从本地 dist 文件夹导入
    * @descEN Prevent importing from a local `dist` folder
@@ -71,7 +77,15 @@ const rules = {
    * @descEN Enforce multiline objects, arrays and ternaries when they are complex
    * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/reasonable-newline.md
    */
-  "antfu/reasonable-newline": 0,
+  "antfu/reasonable-newline": [
+    2,
+    {
+      minObjectProperties: 4,
+      objectLineLength: preset.printWidth,
+      minArrayItems: 4,
+      arrayLineLength: preset.printWidth,
+    },
+  ],
   /**
    * @desc 强制顶层函数使用 function 关键字声明
    * @descEN Enforce top-level functions to be declared with the `function` keyword

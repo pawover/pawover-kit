@@ -250,7 +250,9 @@ export class MimeUtil {
    */
   static fromExtension (extension: string): readonly [string, ...string[]] | undefined {
     const ext = StringUtil.cast(extension).toLowerCase();
-    const key = ext.startsWith(".") ? ext : `.${ext}`;
+    const key = ext.startsWith(".")
+      ? ext
+      : `.${ext}`;
 
     return EXT_TO_MIME[key];
   }

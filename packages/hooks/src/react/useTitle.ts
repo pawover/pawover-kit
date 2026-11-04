@@ -17,7 +17,9 @@ interface TitleHookOptions {
  * @param options 配置选项
  */
 export function useTitle (title: string, options?: TitleHookOptions | undefined) {
-  const titleRef = useRef(EnvUtil.isBrowser() ? document.title : "");
+  const titleRef = useRef(EnvUtil.isBrowser()
+    ? document.title
+    : "");
 
   useEffect(() => {
     if (!TypeUtil.isString(title)) {

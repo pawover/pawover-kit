@@ -228,7 +228,9 @@ export class TreeUtil {
     const traversalMethod = treeFilterStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
 
-    return TypeUtil.isArray(tree) ? tree.map((row) => traversalMethod(row, callback, innerOptions)).filter((t) => !!t) : traversalMethod(tree, callback, innerOptions) || [];
+    return TypeUtil.isArray(tree)
+      ? tree.map((row) => traversalMethod(row, callback, innerOptions)).filter((t) => !!t)
+      : traversalMethod(tree, callback, innerOptions) || [];
   }
 
   /**
@@ -259,6 +261,8 @@ export class TreeUtil {
     const traversalMethod = treeMapStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
 
-    return TypeUtil.isArray(tree) ? tree.map((row) => traversalMethod<R, T, CK>(row, callback, innerOptions)) : traversalMethod<R, T, CK>(tree, callback, innerOptions);
+    return TypeUtil.isArray(tree)
+      ? tree.map((row) => traversalMethod<R, T, CK>(row, callback, innerOptions))
+      : traversalMethod<R, T, CK>(tree, callback, innerOptions);
   }
 }

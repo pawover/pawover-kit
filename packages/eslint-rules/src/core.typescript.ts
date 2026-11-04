@@ -234,7 +234,10 @@ const rules = {
    * @descEN Enforce consistent usage of type imports
    * @see https://typescript-eslint.io/rules/consistent-type-imports
    */
-  "ts/consistent-type-imports": [2, { fixStyle: "inline-type-imports" }],
+  "ts/consistent-type-imports": [
+    2,
+    { fixStyle: "inline-type-imports" },
+  ],
   /**
    * @desc 强制默认参数在最后
    * @descEN Enforce default parameters to be last
@@ -282,7 +285,10 @@ const rules = {
    * @descEN Require a consistent member declaration order
    * @see https://typescript-eslint.io/rules/member-ordering
    */
-  "ts/member-ordering": [2, { default: preset.tsMemberOrder }],
+  "ts/member-ordering": [
+    2,
+    { default: preset.tsMemberOrder },
+  ],
   /**
    * @desc 强制使用特定的方法签名语法
    * @descEN Enforce using a particular method signature syntax
@@ -324,7 +330,10 @@ const rules = {
    * @descEN Require expressions of type void to appear in statement position
    * @see https://typescript-eslint.io/rules/no-confusing-void-expression
    */
-  "ts/no-confusing-void-expression": [2, { ignoreArrowShorthand: true, ignoreVoidOperator: false }],
+  "ts/no-confusing-void-expression": [
+    2,
+    { ignoreArrowShorthand: true, ignoreVoidOperator: false },
+  ],
   /**
    * @desc 禁止使用标记为 @deprecated 的代码
    * @descEN Disallow using code marked as @deprecated
@@ -366,13 +375,19 @@ const rules = {
    * @descEN Disallow accidentally using the "empty object" type
    * @see https://typescript-eslint.io/rules/no-empty-object-type
    */
-  "ts/no-empty-object-type": [2, { allowInterfaces: "with-single-extends" }],
+  "ts/no-empty-object-type": [
+    2,
+    { allowInterfaces: "with-single-extends" },
+  ],
   /**
    * @desc 禁止 any 类型
    * @descEN Disallow the any type
    * @see https://typescript-eslint.io/rules/no-explicit-any
    */
-  "ts/no-explicit-any": [2, { fixToUnknown: true, ignoreRestArgs: true }],
+  "ts/no-explicit-any": [
+    2,
+    { fixToUnknown: true, ignoreRestArgs: true },
+  ],
   /**
    * @desc 禁止多余的非空断言
    * @descEN Disallow extra non-null assertions
@@ -420,7 +435,10 @@ const rules = {
    * @descEN Disallow explicit type declarations for variables or parameters initialized to a number, string, or boolean
    * @see https://typescript-eslint.io/rules/no-inferrable-types
    */
-  "ts/no-inferrable-types": [2, { ignoreParameters: true, ignoreProperties: true }],
+  "ts/no-inferrable-types": [
+    2,
+    { ignoreParameters: true, ignoreProperties: true },
+  ],
   /**
    * @desc 禁止在类或类式对象之外使用 this
    * @descEN Disallow `this` keywords outside of classes or class-like objects
@@ -462,7 +480,10 @@ const rules = {
    * @descEN Disallow Promises in places not designed to handle them
    * @see https://typescript-eslint.io/rules/no-misused-promises
    */
-  "ts/no-misused-promises": [2, { checksVoidReturn: false }],
+  "ts/no-misused-promises": [
+    2,
+    { checksVoidReturn: false },
+  ],
   /**
    * @desc 禁止展开运算符可能导致意外行为的使用
    * @descEN Disallow using the spread operator when it might cause unexpected behavior
@@ -480,7 +501,10 @@ const rules = {
    * @descEN Disallow TypeScript namespaces
    * @see https://typescript-eslint.io/rules/no-namespace
    */
-  "ts/no-namespace": [2, { allowDeclarations: true, allowDefinitionFiles: true }],
+  "ts/no-namespace": [
+    2,
+    { allowDeclarations: true, allowDefinitionFiles: true },
+  ],
   /**
    * @desc 禁止空值合并运算符左操作数中的非空断言
    * @descEN Disallow non-null assertions in the left operand of a nullish coalescing operator
@@ -540,7 +564,10 @@ const rules = {
    * @descEN Disallow aliasing this
    * @see https://typescript-eslint.io/rules/no-this-alias
    */
-  "ts/no-this-alias": [2, { allowDestructuring: true }],
+  "ts/no-this-alias": [
+    2,
+    { allowDestructuring: true },
+  ],
   /**
    * @desc 禁止与布尔字面量的不必要相等比较
    * @descEN Disallow unnecessary equality comparisons against boolean literals
@@ -672,7 +699,10 @@ const rules = {
    * @descEN Disallow unused expressions
    * @see https://typescript-eslint.io/rules/no-unused-expressions
    */
-  "ts/no-unused-expressions": [1, { ignoreDirectives: true, allowShortCircuit: true }],
+  "ts/no-unused-expressions": [
+    1,
+    { ignoreDirectives: true, allowShortCircuit: true },
+  ],
   /**
    * @desc 禁止未使用的私有类成员
    * @descEN Disallow unused private class members
@@ -684,13 +714,19 @@ const rules = {
    * @descEN Disallow unused variables
    * @see https://typescript-eslint.io/rules/no-unused-vars
    */
-  "ts/no-unused-vars": [1, { vars: "local", args: "none", caughtErrors: "none", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" }],
+  "ts/no-unused-vars": [
+    1,
+    { vars: "local", args: "none", caughtErrors: "none", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
+  ],
   /**
    * @desc 禁止在定义之前使用变量
    * @descEN Disallow the use of variables before they are defined
    * @see https://typescript-eslint.io/rules/no-use-before-define
    */
-  "ts/no-use-before-define": [2, { functions: false, classes: false, variables: false, allowNamedExports: false }],
+  "ts/no-use-before-define": [
+    2,
+    { functions: false, classes: false, variables: false, allowNamedExports: false },
+  ],
   /**
    * @desc 禁止不必要的构造函数
    * @descEN Disallow unnecessary constructors
@@ -726,7 +762,14 @@ const rules = {
    * @descEN Disallow throwing non-Error values as exceptions
    * @see https://typescript-eslint.io/rules/only-throw-error
    */
-  "ts/only-throw-error": [2, { allow: [{ from: "package", package: "@tanstack/router-core", name: "Redirect" }] }],
+  "ts/only-throw-error": [
+    2,
+    {
+      allow: [
+        { from: "package", package: "@tanstack/router-core", name: "Redirect" },
+      ],
+    },
+  ],
   /**
    * @desc 要求或禁止类构造函数中的参数属性
    * @descEN Require or disallow parameter properties in class constructors
@@ -906,13 +949,27 @@ const rules = {
    * @descEN Disallow certain triple slash directives in favor of ES6-style import declarations
    * @see https://typescript-eslint.io/rules/triple-slash-reference
    */
-  "ts/triple-slash-reference": [2, { path: "never", types: "always", lib: "always" }],
+  "ts/triple-slash-reference": [
+    2,
+    { path: "never", types: "always", lib: "always" },
+  ],
   /**
    * @desc 要求在特定地方使用类型注解
    * @descEN Require type annotations in certain places
    * @see https://typescript-eslint.io/rules/typedef
    */
-  "ts/typedef": [2, { arrayDestructuring: false, arrowParameter: false, memberVariableDeclaration: false, objectDestructuring: false, parameter: false, propertyDeclaration: true, variableDeclaration: false }],
+  "ts/typedef": [
+    2,
+    {
+      arrayDestructuring: false,
+      arrowParameter: false,
+      memberVariableDeclaration: false,
+      objectDestructuring: false,
+      parameter: false,
+      propertyDeclaration: true,
+      variableDeclaration: false,
+    },
+  ],
   /**
    * @desc 强制未绑定的方法在其预期作用域内调用
    * @descEN Enforce unbound methods are called with their expected scope

@@ -38,6 +38,8 @@ export function useMount (effect: EffectCallback | AnyAsyncFunction) {
     isMountedRef.current = true;
     const cleanup = effectRef.current?.();
 
-    return TypeUtil.isFunction(cleanup) && !TypeUtil.isPromise(cleanup) ? cleanup : undefined;
+    return TypeUtil.isFunction(cleanup) && !TypeUtil.isPromise(cleanup)
+      ? cleanup
+      : undefined;
   }, [effectRef]);
 }

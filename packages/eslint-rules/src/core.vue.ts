@@ -101,15 +101,29 @@ const rules = {
   "vue/no-multiple-template-root": 0,
 
   // Priority B: Strongly Recommended
-  "vue/attribute-hyphenation": [2, "never", { ignore: [] }],
+  "vue/attribute-hyphenation": [
+    2,
+    "never",
+    { ignore: [] },
+  ],
   "vue/component-definition-name-casing": 2,
-  "vue/first-attribute-linebreak": [2, { singleline: "beside", multiline: "below" }],
+  "vue/first-attribute-linebreak": [
+    2,
+    { singleline: "beside", multiline: "below" },
+  ],
   "vue/html-closing-bracket-newline": 2,
   "vue/html-closing-bracket-spacing": 2,
   "vue/html-end-tags": 2,
   "vue/html-indent": 2,
   "vue/html-quotes": 2,
-  "vue/html-self-closing": [2, { html: { void: "always", normal: "always", component: "always" }, svg: "always", math: "always" }],
+  "vue/html-self-closing": [
+    2,
+    {
+      html: { void: "always", normal: "always", component: "always" },
+      svg: "always",
+      math: "always",
+    },
+  ],
   "vue/max-attributes-per-line": 2,
   "vue/multiline-html-element-content-newline": 2,
   "vue/mustache-interpolation-spacing": 2,
@@ -127,11 +141,20 @@ const rules = {
 
   // Priority B: Strongly Recommended for Vue.js 3.x
   "vue/require-explicit-emits": 2,
-  "vue/v-on-event-hyphenation": [2, "never", { autofix: true }],
+  "vue/v-on-event-hyphenation": [
+    2,
+    "never",
+    { autofix: true },
+  ],
 
   // Priority C: Recommended
   "vue/attributes-order": 2,
-  "vue/block-order": [2, { order: ["script:not([setup])", "script[setup]", "template", "style[scoped]", "style:not([scoped])"] }],
+  "vue/block-order": [
+    2,
+    {
+      order: ["script:not([setup])", "script[setup]", "template", "style[scoped]", "style:not([scoped])"],
+    },
+  ],
   "vue/no-lone-template": 2,
   "vue/no-multiple-slot-args": 2,
   "vue/no-required-prop-with-default": 2,
@@ -143,11 +166,25 @@ const rules = {
   "vue/block-lang": 0,
   "vue/block-tag-newline": 2,
   "vue/component-api-style": 2,
-  "vue/component-name-in-template-casing": [2, "PascalCase", { registeredComponentsOnly: false }],
+  "vue/component-name-in-template-casing": [
+    2,
+    "PascalCase",
+    { registeredComponentsOnly: false },
+  ],
   "vue/component-options-name-casing": [2, "PascalCase"],
-  "vue/custom-event-name-casing": [2, "camelCase", { ignores: [] }],
+  "vue/custom-event-name-casing": [
+    2,
+    "camelCase",
+    { ignores: [] },
+  ],
   "vue/define-emits-declaration": 0,
-  "vue/define-macros-order": [2, { order: ["defineOptions", "defineProps", "defineSlots", "defineEmits"], defineExposeLast: false }],
+  "vue/define-macros-order": [
+    2,
+    {
+      order: ["defineOptions", "defineProps", "defineSlots", "defineEmits"],
+      defineExposeLast: false,
+    },
+  ],
   "vue/define-props-declaration": 0,
   "vue/define-props-destructuring": 0,
   "vue/enforce-style-attribute": 0,
@@ -219,13 +256,20 @@ const rules = {
   "vue/require-emit-validator": 0,
   "vue/require-explicit-slots": 2,
   "vue/require-expose": 2,
-  "vue/require-macro-variable-name": [2, { defineProps: "props", defineEmits: "emits", defineSlots: "slots", useSlots: "slots", useAttrs: "attrs" }],
+  "vue/require-macro-variable-name": [
+    2,
+    { defineProps: "props", defineEmits: "emits", defineSlots: "slots", useSlots: "slots", useAttrs: "attrs" },
+  ],
   "vue/require-name-property": 0,
   "vue/require-prop-comment": 0,
   "vue/require-typed-object-prop": 0,
   "vue/require-typed-ref": 2,
   "vue/restricted-component-names": 0,
-  "vue/script-indent": [0, preset.indent, { baseIndent: 0, switchCase: 1, ignores: [] }],
+  "vue/script-indent": [
+    0,
+    preset.indent,
+    { baseIndent: 0, switchCase: 1, ignores: [] },
+  ],
   "vue/slot-name-casing": 2,
   "vue/sort-keys": 0,
   "vue/static-class-names-order": 0,
@@ -256,7 +300,12 @@ const rules = {
   "vue/no-constant-condition": 2,
   "vue/no-empty-pattern": 2,
   "vue/no-extra-parens": 0,
-  "vue/no-implicit-coercion": [2, { allow: ["!!"] }],
+  "vue/no-implicit-coercion": [
+    2,
+    {
+      allow: ["!!"],
+    },
+  ],
   "vue/no-irregular-whitespace": 2,
   "vue/no-loss-of-precision": 2,
   "vue/no-negated-condition": 0,
@@ -265,9 +314,18 @@ const rules = {
   "vue/no-useless-concat": 0,
   "vue/object-curly-newline": 2,
   "vue/object-curly-spacing": [2, "always"],
-  "vue/object-property-newline": [2, { allowAllPropertiesOnSameLine: true }],
+  "vue/object-property-newline": [
+    2,
+    { allowAllPropertiesOnSameLine: true },
+  ],
   "vue/object-shorthand": 0,
-  "vue/operator-linebreak": [2, "after", { overrides: { "?": "ignore", ":": "ignore", "|": "before" } }],
+  "vue/operator-linebreak": [
+    2,
+    "after",
+    {
+      overrides: { "?": "ignore", ":": "ignore", "|": "before" },
+    },
+  ],
   "vue/prefer-template": 0,
   "vue/quote-props": [2, "consistent-as-needed"],
   "vue/space-in-parens": 2,

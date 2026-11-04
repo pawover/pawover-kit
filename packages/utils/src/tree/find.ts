@@ -45,7 +45,9 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T,
 
 // 广度优先遍历
 function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
-  const queue: Queue<T, CK>[] = [{ queueRow: row, queueOptions: options }];
+  const queue: Queue<T, CK>[] = [
+    { queueRow: row, queueOptions: options },
+  ];
   const runQueue = (): T | undefined => {
     if (queue.length === 0) {
       return undefined;
@@ -54,7 +56,10 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
     const { children } = getChildren(queueRow, queueOptions);
 
     if (TypeUtil.isArray(children)) {
-      const subQueueItems = children.map((child) => ({ queueRow: child, queueOptions: nextLevelOptions(queueRow, queueOptions) }));
+      const subQueueItems = children.map((child) => ({
+        queueRow: child,
+        queueOptions: nextLevelOptions(queueRow, queueOptions),
+      }));
       queue.push(...subQueueItems);
     }
 

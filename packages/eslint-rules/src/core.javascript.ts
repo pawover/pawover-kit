@@ -184,7 +184,10 @@ const rules = {
    * @descEN Disallow irregular whitespace characters
    * @see https://eslint.org/docs/latest/rules/no-irregular-whitespace
    */
-  "no-irregular-whitespace": [2, { skipStrings: true, skipComments: false, skipRegExps: true, skipTemplates: true, skipJSXText: true }],
+  "no-irregular-whitespace": [
+    2,
+    { skipStrings: true, skipComments: false, skipRegExps: true, skipTemplates: true, skipJSXText: true },
+  ],
   /**
    * @desc 禁止数字精度丢失
    * @descEN Disallow literal numbers that lose precision
@@ -214,7 +217,10 @@ const rules = {
    * @descEN Disallow returning values from Promise executor functions
    * @see https://eslint.org/docs/latest/rules/no-promise-executor-return
    */
-  "no-promise-executor-return": [2, { allowVoid: true }],
+  "no-promise-executor-return": [
+    2,
+    { allowVoid: true },
+  ],
   /**
    * @desc 禁止直接调用对象原型上的方法
    * @descEN Disallow calling some `Object.prototype` methods directly on objects
@@ -322,13 +328,19 @@ const rules = {
    * @descEN Disallow unused variables
    * @see https://eslint.org/docs/latest/rules/no-unused-vars
    */
-  "no-unused-vars": [1, { vars: "local", args: "none", caughtErrors: "none", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" }],
+  "no-unused-vars": [
+    1,
+    { vars: "local", args: "none", caughtErrors: "none", varsIgnorePattern: "^_", destructuredArrayIgnorePattern: "^_" },
+  ],
   /**
    * @desc 禁止在定义之前使用变量
    * @descEN Disallow the use of variables before they are defined
    * @see https://eslint.org/docs/latest/rules/no-use-before-define
    */
-  "no-use-before-define": [2, { functions: false, classes: false, variables: false, allowNamedExports: false }],
+  "no-use-before-define": [
+    2,
+    { functions: false, classes: false, variables: false, allowNamedExports: false },
+  ],
   /**
    * @desc 禁止无用的赋值
    * @descEN Disallow useless assignments
@@ -346,7 +358,10 @@ const rules = {
    * @descEN Require calls to `await` in atomic update expressions
    * @see https://eslint.org/docs/latest/rules/require-atomic-updates
    */
-  "require-atomic-updates": [2, { allowProperties: true }],
+  "require-atomic-updates": [
+    2,
+    { allowProperties: true },
+  ],
   /**
    * @desc 强制使用 isNaN() 检查 NaN
    * @descEN Require calls to `isNaN()` when checking for `NaN`
@@ -366,7 +381,10 @@ const rules = {
    * @descEN Enforce getter/setter pairs in objects and classes
    * @see https://eslint.org/docs/latest/rules/accessor-pairs
    */
-  "accessor-pairs": [2, { setWithoutGet: true, getWithoutSet: false }],
+  "accessor-pairs": [
+    2,
+    { setWithoutGet: true, getWithoutSet: false },
+  ],
   /**
    * @desc 强制箭头函数体风格
    * @descEN Require or disallow braces around arrow function bodies
@@ -558,7 +576,10 @@ const rules = {
    * @descEN Require constructor names to begin with a capital letter
    * @see https://eslint.org/docs/latest/rules/new-cap
    */
-  "new-cap": [2, { capIsNew: false }],
+  "new-cap": [
+    2,
+    { capIsNew: false },
+  ],
   /**
    * @desc 禁止使用 alert
    * @descEN Disallow the use of `alert`, `confirm`, and `prompt`
@@ -624,7 +645,10 @@ const rules = {
    * @descEN Disallow empty block statements
    * @see https://eslint.org/docs/latest/rules/no-empty
    */
-  "no-empty": [2, { allowEmptyCatch: true }],
+  "no-empty": [
+    2,
+    { allowEmptyCatch: true },
+  ],
   /**
    * @desc 禁止空函数
    * @descEN Disallow empty functions
@@ -684,7 +708,12 @@ const rules = {
    * @descEN Disallow shorthand type conversions
    * @see https://eslint.org/docs/latest/rules/no-implicit-coercion
    */
-  "no-implicit-coercion": [2, { allow: ["!!"] }],
+  "no-implicit-coercion": [
+    2,
+    {
+      allow: ["!!"],
+    },
+  ],
   /**
    * @desc 禁止隐式全局变量
    * @descEN Disallow declarations in the global scope
@@ -948,7 +977,10 @@ const rules = {
    * @descEN Disallow unused expressions
    * @see https://eslint.org/docs/latest/rules/no-unused-expressions
    */
-  "no-unused-expressions": [1, { ignoreDirectives: true, allowShortCircuit: true }],
+  "no-unused-expressions": [
+    1,
+    { ignoreDirectives: true, allowShortCircuit: true },
+  ],
   /**
    * @desc 禁止未使用的标签
    * @descEN Disallow unused labels
@@ -1200,7 +1232,11 @@ const rules = {
    * @descEN Require or disallow "yoda" conditions
    * @see https://eslint.org/docs/latest/rules/yoda
    */
-  "yoda": [2, "never", { onlyEquality: true }],
+  "yoda": [
+    2,
+    "never",
+    { onlyEquality: true },
+  ],
 };
 
 export { rules };

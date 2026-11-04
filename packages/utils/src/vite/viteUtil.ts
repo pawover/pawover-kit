@@ -39,7 +39,9 @@ export class ViteUtil {
           ws: true,
           rewrite: (path) => path.replace(new RegExp(`^${escapedPrefix}`), ""),
           // https 目标关闭 TLS 校验（含自签证书场景）。仅限开发环境代理使用，生产环境请勿开启
-          ...(isHttps ? { secure: false } : {}),
+          ...(isHttps
+            ? { secure: false }
+            : {}),
           ...options,
         };
       }

@@ -6,14 +6,18 @@
 
 # Function: default()
 
-> **default**(`options?`): `Config`\<`RulesConfig`\>[]
+> **default**(`options?`, ...`userConfigs`): `FlatConfigComposer`\<[`ConfigLayer`](../type-aliases/ConfigLayer.md), `"pawover/ignores"` \| `"pawover/javascript/parser"` \| `"pawover/javascript/rules"` \| `"pawover/typescript/setup"` \| `"pawover/typescript/parser"` \| `"pawover/typescript/rules"` \| `"pawover/typescript/type-aware"` \| `"pawover/stylistic/setup"` \| `"pawover/stylistic/rules"` \| `"pawover/antfu/setup"` \| `"pawover/antfu/rules"` \| `"pawover/imports/setup"` \| `"pawover/imports/rules"` \| `"pawover/imports-sort/setup"` \| `"pawover/imports-sort/rules"` \| `"pawover/react/setup"` \| `"pawover/react/rules"` \| `"pawover/react/type-aware"` \| `"pawover/vue/setup"` \| `"pawover/vue/parser"` \| `"pawover/vue/rules"`\>
 
-Defined in: config.ts:107
+Defined in: [config.ts:341](https://github.com/pawover/pawover-kit/blob/fb0a726c7f2a28ecc76e9dcaaacf64449a3d86e1/packages/eslint-rules/src/config.ts#L341)
 
 创建 ESLint flat config 预设
 
-返回可直接用于 `eslint.config.js` 的 flat config 数组：首项为全局忽略（`GLOB_EXCLUDE`），随后为常开的 `javascript` 基础层与按选项启用的各规则组层。
-全部上游插件已作为本包依赖精确锁定并自动注册，无需用户另行安装或注册插件。
+返回 composer（继承 Promise，可直接用于 `eslint.config.js` 的默认导出），也可链式调用
+`append` / `prepend` / `override` / `renamePlugins` 等能力继续组合。
+
+各规则组拆为 `setup` 层（只注册插件，不带 `files`）、`parser` 层（解析器）与
+`rules` / `type-aware` 层（规则与文件范围），因此后置配置可以直接使用预设已注册的插件规则；
+若需注册自定义插件，在自己的配置层中挂载即可。
 
 ## Parameters
 
@@ -21,40 +25,50 @@ Defined in: config.ts:107
 
 [`PawoverOptions`](../interfaces/PawoverOptions.md) = `{}`
 
-预设选项；缺省时仅返回忽略层与 `javascript` 基础层
+预设选项；缺省时返回忽略层与 `javascript` parser/rules 层
+
+### userConfigs
+
+...[`PawoverUserConfig`](../type-aliases/PawoverUserConfig.md)[]
+
+追加在预设之后的 flat config（单个对象、数组、composer 或 Promise）
 
 ## Returns
 
-`Config`\<`RulesConfig`\>[]
+`FlatConfigComposer`\<[`ConfigLayer`](../type-aliases/ConfigLayer.md), `"pawover/ignores"` \| `"pawover/javascript/parser"` \| `"pawover/javascript/rules"` \| `"pawover/typescript/setup"` \| `"pawover/typescript/parser"` \| `"pawover/typescript/rules"` \| `"pawover/typescript/type-aware"` \| `"pawover/stylistic/setup"` \| `"pawover/stylistic/rules"` \| `"pawover/antfu/setup"` \| `"pawover/antfu/rules"` \| `"pawover/imports/setup"` \| `"pawover/imports/rules"` \| `"pawover/imports-sort/setup"` \| `"pawover/imports-sort/rules"` \| `"pawover/react/setup"` \| `"pawover/react/rules"` \| `"pawover/react/type-aware"` \| `"pawover/vue/setup"` \| `"pawover/vue/parser"` \| `"pawover/vue/rules"`\>
 
-flat config 配置数组
+可直接导出或继续链式组合的 flat config composer
 
 ## Examples
 
 ```ts
-// TypeScript + React 项目
-import pawover from "@pawover/kit-eslint-rules";
+// TypeScript + React 项目，使用按组 overrides 覆盖规则
+import pawover from "@pawover/kit/eslint-rules";
 
 export default pawover({
-  typescript: true,
+  typescript: {
+    overrides: { "ts/strict-void-return": [1, { allowReturnAny: true }] },
+  },
   react: true,
-  parserOptions: { tsconfigRootDir: import.meta.dirname },
 });
 ```
 
 ```ts
-// Vue 项目（Vue SFC + TypeScript）
+// 追加自定义配置层
 import pawover from "@pawover/kit-eslint-rules";
 
-export default pawover({ typescript: true, vue: true });
+export default pawover(
+  { typescript: true },
+  { rules: { "no-console": "error" } },
+);
 ```
 
 ```ts
-// 后置覆盖：在预设之后追加自定义配置层
+// 按层名称覆盖
 import pawover from "@pawover/kit-eslint-rules";
 
-export default [
-  ...pawover({ typescript: true }),
-  { rules: { "ts/no-explicit-any": 0 } },
-];
+export default pawover({ typescript: true })
+  .override("pawover/typescript/rules", {
+    rules: { "ts/consistent-type-definitions": ["error", "interface"] },
+  });
 ```

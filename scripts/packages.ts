@@ -22,7 +22,10 @@ export const SUB_PACKAGE_DIRS = SUB_PACKAGES.map(([dir]) => `packages/${dir}`);
 
 export const SUB_PACKAGE_NAMES = SUB_PACKAGES.map(([, name]) => name);
 
-export const PACKAGE_FILES = ["package.json", ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/package.json`)];
+export const PACKAGE_FILES = [
+  "package.json",
+  ...SUB_PACKAGES.map(([dir]) => `packages/${dir}/package.json`),
+];
 
 export const VERSION_FILES = new Set([
   ...PACKAGE_FILES,

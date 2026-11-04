@@ -57,7 +57,9 @@ export class MathUtil {
   static toDecimal (mathJsInstance: MathJsInstance, value: unknown, precision?: number | undefined, isFormat = true): string | BigNumber {
     const bigNumber = MathUtil.toBignumber(mathJsInstance, value);
 
-    return isFormat ? mathJsInstance.format(bigNumber, { notation: "fixed", precision: precision! }) : bigNumber;
+    return isFormat
+      ? mathJsInstance.format(bigNumber, { notation: "fixed", precision: precision! })
+      : bigNumber;
   }
 
   /**

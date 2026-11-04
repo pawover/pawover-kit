@@ -1,45 +1,96 @@
-import pawover, { GLOB_EXCLUDE } from "@pawover/kit/eslint-rules";
-import type { PawoverOptions, RuleConfig, Severity, SeverityLevel, SeverityName } from "@pawover/kit/eslint-rules";
+import pawover, { GLOB_EXCLUDE, GLOB_TYPESCRIPT } from "@pawover/kit/eslint-rules";
+import type { ConfigLayer, ConfigNames, PawoverOptions, PawoverUserConfig, RuleConfig, RuleMap, Severity, SeverityLevel, SeverityName } from "@pawover/kit/eslint-rules";
 import type { Linter } from "eslint";
 
 // 工厂：合法调用不产生类型错误
 pawover();
 pawover({ typescript: true, vue: true });
 pawover({
-  typescript: true,
-  stylistic: true,
-  antfu: true,
-  imports: true,
-  importsSort: true,
-  react: true,
-  parserOptions: { tsconfigRootDir: "/repo" },
+  typescript: {
+    overrides: {
+      "ts/strict-void-return": [1, { allowReturnAny: true }],
+    },
+    overridesTypeAware: { "ts/no-unsafe-assignment": "warn" },
+    filesTypeAware: GLOB_TYPESCRIPT,
+    parserOptions: { tsconfigRootDir: "/repo" },
+  },
+  react: {
+    overrides: { "react/no-implicit-key": "warn" },
+    overridesTypeAware: { "react/no-unused-props": "off" },
+  },
 });
 
 const options: PawoverOptions = { typescript: true };
 pawover(options);
 
-const result: Linter.Config[] = pawover();
+const userConfig: PawoverUserConfig = {
+  rules: { "no-console": "error" },
+};
+pawover({ typescript: true }, userConfig);
+pawover({ typescript: true }).append(userConfig);
+pawover({ typescript: true }).override("pawover/typescript/rules", {
+  rules: { "ts/no-explicit-any": "error" },
+});
+pawover({ typescript: true }).renamePlugins({ ts: "typescript" });
 
-// @ts-expect-error — javascript 组常开，不是选项
+// @ts-expect-error — javascript 组常开，不是开关
 pawover({ javascript: true });
 
 // @ts-expect-error — 未知选项不受支持
 pawover({ unknown: true });
 
-// @ts-expect-error — 开关必须是 boolean，不是字符串
+// @ts-expect-error — 开关必须是 boolean 或选项对象，不是字符串
 pawover({ typescript: "yes" });
 
-// @ts-expect-error — 开关必须是 boolean，不是数字
+// @ts-expect-error — 开关必须是 boolean 或选项对象，不是数字
 pawover({ vue: 1 });
 
-// @ts-expect-error — parserOptions 必须是对象
+// @ts-expect-error — 顶层 parserOptions 已移除，应使用 typescript.parserOptions
 pawover({ parserOptions: "projectService" });
 
-// @ts-expect-error — 工厂返回 flat config 数组，不是字符串
-const badReturn: string = pawover();
+pawover({
+  // @ts-expect-error — overrides 必须是规则对象
+  typescript: { overrides: "error" },
+});
+
+pawover({
+  // @ts-expect-error — filesTypeAware 必须是 string[]
+  typescript: { filesTypeAware: "**/*.ts" },
+});
+
+pawover({
+  // @ts-expect-error — 工厂不接受 ignores（改用 append / override）
+  ignores: ["dist/**"],
+});
+
+pawover({
+  // @ts-expect-error — 工厂不接受 renamePlugins（改用 composer.renamePlugins）
+  renamePlugins: { ts: "typescript" },
+});
+
+// @ts-expect-error — 工厂返回 composer（Promise），不是 flat config 数组
+const badReturn: Linter.Config[] = pawover();
+
+// @ts-expect-error — 工厂返回 composer，不是字符串
+const badStringReturn: string = pawover();
 
 // @ts-expect-error — GLOB_EXCLUDE 必须是 string[]，不是 number[]
 const badExcludes: number[] = GLOB_EXCLUDE;
+
+// @ts-expect-error — GLOB_TYPESCRIPT 必须是 string[]，不是 number[]
+const badGlob: number[] = GLOB_TYPESCRIPT;
+
+// @ts-expect-error — ConfigNames 必须是已知层名
+const badConfigName: ConfigNames = "pawover/unknown";
+
+// @ts-expect-error — 宽版行宽层由消费端配置，不属于预设层名
+const removedWideLayer: ConfigNames = "pawover/antfu/reasonable-newline";
+
+// @ts-expect-error — RuleMap 必须是规则表对象，不是字符串
+const badRuleMap: RuleMap = "error";
+
+// @ts-expect-error — ConfigLayer 必须是 flat config 对象，不是层名字符串
+const badConfigLayer: ConfigLayer = "pawover/javascript/rules";
 
 // Severity：数字与名称两种形式都必须保留
 // @ts-expect-error — Severity 必须包含数字形式（窄化断言会失败）

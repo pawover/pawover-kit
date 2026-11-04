@@ -70,7 +70,10 @@ function validateExportsTargets (packDir: string, tarball: string): string {
 const packDir = mkdtempSync(join(tmpdir(), "pawover-kit-attw-"));
 try {
   for (const dir of ["", ...SUB_PACKAGE_DIRS]) {
-    execSync(`pnpm pack --pack-destination ${packDir}`, { stdio: "inherit", cwd: join(root, dir) });
+    execSync(`pnpm pack --pack-destination ${packDir}`, {
+      stdio: "inherit",
+      cwd: join(root, dir),
+    });
   }
   const tarballs = readdirSync(packDir).filter((f) => f.endsWith(".tgz"));
   const expected = 1 + SUB_PACKAGE_DIRS.length;
@@ -81,7 +84,9 @@ try {
   for (const tarball of tarballs) {
     const name = validateExportsTargets(packDir, tarball);
     const ignoredRules = ATTW_IGNORED_RULES[name] ?? [];
-    const ignoreFlag = ignoredRules.length > 0 ? ` --ignore-rules ${ignoredRules.join(" ")}` : "";
+    const ignoreFlag = ignoredRules.length > 0
+      ? ` --ignore-rules ${ignoredRules.join(" ")}`
+      : "";
     const tarballPath = join(packDir, tarball);
     try {
       execSync(`pnpm exec attw ${tarballPath} --profile node16 --quiet${ignoreFlag}`);
