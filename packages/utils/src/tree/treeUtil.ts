@@ -134,7 +134,9 @@ export class TreeUtil {
       return result;
     }
 
-    TreeUtil.forEach(tree, (t) => result.push({ ...t, [childrenKey]: undefined }), options);
+    TreeUtil.forEach(tree, (t) => {
+      result.push({ ...t, [childrenKey]: undefined });
+    }, options);
 
     return result;
   }

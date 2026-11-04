@@ -35,14 +35,13 @@ useMount(() => {
 });
 ```
 
-## ESLint 规则集（flat config）
+## ESLint 配置预设（flat config）
 
 ```ts
 // eslint.config.js
-export default [
-  { ignores: eslintRules.GLOB_EXCLUDE },
-  { files: ["**/*.ts"], rules: { ...eslintRules.javascript, ...eslintRules.typescript } },
-];
+import pawover from "@pawover/kit/eslint-rules";
+
+export default pawover({ typescript: true });
 ```
 
 ## Zod Schema

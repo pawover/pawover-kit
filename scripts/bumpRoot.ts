@@ -4,8 +4,9 @@
  *
  * changesets 的包列表（packages.packages）不包含根包（getPackages 将根包
  * 单独放在 rootPackage），因此根包无法通过 changeset / linked / dependents
- * 机制联动发布。本脚本读取子包 version 后的新版本，按相同 bump 类型
- * （patch / minor / major）与 pre 计数（如 alpha.5）同步递增根包版本，
+ * 机制联动发布。本脚本读取子包 version 后的新版本，按子包中的最高 bump
+ * 类型（patch / minor / major）同步根包版本；pre 计数（如 alpha.1）取自
+ * 根包自身并单调 +1（与 changesets 对子包的实测行为一致），
  * 并硬校验「子包版本变化 ⇒ 根包必变」，失败时退出码为 1。
  *
  * 用法（在 ci:version 中，changeset version 之后）：
@@ -32,34 +33,13 @@ function readGitVersion (pkgPath: string) {
   return JSON.parse(out).version;
 }
 
-function bumpType (oldVersion: string, newVersion: string) {
-  // $TS-ignore
-  const oldParts = oldVersion.split("-")[0] as string;
-  // $TS-ignore
-  const newParts = newVersion.split("-")[0] as string;
-  if ((newParts[0] || 0) > (oldParts[0] || 0)) {
-    return "major";
-  }
-  if ((newParts[1] || 0) > (oldParts[1] || 0)) {
-    return "minor";
-  }
-  if ((newParts[2] || 0) > (oldParts[2] || 0)) {
-    return "patch";
-  }
-  if (getPreCount(oldVersion) !== getPreCount(newVersion)) {
-    return "patch";
-  }
+function parseTriple (version: string): [number, number, number] {
+  const parts = (version.split("-")[0] ?? "0.0.0").split(".").map(Number);
 
-  return "none";
+  return [parts[0] ?? 0, parts[1] ?? 0, parts[2] ?? 0];
 }
 
-function getPreTag (version: string): string | null {
-  const pre = version.split("-")[1];
-
-  return pre ? (pre.split(".")[0] ?? null) : null;
-}
-
-function getPreCount (version: string) {
+function getPreCount (version: string): number | null {
   const pre = version.split("-")[1];
   if (!pre) {
     return null;
@@ -69,40 +49,84 @@ function getPreCount (version: string) {
   return Number.isNaN(count) ? null : count;
 }
 
-function bumpVersion (version: string, type: string, preTag: string | null, preCount: number | null) {
-  const main = version.split("-")[0] || "0.0.0";
-  const oldPre = version.split("-")[1] ?? null;
-  if (oldPre !== null && preTag === null) {
-    return main;
+function bumpType (oldVersion: string, newVersion: string): "major" | "minor" | "patch" | "none" {
+  const [oldMajor, oldMinor, oldPatch] = parseTriple(oldVersion);
+  const [newMajor, newMinor, newPatch] = parseTriple(newVersion);
+  if (newMajor > oldMajor) {
+    return "major";
   }
-  const parts = main.split(".").map(Number) as [number, number, number];
-  if (type === "major") {
-    parts[0] += 1;
-    parts[1] = 0;
-    parts[2] = 0;
-  } else if (type === "minor") {
-    parts[1] += 1;
-    parts[2] = 0;
-  } else if (oldPre === null || preTag === null) {
-    parts[2] += 1;
+  if (newMinor > oldMinor) {
+    return "minor";
   }
-  // 否则（oldPre 与 preTag 均存在）：pre 模式内 patch，仅递增 prerelease 计数
-  // （0.9.1-alpha.0 → 0.9.1-alpha.1），与 changesets 的子包行为保持一致，
-  // 避免根包主数字虚高膨胀
-  let next = parts.join(".");
-  if (preTag !== null && preCount !== null) {
-    next += `-${preTag}.${preCount}`;
+  if (newPatch > oldPatch) {
+    return "patch";
+  }
+  if (getPreCount(oldVersion) !== getPreCount(newVersion)) {
+    return "patch";
   }
 
-  return next;
+  return "none";
+}
+
+/**
+ * 按 bump 类型与 pre 系列计算根包新版本。
+ *
+ * - 同一 pre 系列内：major / minor 升对应主数字位，patch 保持主数字；
+ *   pre 计数在根包自身计数上单调 +1（与 changesets 对子包的行为一致）
+ * - 非 pre 系列：patch / minor / major 升对应主数字位，pre 计数从 0 起
+ * - `preTag` 为 null（正式通道）：剥离 prerelease 后缀（旧版本含后缀时），
+ *   否则按类型递增主版本
+ *
+ * @param oldVersion 根包当前版本（git HEAD）
+ * @param type 子包中的最高 bump 类型
+ * @param preTag 预发布标签（如 `alpha`）；非 pre 通道为 null
+ * @returns 根包同步后的新版本
+ */
+function bumpVersion (oldVersion: string, type: string, preTag: string | null) {
+  let [major, minor, patch] = parseTriple(oldVersion);
+  const oldPre = oldVersion.split("-")[1] ?? null;
+  const oldCount = getPreCount(oldVersion);
+  const oldTag = oldPre ? (oldPre.split(".")[0] ?? null) : null;
+
+  if (preTag === null) {
+    if (oldPre !== null) {
+      return `${major}.${minor}.${patch}`;
+    }
+    if (type === "major") {
+      major += 1;
+      minor = 0;
+      patch = 0;
+    } else if (type === "minor") {
+      minor += 1;
+      patch = 0;
+    } else {
+      patch += 1;
+    }
+
+    return `${major}.${minor}.${patch}`;
+  }
+
+  const inSameSeries = oldPre !== null && oldTag === preTag && oldCount !== null;
+  if (type === "major") {
+    major += 1;
+    minor = 0;
+    patch = 0;
+  } else if (type === "minor") {
+    minor += 1;
+    patch = 0;
+  } else if (!inSameSeries) {
+    patch += 1;
+  }
+  const count = inSameSeries ? (oldCount ?? 0) + 1 : 0;
+
+  return `${major}.${minor}.${patch}-${preTag}.${count}`;
 }
 
 const rootPackage = JSON.parse(readFileSync("package.json", "utf8"));
 const rootOld = readGitVersion("package.json");
 
-let changedType = "none";
+let changedType: "major" | "minor" | "patch" | "none" = "none";
 let preTag: string | null = null;
-let preCount: number | null = null;
 
 for (let i = 0; i < SUB_PACKAGE_NAMES.length; i++) {
   const pkgPath = `${SUB_PACKAGE_DIRS[i]}/package.json`;
@@ -115,13 +139,9 @@ for (let i = 0; i < SUB_PACKAGE_NAMES.length; i++) {
   if (changedType === "none" || type === "major" || (type === "minor" && changedType === "patch")) {
     changedType = type;
   }
-  const tag = getPreTag(newVersion);
-  const count = getPreCount(newVersion);
-  if (tag !== null) {
+  const tag = newVersion.split("-")[1]?.split(".")[0];
+  if (tag) {
     preTag = tag;
-  }
-  if (count !== null) {
-    preCount = count;
   }
 }
 
@@ -130,17 +150,17 @@ if (changedType === "none") {
   process.exit(0);
 }
 
-const expected = bumpVersion(rootOld, changedType, preTag, preCount);
+const expected = bumpVersion(rootOld, changedType, preTag);
 
 if (rootPackage.version !== expected) {
   rootPackage.version = expected;
   writeFileSync("package.json", `${JSON.stringify(rootPackage, null, 2)}\n`);
-  console.log(`✔ 根包版本已同步：${rootOld} -> ${expected}（子包 ${changedType}${preTag ? ` / ${preTag}.${preCount}` : ""}）`);
+  console.log(`✔ 根包版本已同步：${rootOld} -> ${expected}（子包最高 ${changedType}${preTag ? ` / ${preTag}` : ""}）`);
 } else if (rootPackage.version !== rootOld) {
   console.log(`✔ 根包版本已同步：${rootOld} -> ${rootPackage.version}`);
 } else {
   console.error("❌ 根包版本同步失败：");
-  console.error(`   子包已发布（${changedType}${preTag ? ` / ${preTag}.${preCount}` : ""}），`);
+  console.error(`   子包已发布（${changedType}${preTag ? ` / ${preTag}` : ""}），`);
   console.error(`   但根包 ${ROOT_PACKAGE} 版本仍为 ${rootPackage.version}（期望 ${expected}）。`);
   console.error("   请检查 scripts/bumpRoot.ts 或发布流程配置。");
   process.exit(1);

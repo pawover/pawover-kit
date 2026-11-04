@@ -1,6 +1,11 @@
-import preset from "./preset.js";
+import preset from "./preset.ts";
 
-export default {
+/**
+ * `vue` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射：`vue` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `vue`。
+ */
+const rules = {
   // Base Rules
   "vue/comment-directive": 2,
   "vue/jsx-uses-vars": 2,
@@ -159,13 +164,17 @@ export default {
   "vue/next-tick-style": 0,
   "vue/no-bare-strings-in-template": 0,
   "vue/no-boolean-default": 0,
+  "vue/no-content-outside-block": 2,
+  "vue/no-define-model-default": 2,
   "vue/no-duplicate-attr-inheritance": 2,
   "vue/no-duplicate-class-names": 2,
   "vue/no-empty-component-block": 2,
   "vue/no-import-compiler-macros": 0,
+  "vue/no-literals-in-template": 1,
   "vue/no-multiple-objects-in-class": 0,
   "vue/no-negated-v-if-condition": 0,
   "vue/no-potential-component-option-typo": 0,
+  "vue/no-props-shadow": 2,
   "vue/no-ref-object-reactivity-loss": 0,
   "vue/no-restricted-block": 0,
   "vue/no-restricted-call-after-await": 0,
@@ -180,10 +189,12 @@ export default {
   "vue/no-restricted-v-on": 0,
   "vue/no-root-v-if": 0,
   "vue/no-setup-props-reactivity-loss": 0,
+  "vue/no-shadow-native-events": 2,
   "vue/no-static-inline-styles": 0,
   "vue/no-template-target-blank": 0,
   "vue/no-this-in-before-route-enter": 2,
   "vue/no-undef-components": 0,
+  "vue/no-undef-directives": 2,
   "vue/no-undef-properties": 0,
   "vue/no-unsupported-features": 0,
   "vue/no-unused-emit-declarations": 0,
@@ -199,8 +210,10 @@ export default {
   "vue/prefer-define-options": 2,
   "vue/prefer-prop-type-boolean-first": 2,
   "vue/prefer-separate-static-class": 0,
+  "vue/prefer-single-event-payload": 1,
   "vue/prefer-true-attribute-shorthand": 0,
   "vue/prefer-use-template-ref": 2,
+  "vue/prefer-v-model": 1,
   "vue/require-default-export": 2,
   "vue/require-direct-export": 2,
   "vue/require-emit-validator": 0,
@@ -262,3 +275,6 @@ export default {
   "vue/space-unary-ops": 2,
   "vue/template-curly-spacing": 2,
 };
+
+export { rules };
+export default rules;

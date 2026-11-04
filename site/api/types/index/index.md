@@ -23,4 +23,3 @@
 - [Primitive](type-aliases/Primitive.md)
 - [TreeLike](type-aliases/TreeLike.md)
 - [TreeLikeOptionalChildren](type-aliases/TreeLikeOptionalChildren.md)
-- [VoidFunction](type-aliases/VoidFunction.md)

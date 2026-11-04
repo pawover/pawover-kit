@@ -1,6 +1,11 @@
-import preset from "./preset.js";
+import preset from "./preset.ts";
 
-export default {
+/**
+ * `antfu` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射：`antfu` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `antfu`。
+ */
+const rules = {
   /**
    * @desc 强制链式成员访问的换行风格保持一致
    * @descEN Enforce consistent line breaks for chaining member access
@@ -62,9 +67,18 @@ export default {
    */
   "antfu/no-ts-export-equal": 2,
   /**
+   * @desc 强制复杂对象、数组与三元表达式换行
+   * @descEN Enforce multiline objects, arrays and ternaries when they are complex
+   * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/reasonable-newline.md
+   */
+  "antfu/reasonable-newline": 0,
+  /**
    * @desc 强制顶层函数使用 function 关键字声明
    * @descEN Enforce top-level functions to be declared with the `function` keyword
    * @see https://github.com/antfu/eslint-plugin-antfu/blob/main/src/rules/top-level-function.md
    */
   "antfu/top-level-function": 2,
 };
+
+export { rules };
+export default rules;

@@ -4,9 +4,8 @@
  * （npm 读不懂 pnpm 的 workspace: 协议，在 monorepo 中不稳定），改为：
  * `pnpm pack`（pnpm 原生处理 workspace 协议）→ atw 直查生成的 tgz → 清理临时目录。
  * 覆盖根包 + 5 个子包；额外校验：exports 声明的每个目标文件必须存在于 tgz 内
- * （防止指向未打包的 src / 失效的 metadata.json 等）。
- * 注意：attw 仅检查根包（子包 eslint-rules 存在预存问题 FalseExportDefault，
- * 见其 dist/index.cjs 的 module.exports = 与 d.cts 的 export default 形状不一致，待单独修复）。
+ * （防止指向未打包的 src / 失效的 metadata.json 等）；attw（node16 profile）
+ * 对全部 tarball 逐一检查类型解析。
  * 用法：pnpm check:pack
  */
 
@@ -17,6 +16,20 @@ import { join, resolve } from "node:path";
 import { SUB_PACKAGE_DIRS } from "./packages.ts";
 
 const root = resolve(import.meta.dirname, "..");
+
+/**
+ * attw 规则忽略表（按包名）。
+ * - eslint-rules：单 ESM 产物（依赖链含 ESM-only 插件），require 条件经 Node 的 require(esm)（>= 22.12）可达；
+ *   attw 的 cjs-resolves-to-esm 判定与 Node 实际行为不符，故忽略（依据见 ADR-0008）。
+ * - kit / kit-types：`./types/global`（及 `./global`、`./react/global`）为 type-only 子路径（仅 types 条件、
+ *   无运行时产物）；attw 在 CJS 模式会把 types 条件的类型解析视作 runtime 解析、误报 cjs-resolves-to-esm。
+ *   真实 CJS require 该路径因无匹配条件而失败属预期设计，类型消费经 tsconfig types 不经此解析（见 ADR-0009）。
+ */
+const ATTW_IGNORED_RULES: Record<string, string[]> = {
+  "@pawover/kit-eslint-rules": ["cjs-resolves-to-esm"],
+  "@pawover/kit": ["cjs-resolves-to-esm"],
+  "@pawover/kit-types": ["cjs-resolves-to-esm"],
+};
 
 function collectTargets (node: unknown, targets: string[]): void {
   if (typeof node === "string") {
@@ -33,10 +46,12 @@ function collectTargets (node: unknown, targets: string[]): void {
   }
 }
 
-function validateExportsTargets (packDir: string, tarball: string): void {
-  const packed: Record<"exports" | "name", unknown> = JSON.parse(execSync(`tar -xOf "${join(packDir, tarball)}" package/package.json`, { encoding: "utf8" }));
+function validateExportsTargets (packDir: string, tarball: string): string {
+  const packed: Record<"exports" | "name", unknown> = JSON.parse(
+    execSync(`tar -xOf "${tarball}" package/package.json`, { encoding: "utf8", cwd: packDir }),
+  );
   const files = new Set<string>(
-    execSync(`tar -tf "${join(packDir, tarball)}"`, { encoding: "utf8" })
+    execSync(`tar -tf "${tarball}"`, { encoding: "utf8", cwd: packDir })
       .split("\n")
       .map((f) => f.replace(/\r$/, "").replace(/^package\//, ""))
       .filter(Boolean),
@@ -48,6 +63,8 @@ function validateExportsTargets (packDir: string, tarball: string): void {
     console.error(`[check-pack] ${packed.name} exports 引用了包内不存在的文件：\n  ${missing.join("\n  ")}`);
     process.exit(1);
   }
+
+  return String(packed.name);
 }
 
 const packDir = mkdtempSync(join(tmpdir(), "pawover-kit-attw-"));
@@ -56,19 +73,29 @@ try {
     execSync(`pnpm pack --pack-destination ${packDir}`, { stdio: "inherit", cwd: join(root, dir) });
   }
   const tarballs = readdirSync(packDir).filter((f) => f.endsWith(".tgz"));
-  if (tarballs.length === 0) {
-    console.error("[check-pack] pnpm pack did not produce any tarball");
+  const expected = 1 + SUB_PACKAGE_DIRS.length;
+  if (tarballs.length !== expected) {
+    console.error(`[check-pack] expected ${expected} tarballs, got ${tarballs.length}`);
     process.exit(1);
   }
   for (const tarball of tarballs) {
-    validateExportsTargets(packDir, tarball);
+    const name = validateExportsTargets(packDir, tarball);
+    const ignoredRules = ATTW_IGNORED_RULES[name] ?? [];
+    const ignoreFlag = ignoredRules.length > 0 ? ` --ignore-rules ${ignoredRules.join(" ")}` : "";
+    const tarballPath = join(packDir, tarball);
+    try {
+      execSync(`pnpm exec attw ${tarballPath} --profile node16 --quiet${ignoreFlag}`);
+    } catch {
+      console.error(`[check-pack] ${tarball} 类型解析失败，完整报告：`);
+      try {
+        execSync(`pnpm exec attw ${tarballPath} --profile node16${ignoreFlag}`, { stdio: "inherit" });
+      } catch {
+        // 报告已在 stderr 输出，继续以失败退出
+      }
+      process.exit(1);
+    }
+    console.log(`✔ ${tarball} 类型解析通过`);
   }
-  const rootTarball = tarballs.find((f) => f.startsWith("pawover-kit-"));
-  if (!rootTarball) {
-    console.error("[check-pack] root tarball not found");
-    process.exit(1);
-  }
-  execSync(`pnpm exec attw ${join(packDir, rootTarball)} --profile node16`, { stdio: "inherit" });
 } finally {
   rmSync(packDir, { recursive: true, force: true });
 }

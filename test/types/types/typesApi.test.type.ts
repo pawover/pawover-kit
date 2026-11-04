@@ -15,7 +15,6 @@ import type {
   Primitive,
   TreeLike,
   TreeLikeOptionalChildren,
-  VoidFunction,
 } from "@pawover/kit/types";
 
 interface TreeNode {
@@ -100,12 +99,12 @@ const badAsyncGenFnBound: AnyAsyncGeneratorFunction<[], string> = async function
   yield 1;
 };
 
-// VoidFunction — parameterless, void-returning
-// @ts-expect-error — VoidFunction takes no parameters
-const badVoidFn: VoidFunction = (a: number) => {};
+// VoidFunction 已删除 — 两条导入路径都必须不再导出（迁移：DOM/WebWorker 环境用 lib 内置，其余用 () => void）
+// @ts-expect-error — VoidFunction 已从根聚合路径移除
+import type { VoidFunction } from "@pawover/kit/types";
 
-// @ts-expect-error — VoidFunction must stay () => void, not narrow to number-returning
-const badVoidFnNarrow: () => number = (() => {}) as VoidFunction;
+// @ts-expect-error — VoidFunction 已从子包路径移除
+import type { VoidFunction as VoidFunctionDirect } from "@pawover/kit-types";
 
 // Conditional types evaluate correctly
 // @ts-expect-error — IsPrimitive<string> is true, must not collapse to false

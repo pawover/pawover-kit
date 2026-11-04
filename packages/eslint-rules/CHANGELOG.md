@@ -1,5 +1,35 @@
 # @pawover/kit-eslint-rules
 
+## 0.1.0-alpha.2
+
+### Minor Changes
+
+- 34b7b77: 升级内嵌 ESLint 插件依赖并同步规则映射：
+
+  - `@eslint-react/eslint-plugin` 5.26.1 → 5.28.8（规则集不变，含多项假阳性/假阴性修复）
+  - `eslint-plugin-antfu` 3.2.3 → 3.3.1（新增 `antfu/reasonable-newline`）
+  - `eslint-plugin-simple-import-sort` 13.0.0 → 14.0.0（支持字符串形式模块名的排序）
+  - `eslint-plugin-vue` 10.10.0 → 10.12.0（新增 `vue/no-content-outside-block`、`vue/no-define-model-default`、`vue/no-props-shadow`、`vue/no-shadow-native-events` 四条规则）
+  - `typescript-eslint` 8.71.1 → 8.72.1（`await-thenable` 新增 `allowMixedPromiseArrays` 选项）
+
+  新增的 4 条 Vue 规则按 `error` 启用；`antfu/reasonable-newline` 默认关闭——其默认行长阈值（40）与仓库 Prettier `printWidth: 120` 的排版职责重叠，直接启用会对现有代码产生大面积格式改动，留待单独评估。
+
+## 0.1.0-alpha.1
+
+### Minor Changes
+
+- a8bac64: 将 `@pawover/kit-eslint-rules` 重构为自包含 flat config 预设：默认导出工厂 `pawover(options?)`，全部上游插件（含 vue-eslint-parser）改为精确锁定的 `dependencies` 并由工厂自动注册，安装本包即可使用；`javascript` 组常开，typescript / stylistic / antfu / imports / importsSort / react / vue 通过显式开关启用；移除规则映射与 `createRules` 公共导出及 `./src/*` 子路径；新增测试层规则存在性校验。
+
+  TypeScript parser 与 typescript / react type-aware 规则仅作用于 ts/tsx（开启 vue 时含 .vue），react type-aware 规则额外覆盖 jsx（jsx 的类型可用性交由项目 tsconfig 的 `include`/`allowJs` 决定，不在项目内会报错）；未开启 `typescript` 时 react type-aware 规则自动降级关闭（no-op 注册，后置覆盖也无法强制开启）；补录 javascript / typescript / react / vue / stylistic 共 21 条上游新规则并给出默认值。
+
+  **破坏性变更**（0.x 下以 minor 发布）。
+
+## 0.0.6-alpha.0
+
+### Patch Changes
+
+- ccff7f7: 将 7 条在 `@stylistic` v6 中废弃的规则（`array-bracket-newline`、`array-bracket-spacing`、`array-element-newline`、`function-call-argument-newline`、`function-paren-newline`、`object-curly-newline`、`object-curly-spacing`）统一迁移至 `list-style` 规则，并升级 peerDependency `@stylistic/eslint-plugin` 至 `^6.0.0-beta.6` 以与根依赖保持一致。
+
 ## 0.0.5-alpha.0
 
 ### Patch Changes

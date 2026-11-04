@@ -8,7 +8,7 @@
 
 > **IsPrimitive**\<`T`\> = `T` *extends* [`Primitive`](Primitive.md) ? `true` : `false`
 
-Defined in: [global.ts:204](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/types/src/global.ts#L204)
+Defined in: [base.ts:190](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/base.ts#L190)
 
 判断是否为原始类型
 

@@ -3,7 +3,7 @@ const plates = [
   {
     name: "types",
     path: "@pawover/kit/types",
-    count: 19,
+    count: 18,
     spec: "个导出类型 · 无运行时代码",
     clean: true,
     color: "#3178C6",
@@ -53,7 +53,7 @@ const plates = [
     <section class="pk-hero">
       <p class="pk-hero-eyebrow">@pawover/kit — TypeScript 工具箱</p>
 
-      <pre class="pk-hero-code" aria-label="pawover-kit 工具箱类型声明"><code><span class="pk-line"><span class="pk-comment">// pawover-kit：五个包，类型完备</span></span><span class="pk-line"><span class="pk-kw">type</span> <span class="pk-prop">Kit</span> = {</span><span class="pk-line">  <span class="pk-prop">types</span>: <span class="pk-num">19</span>; <span class="pk-comment">// 类型工具，无运行时代码</span></span><span class="pk-line">  <span class="pk-prop">utils</span>: <span class="pk-num">144</span>; <span class="pk-comment">// 静态方法，15 个工具类</span></span><span class="pk-line">  <span class="pk-prop">hooks</span>: <span class="pk-num">9</span>; <span class="pk-comment">// React 与 Alova Hooks</span></span><span class="pk-line">  <span class="pk-prop">eslint</span>: <span class="pk-num">784</span>; <span class="pk-comment">// 规则，9 个规则组</span></span><span class="pk-line">  <span class="pk-prop">zod</span>: <span class="pk-num">30</span>; <span class="pk-comment">// Schema，Zod v4</span></span><span class="pk-line">};<span class="pk-caret" /></span></code></pre>
+      <pre class="pk-hero-code" aria-label="pawover-kit 工具箱类型声明"><code><span class="pk-line"><span class="pk-comment">// pawover-kit：五个包，类型完备</span></span><span class="pk-line"><span class="pk-kw">type</span> <span class="pk-prop">Kit</span> = {</span><span class="pk-line">  <span class="pk-prop">types</span>: <span class="pk-num">18</span>; <span class="pk-comment">// 类型工具，无运行时代码</span></span><span class="pk-line">  <span class="pk-prop">utils</span>: <span class="pk-num">144</span>; <span class="pk-comment">// 静态方法，15 个工具类</span></span><span class="pk-line">  <span class="pk-prop">hooks</span>: <span class="pk-num">9</span>; <span class="pk-comment">// React 与 Alova Hooks</span></span><span class="pk-line">  <span class="pk-prop">eslint</span>: <span class="pk-num">784</span>; <span class="pk-comment">// 规则，9 个规则组</span></span><span class="pk-line">  <span class="pk-prop">zod</span>: <span class="pk-num">30</span>; <span class="pk-comment">// Schema，Zod v4</span></span><span class="pk-line">};<span class="pk-caret" /></span></code></pre>
 
       <p class="pk-hero-copy">
         五个可独立安装的包：类型工具、静态工具类、React / Alova Hooks、ESLint 规则集与 Zod Schema。

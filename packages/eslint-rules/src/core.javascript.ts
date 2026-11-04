@@ -1,4 +1,9 @@
-export default {
+/**
+ * `javascript` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射：`javascript` 组随预设工厂（`src/config.ts`）常开，直接作用于全部源文件（ESLint 核心规则，无需插件注册）。
+ */
+const rules = {
   // Possible Problems
   /**
    * @desc 强制数组回调函数中必须包含 return 语句
@@ -252,6 +257,12 @@ export default {
    * @see https://eslint.org/docs/latest/rules/no-this-before-super
    */
   "no-this-before-super": 2,
+  /**
+   * @desc 禁止只读但从未被赋值的 let/var 变量
+   * @descEN Disallow `let` or `var` variables that are read but never assigned
+   * @see https://eslint.org/docs/latest/rules/no-unassigned-vars
+   */
+  "no-unassigned-vars": 2,
   /**
    * @desc 禁止使用未声明的变量
    * @descEN Disallow undeclared variables
@@ -1113,6 +1124,12 @@ export default {
    */
   "prefer-template": 0,
   /**
+   * @desc 禁止重抛自定义错误时丢失原始错误
+   * @descEN Disallow losing originally caught error when re-throwing custom errors
+   * @see https://eslint.org/docs/latest/rules/preserve-caught-error
+   */
+  "preserve-caught-error": 1,
+  /**
    * @desc 强制使用 parseInt 时指定基数
    * @descEN Require the use of the second argument in `parseInt()`
    * @see https://eslint.org/docs/latest/rules/radix
@@ -1167,6 +1184,12 @@ export default {
    */
   "symbol-description": 2,
   /**
+   * @desc 要求或禁止 Unicode BOM
+   * @descEN Require or disallow Unicode byte order mark (BOM)
+   * @see https://eslint.org/docs/latest/rules/unicode-bom
+   */
+  "unicode-bom": 0,
+  /**
    * @desc 要求 var 声明在作用域顶部
    * @descEN Require `var` declarations to be placed at the top of their containing scope
    * @see https://eslint.org/docs/latest/rules/vars-on-top
@@ -1179,3 +1202,6 @@ export default {
    */
   "yoda": [2, "never", { onlyEquality: true }],
 };
+
+export { rules };
+export default rules;

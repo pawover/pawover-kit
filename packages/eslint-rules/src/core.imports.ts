@@ -1,4 +1,9 @@
-export default {
+/**
+ * `imports` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射：`imports` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `imports`。
+ */
+const rules = {
   /**
    * @desc 强制类型导入的标记风格保持一致（顶级或内联）
    * @descEN Enforce consistent style for type-only import specifiers (top-level vs inline)
@@ -54,3 +59,6 @@ export default {
    */
   "imports/prefer-default-export": 0,
 };
+
+export { rules };
+export default rules;

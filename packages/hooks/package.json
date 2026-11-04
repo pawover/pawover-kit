@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "React hooks (mount, unmount, latest, title, responsive) and Alova request hooks",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "keywords": [
     "pawover",
@@ -18,6 +18,9 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24.22.2"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,32 +30,70 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.ts",
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.ts",
         "default": "./dist/index.cjs"
       }
     },
     "./alova": {
       "import": {
-        "types": "./dist/alova.d.ts",
+        "types": "./src/alova/index.ts",
         "default": "./dist/alova.js"
       },
       "require": {
-        "types": "./dist/alova.d.cts",
+        "types": "./src/alova/index.ts",
         "default": "./dist/alova.cjs"
       }
     },
     "./react": {
       "import": {
-        "types": "./dist/react.d.ts",
+        "types": "./src/react/index.ts",
         "default": "./dist/react.js"
       },
       "require": {
-        "types": "./dist/react.d.cts",
+        "types": "./src/react/index.ts",
         "default": "./dist/react.cjs"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      },
+      "./alova": {
+        "import": {
+          "types": "./dist/alova.d.ts",
+          "default": "./dist/alova.js"
+        },
+        "require": {
+          "types": "./dist/alova.d.cts",
+          "default": "./dist/alova.cjs"
+        }
+      },
+      "./react": {
+        "import": {
+          "types": "./dist/react.d.ts",
+          "default": "./dist/react.js"
+        },
+        "require": {
+          "types": "./dist/react.d.cts",
+          "default": "./dist/react.cjs"
+        }
       }
     }
   },
@@ -62,21 +103,18 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
     "@pawover/kit-types": "workspace:*",
     "@pawover/kit-utils": "workspace:*",
-    "es-toolkit": "^1.51.0",
-    "type-fest": "^5.8.0"
+    "es-toolkit": "^1.53.1",
+    "type-fest": "^5.10.0"
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*"
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",
-    "alova": "^3.5.1",
+    "alova": "^3.5.5",
     "react": "^19.2.0"
   },
   "peerDependenciesMeta": {

@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Type-only utility toolkit: object, tree, function, record and React props types with no runtime code",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "type": "module",
   "keywords": [
     "pawover",
@@ -18,6 +18,9 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24.22.2"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,22 +30,62 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.ts",
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.ts",
         "default": "./dist/index.cjs"
       }
     },
     "./react": {
       "import": {
-        "types": "./dist/react.d.ts",
+        "types": "./src/react.ts",
         "default": "./dist/react.js"
       },
       "require": {
-        "types": "./dist/react.d.cts",
+        "types": "./src/react.ts",
         "default": "./dist/react.cjs"
+      }
+    },
+    "./global": {
+      "types": "./src/global.d.ts"
+    },
+    "./react/global": {
+      "types": "./src/react-global.d.ts"
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      },
+      "./react": {
+        "import": {
+          "types": "./dist/react.d.ts",
+          "default": "./dist/react.js"
+        },
+        "require": {
+          "types": "./dist/react.d.cts",
+          "default": "./dist/react.cjs"
+        }
+      },
+      "./global": {
+        "types": "./dist/global.d.ts"
+      },
+      "./react/global": {
+        "types": "./dist/react-global.d.ts"
       }
     }
   },
@@ -52,25 +95,26 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
-    "type-fest": "^5.8.0"
+    "type-fest": "^5.10.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@pawover/kit-internal": "workspace:*"
+    "@pawover/kit-internal": "workspace:*",
+    "@types/react": "^19.3.0"
   },
   "peerDependencies": {
     "@types/react": "^19.2.14",
-    "react": "^19.2.0"
+    "react": "^19.2.0",
+    "typescript": ">=5.0.0"
   },
   "peerDependenciesMeta": {
     "@types/react": {
       "optional": true
     },
     "react": {
+      "optional": true
+    },
+    "typescript": {
       "optional": true
     }
   }

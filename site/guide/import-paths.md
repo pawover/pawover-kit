@@ -9,7 +9,7 @@
 import { TypeUtil } from "@pawover/kit/utils";
 import { useMount } from "@pawover/kit/hooks/react";
 import type { AnyObject } from "@pawover/kit/types";
-import eslintRules from "@pawover/kit/eslint-rules";
+import pawover from "@pawover/kit/eslint-rules";
 import { id } from "@pawover/kit/zod";
 
 // 子包直引（按需安装单个子包时）
@@ -23,12 +23,14 @@ import type { PlainObject } from "@pawover/kit-types";
 | :--- | :--- |
 | `@pawover/kit/types` | 全部类型工具（`AnyObject`、`TreeLike`、`AdvancedRecord`…） |
 | `@pawover/kit/types/react` | React 相关类型（`Props`、`PropsWithChildren`、`PropsWithRef`） |
+| `@pawover/kit/types/global` | 基础类型的全局入口（填 tsconfig `types`，非导入用；子包直引 `@pawover/kit-types/global`） |
+| `@pawover/kit/types/react/global` | React 类型的全局入口（填 tsconfig `types`，非导入用；子包直引 `@pawover/kit-types/react/global`） |
 | `@pawover/kit/utils` | 核心 13 个工具类（array / currency / dateTime / env / function / mime / number / object / string / theme / tree / type / validate） |
 | `@pawover/kit/utils/math` | `MathUtil`（别名 `@pawover/kit/math`） |
 | `@pawover/kit/utils/vite` | `ViteUtil`（别名 `@pawover/kit/vite`） |
 | `@pawover/kit/hooks/react` | React Hooks（`useMount`、`useResponsive`…） |
 | `@pawover/kit/hooks/alova` | Alova Hooks（`useAlovaRequest`、`useAlovaPagination`…） |
-| `@pawover/kit/eslint-rules` | ESLint 规则集（默认导出 + `createRules`） |
+| `@pawover/kit/eslint-rules` | ESLint flat config 预设（默认导出工厂 `pawover(options?)`） |
 | `@pawover/kit/zod` | Zod v4 Schema（30 个） |
 
 > [!WARNING]
@@ -36,10 +38,12 @@ import type { PlainObject } from "@pawover/kit-types";
 
 ## ESM / CJS
 
-所有产物均为双格式：
+除 `@pawover/kit-eslint-rules`（单 ESM 产物，依赖链含 ESM-only 插件）外，其余包均为双格式：
 
 - `import` 条件 → ESM（`.js` / `.d.ts`）
 - `require` 条件 → CJS（`.cjs` / `.d.cts`）
+
+`@pawover/kit-eslint-rules` 的 `require` 条件指向 ESM 文件，CJS 消费场景经 Node 的 `require(esm)`（Node >= 22.12）加载。
 
 ## 仓库内源码直查
 

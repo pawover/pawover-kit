@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "Static utility classes: array, string, object, tree, currency, date, math and more",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "keywords": [
     "pawover",
@@ -18,6 +18,9 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24.22.2"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,32 +30,70 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.ts",
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.ts",
         "default": "./dist/index.cjs"
       }
     },
     "./math": {
       "import": {
-        "types": "./dist/math.d.ts",
+        "types": "./src/math/index.ts",
         "default": "./dist/math.js"
       },
       "require": {
-        "types": "./dist/math.d.cts",
+        "types": "./src/math/index.ts",
         "default": "./dist/math.cjs"
       }
     },
     "./vite": {
       "import": {
-        "types": "./dist/vite.d.ts",
+        "types": "./src/vite/index.ts",
         "default": "./dist/vite.js"
       },
       "require": {
-        "types": "./dist/vite.d.cts",
+        "types": "./src/vite/index.ts",
         "default": "./dist/vite.cjs"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
+      },
+      "./math": {
+        "import": {
+          "types": "./dist/math.d.ts",
+          "default": "./dist/math.js"
+        },
+        "require": {
+          "types": "./dist/math.d.cts",
+          "default": "./dist/math.cjs"
+        }
+      },
+      "./vite": {
+        "import": {
+          "types": "./dist/vite.d.ts",
+          "default": "./dist/vite.js"
+        },
+        "require": {
+          "types": "./dist/vite.d.cts",
+          "default": "./dist/vite.cjs"
+        }
       }
     }
   },
@@ -62,13 +103,10 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "dependencies": {
     "@pawover/kit-types": "workspace:*",
     "ts-toolbelt": "^9.6.0",
-    "type-fest": "^5.8.0"
+    "type-fest": "^5.10.0"
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*"

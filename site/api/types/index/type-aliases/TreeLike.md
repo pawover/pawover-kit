@@ -8,7 +8,7 @@
 
 > **TreeLike**\<`T`, `CK`\> = `T` & `Record`\<`CK`, `TreeLike`\<`T`, `CK`\>[]\>
 
-Defined in: [global.ts:81](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/types/src/global.ts#L81)
+Defined in: [base.ts:81](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/base.ts#L81)
 
 描述树类型
 

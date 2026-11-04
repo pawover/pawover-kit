@@ -4,7 +4,7 @@
   <p><b>简体中文</b> | <a href="README.en.md">English</a></p>
 
   [![npm version](https://img.shields.io/npm/v/@pawover/kit.svg)](https://www.npmjs.com/package/@pawover/kit)
-  [![Node version](https://img.shields.io/badge/node-%3E%3D22.20.0-brightgreen.svg)](https://nodejs.org)
+  [![Node version](https://img.shields.io/badge/node-%3E%3D24.22.2-brightgreen.svg)](https://nodejs.org)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
   [![Docs](https://img.shields.io/badge/docs-pawover--kit--docs-3B82F6.svg)](https://pawover.github.io/pawover-kit/)
 </div>
@@ -64,7 +64,7 @@ import { TypeUtil } from "@pawover/kit/utils";
 import { useMount } from "@pawover/kit/hooks/react";
 import { useAlovaRequest } from "@pawover/kit/hooks/alova";
 import type { AnyObject } from "@pawover/kit/types";
-import eslintRules from "@pawover/kit/eslint-rules";
+import pawover from "@pawover/kit/eslint-rules";
 import { id } from "@pawover/kit/zod";
 
 // 类型工具
@@ -78,11 +78,8 @@ useMount(() => {
   console.log("mounted");
 });
 
-// ESLint 规则集（flat config）
-export default [
-  { ignores: eslintRules.GLOB_EXCLUDE },
-  { files: ["**/*.ts"], rules: { ...eslintRules.javascript, ...eslintRules.typescript } },
-];
+// ESLint flat config 预设（自包含）
+export default pawover({ typescript: true });
 
 // Zod Schema
 id.parse("abc"); // "abc"
@@ -90,7 +87,7 @@ id.parse("abc"); // "abc"
 
 ## 环境要求
 
-- Node.js >= 22.20.0
+- Node.js >= 24.22.2
 - pnpm >= 11
 
 ## 开发

@@ -1,4 +1,9 @@
-export default {
+/**
+ * `reactHooks` 规则组配置
+ *
+ * 规则名 → 严重级别/配置的映射：`reactHooks` 组经预设工厂（`src/config.ts`）装配进 flat config，注册名 `react-hooks`。
+ */
+const rules = {
   /**
    * @desc 验证 Hooks 依赖数组包含所有必要的依赖
    * @descEN Validates that dependency arrays for React hooks contain all necessary dependencies
@@ -102,3 +107,6 @@ export default {
    */
   "react-hooks/use-memo": 0,
 };
+
+export { rules };
+export default rules;

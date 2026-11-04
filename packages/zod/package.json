@@ -18,6 +18,9 @@
     "url": "git+https://github.com/pawover/pawover-kit.git"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24.22.2"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,12 +30,30 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./src/index.ts",
         "default": "./dist/index.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./src/index.ts",
         "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/index.d.ts",
+          "default": "./dist/index.js"
+        },
+        "require": {
+          "types": "./dist/index.d.cts",
+          "default": "./dist/index.cjs"
+        }
       }
     }
   },
@@ -42,12 +63,9 @@
     "public": "pnpm publish --access public --tag alpha",
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
-    "zod": "^4.4.3",
-    "@pawover/kit-internal": "workspace:*"
+    "@pawover/kit-internal": "workspace:*",
+    "zod": "^4.6.7"
   },
   "peerDependencies": {
     "zod": "^4.1.0"
