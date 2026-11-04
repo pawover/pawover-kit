@@ -37,6 +37,13 @@ const REACT_COMPILER_RULE_MAP = {
 /** `react-hooks` 核心规则：不属于 React Compiler 检查，不参与切换。 */
 const REACT_HOOKS_CORE_RULES = ["rules-of-hooks", "exhaustive-deps"] as const;
 
+/**
+ * React Compiler 开启时需要额外关闭的 `@eslint-react` 规则
+ *
+ * React Compiler 会自动记忆化 Context value，`no-unstable-context-value` 的告警不再适用。
+ */
+const REACT_COMPILER_DISABLED_REACT_RULES = ["no-unstable-context-value"] as const;
+
 /** 仅官方 `recommended-latest` 预设包含的实验性 Compiler 规则。 */
 const REACT_COMPILER_LATEST_ONLY_RULES = ["void-use-memo"] as const;
 
@@ -99,6 +106,10 @@ function getReactCompilerRuleMap (preset: ReactCompilerPreset): { off: RuleMap; 
     on[ruleId] = normalizeRuleLevel(level);
   }
 
+  for (const rule of REACT_COMPILER_DISABLED_REACT_RULES) {
+    off[`react/${rule}`] = 0;
+  }
+
   if (preset === "latest") {
     for (const rule of REACT_COMPILER_LATEST_ONLY_RULES) {
       const ruleId = `react-hooks/${rule}`;
@@ -127,6 +138,7 @@ export {
   getReactCompilerRuleMap,
   getReactHooksPresetRules,
   normalizeRuleLevel,
+  REACT_COMPILER_DISABLED_REACT_RULES,
   REACT_COMPILER_LATEST_ONLY_RULES,
   REACT_COMPILER_RULE_MAP,
   REACT_HOOKS_CORE_RULES,

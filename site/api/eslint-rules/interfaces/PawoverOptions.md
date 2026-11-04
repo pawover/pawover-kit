@@ -6,7 +6,7 @@
 
 # Interface: PawoverOptions
 
-Defined in: [config.ts:287](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L287)
+Defined in: [config.ts:288](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L288)
 
 预设工厂选项
 
@@ -30,7 +30,7 @@ const options: PawoverOptions = {
 
 > `optional` **antfu?**: `boolean` \| [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:295](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L295)
+Defined in: [config.ts:296](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L296)
 
 启用 `antfu` 规则组
 
@@ -40,7 +40,7 @@ Defined in: [config.ts:295](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **imports?**: `boolean` \| [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:297](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L297)
+Defined in: [config.ts:298](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L298)
 
 启用 `imports` 规则组（eslint-plugin-import-lite）
 
@@ -50,7 +50,7 @@ Defined in: [config.ts:297](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **importsSort?**: `boolean` \| [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:299](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L299)
+Defined in: [config.ts:300](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L300)
 
 启用 `importsSort` 规则组（eslint-plugin-simple-import-sort）
 
@@ -60,7 +60,7 @@ Defined in: [config.ts:299](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **javascript?**: [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:289](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L289)
+Defined in: [config.ts:290](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L290)
 
 javascript 规则组覆盖选项（该组常开）
 
@@ -70,7 +70,7 @@ javascript 规则组覆盖选项（该组常开）
 
 > `optional` **react?**: `boolean` \| [`ReactOptions`](ReactOptions.md)
 
-Defined in: [config.ts:301](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L301)
+Defined in: [config.ts:302](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L302)
 
 启用 `react` 规则组（注册 `@eslint-react` 与 `eslint-plugin-react-hooks` 两个插件，默认开启 React Compiler 规则切换）；与 `typescript` 同开时，依赖类型信息的规则作用于 ts/tsx/jsx
 
@@ -80,7 +80,7 @@ Defined in: [config.ts:301](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **stylistic?**: `boolean` \| [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:293](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L293)
+Defined in: [config.ts:294](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L294)
 
 启用 `stylistic` 规则组
 
@@ -90,7 +90,7 @@ Defined in: [config.ts:293](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **typescript?**: `boolean` \| [`TypeScriptOptions`](TypeScriptOptions.md)
 
-Defined in: [config.ts:291](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L291)
+Defined in: [config.ts:292](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L292)
 
 启用 `typescript` 规则组（ts / tsx 文件；同时注册 TypeScript parser，默认启用 type-aware 解析）
 
@@ -100,6 +100,6 @@ Defined in: [config.ts:291](https://github.com/pawover/pawover-kit/blob/6417537d
 
 > `optional` **vue?**: `boolean` \| [`RulesOverrideOptions`](RulesOverrideOptions.md)
 
-Defined in: [config.ts:303](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L303)
+Defined in: [config.ts:304](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L304)
 
 启用 `vue` 规则组（vue / vue+ts 单文件组件；同时接入 vue-eslint-parser）

@@ -54,7 +54,7 @@ export default pawover({
 
 `react` 组包含依赖类型信息的规则（如 `no-implicit-key`）：与 `typescript` 一同开启时这些规则作用于 `typescript.filesTypeAware` 限定的文件（默认 `ts/tsx`）并额外并入 `*.jsx`——`.jsx` 的类型可用性交由项目 tsconfig 的 `include`/`allowJs` 决定（未被项目覆盖的 `.jsx` 会按「不在项目内」报错）；未开启 `typescript` 时（纯 JS React 项目）工厂自动关闭它们——且以无操作实现注册，后置覆盖强制开启也不会报错，react 组其余规则照常可用。
 
-`react` 组默认开启 React Compiler 规则切换（`react.compiler: true`）：10 条与 `@eslint-react` 重叠的 Compiler 规则改用 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免重复诊断；这 10 条规则的严重级别与官方 `recommended` 预设一致（如 `react-hooks/unsupported-syntax` 为 `warn`）。需要回退到 `@eslint-react` 实现时传 `compiler: false`，此时只回退这 10 条重叠规则（含 `react-hooks/globals`），官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 仍由 `react-hooks` 提供；`compiler: "latest"` 额外启用实验规则 `react-hooks/void-use-memo`：
+`react` 组默认开启 React Compiler 规则切换（`react.compiler: true`）：10 条与 `@eslint-react` 重叠的 Compiler 规则改用 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免重复诊断；同时关闭 `react/no-unstable-context-value`（React Compiler 会自动记忆化 Context value）；这 10 条规则的严重级别与官方 `recommended` 预设一致（如 `react-hooks/unsupported-syntax` 为 `warn`）。需要回退到 `@eslint-react` 实现时传 `compiler: false`，此时只回退这 10 条重叠规则（含 `react-hooks/globals`），官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 仍由 `react-hooks` 提供；`compiler: "latest"` 额外启用实验规则 `react-hooks/void-use-memo`：
 
 ```ts
 export default pawover({

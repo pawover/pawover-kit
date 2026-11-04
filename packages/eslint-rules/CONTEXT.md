@@ -58,7 +58,7 @@ _Avoid_: 静默过滤（降级是确定的配置行为，不同于掩盖错误�
 
 #### Compiler 规则切换（Compiler Rule Switch）
 
-`react` 组启用时默认把 10 条与 `@eslint-react` 重叠的 React Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免同一问题重复报告。10 条切换规则的严重级别取自官方 `recommended` 预设；官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 始终由 `react-hooks` 提供，并保持与官方 `recommended` 一致的级别（`incompatible-library` 为 `warn`）。`react.compiler: false` 仅回退这 10 条重叠规则（含 `react-hooks/globals`），`"latest"` 额外启用实验规则 `void-use-memo`。`react.overrides` 最后合并，可逐条覆盖切换结果。映射表显式维护，测试校验两端规则存在、官方新增规则是否漏接以及实际配置的严重级别。
+`react` 组启用时默认把 10 条与 `@eslint-react` 重叠的 React Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免同一问题重复报告；同时关闭 `react/no-unstable-context-value`（Compiler 会自动记忆化 Context value）。10 条切换规则的严重级别取自官方 `recommended` 预设；官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 始终由 `react-hooks` 提供，并保持与官方 `recommended` 一致的级别（`incompatible-library` 为 `warn`）。`react.compiler: false` 仅回退这 10 条重叠规则（含 `react-hooks/globals`），`"latest"` 额外启用实验规则 `void-use-memo`。`react.overrides` 最后合并，可逐条覆盖切换结果。映射表显式维护，测试校验两端规则存在、官方新增规则是否漏接以及实际配置的严重级别。
 _Avoid_: 同时开启两套规则（会产生重复诊断）
 
 #### 行宽对齐（Line Width Alignment）

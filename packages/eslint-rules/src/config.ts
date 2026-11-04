@@ -250,6 +250,7 @@ export interface ReactOptions extends RulesOverrideOptions {
    *
    * react 组启用时默认开启（`true` 等价 `"recommended"`）：将 10 条与 `@eslint-react` 重叠的
    * Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则；
+   * 同时关闭 `react/no-unstable-context-value`（React Compiler 会自动记忆化 Context value）；
    * 传 `false` 回退到 `@eslint-react` 实现，传 `"latest"` 额外启用实验性 `react-hooks/void-use-memo`。
    *
    * 仅控制这 10 条重叠规则；官方独有的 `config` / `gating` / `incompatible-library` /

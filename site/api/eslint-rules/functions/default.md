@@ -8,7 +8,7 @@
 
 > **default**(`options?`, ...`userConfigs`): `FlatConfigComposer`\<[`ConfigLayer`](../type-aliases/ConfigLayer.md), `"pawover/ignores"` \| `"pawover/javascript/parser"` \| `"pawover/javascript/rules"` \| `"pawover/typescript/setup"` \| `"pawover/typescript/parser"` \| `"pawover/typescript/rules"` \| `"pawover/typescript/type-aware"` \| `"pawover/stylistic/setup"` \| `"pawover/stylistic/rules"` \| `"pawover/antfu/setup"` \| `"pawover/antfu/rules"` \| `"pawover/imports/setup"` \| `"pawover/imports/rules"` \| `"pawover/imports-sort/setup"` \| `"pawover/imports-sort/rules"` \| `"pawover/react/setup"` \| `"pawover/react/rules"` \| `"pawover/react/type-aware"` \| `"pawover/vue/setup"` \| `"pawover/vue/parser"` \| `"pawover/vue/rules"`\>
 
-Defined in: [config.ts:373](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L373)
+Defined in: [config.ts:374](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L374)
 
 创建 ESLint flat config 预设
 

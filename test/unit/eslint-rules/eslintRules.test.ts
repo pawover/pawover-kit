@@ -6,6 +6,7 @@ import type { ConfigNames, PawoverOptions } from "@pawover/kit/eslint-rules";
 import {
   getReactHooksPresetRules,
   normalizeRuleLevel,
+  REACT_COMPILER_DISABLED_REACT_RULES,
   REACT_COMPILER_LATEST_ONLY_RULES,
   REACT_COMPILER_RULE_MAP,
   REACT_HOOKS_CORE_RULES,
@@ -513,6 +514,14 @@ describe("react compiler switch", () => {
     }
   });
 
+  it("should disable no-unstable-context-value when compiler is enabled", async () => {
+    const enabled = findLayer(await resolvePreset({ react: true }), "pawover/react/rules");
+    const disabled = findLayer(await resolvePreset({ react: { compiler: false } }), "pawover/react/rules");
+
+    expect(enabled?.rules?.["react/no-unstable-context-value"]).toBe(0);
+    expect(disabled?.rules?.["react/no-unstable-context-value"]).toBe(2);
+  });
+
   it("should enable void-use-memo only in the latest preset", async () => {
     const recommended = findLayer(await resolvePreset({ react: true }), "pawover/react/rules");
     const latest = findLayer(await resolvePreset({ react: { compiler: "latest" } }), "pawover/react/rules");
@@ -570,6 +579,10 @@ describe("react compiler switch", () => {
     for (const [hooksRule, eslintReactRule] of Object.entries(REACT_COMPILER_RULE_MAP)) {
       expect(reactHooksPlugin.rules).toHaveProperty(hooksRule);
       expect(reactPlugin.rules).toHaveProperty(eslintReactRule);
+    }
+
+    for (const rule of REACT_COMPILER_DISABLED_REACT_RULES) {
+      expect(reactPlugin.rules).toHaveProperty(rule);
     }
   });
 });
