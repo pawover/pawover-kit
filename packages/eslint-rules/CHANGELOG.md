@@ -1,5 +1,34 @@
 # @pawover/kit-eslint-rules
 
+## 0.2.0-alpha.0
+
+### Minor Changes
+
+- 6417537: BREAKING: 预设装配重构为 `FlatConfigComposer`。
+
+  - `pawover()` 现在返回 composer（继承 Promise），可直接作为 `eslint.config.js` 默认导出，并支持 `append` / `prepend` / `override` / `renamePlugins` 链式组合。
+  - 每个规则组拆为 `setup`（无 `files`，只注册插件）/ `rules`（规则 + 文件范围）/ `parser` / `type-aware` 层，每层带唯一 `name`；`javascript` 拆出 `parser` + `rules`，无插件可注册的组不产生 `setup`。
+  - 新增按组 `overrides`；`typescript` / `react` 支持 `overridesTypeAware`，`typescript` 支持 `filesTypeAware`（同时收窄 react type-aware 层，react 额外并入 `GLOB_JSX`）。
+  - 新增 `GLOB_SOURCE` / `GLOB_TYPESCRIPT` / `GLOB_VUE` / `GLOB_JSX` 导出。
+  - 新增公开类型 `RuleMap` / `ConfigLayer` / `PawoverUserConfig` / `RulesOverrideOptions` / `TypeScriptOptions` / `ReactOptions`。
+  - 启用 `antfu/reasonable-newline`，发布包默认行宽 120；`*.type.ts` / `*.test.ts` 的宽版 240 属消费端个性化配置（本仓库在根 `eslint.config.js` 覆盖），不随包发布。
+  - 移除顶层 `parserOptions`，改用 `typescript.parserOptions`。
+  - 移除工厂 `ignores` / `renamePlugins` 选项：全局忽略改用追加配置层或 `override("pawover/ignores", ...)`，插件重命名改用 composer 的 `.renamePlugins()`。
+  - 移除数组返回语义；旧用法 `[...pawover()]` 需改为直接导出 composer、使用 `.append()` 或 `await`。
+
+- 3c53aee: BREAKING: `react` 组默认启用 React Compiler 规则切换。
+
+  - `react: true` 时默认将 10 条与 `@eslint-react` 重叠的 Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免重复诊断。
+  - 新增 `react.compiler` 选项：`false` 回退到 `@eslint-react` 实现；`"recommended"` / `true` 使用官方 `recommended` 预设；`"latest"` 额外启用实验规则 `react-hooks/void-use-memo`。
+  - 官方 `recommended` 中 `react-hooks/unsupported-syntax` 与 `react-hooks/incompatible-library` 为 `warn`，需要更严格时可用 `react.overrides` 提升。
+  - `compiler: false` 仅回退 10 条重叠规则（含 `react-hooks/globals`），官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 仍由 `react-hooks` 提供。
+  - 未启用 `react` 组的消费者不受影响。
+
+- 3c53aee: `ts/strict-void-return` 默认开启 `allowReturnAny: true`。
+
+  - 允许返回 `any` 的函数传入接受 `void` 的位置，减少 React 事件回调与异步回调中的误报。
+  - 需要更严格检查时，可通过 `typescript.overrides` 覆盖该规则。
+
 ## 0.1.0-alpha.2
 
 ### Minor Changes
