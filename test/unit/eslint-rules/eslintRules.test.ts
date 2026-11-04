@@ -3,6 +3,13 @@ import { Linter } from "eslint";
 import { builtinRules } from "eslint/use-at-your-own-risk";
 import pawover, { GLOB_EXCLUDE, GLOB_TYPESCRIPT } from "@pawover/kit/eslint-rules";
 import type { ConfigNames, PawoverOptions } from "@pawover/kit/eslint-rules";
+import {
+  getReactHooksPresetRules,
+  normalizeRuleLevel,
+  REACT_COMPILER_LATEST_ONLY_RULES,
+  REACT_COMPILER_RULE_MAP,
+  REACT_HOOKS_CORE_RULES,
+} from "../../../packages/eslint-rules/src/reactCompiler.ts";
 
 const ALL_OPTIONS: PawoverOptions = {
   typescript: true,
@@ -482,5 +489,87 @@ describe("react type-aware fallback", () => {
 
     expect(messages.filter((message) => message.fatal || message.message.includes("type information"))).toEqual([]);
     expect(messages.filter((message) => message.ruleId === "react/no-implicit-key" || message.ruleId === "react/no-implicit-children")).toEqual([]);
+  });
+});
+
+describe("react compiler switch", () => {
+  it("should switch shared compiler rules to react-hooks by default", async () => {
+    const reactLayer = findLayer(await resolvePreset({ react: true }), "pawover/react/rules");
+
+    expect(reactLayer?.rules?.["react/globals"]).toBe(0);
+    expect(reactLayer?.rules?.["react/purity"]).toBe(0);
+    expect(reactLayer?.rules?.["react-hooks/purity"]).toBe(2);
+    expect(reactLayer?.rules?.["react-hooks/unsupported-syntax"]).toBe(1);
+    expect(reactLayer?.rules?.["react-hooks/globals"]).toBe(2);
+  });
+
+  it("should keep @eslint-react rules when compiler is disabled", async () => {
+    const disabled = findLayer(await resolvePreset({ react: { compiler: false } }), "pawover/react/rules");
+
+    expect(disabled?.rules?.["react/globals"]).toBe(2);
+    expect(disabled?.rules?.["react/purity"]).toBe(2);
+    for (const hooksRule of Object.keys(REACT_COMPILER_RULE_MAP)) {
+      expect(disabled?.rules?.[`react-hooks/${hooksRule}`], hooksRule).toBe(0);
+    }
+  });
+
+  it("should enable void-use-memo only in the latest preset", async () => {
+    const recommended = findLayer(await resolvePreset({ react: true }), "pawover/react/rules");
+    const latest = findLayer(await resolvePreset({ react: { compiler: "latest" } }), "pawover/react/rules");
+
+    expect(recommended?.rules?.["react-hooks/void-use-memo"]).toBe(0);
+    expect(latest?.rules?.["react-hooks/void-use-memo"]).toBe(2);
+  });
+
+  it("should treat compiler: true as the recommended preset", async () => {
+    const asTrue = findLayer(await resolvePreset({ react: { compiler: true } }), "pawover/react/rules");
+    const asRecommended = findLayer(await resolvePreset({ react: { compiler: "recommended" } }), "pawover/react/rules");
+
+    expect(asTrue?.rules).toEqual(asRecommended?.rules);
+  });
+
+  it("should let react overrides win over the compiler switch", async () => {
+    const reactLayer = findLayer(await resolvePreset({
+      react: {
+        compiler: true,
+        overrides: { "react-hooks/purity": 0 },
+      },
+    }), "pawover/react/rules");
+
+    expect(reactLayer?.rules?.["react-hooks/purity"]).toBe(0);
+  });
+
+  it("should match every official recommended react-hooks rule", async () => {
+    const reactLayer = findLayer(await resolvePreset({ react: true }), "pawover/react/rules");
+    const official = getReactHooksPresetRules("recommended");
+
+    for (const [ruleId, level] of Object.entries(official)) {
+      if (!ruleId.startsWith("react-hooks/") || level === undefined) continue;
+
+      const rule = ruleId.slice("react-hooks/".length);
+      if ((REACT_HOOKS_CORE_RULES as readonly string[]).includes(rule)) continue;
+
+      expect(reactLayer?.rules?.[ruleId], ruleId).toBe(normalizeRuleLevel(level));
+    }
+  });
+
+  it("should keep the latest-only rule list in sync with the official preset", async () => {
+    const recommended = new Set(Object.keys(getReactHooksPresetRules("recommended")));
+    const latestOnly = Object.keys(getReactHooksPresetRules("latest"))
+      .filter((ruleId) => !recommended.has(ruleId))
+      .map((ruleId) => ruleId.slice("react-hooks/".length));
+
+    expect(latestOnly.sort()).toEqual([...REACT_COMPILER_LATEST_ONLY_RULES].sort());
+  });
+
+  it("should reference existing rules on both sides of the mapping", async () => {
+    const { plugins } = await import("../../../packages/eslint-rules/src/plugins.ts");
+    const reactPlugin = plugins.react as unknown as { rules?: Record<string, unknown> };
+    const reactHooksPlugin = plugins.reactHooks as unknown as { rules?: Record<string, unknown> };
+
+    for (const [hooksRule, eslintReactRule] of Object.entries(REACT_COMPILER_RULE_MAP)) {
+      expect(reactHooksPlugin.rules).toHaveProperty(hooksRule);
+      expect(reactPlugin.rules).toHaveProperty(eslintReactRule);
+    }
   });
 });

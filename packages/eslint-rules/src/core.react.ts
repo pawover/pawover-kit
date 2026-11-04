@@ -21,7 +21,7 @@ const rules = {
    * @descEN Validates against assignment/mutation of globals during render
    * @see https://www.eslint-react.xyz/docs/rules/globals
    */
-  "react/globals": 0,
+  "react/globals": 2,
   /**
    * @desc 禁止修改 props、state 等不可变值
    * @descEN Validates against mutating props, state, and other values that are immutable

@@ -8,7 +8,7 @@
 
 > **ConfigNames** = `DeepValue`\<*typeof* `LAYER_NAMES`\>
 
-Defined in: [config.ts:103](https://github.com/pawover/pawover-kit/blob/fb0a726c7f2a28ecc76e9dcaaacf64449a3d86e1/packages/eslint-rules/src/config.ts#L103)
+Defined in: [config.ts:104](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/config.ts#L104)
 
 各配置层名称
 

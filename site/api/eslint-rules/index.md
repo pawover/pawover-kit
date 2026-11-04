@@ -16,6 +16,7 @@
 - [ConfigLayer](type-aliases/ConfigLayer.md)
 - [ConfigNames](type-aliases/ConfigNames.md)
 - [PawoverUserConfig](type-aliases/PawoverUserConfig.md)
+- [ReactCompilerPreset](type-aliases/ReactCompilerPreset.md)
 - [RuleConfig](type-aliases/RuleConfig.md)
 - [RuleMap](type-aliases/RuleMap.md)
 - [Severity](type-aliases/Severity.md)

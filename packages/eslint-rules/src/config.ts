@@ -12,6 +12,7 @@ import vueRules from "./core.vue.ts";
 import { GLOB_EXCLUDE } from "./globExclude.ts";
 import { GLOB_JSX, GLOB_SOURCE, GLOB_TYPESCRIPT, GLOB_VUE } from "./globs.ts";
 import { plugins, reactTypeCheckedNames, reactTypeCheckedOff, reactWithoutTypeChecked } from "./plugins.ts";
+import { getReactCompilerDisabledRuleMap, getReactCompilerRuleMap, type ReactCompilerPreset } from "./reactCompiler.ts";
 
 /**
  * flat config 规则表类型（规则映射统一转换的目标类型）
@@ -237,12 +238,32 @@ export interface TypeScriptOptions extends RulesOverrideOptions {
  * @example
  * ```ts
  * const options: ReactOptions = {
+ *   compiler: "latest",
  *   overrides: { "react/no-implicit-key": "warn" },
  *   overridesTypeAware: { "react/no-unused-props": "off" },
  * };
  * ```
  */
 export interface ReactOptions extends RulesOverrideOptions {
+  /**
+   * React Compiler 规则切换
+   *
+   * react 组启用时默认开启（`true` 等价 `"recommended"`）：将 10 条与 `@eslint-react` 重叠的
+   * Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则；
+   * 传 `false` 回退到 `@eslint-react` 实现，传 `"latest"` 额外启用实验性 `react-hooks/void-use-memo`。
+   *
+   * 仅控制这 10 条重叠规则；官方独有的 `config` / `gating` / `incompatible-library` /
+   * `preserve-manual-memoization` 始终由 `react-hooks` 提供。
+   *
+   * @default true
+   *
+   * @example
+   * ```ts
+   * const options: ReactOptions = { compiler: "latest" };
+   * const legacy: ReactOptions = { compiler: false };
+   * ```
+   */
+  compiler?: boolean | ReactCompilerPreset;
   /** 仅覆盖依赖类型信息的 react 规则（仅在开启 `typescript` 时生效） */
   overridesTypeAware?: RuleMap;
 }
@@ -276,7 +297,7 @@ export interface PawoverOptions {
   imports?: boolean | RulesOverrideOptions;
   /** 启用 `importsSort` 规则组（eslint-plugin-simple-import-sort） */
   importsSort?: boolean | RulesOverrideOptions;
-  /** 启用 `react` 规则组（注册 `@eslint-react` 与 `eslint-plugin-react-hooks` 两个插件）；与 `typescript` 同开时，依赖类型信息的规则作用于 ts/tsx/jsx */
+  /** 启用 `react` 规则组（注册 `@eslint-react` 与 `eslint-plugin-react-hooks` 两个插件，默认开启 React Compiler 规则切换）；与 `typescript` 同开时，依赖类型信息的规则作用于 ts/tsx/jsx */
   react?: boolean | ReactOptions;
   /** 启用 `vue` 规则组（vue / vue+ts 单文件组件；同时接入 vue-eslint-parser） */
   vue?: boolean | RulesOverrideOptions;
@@ -287,6 +308,17 @@ function resolveOptions<T extends object> (value: boolean | T | undefined): Part
   return typeof value === "object" && value !== null
     ? value
     : {};
+}
+
+/** 将 React Compiler 开关归一化为官方预设名；`false` 表示回退到 `@eslint-react` 实现。 */
+function resolveReactCompilerPreset (value: boolean | ReactCompilerPreset | undefined): ReactCompilerPreset | undefined {
+  if (value === false) {
+    return undefined;
+  }
+
+  return value === "latest"
+    ? "latest"
+    : "recommended";
 }
 
 /**
@@ -359,6 +391,7 @@ function pawover (
   const importsOptions = resolveOptions<RulesOverrideOptions>(options.imports);
   const importsSortOptions = resolveOptions<RulesOverrideOptions>(options.importsSort);
   const reactOptions = resolveOptions<ReactOptions>(options.react);
+  const reactCompilerPreset = resolveReactCompilerPreset(reactOptions.compiler);
   const vueOptions = resolveOptions<RulesOverrideOptions>(options.vue);
 
   const sourceFiles = enableVue
@@ -485,6 +518,13 @@ function pawover (
   }
 
   if (enableReact) {
+    const reactCompilerRules = reactCompilerPreset
+      ? getReactCompilerRuleMap(reactCompilerPreset)
+      : {
+        off: {},
+        on: getReactCompilerDisabledRuleMap(),
+      };
+
     configs.push({
       name: LAYER_NAMES.react.setup,
       plugins: {
@@ -501,6 +541,8 @@ function pawover (
         ...(enableTypescript
           ? {}
           : reactTypeCheckedOff),
+        ...reactCompilerRules.off,
+        ...reactCompilerRules.on,
         ...(reactOptions.overrides ?? {}),
       },
     });

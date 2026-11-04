@@ -937,7 +937,10 @@ const rules = {
    * @descEN Disallow passing a value-returning function in a position accepting a void function
    * @see https://typescript-eslint.io/rules/strict-void-return
    */
-  "ts/strict-void-return": 1,
+  "ts/strict-void-return": [
+    1,
+    { allowReturnAny: true },
+  ],
   /**
    * @desc 要求 switch-case 语句穷尽所有可能
    * @descEN Require switch-case statements to be exhaustive

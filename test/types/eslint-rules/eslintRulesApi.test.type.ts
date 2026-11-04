@@ -1,5 +1,5 @@
 import pawover, { GLOB_EXCLUDE, GLOB_TYPESCRIPT } from "@pawover/kit/eslint-rules";
-import type { ConfigLayer, ConfigNames, PawoverOptions, PawoverUserConfig, RuleConfig, RuleMap, Severity, SeverityLevel, SeverityName } from "@pawover/kit/eslint-rules";
+import type { ConfigLayer, ConfigNames, PawoverOptions, PawoverUserConfig, ReactCompilerPreset, RuleConfig, RuleMap, Severity, SeverityLevel, SeverityName } from "@pawover/kit/eslint-rules";
 import type { Linter } from "eslint";
 
 // 工厂：合法调用不产生类型错误
@@ -15,8 +15,20 @@ pawover({
     parserOptions: { tsconfigRootDir: "/repo" },
   },
   react: {
+    compiler: "latest",
     overrides: { "react/no-implicit-key": "warn" },
     overridesTypeAware: { "react/no-unused-props": "off" },
+  },
+});
+pawover({ react: { compiler: true } });
+pawover({ react: { compiler: "recommended" } });
+pawover({ react: { compiler: "latest" } });
+pawover({ react: { compiler: false } });
+
+pawover({
+  react: {
+    // @ts-expect-error — compiler 只接受 boolean / "recommended" / "latest"
+    compiler: "experimental",
   },
 });
 
@@ -117,3 +129,6 @@ const badSeverityName: Severity = "strict";
 
 // @ts-expect-error — 元组第二元素必须是 boolean
 const badRuleTuple: RuleConfig<[boolean]> = [2, "x"];
+
+// @ts-expect-error — 未知的 Compiler 预设名
+const badCompilerPreset: ReactCompilerPreset = "stable";

@@ -8,7 +8,7 @@
 
 > **SeverityLevel** = `0` \| `1` \| `2`
 
-Defined in: [index.ts:26](https://github.com/pawover/pawover-kit/blob/fb0a726c7f2a28ecc76e9dcaaacf64449a3d86e1/packages/eslint-rules/src/index.ts#L26)
+Defined in: [index.ts:27](https://github.com/pawover/pawover-kit/blob/6417537d1e570227eacc28475428a6aeb3e50bca/packages/eslint-rules/src/index.ts#L27)
 
 规则严重级别（数字形式）
 

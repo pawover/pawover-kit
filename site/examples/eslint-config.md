@@ -22,7 +22,7 @@ export default pawover();
 | `antfu`       | `antfu` 规则组                                                   | 全部源文件                                   |
 | `imports`     | `imports` 规则组（eslint-plugin-import-lite）                    | 全部源文件                                   |
 | `importsSort` | `importsSort` 规则组（eslint-plugin-simple-import-sort）         | 全部源文件                                   |
-| `react`       | `react` + `react-hooks` 两个插件与规则组                         | `**/*.{js,cjs,mjs,jsx,ts,tsx}`               |
+| `react`       | `react` + `react-hooks` 两个插件与规则组（默认开启 Compiler 规则切换） | `**/*.{js,cjs,mjs,jsx,ts,tsx}`               |
 | `vue`         | `vue` 规则组 + vue-eslint-parser                                 | `**/*.vue`                                   |
 
 ## TypeScript 项目
@@ -53,6 +53,17 @@ export default pawover({
 ```
 
 `react` 组包含依赖类型信息的规则（如 `no-implicit-key`）：与 `typescript` 一同开启时这些规则作用于 `typescript.filesTypeAware` 限定的文件（默认 `ts/tsx`）并额外并入 `*.jsx`——`.jsx` 的类型可用性交由项目 tsconfig 的 `include`/`allowJs` 决定（未被项目覆盖的 `.jsx` 会按「不在项目内」报错）；未开启 `typescript` 时（纯 JS React 项目）工厂自动关闭它们——且以无操作实现注册，后置覆盖强制开启也不会报错，react 组其余规则照常可用。
+
+`react` 组默认开启 React Compiler 规则切换（`react.compiler: true`）：10 条与 `@eslint-react` 重叠的 Compiler 规则改用 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免重复诊断；这 10 条规则的严重级别与官方 `recommended` 预设一致（如 `react-hooks/unsupported-syntax` 为 `warn`）。需要回退到 `@eslint-react` 实现时传 `compiler: false`，此时只回退这 10 条重叠规则（含 `react-hooks/globals`），官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 仍由 `react-hooks` 提供；`compiler: "latest"` 额外启用实验规则 `react-hooks/void-use-memo`：
+
+```ts
+export default pawover({
+  typescript: true,
+  react: { compiler: "latest" },
+});
+```
+
+`react.overrides` 始终最后合并，可用于逐条覆盖切换后的级别（例如把 `react-hooks/unsupported-syntax` 提升为 `error`）。
 
 ## Vue 项目
 
@@ -155,19 +166,19 @@ export default pawover({ typescript: true })
 - `setup` 层：只注册插件，不带 `files`，对所有文件生效；
 - `rules` / `parser` / `type-aware` 层：只放规则、parser 或文件范围。
 
-因此后置配置可以直接使用预设已注册的插件规则，不需要重复挂载插件。如果需要注册**预设之外**的插件（例如 `eslint-plugin-react-compiler`），在自己的配置层中挂载即可：
+因此后置配置可以直接使用预设已注册的插件规则，不需要重复挂载插件。如果需要注册**预设之外**的插件（例如 `eslint-plugin-react-refresh`），在自己的配置层中挂载即可。Compiler 相关规则已由 `react-hooks` 提供，这里用非 Compiler 插件示例，避免重复诊断：
 
 > 工厂不接受 `ignores` / `renamePlugins` 选项：全局忽略通过追加配置层或 `override("pawover/ignores", ...)` 自定义，插件重命名使用 composer 的 `.renamePlugins()`。
 
 ```ts
-import reactCompiler from "eslint-plugin-react-compiler";
+import reactRefresh from "eslint-plugin-react-refresh";
 
 export default pawover(
   { typescript: true, react: true },
   {
     files: ["**/*.tsx"],
-    plugins: { "react-compiler": reactCompiler },
-    rules: { "react-compiler/react-compiler": "error" },
+    plugins: { "react-refresh": reactRefresh },
+    rules: { "react-refresh/only-export-components": "warn" },
   },
 );
 ```

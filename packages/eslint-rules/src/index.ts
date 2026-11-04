@@ -12,6 +12,7 @@ export type {
   RulesOverrideOptions,
   TypeScriptOptions,
 } from "./config.ts";
+export type { ReactCompilerPreset } from "./reactCompiler.ts";
 
 /**
  * 规则严重级别（数字形式）

@@ -56,6 +56,11 @@ _Avoid_: 运行时过滤（本包刻意不做的事）
 react 组未与 `typescript` 同开时的自动降级：工厂关闭 `@eslint-react` 的全部 type-aware 规则（清单自插件 `disable-type-checked` 配置动态派生），并在 setup 层注册保留 `meta` 的 no-op 插件实现——即使被后置覆盖强制开启也不会报「requires type information」。与 `typescript` 同开时恢复原实现与严重级别。
 _Avoid_: 静默过滤（降级是确定的配置行为，不同于掩盖错误的运行时过滤）
 
+#### Compiler 规则切换（Compiler Rule Switch）
+
+`react` 组启用时默认把 10 条与 `@eslint-react` 重叠的 React Compiler 规则切换为 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免同一问题重复报告。10 条切换规则的严重级别取自官方 `recommended` 预设；官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 始终由 `react-hooks` 提供，并保持与官方 `recommended` 一致的级别（`incompatible-library` 为 `warn`）。`react.compiler: false` 仅回退这 10 条重叠规则（含 `react-hooks/globals`），`"latest"` 额外启用实验规则 `void-use-memo`。`react.overrides` 最后合并，可逐条覆盖切换结果。映射表显式维护，测试校验两端规则存在、官方新增规则是否漏接以及实际配置的严重级别。
+_Avoid_: 同时开启两套规则（会产生重复诊断）
+
 #### 行宽对齐（Line Width Alignment）
 
 `antfu/reasonable-newline` 的行宽阈值（`objectLineLength` / `arrayLineLength`）在发布包中默认为常规 `printWidth` 120。`*.type.ts` / `*.test.ts` 的宽版 240 属消费端个性化配置（本仓库在根 `eslint.config.js` 中覆盖，与 `prettier.config.js` 的 overrides 对齐），不随包发布。复杂子项（调用、函数、嵌套对象/数组）拆行比 Prettier 更严格，属于规则既有设计。
