@@ -222,10 +222,10 @@
       "snapshot": {
         ".changeset/tanstack-intent-skills.md": "9567ba4e68c813de7b7027213cc17e810c3307c5b3c004cec86f9bafb511bf8e"
       },
-      "head": "9e4f95cd38b29bd843d5a765e7d15a8e1c7bcaad",
+      "head": "06aff01f70a489ef5a7533e6aa6c15ca7548fb32",
       "outcome": "no-change",
-      "reason": "Changeset frontmatter removed the root aggregate package because @pawover/kit is not a workspace package; root versioning stays with bumpRoot.ts, so the file remains release metadata only and no guidance changed.",
-      "evidence": ["Changed: .changeset/tanstack-intent-skills.md at 9e4f95cd38b29bd843d5a765e7d15a8e1c7bcaad"]
+      "reason": "Resolved merge conflict with origin/feature by keeping the current changeset content (root package removed from frontmatter) and the latest review-state snapshot; no guidance change.",
+      "evidence": ["Changed: .changeset/tanstack-intent-skills.md at 06aff01f70a489ef5a7533e6aa6c15ca7548fb32"]
     }
   }
 }
