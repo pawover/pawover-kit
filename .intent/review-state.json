@@ -1,0 +1,231 @@
+{
+  "schemaVersion": 1,
+  "baseline": "948686cbd56793d76e9585d18b4c63fe33073070",
+  "items": {
+    "skill:packages/eslint-rules/skills/eslint-preset/SKILL.md": {
+      "fingerprint": "fd1b5a8247adfee672252389ae20df5ece00dcca257a21edd613076dc78db120",
+      "snapshot": {
+        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "d98f9c40bb1fd25d921d9c0a4c0b6bbf2f461ce93ff4975159d06649f27896f9",
+        "packages/eslint-rules/skills/eslint-preset/references/options.md": "157ef8f5746efcf2f9f3aab4e51e5db465b79533cc293de5e4192990e033fb30",
+        "packages/eslint-rules/src/config.ts": "529aeef43bd5736911a956ebba690c95e0aedf76057c1ea22ebf7e1dab99ca63",
+        "packages/eslint-rules/src/core.javascript.ts": "3d7dfe2587a87745424aa8164b00de8d34f6c6453c1840f528225a5e2d11c408",
+        "packages/eslint-rules/src/core.react.ts": "b9807c71fc8f78413e7553f179346b862ee8bc1bea83204f4f7bc16562a98368",
+        "packages/eslint-rules/src/core.typescript.ts": "dc2dafebf52fb6a048db7f496ee5c3ee862cd802afd6be14b73a36bdcb38151b",
+        "packages/eslint-rules/src/core.vue.ts": "aa85ff2afe021a745096b6bde614799a37313cbc975df80e94b3104bfa6595a8",
+        "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
+        "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
+        "packages/eslint-rules/src/index.ts": "43cd2b13a3792e60b237f30417370edb9e03c7fab566d47be086d0b812acc1a8",
+        "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Corrected the composer reference: renamePlugins rewrites matching plugin keys and rule prefixes across the composer.",
+      "evidence": [
+        "intent validate passed 7 skills; examples compile; the edits are documentation-only and do not change runtime code. Previous pnpm test:ci passed (33 files, 910 tests, build, smoke, global-type checks, pack checks)."
+      ]
+    },
+    "skill:packages/hooks/skills/alova-hooks/SKILL.md": {
+      "fingerprint": "ff7645a03bf0d29411a86227036fcd924e24a42be0dc8db68b1d2d9a7cad1d0f",
+      "snapshot": {
+        "packages/hooks/skills/alova-hooks/SKILL.md": "ac9aaed9cea56913c7b670fcc723152984183dfafd97ef4dbcb4e19cccf7e8b5",
+        "packages/hooks/src/alova/createBeforeRequestMiddleware.ts": "ce926b2ec582ca2c0a7b44ad97281801331413cb22f857816b9fe9f62aa695e5",
+        "packages/hooks/src/alova/hookOptions.ts": "ccaf66baa731cf384cceb5e86573b6f2c1ca29deacb5288f4532f04e09789dcd",
+        "packages/hooks/src/alova/useAlovaPagination.ts": "256e0038b0c9a87561bc6444c7aac260249f5fbcb441f38d4788e0332a29cf7b",
+        "packages/hooks/src/alova/useAlovaRequest.ts": "e1562d9254f2446f7691f41913499734aaf23e813bca8aba76a06b72e37bdbd2",
+        "packages/hooks/src/alova/useAlovaWatcher.ts": "07324adf6180b5561580a5f5c764400ca7001e1dcfaad7c8afa6fd9c82783957"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Authored the Alova hooks skill: request/pagination/watcher usage, lifecycle callbacks, immediate defaults, and Alova 3.5.5 pagination update are covered.",
+      "evidence": [
+        "head 948686c; intent validate passed 7 skills; examples compile; pnpm test:ci passed (33 test files, 910 tests, build, smoke, global-type consumer checks, pack checks); pnpm test:types and pnpm check:types passed."
+      ]
+    },
+    "skill:packages/hooks/skills/react-hooks/SKILL.md": {
+      "fingerprint": "162fc4de33130de133315d367da9c0f7c226f288a252050dcda11454b9b4ba0d",
+      "snapshot": {
+        "packages/hooks/skills/react-hooks/SKILL.md": "440e0ae7ed28140141d73a14ef6f1f0b1eafc51bb8853d4a437b6fc558f44b15",
+        "packages/hooks/src/react/useLatest.ts": "640efb534bf4d68b2aa9c01c4301fade99f15503662901febeff93cb97695fb5",
+        "packages/hooks/src/react/useMount.ts": "cbdfc50057014a3d6fe80547ec68af8052f002db8062ee03c6ff01fc8ce5f0c1",
+        "packages/hooks/src/react/useResponsive.ts": "8973b933c253160661dc59a19c7962cf4922d4b6b39126f5ad5a763b06e44062",
+        "packages/hooks/src/react/useTitle.ts": "e349d196acd3e42ae49a1b0efed386589224752b7215a6039bdb53fd1d8d021b",
+        "packages/hooks/src/react/useUnmount.ts": "d5d813dfe2a89ae070adfd1f6a37094ff00311e8df3437b3963b73fc75c75266"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Authored the React hooks skill: mount/unmount, latest value, responsive breakpoints, title management, and SSR/async failure modes are covered.",
+      "evidence": [
+        "head 948686c; intent validate passed 7 skills; examples compile; pnpm test:ci passed (33 test files, 910 tests, build, smoke, global-type consumer checks, pack checks); pnpm test:types and pnpm check:types passed."
+      ]
+    },
+    "skill:packages/types/skills/types/SKILL.md": {
+      "fingerprint": "b4d61d3c2bc66f54305d014c6b78736ffddab8d0feea590ccdeee1c9ef3a4605",
+      "snapshot": {
+        "packages/types/skills/types/SKILL.md": "d97520ba13484355bb6f7d26a4bb669f170f9acdcd4f86a774cfd4628bc64343",
+        "packages/types/skills/types/references/global-entries.md": "c35f709bad8e313466571c1219523fa9b10ec8dd92564fdd52245d4358e36657",
+        "packages/types/src/advancedRecord.ts": "8d94ef620eb9f3c22b11f6f0ff53e0d4acb461962b59b6a86c18971f14208209",
+        "packages/types/src/api.ts": "9a9462d60c348178bbe79c54d023ed6cbe3ee68d5d5ccee9fbb4aa0a3229c117",
+        "packages/types/src/base.ts": "07c3138822fd041743e5865a70540972c041b6ed91970bbb9b226a29c922bd61",
+        "packages/types/src/global.d.ts": "0869a57c80ba8dc0f9a8e141c7fba1ff7333843a659db807038d947f2c6c932e",
+        "packages/types/src/index.ts": "095bb65ae649db21da5773c8cdb1cb1c9538ea9460013e78fafabd721b6f6acd",
+        "packages/types/src/react-global.d.ts": "8eb42020b7caf561d703b98e4485e928c1b9d35b1bc822da199e7393322a0343",
+        "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Authored the type utilities skill: object/tree/function/React-prop shapes and the global tsconfig entries are covered with source-backed pitfalls.",
+      "evidence": [
+        "head 948686c; intent validate passed 7 skills; examples compile; pnpm test:ci passed (33 test files, 910 tests, build, smoke, global-type consumer checks, pack checks); pnpm test:types and pnpm check:types passed."
+      ]
+    },
+    "skill:packages/utils/skills/utils/SKILL.md": {
+      "fingerprint": "8ed78041145c04a2b6b2703d25654195293fa43a65506605c50bdfba5e3279a1",
+      "snapshot": {
+        "packages/utils/skills/utils/SKILL.md": "70da409b194034e7547d93b8523180baacad2d66ee4a029d8bc8f8d324b682b5",
+        "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
+        "packages/utils/skills/utils/references/specialized.md": "4021309ea6c140410abbb04d3b2af3ce8a0b76e044e12cc85b74e1eb5db4737f",
+        "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
+        "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
+        "packages/utils/src/currency/currencyUtil.ts": "2523f7e65bcdd8b4d7c276dd1edfafed34d7fe4c5da63b319e3fabcf9caaf529",
+        "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
+        "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
+        "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
+        "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
+        "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
+        "packages/utils/src/math/mathUtil.ts": "123cce8b32e44fb2db315c61ddb482d11509473d3a14072bbaf21738441181db",
+        "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
+        "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
+        "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
+        "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
+        "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
+        "packages/utils/src/tree/treeUtil.ts": "06b57cdd125f6bc8f0efbf7167babc2ee35c35862bb3be7ec65d5565a2ab8b41",
+        "packages/utils/src/type/typeUtil.ts": "add05dfb3d5d0251306466ff0f0b12ab66849f254602eb699d3e67d7053f34eb",
+        "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
+        "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Clarified tree-filter descendant semantics and corrected the Zod AllowEmpty failure-mode example; both changes are source-backed documentation corrections.",
+      "evidence": ["Changed: packages/utils/skills/utils/SKILL.md at 948686cbd56793d76e9585d18b4c63fe33073070"]
+    },
+    "skill:packages/zod/skills/zod-schemas/SKILL.md": {
+      "fingerprint": "8cc36f370f54d736f3566e96ce90c28d0d58e5c1c5031e5a07f90d033597a185",
+      "snapshot": {
+        "packages/zod/skills/zod-schemas/SKILL.md": "38d5130a2b050feddbdbb44b2296ba7d0cc03bf4c3c8fa66158d44b60ccaefe0",
+        "packages/zod/src/index.ts": "8754f6ec4cf4e7256101b0df9b78816339947dd7e20414ec30a1a122f7e55071",
+        "packages/zod/src/server.ts": "c48d780e73198f778237bbfefc0dd1fc23d8f88779f546f26a17c055142339f8",
+        "packages/zod/src/type.ts": "76d3f131bcf6c472babdf8ce1b63910c1aa563f7ed1f681c039f1c373ac538a5"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Clarified that id and number schemas accept finite numbers only.",
+      "evidence": [
+        "intent validate passed 7 skills; examples compile; the edits are documentation-only and do not change runtime code. Previous pnpm test:ci passed (33 files, 910 tests, build, smoke, global-type checks, pack checks)."
+      ]
+    },
+    "skill:skills/kit/SKILL.md": {
+      "fingerprint": "2ab4ed87f134c373b8d9ef711c21bc319d8d1513efde68a42b0ca1ea609476e1",
+      "snapshot": {
+        "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
+        "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
+        "package.json": "2c0040d1f055f55b8a2267698ec59ec9de6358aa62aa5095e045c008d7cf2492",
+        "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
+        "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
+        "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Authored the root package-selection skill: root entry only re-exports utils, hooks root is empty, subpaths and optional peers are documented.",
+      "evidence": [
+        "head 948686c; intent validate passed 7 skills; examples compile; pnpm test:ci passed (33 test files, 910 tests, build, smoke, global-type consumer checks, pack checks); pnpm test:types and pnpm check:types passed."
+      ]
+    },
+    "planning:_artifacts": {
+      "fingerprint": "004d13ffc9865a3c53e5040de71a391b251efa8e72392d7cfa073d21c6943b79",
+      "snapshot": {
+        "_artifacts/domain_map.yaml": "1e209b53d7b4b0e8682f1f778dbfb8dd94c9822e71c842bdaaa81c93f1926b4f",
+        "_artifacts/skill_spec.md": "67b56b3f2b2c76e409780b2306774d4e009c2275725a16557bff08e3541e67be",
+        "_artifacts/skill_tree.yaml": "474a2ee834f242c0bf89d937061a4dbc77734e45a39d784e28ed9c8d97611988",
+        "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
+        "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
+        "package.json": "2c0040d1f055f55b8a2267698ec59ec9de6358aa62aa5095e045c008d7cf2492",
+        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "d98f9c40bb1fd25d921d9c0a4c0b6bbf2f461ce93ff4975159d06649f27896f9",
+        "packages/eslint-rules/skills/eslint-preset/references/options.md": "157ef8f5746efcf2f9f3aab4e51e5db465b79533cc293de5e4192990e033fb30",
+        "packages/eslint-rules/src/config.ts": "529aeef43bd5736911a956ebba690c95e0aedf76057c1ea22ebf7e1dab99ca63",
+        "packages/eslint-rules/src/core.javascript.ts": "3d7dfe2587a87745424aa8164b00de8d34f6c6453c1840f528225a5e2d11c408",
+        "packages/eslint-rules/src/core.react.ts": "b9807c71fc8f78413e7553f179346b862ee8bc1bea83204f4f7bc16562a98368",
+        "packages/eslint-rules/src/core.typescript.ts": "dc2dafebf52fb6a048db7f496ee5c3ee862cd802afd6be14b73a36bdcb38151b",
+        "packages/eslint-rules/src/core.vue.ts": "aa85ff2afe021a745096b6bde614799a37313cbc975df80e94b3104bfa6595a8",
+        "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
+        "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
+        "packages/eslint-rules/src/index.ts": "43cd2b13a3792e60b237f30417370edb9e03c7fab566d47be086d0b812acc1a8",
+        "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a",
+        "packages/hooks/skills/alova-hooks/SKILL.md": "ac9aaed9cea56913c7b670fcc723152984183dfafd97ef4dbcb4e19cccf7e8b5",
+        "packages/hooks/skills/react-hooks/SKILL.md": "440e0ae7ed28140141d73a14ef6f1f0b1eafc51bb8853d4a437b6fc558f44b15",
+        "packages/hooks/src/alova/createBeforeRequestMiddleware.ts": "ce926b2ec582ca2c0a7b44ad97281801331413cb22f857816b9fe9f62aa695e5",
+        "packages/hooks/src/alova/hookOptions.ts": "ccaf66baa731cf384cceb5e86573b6f2c1ca29deacb5288f4532f04e09789dcd",
+        "packages/hooks/src/alova/useAlovaPagination.ts": "256e0038b0c9a87561bc6444c7aac260249f5fbcb441f38d4788e0332a29cf7b",
+        "packages/hooks/src/alova/useAlovaRequest.ts": "e1562d9254f2446f7691f41913499734aaf23e813bca8aba76a06b72e37bdbd2",
+        "packages/hooks/src/alova/useAlovaWatcher.ts": "07324adf6180b5561580a5f5c764400ca7001e1dcfaad7c8afa6fd9c82783957",
+        "packages/hooks/src/react/useLatest.ts": "640efb534bf4d68b2aa9c01c4301fade99f15503662901febeff93cb97695fb5",
+        "packages/hooks/src/react/useMount.ts": "cbdfc50057014a3d6fe80547ec68af8052f002db8062ee03c6ff01fc8ce5f0c1",
+        "packages/hooks/src/react/useResponsive.ts": "8973b933c253160661dc59a19c7962cf4922d4b6b39126f5ad5a763b06e44062",
+        "packages/hooks/src/react/useTitle.ts": "e349d196acd3e42ae49a1b0efed386589224752b7215a6039bdb53fd1d8d021b",
+        "packages/hooks/src/react/useUnmount.ts": "d5d813dfe2a89ae070adfd1f6a37094ff00311e8df3437b3963b73fc75c75266",
+        "packages/types/skills/types/SKILL.md": "d97520ba13484355bb6f7d26a4bb669f170f9acdcd4f86a774cfd4628bc64343",
+        "packages/types/skills/types/references/global-entries.md": "c35f709bad8e313466571c1219523fa9b10ec8dd92564fdd52245d4358e36657",
+        "packages/types/src/advancedRecord.ts": "8d94ef620eb9f3c22b11f6f0ff53e0d4acb461962b59b6a86c18971f14208209",
+        "packages/types/src/api.ts": "9a9462d60c348178bbe79c54d023ed6cbe3ee68d5d5ccee9fbb4aa0a3229c117",
+        "packages/types/src/base.ts": "07c3138822fd041743e5865a70540972c041b6ed91970bbb9b226a29c922bd61",
+        "packages/types/src/global.d.ts": "0869a57c80ba8dc0f9a8e141c7fba1ff7333843a659db807038d947f2c6c932e",
+        "packages/types/src/index.ts": "095bb65ae649db21da5773c8cdb1cb1c9538ea9460013e78fafabd721b6f6acd",
+        "packages/types/src/react-global.d.ts": "8eb42020b7caf561d703b98e4485e928c1b9d35b1bc822da199e7393322a0343",
+        "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d",
+        "packages/utils/skills/utils/SKILL.md": "70da409b194034e7547d93b8523180baacad2d66ee4a029d8bc8f8d324b682b5",
+        "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
+        "packages/utils/skills/utils/references/specialized.md": "4021309ea6c140410abbb04d3b2af3ce8a0b76e044e12cc85b74e1eb5db4737f",
+        "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
+        "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
+        "packages/utils/src/currency/currencyUtil.ts": "2523f7e65bcdd8b4d7c276dd1edfafed34d7fe4c5da63b319e3fabcf9caaf529",
+        "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
+        "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
+        "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
+        "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
+        "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
+        "packages/utils/src/math/mathUtil.ts": "123cce8b32e44fb2db315c61ddb482d11509473d3a14072bbaf21738441181db",
+        "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
+        "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
+        "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
+        "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
+        "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
+        "packages/utils/src/tree/treeUtil.ts": "06b57cdd125f6bc8f0efbf7167babc2ee35c35862bb3be7ec65d5565a2ab8b41",
+        "packages/utils/src/type/typeUtil.ts": "add05dfb3d5d0251306466ff0f0b12ab66849f254602eb699d3e67d7053f34eb",
+        "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
+        "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf",
+        "packages/zod/skills/zod-schemas/SKILL.md": "38d5130a2b050feddbdbb44b2296ba7d0cc03bf4c3c8fa66158d44b60ccaefe0",
+        "packages/zod/src/index.ts": "8754f6ec4cf4e7256101b0df9b78816339947dd7e20414ec30a1a122f7e55071",
+        "packages/zod/src/server.ts": "c48d780e73198f778237bbfefc0dd1fc23d8f88779f546f26a17c055142339f8",
+        "packages/zod/src/type.ts": "76d3f131bcf6c472babdf8ce1b63910c1aa563f7ed1f681c039f1c373ac538a5",
+        "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
+        "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
+        "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
+      },
+      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "outcome": "updated",
+      "reason": "Clarified tree-filter descendant semantics and corrected the Zod AllowEmpty failure-mode example; both changes are source-backed documentation corrections.",
+      "evidence": [
+        "Changed: _artifacts/domain_map.yaml, packages/utils/skills/utils/SKILL.md at 948686cbd56793d76e9585d18b4c63fe33073070"
+      ]
+    },
+    "source:.changeset/tanstack-intent-skills.md": {
+      "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
+      "snapshot": {
+        ".changeset/tanstack-intent-skills.md": "9567ba4e68c813de7b7027213cc17e810c3307c5b3c004cec86f9bafb511bf8e"
+      },
+      "head": "9e4f95cd38b29bd843d5a765e7d15a8e1c7bcaad",
+      "outcome": "no-change",
+      "reason": "Changeset frontmatter removed the root aggregate package because @pawover/kit is not a workspace package; root versioning stays with bumpRoot.ts, so the file remains release metadata only and no guidance changed.",
+      "evidence": ["Changed: .changeset/tanstack-intent-skills.md at 9e4f95cd38b29bd843d5a765e7d15a8e1c7bcaad"]
+    }
+  }
+}

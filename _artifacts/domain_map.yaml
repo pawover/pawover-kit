@@ -1,0 +1,532 @@
+library:
+  name: "@pawover/kit"
+  version: 1.3.0-alpha.1
+  repository: "https://github.com/pawover/pawover-kit"
+  description: "TypeScript utility monorepo with types, static utilities, React/Alova hooks, an ESLint preset, and Zod schemas"
+  primary_framework: "framework-agnostic with React adapters"
+
+domains:
+  - name: "Package selection and installation"
+    slug: overview
+    description: "Choosing the aggregate package, a standalone subpackage, or a subpath; installing optional peers."
+  - name: "Type-level utilities"
+    slug: types
+    description: "Object, tree, function, React prop, and global ambient types."
+  - name: "Static utilities"
+    slug: utils
+    description: "Array, string, object, tree, validation, formatting, locale, environment, math, and Vite helpers."
+  - name: "React and Alova hooks"
+    slug: hooks
+    description: "Lifecycle, latest-value, responsive, title, request, pagination, and watcher hooks."
+  - name: "ESLint flat config"
+    slug: eslint
+    description: "Self-contained flat config preset, rule groups, overrides, and React Compiler handling."
+  - name: "Zod schemas"
+    slug: zod
+    description: "Prebuilt Zod v4 schemas for ids, scalars, and object records."
+
+skills:
+  - name: "Choose a @pawover/kit entry point"
+    slug: kit
+    domain: overview
+    description: "Install the aggregate package or a standalone subpackage, find the correct subpath, and provide optional peers."
+    type: lifecycle
+    packages:
+      - "@pawover/kit"
+    covers:
+      - "Root entry vs subpaths"
+      - "Standalone subpackages"
+      - "Optional peer dependencies"
+      - "Type-only global entries"
+      - "ESM / CJS behavior"
+    tasks:
+      - "Choose between the root package and standalone subpackages"
+      - "Find the correct subpath for utils, hooks, types, eslint-rules, and zod"
+      - "Install optional peer dependencies for a feature"
+    failure_modes:
+      - mistake: "Import hooks from the hooks package root"
+        mechanism: "The hooks root export is empty, so the import resolves to no hook."
+        wrong_pattern: |
+          import { useMount } from "@pawover/kit/hooks";
+        correct_pattern: |
+          import { useMount } from "@pawover/kit/hooks/react";
+        source: "packages/hooks/src/index.ts; packages/hooks/package.json"
+        priority: CRITICAL
+        status: active
+        skills: [kit]
+      - mistake: "Expect the root entry to export zod, eslint, or types"
+        mechanism: "The root `.` entry only re-exports @pawover/kit-utils; other capabilities are subpaths."
+        wrong_pattern: |
+          import { id, pawover } from "@pawover/kit";
+        correct_pattern: |
+          import { id } from "@pawover/kit/zod";
+          import pawover from "@pawover/kit/eslint-rules";
+        source: "entry/index.d.ts; package.json"
+        priority: HIGH
+        status: active
+        skills: [kit]
+      - mistake: "Import MathUtil or ViteUtil from the core utils entry"
+        mechanism: "Math and Vite utilities use optional peers and are exported from /math and /vite."
+        wrong_pattern: |
+          import { MathUtil } from "@pawover/kit/utils";
+        correct_pattern: |
+          import { MathUtil } from "@pawover/kit/utils/math";
+          import { ViteUtil } from "@pawover/kit/utils/vite";
+        source: "packages/utils/package.json; packages/utils/src/math; packages/utils/src/vite"
+        priority: HIGH
+        status: active
+        skills: [kit]
+      - mistake: "Forget an optional peer dependency"
+        mechanism: "The feature fails when the corresponding module resolves alova, react, mathjs, vite, or zod."
+        wrong_pattern: |
+          pnpm add @pawover/kit
+        correct_pattern: |
+          pnpm add @pawover/kit alova react
+        source: "package.json peerDependencies; site/guide/installation.md"
+        priority: HIGH
+        status: active
+        skills: [kit]
+    compositions:
+      - library: "@pawover/kit-utils"
+      - library: "@pawover/kit-types"
+      - library: "@pawover/kit-hooks"
+      - library: "@pawover/kit-eslint-rules"
+      - library: "@pawover/kit-zod"
+
+  - name: "Type common shapes"
+    slug: types
+    domain: types
+    description: "Type object maps, recursive trees, function signatures, React props, and ambient globals."
+    type: core
+    packages:
+      - "@pawover/kit-types"
+    covers:
+      - "AnyObject"
+      - "PlainObject"
+      - "TreeLike"
+      - "TreeLikeOptionalChildren"
+      - "AnyFunction family"
+      - "AdvancedRecord"
+      - "ApiNameCheck"
+      - "Props / PropsWithChildren / PropsWithRef"
+      - "Global type entries"
+    tasks:
+      - "Type object maps, trees, and function signatures"
+      - "Type React props with readonly children and refs"
+      - "Enable global type entries through tsconfig types"
+    failure_modes:
+      - mistake: "Import the type-only package as a runtime value"
+        mechanism: "The package has no runtime exports."
+        wrong_pattern: |
+          import { AnyObject } from "@pawover/kit-types";
+        correct_pattern: |
+          import type { AnyObject } from "@pawover/kit-types";
+        source: "packages/types/src/index.ts; packages/types/package.json"
+        priority: CRITICAL
+        status: active
+        skills: [types]
+      - mistake: "Expect TreeLike children to be optional"
+        mechanism: "TreeLike requires the children key; sparse input should use TreeLikeOptionalChildren."
+        wrong_pattern: |
+          const leaf: TreeLike<{ id: number }> = { id: 1 };
+        correct_pattern: |
+          const leaf: TreeLikeOptionalChildren<{ id: number }> = { id: 1 };
+        source: "packages/types/src/base.ts"
+        priority: HIGH
+        status: active
+        skills: [types]
+      - mistake: "Import a global entry instead of configuring tsconfig"
+        mechanism: "The global entries are type-only ambient declarations; they are consumed through compilerOptions.types."
+        wrong_pattern: |
+          import "@pawover/kit-types/global";
+        correct_pattern: |
+          { "compilerOptions": { "types": ["@pawover/kit-types/global"] } }
+        source: "packages/types/src/global.d.ts; packages/types/src/react-global.d.ts"
+        priority: HIGH
+        status: active
+        skills: [types]
+      - mistake: "Use a callback ref with PropsWithRef"
+        mechanism: "PropsWithRef types ref as RefObject<R>, not a callback ref."
+        wrong_pattern: |
+          const props: PropsWithRef<CardProps, HTMLDivElement> = { ref: (node) => {} };
+        correct_pattern: |
+          const props: PropsWithRef<CardProps, HTMLDivElement> = { ref: null as unknown as RefObject<HTMLDivElement> };
+        source: "packages/types/src/react.ts"
+        priority: MEDIUM
+        status: active
+        skills: [types]
+
+  - name: "Use static utilities"
+    slug: utils
+    domain: utils
+    description: "Transform arrays, objects, strings, and trees; guard types; validate input; format values."
+    type: core
+    packages:
+      - "@pawover/kit-utils"
+    covers:
+      - "ArrayUtil"
+      - "StringUtil"
+      - "ObjectUtil"
+      - "TreeUtil"
+      - "TypeUtil"
+      - "ValidateUtil"
+      - "NumberUtil"
+      - "CurrencyUtil"
+      - "DateTimeUtil"
+      - "EnvUtil"
+      - "FunctionUtil"
+      - "I18nUtil"
+      - "MimeUtil"
+      - "ThemeUtil"
+      - "MathUtil / ViteUtil subpaths"
+    tasks:
+      - "Transform arrays and objects without mutating the input"
+      - "Convert flat rows to a tree and traverse or filter it"
+      - "Validate and normalize strings, numbers, dates, and locale values"
+    reference_candidates:
+      - topic: "ArrayUtil / StringUtil / ObjectUtil overloads"
+        reason: "Dense overload surface and several mode-dependent behaviors"
+      - topic: "Tree traversal strategies and reference semantics"
+        reason: "Strategy-dependent behavior and original-vs-copy references"
+      - topic: "Currency, date, locale, MIME, environment, math, and Vite utilities"
+        reason: "Optional peers and domain-specific constraints"
+    failure_modes:
+      - mistake: "Instantiate a static utility class"
+        mechanism: "The classes only expose static methods."
+        wrong_pattern: |
+          const util = new ArrayUtil();
+        correct_pattern: |
+          ArrayUtil.cast([1, 2]);
+        source: "packages/utils/src/array/arrayUtil.ts"
+        priority: MEDIUM
+        status: active
+        skills: [utils]
+      - mistake: "Expect merge with a matcher to append new items"
+        mechanism: "The matcher overload is a left-join update and ignores incoming-only items."
+        wrong_pattern: |
+          ArrayUtil.merge(source, incoming, (x) => x.id);
+        correct_pattern: |
+          ArrayUtil.merge(source, incoming);
+        source: "packages/utils/src/array/arrayUtil.ts"
+        priority: HIGH
+        status: active
+        skills: [utils]
+      - mistake: "Expect children under a rejected tree parent to survive"
+        mechanism: "A rejected parent removes its subtree from the filter result in both pre and post strategies."
+        wrong_pattern: |
+          TreeUtil.filter(tree, (row) => row.visible, { strategy: "post" });
+        correct_pattern: |
+          // Keep the parent when its descendants must remain, or filter rows before building the tree.
+          TreeUtil.filter(tree, (row) => row.visible || hasVisibleDescendant(row));
+        source: "packages/utils/src/tree/filter.ts"
+        priority: HIGH
+        status: active
+        skills: [utils]
+      - mistake: "Mutate the node returned by TreeUtil.find"
+        mechanism: "find returns the original node reference."
+        wrong_pattern: |
+          TreeUtil.find(tree, (row) => row.id === 2).name = "changed";
+        correct_pattern: |
+          TreeUtil.map(tree, (row) => row.id === 2 ? { ...row, name: "changed" } : row);
+        source: "packages/utils/src/tree/find.ts"
+        priority: HIGH
+        status: active
+        skills: [utils]
+      - mistake: "Treat isChineseID as a checksum validator"
+        mechanism: "The validator checks the 18-character shape and birthday only."
+        wrong_pattern: |
+          ValidateUtil.isChineseID(id); // treated as authenticity proof
+        correct_pattern: |
+          ValidateUtil.isChineseID(id) && verifyChineseIdChecksum(id);
+        source: "packages/utils/src/validate/validateUtil.ts"
+        priority: HIGH
+        status: active
+        skills: [utils]
+      - mistake: "Import MathUtil or ViteUtil from the core utils entry"
+        mechanism: "Optional peers are isolated in their own subpaths."
+        wrong_pattern: |
+          import { MathUtil } from "@pawover/kit-utils";
+        correct_pattern: |
+          import { MathUtil } from "@pawover/kit-utils/math";
+        source: "packages/utils/package.json"
+        priority: HIGH
+        status: active
+        skills: [utils, kit]
+
+  - name: "React lifecycle and responsive hooks"
+    slug: react-hooks
+    domain: hooks
+    description: "Run effects on mount/unmount, keep latest values, render responsive breakpoints, and set the document title."
+    type: framework
+    framework: React
+    packages:
+      - "@pawover/kit-hooks"
+    covers:
+      - "useMount"
+      - "useUnmount"
+      - "useLatest"
+      - "useResponsive"
+      - "useTitle"
+    tasks:
+      - "Run an effect once on mount and clean up on unmount"
+      - "Track the latest value without re-rendering"
+      - "Render responsive breakpoint state and manage document title"
+    failure_modes:
+      - mistake: "Return a cleanup from an async useMount effect"
+        mechanism: "An async function returns a Promise, not a cleanup function."
+        wrong_pattern: |
+          useMount(async () => () => cleanup());
+        correct_pattern: |
+          useMount(() => () => cleanup());
+        source: "packages/hooks/src/react/useMount.ts"
+        priority: CRITICAL
+        status: active
+        skills: [react-hooks]
+      - mistake: "Render useResponsive on the server"
+        mechanism: "The hook reads window.innerWidth during render."
+        wrong_pattern: |
+          function Page() { const { responsive } = useResponsive(); return <div>{responsive.md}</div>; }
+        correct_pattern: |
+          const Page = dynamic(() => import("./page"), { ssr: false });
+        source: "packages/hooks/src/react/useResponsive.ts"
+        priority: HIGH
+        status: active
+        skills: [react-hooks]
+      - mistake: "Expect useLatest to re-render"
+        mechanism: "The hook mutates a ref during render; ref changes do not schedule renders."
+        wrong_pattern: |
+          const latest = useLatest(count); // UI does not update
+        correct_pattern: |
+          const [count, setCount] = useState(0);
+          const latest = useLatest(count);
+        source: "packages/hooks/src/react/useLatest.ts"
+        priority: HIGH
+        status: active
+        skills: [react-hooks]
+      - mistake: "Mount multiple useTitle instances"
+        mechanism: "They write document.title directly and overwrite each other."
+        wrong_pattern: |
+          useTitle("A"); useTitle("B");
+        correct_pattern: |
+          useTitle("Page title");
+        source: "packages/hooks/src/react/useTitle.ts"
+        priority: MEDIUM
+        status: active
+        skills: [react-hooks]
+
+  - name: "Alova request hooks"
+    slug: alova-hooks
+    domain: hooks
+    description: "Wrap Alova request, pagination, and watcher hooks with React lifecycle callbacks."
+    type: framework
+    framework: Alova
+    packages:
+      - "@pawover/kit-hooks"
+    covers:
+      - "useAlovaRequest"
+      - "useAlovaPagination"
+      - "useAlovaWatcher"
+      - "onBeforeRequest / onSuccess / onError / onComplete"
+      - "immediate defaults"
+      - "pagination update"
+    tasks:
+      - "Send an Alova request from a React component with lifecycle callbacks"
+      - "Add pagination state to an Alova method handler"
+      - "Re-run a request when watched state changes"
+    failure_modes:
+      - mistake: "Expect useAlovaWatcher to fetch immediately"
+        mechanism: "The watcher does not set immediate; the first request is opt-in."
+        wrong_pattern: |
+          useAlovaWatcher(method, [keyword]);
+        correct_pattern: |
+          useAlovaWatcher(method, [keyword], { immediate: true });
+        source: "packages/hooks/src/alova/useAlovaWatcher.ts"
+        priority: HIGH
+        status: active
+        skills: [alova-hooks]
+      - mistake: "Call onPageChange on the pagination exposure"
+        mechanism: "Alova 3.5.5 exposes page/pageSize plus update, not onPageChange."
+        wrong_pattern: |
+          const { onPageChange } = useAlovaPagination(handler);
+        correct_pattern: |
+          const { page, update } = useAlovaPagination(handler);
+          update({ page: page + 1 });
+        source: "packages/hooks/src/alova/useAlovaPagination.ts; alova usePagination types"
+        priority: HIGH
+        status: active
+        skills: [alova-hooks]
+      - mistake: "Forget the alova or react peer"
+        mechanism: "The hooks resolve alova/client and React at runtime."
+        wrong_pattern: |
+          pnpm add @pawover/kit-hooks
+        correct_pattern: |
+          pnpm add @pawover/kit-hooks alova react
+        source: "packages/hooks/package.json"
+        priority: CRITICAL
+        status: active
+        skills: [alova-hooks, kit]
+
+  - name: "Configure ESLint flat config"
+    slug: eslint-preset
+    domain: eslint
+    description: "Use the self-contained pawover preset, enable groups, override rules, and handle React Compiler rules."
+    type: core
+    packages:
+      - "@pawover/kit-eslint-rules"
+    covers:
+      - "pawover factory"
+      - "Group options"
+      - "Group and layer overrides"
+      - "React Compiler switch"
+      - "Vue parser"
+      - "Glob constants"
+      - "Composer operations"
+    tasks:
+      - "Create an ESLint flat config for TypeScript and React"
+      - "Override rules per group or per layer"
+      - "Configure React Compiler and Vue linting"
+    failure_modes:
+      - mistake: "Pass javascript: true as a switch"
+        mechanism: "The JavaScript group is always enabled and only accepts overrides."
+        wrong_pattern: |
+          pawover({ javascript: true });
+        correct_pattern: |
+          pawover({ javascript: { overrides: { "no-console": "error" } } });
+        source: "packages/eslint-rules/src/config.ts"
+        priority: MEDIUM
+        status: active
+        skills: [eslint-preset]
+      - mistake: "Pass ignores or renamePlugins to the factory"
+        mechanism: "Those are composer concerns, not factory options."
+        wrong_pattern: |
+          pawover({ ignores: ["dist/**"] });
+        correct_pattern: |
+          pawover({ typescript: true }).append({ ignores: ["dist/**"] });
+        source: "packages/eslint-rules/src/config.ts"
+        priority: HIGH
+        status: active
+        skills: [eslint-preset]
+      - mistake: "Install the preset's upstream plugins separately"
+        mechanism: "The preset is self-contained and registers exact dependency versions."
+        wrong_pattern: |
+          pnpm add @eslint-react/eslint-plugin typescript-eslint eslint-plugin-vue
+        correct_pattern: |
+          pnpm add @pawover/kit-eslint-rules eslint
+        source: "packages/eslint-rules/package.json; packages/eslint-rules/src/plugins.ts"
+        priority: HIGH
+        status: active
+        skills: [eslint-preset]
+      - mistake: "Expect React type-aware rules without TypeScript"
+        mechanism: "The React group disables type-aware rules unless typescript is enabled."
+        wrong_pattern: |
+          pawover({ react: true });
+        correct_pattern: |
+          pawover({ typescript: true, react: true });
+        source: "packages/eslint-rules/src/config.ts"
+        priority: HIGH
+        status: active
+        skills: [eslint-preset]
+
+  - name: "Validate with Zod schemas"
+    slug: zod-schemas
+    domain: zod
+    description: "Use the prebuilt Zod v4 schemas and their nullable variants."
+    type: core
+    packages:
+      - "@pawover/kit-zod"
+    covers:
+      - "id / idAllowEmpty"
+      - "string / stringNoEmpty / stringAllowEmpty / stringEmpty"
+      - "number / integer / positive / negative"
+      - "bigint variants"
+      - "boolean / symbol / propertyKey"
+      - "anyObject / plainObject"
+      - "empty / any / unknown / never"
+    tasks:
+      - "Validate ids and common scalar values"
+      - "Compose a form or API payload schema"
+      - "Choose nullable versus empty-string variants"
+    failure_modes:
+      - mistake: "Read AllowEmpty as empty-string-friendly"
+        mechanism: "stringAllowEmpty is z.string().nullish(); the nullable variant is about null/undefined."
+        wrong_pattern: |
+          // Wrong: using AllowEmpty to mean "empty string only"
+          const schema = stringAllowEmpty;
+        correct_pattern: |
+          stringEmpty.parse("");
+          stringNoEmpty.parse("Ada");
+          stringAllowEmpty.parse(null);
+        source: "packages/zod/src/type.ts"
+        priority: HIGH
+        status: active
+        skills: [zod-schemas]
+      - mistake: "Expect id to be a positive integer"
+        mechanism: "id is a non-empty string or a finite number."
+        wrong_pattern: |
+          id.parse(-1); // accepted
+        correct_pattern: |
+          const positiveId = z.union([z.string().min(1), z.number().int().positive()]);
+        source: "packages/zod/src/server.ts"
+        priority: HIGH
+        status: active
+        skills: [zod-schemas]
+      - mistake: "Expect empty to mean an empty object or string"
+        mechanism: "empty is the union of null and undefined."
+        wrong_pattern: |
+          empty.parse({});
+        correct_pattern: |
+          empty.parse(null);
+        source: "packages/zod/src/type.ts"
+        priority: MEDIUM
+        status: active
+        skills: [zod-schemas]
+
+tensions:
+  - name: "Aggregate import convenience vs standalone package size"
+    skills: [kit]
+    description: "The aggregate package gives one dependency but the root entry only exposes utils; standalone packages keep the dependency surface small."
+    implication: "An agent may import from the root entry expecting zod or hooks and fail at runtime."
+  - name: "Root subpaths vs standalone subpackage imports"
+    skills: [kit]
+    description: "Applications use @pawover/kit/*; libraries may expose a single standalone package."
+    implication: "Mixing both forms in one module can create duplicate imports or install expectations."
+  - name: "Nullable vs empty-string schema names"
+    skills: [zod-schemas]
+    description: "AllowEmpty describes nullability, while stringEmpty describes the literal empty string."
+    implication: "An agent may pick the wrong schema and either reject valid input or accept missing text."
+
+cross_references:
+  - from: kit
+    to: utils
+    reason: "The root entry exposes the core utils classes; deeper utilities use subpaths."
+  - from: kit
+    to: types
+    reason: "Global type entries are configured separately from runtime imports."
+  - from: kit
+    to: react-hooks
+    reason: "Hooks are only available from /hooks/react, not the package root."
+  - from: kit
+    to: alova-hooks
+    reason: "Alova hooks require the alova and react peers."
+  - from: kit
+    to: eslint-preset
+    reason: "The ESLint preset is a default export from its own subpath."
+  - from: kit
+    to: zod-schemas
+    reason: "Zod schemas are exposed from /zod and require the zod peer."
+  - from: utils
+    to: types
+    reason: "TreeUtil accepts the TreeLike shapes defined by @pawover/kit-types."
+  - from: react-hooks
+    to: alova-hooks
+    reason: "Both live in @pawover/kit-hooks and share the React peer, but use different subpaths."
+
+gaps:
+  - skill: utils
+    question: "Should I18nUtil's 248-entry locale tables and MimeUtil's full MIME map get dedicated reference files?"
+    context: "The current skill points to the source and covers the decision points; exhaustive tables would duplicate source data."
+    status: open
+  - skill: eslint-preset
+    question: "Which rule groups should be enabled by default for a new project?"
+    context: "The preset intentionally keeps groups opt-in; the project-specific recommendation is a maintainer decision."
+    status: open

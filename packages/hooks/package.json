@@ -10,7 +10,8 @@
   "type": "module",
   "keywords": [
     "pawover",
-    "pawover-kit-hooks"
+    "pawover-kit-hooks",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/pawover/pawover-kit/packages/hooks#readme",
   "repository": {
@@ -25,7 +26,9 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills/react-hooks",
+    "skills/alova-hooks"
   ],
   "exports": {
     ".": {

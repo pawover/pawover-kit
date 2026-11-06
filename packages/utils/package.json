@@ -10,7 +10,8 @@
   "type": "module",
   "keywords": [
     "pawover",
-    "pawover-kit-utils"
+    "pawover-kit-utils",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/pawover/pawover-kit/packages/utils#readme",
   "repository": {
@@ -25,7 +26,8 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills/utils"
   ],
   "exports": {
     ".": {

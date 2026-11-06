@@ -1,0 +1,182 @@
+library:
+  name: "@pawover/kit"
+  version: 1.3.0-alpha.1
+generated_from:
+  domain_map: _artifacts/domain_map.yaml
+  skill_spec: _artifacts/skill_spec.md
+skills:
+  [
+    {
+        name: kit,
+        slug: kit,
+        domain: overview,
+        path: skills/kit/SKILL.md,
+        description: "Use when installing @pawover/kit or choosing between the root
+          package, a standalone subpackage, and a subpath such as
+          @pawover/kit/utils, @pawover/kit/hooks/react,
+          @pawover/kit/types/global, @pawover/kit/eslint-rules, or
+          @pawover/kit/zod; also use when an import fails because the root entry
+          only re-exports @pawover/kit-utils, the hooks root export is empty, or
+          an optional peer dependency is missing.",
+        sources:
+          [
+            package.json,
+            entry/index.d.ts,
+            entry/metadata.json,
+            site/guide/import-paths.md,
+            site/guide/installation.md
+          ],
+        requires: [],
+        purpose: "Choose the correct @pawover/kit package and subpath, install optional
+          peer dependencies, and avoid runtime import failures."
+      },
+    {
+        name: types,
+        slug: types,
+        domain: types,
+        package: packages/types,
+        path: skills/types/SKILL.md,
+        description: "Use when typing objects, recursive trees, function signatures,
+          readonly React props, or global ambient types with @pawover/kit-types,
+          including configuring tsconfig types for @pawover/kit-types/global and
+          @pawover/kit-types/react/global.",
+        sources:
+          [
+            src/index.ts,
+            src/base.ts,
+            src/advancedRecord.ts,
+            src/api.ts,
+            src/react.ts,
+            src/global.d.ts,
+            src/react-global.d.ts
+          ],
+        references: [ references/global-entries.md ],
+        requires: [],
+        purpose: "Type common object, tree, function, and React prop shapes with
+          @pawover/kit-types, including ambient global type entries."
+      },
+    {
+        name: react-hooks,
+        slug: react-hooks,
+        domain: hooks,
+        package: packages/hooks,
+        path: skills/react-hooks/SKILL.md,
+        description: "Use when adding mount or unmount effects, latest-value refs,
+          responsive breakpoint state, or document title management to a React
+          app with @pawover/kit-hooks/react.",
+        sources:
+          [
+            src/react/useMount.ts,
+            src/react/useUnmount.ts,
+            src/react/useLatest.ts,
+            src/react/useResponsive.ts,
+            src/react/useTitle.ts
+          ],
+        requires: [],
+        purpose: "Add React lifecycle, latest-value, responsive breakpoint, and
+          document title behavior with @pawover/kit-hooks."
+      },
+    {
+        name: alova-hooks,
+        slug: alova-hooks,
+        domain: hooks,
+        package: packages/hooks,
+        path: skills/alova-hooks/SKILL.md,
+        description: "Use when wiring Alova requests, pagination, or watcher-driven
+          requests into React with @pawover/kit-hooks/alova, especially when
+          adding onBeforeRequest, onSuccess, onError, or onComplete callbacks.",
+        sources:
+          [
+            src/alova/useAlovaRequest.ts,
+            src/alova/useAlovaPagination.ts,
+            src/alova/useAlovaWatcher.ts,
+            src/alova/createBeforeRequestMiddleware.ts,
+            src/alova/hookOptions.ts
+          ],
+        requires: [],
+        purpose: "Integrate Alova request, pagination, and watcher hooks with React
+          through @pawover/kit-hooks."
+      },
+    {
+        name: zod-schemas,
+        slug: zod-schemas,
+        domain: zod,
+        package: packages/zod,
+        path: skills/zod-schemas/SKILL.md,
+        description: "Use when validating ids, strings, numbers, integers, bigints,
+          booleans, property keys, or object records with the prebuilt Zod v4
+          schemas in @pawover/kit-zod.",
+        sources: [ src/index.ts, src/server.ts, src/type.ts ],
+        requires: [],
+        purpose: Validate common value shapes with the prebuilt Zod v4 schemas in
+          @pawover/kit-zod.
+      },
+    {
+        name: utils,
+        slug: utils,
+        domain: utils,
+        package: packages/utils,
+        path: skills/utils/SKILL.md,
+        description: "Use when working with @pawover/kit-utils static utility classes
+          for arrays, strings, objects, trees, type guards, validation, numbers,
+          dates, currency, i18n locales, MIME types, environment detection, or
+          theme constants; includes ArrayUtil, StringUtil, ObjectUtil, TreeUtil,
+          TypeUtil, and ValidateUtil.",
+        sources:
+          [
+            src/index.ts,
+            src/array/arrayUtil.ts,
+            src/string/stringUtil.ts,
+            src/object/objectUtil.ts,
+            src/tree/treeUtil.ts,
+            src/type/typeUtil.ts,
+            src/validate/validateUtil.ts,
+            src/number/numberUtil.ts,
+            src/currency/currencyUtil.ts,
+            src/dateTime/dateTimeUtil.ts,
+            src/env/envUtil.ts,
+            src/function/functionUtil.ts,
+            src/i18n/i18nUtil.ts,
+            src/mime/mimeUtil.ts,
+            src/theme/themeUtil.ts,
+            src/math/mathUtil.ts,
+            src/vite/viteUtil.ts
+          ],
+        references:
+          [
+            references/array-object-string.md,
+            references/specialized.md,
+            references/tree.md
+          ],
+        requires: [],
+        purpose: "Use the static utility classes in @pawover/kit-utils for common data,
+          tree, validation, formatting, and environment tasks."
+      },
+    {
+        name: eslint-preset,
+        slug: eslint-preset,
+        domain: eslint,
+        package: packages/eslint-rules,
+        path: skills/eslint-preset/SKILL.md,
+        description: "Use when configuring ESLint flat config with
+          @pawover/kit-eslint-rules, including enabling TypeScript, React, Vue,
+          stylistic, antfu, imports, or importsSort groups; overriding rules per
+          group or per layer; and handling React Compiler rules.",
+        sources:
+          [
+            src/index.ts,
+            src/config.ts,
+            src/globs.ts,
+            src/globExclude.ts,
+            src/reactCompiler.ts,
+            src/core.javascript.ts,
+            src/core.typescript.ts,
+            src/core.react.ts,
+            src/core.vue.ts
+          ],
+        references: [ references/options.md ],
+        requires: [],
+        purpose: Configure ESLint flat config with the self-contained
+          @pawover/kit-eslint-rules preset.
+      }
+  ]
