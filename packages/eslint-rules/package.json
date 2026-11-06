@@ -10,7 +10,8 @@
   "type": "module",
   "keywords": [
     "pawover",
-    "pawover-kit-eslint-rules"
+    "pawover-kit-eslint-rules",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/pawover/pawover-kit/packages/eslint-rules#readme",
   "repository": {
@@ -25,7 +26,8 @@
   "module": "./src/index.ts",
   "types": "./src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills/eslint-preset"
   ],
   "exports": {
     ".": {
