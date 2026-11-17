@@ -647,6 +647,12 @@ const rules = {
    */
   "ts/no-unsafe-call": 0,
   /**
+   * @desc 禁止将非实例值赋值给类实例类型位置（type-aware）
+   * @descEN Disallow assigning non-instance values to class instance typed locations
+   * @see https://typescript-eslint.io/rules/no-unsafe-class-instance-assignment
+   */
+  "ts/no-unsafe-class-instance-assignment": 0,
+  /**
    * @desc 禁止不安全的声明合并
    * @descEN Disallow unsafe declaration merging
    * @see https://typescript-eslint.io/rules/no-unsafe-declaration-merging
@@ -937,10 +943,7 @@ const rules = {
    * @descEN Disallow passing a value-returning function in a position accepting a void function
    * @see https://typescript-eslint.io/rules/strict-void-return
    */
-  "ts/strict-void-return": [
-    1,
-    { allowReturnAny: true },
-  ],
+  "ts/strict-void-return": 0,
   /**
    * @desc 要求 switch-case 语句穷尽所有可能
    * @descEN Require switch-case statements to be exhaustive

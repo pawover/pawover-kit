@@ -5,17 +5,29 @@ packages:
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - '@changesets/apply-release-plan@8.0.0'
-  - '@changesets/assemble-release-plan@7.0.0'
-  - '@changesets/changelog-git@1.0.0'
-  - '@changesets/cli@3.0.0'
-  - '@changesets/config@4.0.0'
-  - '@changesets/errors@1.0.0'
-  - '@changesets/get-dependents-graph@3.0.0'
-  - '@changesets/git@4.0.0'
-  - '@changesets/parse@1.0.0'
-  - '@changesets/pre@3.0.0'
-  - '@changesets/read@1.0.0'
-  - '@changesets/should-skip-package@1.0.0'
-  - '@changesets/types@7.0.0'
-  - '@changesets/write@1.0.0'
+  - "@changesets/apply-release-plan@8.0.0"
+  - "@changesets/assemble-release-plan@7.0.0"
+  - "@changesets/changelog-git@1.0.0"
+  - "@changesets/cli@3.0.0"
+  - "@changesets/config@4.0.0"
+  - "@changesets/errors@1.0.0"
+  - "@changesets/get-dependents-graph@3.0.0"
+  - "@changesets/git@4.0.0"
+  - "@changesets/parse@1.0.0"
+  - "@changesets/pre@3.0.0"
+  - "@changesets/read@1.0.0"
+  - "@changesets/should-skip-package@1.0.0"
+  - "@changesets/types@7.0.0"
+  - "@changesets/write@1.0.0"
+  # TODO(typescript-eslint): 8.73.0 系列回龄（超过 minimumReleaseAge）后移除下列临时豁免
+  - "@typescript-eslint/eslint-plugin@8.73.0"
+  - "@typescript-eslint/parser@8.73.0"
+  - "@typescript-eslint/project-service@8.73.0"
+  - "@typescript-eslint/scope-manager@8.73.0"
+  - "@typescript-eslint/tsconfig-utils@8.73.0"
+  - "@typescript-eslint/type-utils@8.73.0"
+  - "@typescript-eslint/types@8.73.0"
+  - "@typescript-eslint/typescript-estree@8.73.0"
+  - "@typescript-eslint/utils@8.73.0"
+  - "@typescript-eslint/visitor-keys@8.73.0"
+  - typescript-eslint@8.73.0

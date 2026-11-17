@@ -305,6 +305,12 @@ const rules = {
    */
   "react/static-components": 2,
   /**
+   * @desc 验证 Hooks 依赖列表的完整性，支持自定义 Hooks 与稳定的 Hook 返回值（实验性）
+   * @descEN Verifies the list of dependencies for Hooks like 'useEffect' and similar, with support for custom Hooks and stable Hook results
+   * @see https://www.eslint-react.xyz/docs/rules/unstable-exhaustive-deps
+   */
+  "react/unstable-exhaustive-deps": 0,
+  /**
    * @desc 验证 React Compiler 不支持的语法
    * @descEN Validates against syntax that React Compiler does not support
    * @see https://www.eslint-react.xyz/docs/rules/unsupported-syntax
