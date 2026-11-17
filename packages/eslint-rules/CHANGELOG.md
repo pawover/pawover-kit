@@ -1,5 +1,53 @@
 # @pawover/kit-eslint-rules
 
+## 0.2.0-alpha.3
+
+### Minor Changes
+
+- 0fde82d: feat(eslint-rules): 新增风格快捷开关（`stylistic` / `vue`）
+
+  `stylistic` 组新增 `quotes` / `semi` 快捷项：
+
+  - `quotes: "single" | "double"` 同时切换 `stylistic/quotes` 与 `stylistic/jsx-quotes`
+  - `semi: false` 联动 `stylistic/member-delimiter-style`（`multiline.delimiter: "none"`、`requireLast: false`、`singleline.delimiter: "comma"`）
+  - 不联动规则：`semi-spacing` / `semi-style` / `no-extra-semi` / `quote-props` / `vue/html-quotes`（HTML 属性引号恒为 double）；`quotes` 不注入 `allowTemplateLiterals`
+
+  `vue` 组新增命名快捷项 `naming` / `templateNaming` / `attributeNaming` / `eventNaming`，取值 `"PascalCase" | "camelCase" | "kebab-case"`；总开关 `naming` 一次设定模板标签 / 组件属性 / 自定义事件三条规则，单项优先。
+
+  优先级链：`overrides` > 单项 > 总开关 > 规则映射默认值。
+
+  新增类型 `StylisticOptions` / `StylisticQuotes` / `VueOptions` / `VueNamingCasing`，原 `{ overrides }` 用法继续兼容。
+
+### Patch Changes
+
+- 1138ee8: chore(eslint-rules): 升级上游插件并调整规则映射
+
+  依赖升级（精确锁定版本）：
+
+  - `@eslint-react/eslint-plugin` → `5.30.3`
+  - `@stylistic/eslint-plugin` → `6.0.1`（退出 beta）
+  - `eslint-plugin-vue` → `10.12.1`
+  - `typescript-eslint` → `8.73.0`
+  - `vue-eslint-parser` → `10.4.2`
+
+  新增运行时依赖 `@pawover/kit-utils`（内部共享工具，装配阶段用于 `ArrayUtil.merge` 做扩展名去重合并）。
+
+  规则映射调整：
+
+  - 新增 `react/unstable-exhaustive-deps: 0`（实验性规则，默认关闭）
+  - 新增 `ts/no-unsafe-class-instance-assignment: 0`（type-aware 规则，默认关闭）
+  - `ts/strict-void-return` 由 `[1, { allowReturnAny: true }]` 改为 `0`（默认关闭：该检查会被静默移除，需要保留时可通过 `typescript.overrides` 显式开启）
+
+  另：`pnpm-workspace.yaml` 的 `minimumReleaseAgeExclude` 新增 11 条 `typescript-eslint@8.73.0` 系列精确版本豁免（`pnpm install` 因发布龄策略自动追加）。这些豁免是精确版本、临时性的，待 `8.73.0` 系列回龄（超过仓库 `minimumReleaseAge`）后可从 `pnpm-workspace.yaml` 移除。
+
+- 0fde82d: fix(eslint-rules): 为 `.vue` 文件挂载 vue processor 并放行 `.vue` 扩展名
+
+  `vue` 组启用时，为 `.vue` 文件挂载 `vue/vue` processor，用于消费 `vue/comment-directive` 的内部消息，避免 `clear` 类消息以 error 形式出现在 lint 结果中。
+
+  与 `typescript` 同开时，`.vue` 会并入 TypeScript parser 的 `parserOptions.extraFileExtensions`（用户已有的同名项保持在前并去重合并），解决 `.vue` 单文件组件 script 块报「extension for the file (`.vue`) is non-standard」的问题；未启用 `vue` 时 `extraFileExtensions` 原样透传。
+
+  边界：本次改动不解决 `.vue` 文件未被项目 tsconfig 覆盖时的 project-service 报错，消费端仍需将 `.vue` 纳入 tsconfig 的 `include`。
+
 ## 0.2.0-alpha.2
 
 ### Minor Changes
