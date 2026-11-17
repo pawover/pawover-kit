@@ -127,31 +127,32 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "e084db9f325375987d1b309566fa0f8a1c3806e98298e735dcc5a4c52da7e32d",
+      "fingerprint": "ea426fefa65f0213b4870eedc37ffb64711305334f1985d8251deff3ada663dc",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
+        "package.json": "b203f09b96fd62b05c863f00b4cc4da290562b35c883fc95b80689c5f924bbd2",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
       "outcome": "no-change",
-      "reason": "Only package.json changed (version bump); no guidance in skills/kit/SKILL.md is affected.",
+      "reason": "发布合并仅剥离预发布版本后缀（package.json version），kit 技能描述的入口选择、子路径与可选 peer 依赖不涉及具体版本号，内容仍准确。",
       "evidence": [
-        "package.json version bump only; skills/kit/SKILL.md unchanged at c993ccd3f70eda776a13d0570a89ef052016849b"
+        "Changed: package.json at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "对照 skills/kit/SKILL.md：入口/子路径/peer 依赖表格与实际 package.json exports 一致；版本号变化不需要改指引。"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "a916d52b1d151fc9402905129a79293b5d26d7f3069f7c212796b90fc92a28d7",
+      "fingerprint": "90be1896a343368a41a79bc16c6c79c1f9567c0907744a019f458e32d07d2037",
       "snapshot": {
         "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
         "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
-        "_artifacts/skill_tree.yaml": "9c8731e8ed2c92be378c8ac01911fe00113f919af1f82ec5e4e2c3f07f0b54d2",
+        "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
+        "package.json": "b203f09b96fd62b05c863f00b4cc4da290562b35c883fc95b80689c5f924bbd2",
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
         "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
@@ -214,12 +215,12 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "updated",
-      "reason": "skill_tree.yaml re-synchronized from updated SKILL.md frontmatter; _artifacts already reflect style-quick-switch coverage.",
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "skill_tree.yaml 的 library.version 与 package.json 发布版本差异属发布流程派生，planning 记录的技能清单、来源与领域划分与当前 skills 一致。",
       "evidence": [
-        "Changed: _artifacts/skill_tree.yaml via intent maintainer sync",
-        "Source ground: packages/eslint-rules/src/config.ts"
+        "Changed: _artifacts/skill_tree.yaml, package.json at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "对照 _artifacts/skill_tree.yaml：7 个技能条目、sources 与 references 均与仓库现有 SKILL.md 对应，无需改动规划记录。"
       ]
     },
     "source:.changeset/tanstack-intent-skills.md": {
@@ -253,14 +254,17 @@
       "evidence": [".changeset/shiny-vans-wave.md is release metadata"]
     },
     "source:packages/eslint-rules/CHANGELOG.md": {
-      "fingerprint": "6cf94452ed1a4d3c8f0dabfe7fe25e8975bcc2a120ed91f7d5f6c3e3e87810da",
+      "fingerprint": "c734589482b9d5da046318e62ba7dc71d42987848beb77d12c11b4781896c85f",
       "snapshot": {
-        "packages/eslint-rules/CHANGELOG.md": "139dabe16356bac91fd6580ea9581e637d70dc6bc0778bda8089a863914b0c71"
+        "packages/eslint-rules/CHANGELOG.md": "f9aeb1f13a2361d635f47d3ffbd3671e163fc4daa03eece4f61c004fa543aa0d"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "no-change",
-      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": ["Changed: packages/eslint-rules/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: packages/eslint-rules/CHANGELOG.md at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
     },
     "source:packages/hooks/CHANGELOG.md": {
       "fingerprint": "c9d9efe825fc2fd970c7ecce92b895a3f9119a8694a32d3b238ddd9ec9e57f52",
@@ -1527,14 +1531,17 @@
       ]
     },
     "source:pnpm-workspace.yaml": {
-      "fingerprint": "95398420fb201580b3d87b4ea5aaeb0853400b8de01f3059e2b9ebd2dd9cda13",
+      "fingerprint": "8827396fbb9ba309ee8c33f4fb92eaf67251d50214dce5f70c293727b69020d2",
       "snapshot": {
-        "pnpm-workspace.yaml": "8b9d38494c2d08d4b154d4f6ebdb65fc9c9f0a826201def2716fb781b6e2fa29"
+        "pnpm-workspace.yaml": "9f91c93fcf891efc01f9566a95c18293a62d9abb5dbec5f14ca52ed1932d840a"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "no-change",
-      "reason": "Comment-only annotation added above typescript-eslint@8.73.0 minimumReleaseAgeExclude entries; no skill guidance is affected.",
-      "evidence": ["pnpm-workspace.yaml now carries a TODO comment for the temporary exemption; entry list unchanged"]
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: pnpm-workspace.yaml at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
     },
     "source:site/api/eslint-rules/index.md": {
       "fingerprint": "87017d2836336d46485635871182027826edbe8ad75558ea81043c71524d5d99",
@@ -1605,6 +1612,357 @@
       "outcome": "no-change",
       "reason": "Guide regenerated; no skill guidance impact.",
       "evidence": ["site/guide/introduction.md regenerated"]
+    },
+    "source:commitlint.config.js": {
+      "fingerprint": "587bcbed45d746ab1e8435078262ee1cfc510602687d647a361ac2e349e011e8",
+      "snapshot": {
+        "commitlint.config.js": "a46af4177008d7b35784fb0feaccf9b41f246df50b19025f55d059d5994f123c"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: commitlint.config.js at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:cz.config.cjs": {
+      "fingerprint": "73062856dda00b1110acff2076263fc6298f872165b25f3169ed50defd85939d",
+      "snapshot": {
+        "cz.config.cjs": "323cca391182018c28a6e3b2dd0e2d17624322ca1608c9851a06046e0ea9b856"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: cz.config.cjs at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:docs/agents/architecture.md": {
+      "fingerprint": "2b2e2f0bf6e8c5b07f1cde5944dcf83f3e8f009ca531c49930817031803d57e8",
+      "snapshot": {
+        "docs/agents/architecture.md": "f117051939063f1e6dd33f7d7238e6829aeceff9cf57487e5c44942cd9162d9b"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: docs/agents/architecture.md at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:eslint.config.js": {
+      "fingerprint": "e778c057bf4bfb6d587f1727893b0bd4f72f325bcf93d7815d0c790ad974f24b",
+      "snapshot": {
+        "eslint.config.js": "aae1edfff06890351f2e267ef6a6a10001a52964af99fafd94ca506e09ed81ab"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: eslint.config.js at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:packages/eslint-rules/src/core.antfu.ts": {
+      "fingerprint": "4679e33cc713b887a5b477136a280f34df13aa6ef24771ace22ab4874fd984b8",
+      "snapshot": {
+        "packages/eslint-rules/src/core.antfu.ts": "762a79b3252572fdbf8a432dffa19c75c75c038ef9e5886f869d63452d7011ee"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 eslint-preset 技能与其 references/options.md：上游插件升级与规则映射调整未改变已记录的工厂选项、分组开关、快捷开关与覆盖优先级，指引仍准确。",
+      "evidence": [
+        "Changed: packages/eslint-rules/src/core.antfu.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/eslint-rules/src/core.imports.ts": {
+      "fingerprint": "e2a47e3b0f095623ff32df271d50336a3c3073719e28e06cc61c2e1632ae2b7e",
+      "snapshot": {
+        "packages/eslint-rules/src/core.imports.ts": "17591d9ed15ba286e5b1b45cdf9170bf73fbdc1fd83404207f7bf89c2f768c1d"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 eslint-preset 技能与其 references/options.md：上游插件升级与规则映射调整未改变已记录的工厂选项、分组开关、快捷开关与覆盖优先级，指引仍准确。",
+      "evidence": [
+        "Changed: packages/eslint-rules/src/core.imports.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/eslint-rules/src/core.reactHooks.ts": {
+      "fingerprint": "cf219696cba9ab3029fa99a19bc71b174c86e16321087e06745718e32a6dc906",
+      "snapshot": {
+        "packages/eslint-rules/src/core.reactHooks.ts": "f84e8fdd3ebb2cfc1d2eac40cb21786a1e5d24441c5d5522024bdf9644d69fff"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 eslint-preset 技能与其 references/options.md：上游插件升级与规则映射调整未改变已记录的工厂选项、分组开关、快捷开关与覆盖优先级，指引仍准确。",
+      "evidence": [
+        "Changed: packages/eslint-rules/src/core.reactHooks.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/eslint-rules/src/plugins.ts": {
+      "fingerprint": "b3d33123c0297de44f85ac07f65a9448caa686b9e5dc9038dfe7db014ec93cec",
+      "snapshot": {
+        "packages/eslint-rules/src/plugins.ts": "ecf8eab467d3eacf671723517eac24a727b0c927a0cb232965d0bbfbbc9f7ba9"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 eslint-preset 技能与其 references/options.md：上游插件升级与规则映射调整未改变已记录的工厂选项、分组开关、快捷开关与覆盖优先级，指引仍准确。",
+      "evidence": [
+        "Changed: packages/eslint-rules/src/plugins.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/eslint-rules/src/preset.ts": {
+      "fingerprint": "018f1c2fdb6870df4bf516b9d1970cdedf0b5d0dbce26bbf7c8193367e3798ab",
+      "snapshot": {
+        "packages/eslint-rules/src/preset.ts": "3eda392bc761ac1f698dafc4ee0eeb78e8a3bcef461245bfcc1579ed69fc76dd"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 eslint-preset 技能与其 references/options.md：上游插件升级与规则映射调整未改变已记录的工厂选项、分组开关、快捷开关与覆盖优先级，指引仍准确。",
+      "evidence": [
+        "Changed: packages/eslint-rules/src/preset.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/utils/src/tree/filter.ts": {
+      "fingerprint": "8af67d7ec35e4c31a3b1609d0a969d82c8fe5f08ddbaac2af9207c8efb533815",
+      "snapshot": {
+        "packages/utils/src/tree/filter.ts": "e7f5101022bf01571eb843371853ffb665f3fd5ad72d17f2f8c71af42b58c20c"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 utils 技能的 tree 参考：TreeUtil 公开方法签名与行为未变（仅内部实现拆分到 tree/ 子模块），指引仍准确。",
+      "evidence": [
+        "Changed: packages/utils/src/tree/filter.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/utils/src/tree/find.ts": {
+      "fingerprint": "d3bc79f25017856a57dcebd759f531e54538202767970b95b7d2a4f45ca9d2b2",
+      "snapshot": {
+        "packages/utils/src/tree/find.ts": "fe988c7071c7e6fa807c2cc6d7426bac7b17fbcc62ca4e29ef04057567110645"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 utils 技能的 tree 参考：TreeUtil 公开方法签名与行为未变（仅内部实现拆分到 tree/ 子模块），指引仍准确。",
+      "evidence": [
+        "Changed: packages/utils/src/tree/find.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/utils/src/tree/forEach.ts": {
+      "fingerprint": "e687db9320c5f29dd26e93fbea058202e4bbbc91a486d8d4189a17f06849a618",
+      "snapshot": {
+        "packages/utils/src/tree/forEach.ts": "5993a34b12d265142a310806eedc6d94f86311caf9375eb1681aa227eede9cac"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 utils 技能的 tree 参考：TreeUtil 公开方法签名与行为未变（仅内部实现拆分到 tree/ 子模块），指引仍准确。",
+      "evidence": [
+        "Changed: packages/utils/src/tree/forEach.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/utils/src/tree/map.ts": {
+      "fingerprint": "e5a82d29e42d92658081d4b2860b22fd2474295044f399149de651c29e3cce7b",
+      "snapshot": {
+        "packages/utils/src/tree/map.ts": "7dba40c4509ccc477fcaf30fab8ee3d288fd316e3523eca2fdc7d6ce4d72bc93"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 utils 技能的 tree 参考：TreeUtil 公开方法签名与行为未变（仅内部实现拆分到 tree/ 子模块），指引仍准确。",
+      "evidence": [
+        "Changed: packages/utils/src/tree/map.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:packages/utils/src/tree/utils.ts": {
+      "fingerprint": "515270d291f73ab5cf37d391d34f0d956eb0ba0fe2ead35e0da3c27ff67f6b2b",
+      "snapshot": {
+        "packages/utils/src/tree/utils.ts": "90c1c9e5974ef15cd4c131b2f55050cf4b16c7e82f5636a89a2a1e383c590d5b"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "no-change",
+      "reason": "已核对 utils 技能的 tree 参考：TreeUtil 公开方法签名与行为未变（仅内部实现拆分到 tree/ 子模块），指引仍准确。",
+      "evidence": [
+        "Changed: packages/utils/src/tree/utils.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "差异为上游规则升级、规则映射调整与内部实现拆分，未新增或删除面向使用者的公开配置项。"
+      ]
+    },
+    "source:prettier.config.js": {
+      "fingerprint": "18160e0ebcec77cd5f72a470e7bc677d1c9b0f264eedfd2006bd7301ab4e5eda",
+      "snapshot": {
+        "prettier.config.js": "f505f201863c4323a3d41aab4448ed4d6cae44244b1af034a7c26322f7f8e599"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: prettier.config.js at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/bumpRoot.ts": {
+      "fingerprint": "e007d89e6ce032c150ed820f830591c6a7642899ed77ae5d0300d272adcb1669",
+      "snapshot": {
+        "scripts/bumpRoot.ts": "0b78a942904b108b78739fe4eda1da57ac14aaebe4ceb5a7bf74fcf3ff4d50c5"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/bumpRoot.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/checkPack.ts": {
+      "fingerprint": "6ea9f9f65d57753b67fba893aaed9c71148c8b26093a728a3e637a94f13522b5",
+      "snapshot": {
+        "scripts/checkPack.ts": "545382357d2103696c83ec7ffd9d728104fb448ef5c6eaf23aad60d1a3887933"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/checkPack.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/checkPackageTypes.ts": {
+      "fingerprint": "9d76d548d1c64cb1416431a7735ecf4ddb83ef875f8fe837fdfe7f26daf09a1c",
+      "snapshot": {
+        "scripts/checkPackageTypes.ts": "d00f8a548708335ab1c54fb60dbb8e4f625cc9b3aa8aa298428c1fa5360795c3"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/checkPackageTypes.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/packages.ts": {
+      "fingerprint": "21189f368821299697562864a2202fd8a9bf7d19363bcdb74189990931d6527d",
+      "snapshot": {
+        "scripts/packages.ts": "4d235947f8050c6427f782ccbecd74ee1539cde5b9fde798aec3bc4f92c692dd"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/packages.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/releaseMerge.ts": {
+      "fingerprint": "711b72fbffad40044143470e205fd37802b32a030e79121b591a0493187ee8a3",
+      "snapshot": {
+        "scripts/releaseMerge.ts": "67ce08d89f47c620fff62e769547af141050e7dea91bea94a9cb05766ca380f0"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/releaseMerge.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/syncBaseline.ts": {
+      "fingerprint": "f6d28e8e893b8039cd9a4519cbd096de948a26c27cc7a9e310122c0760dba647",
+      "snapshot": {
+        "scripts/syncBaseline.ts": "022dd6ab340a641a509364056f95dbfa42727ac15e4fc19ca9da1b64bb9c463d"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/syncBaseline.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:scripts/syncMain.ts": {
+      "fingerprint": "cbaf2e485addf9d50d312d93347a6d8867f4b941e07437d39a1aa823eb6e4666",
+      "snapshot": {
+        "scripts/syncMain.ts": "973c6d43dd4360d767540de07dc58a3667df56ba9f9fadd4223a592dc36a2212"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: scripts/syncMain.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:site/api/eslint-rules.md": {
+      "fingerprint": "5727e50171735f7c9330f7c5362b2b73d8afc9ca85b200d8b613ac845b63e792",
+      "snapshot": {
+        "site/api/eslint-rules.md": "2336eebdf2a6521de07f9ca0980a3edd0effb79c4b946b43c4bcd691e1a2728b"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: site/api/eslint-rules.md at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:test/scripts/globalTypes.ts": {
+      "fingerprint": "18b2808ebed8473e96e18cb064becece8a5fcaf686698f394f3db3e570987408",
+      "snapshot": {
+        "test/scripts/globalTypes.ts": "c2455fd72c263b2c8d43e1da7435cbc9f2a57bc461210cd497500f727084ea1d"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: test/scripts/globalTypes.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:test/scripts/smoke.ts": {
+      "fingerprint": "7e17d8480e184af58cc99f71b52f08cd6105d663a209b872b2a514492930721e",
+      "snapshot": {
+        "test/scripts/smoke.ts": "a0e40d99ef66a0cc8c31f91da0d3cf1d7a223fc1e489b1df3b8ea04f2537640f"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: test/scripts/smoke.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:test/types/eslint-rules/eslintRulesApi.test.type.ts": {
+      "fingerprint": "74881e6c18c02925a0575446c13bce677ab31f169d86e7b0b79e51b14bd14283",
+      "snapshot": {
+        "test/types/eslint-rules/eslintRulesApi.test.type.ts": "481d00498c4533797e99340e8a0c9df1985e11331e192bde883d7586b75ebf48"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: test/types/eslint-rules/eslintRulesApi.test.type.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
+    },
+    "source:vitest.config.ts": {
+      "fingerprint": "1dcc36aebe7214fea328daee3236ba80eb1d309a691d81bbbe3ed99674e6b814",
+      "snapshot": {
+        "vitest.config.ts": "5b506d5789ae50103abdd5027a521babc699379e662891845e508c75297a667a"
+      },
+      "head": "bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+      "outcome": "out-of-scope",
+      "reason": "仓库工程配置/构建脚本/测试/生成文档，不属于任一面向使用者的技能领域，变更不影响技能指引。",
+      "evidence": [
+        "Changed: vitest.config.ts at bedd018a633dad2b21c66129e1d183dcbf9e3fd4",
+        "该路径不在任何 SKILL.md 的 sources/guidance 范围内，也不描述库的使用方式。"
+      ]
     }
   }
 }
