@@ -3,11 +3,14 @@ name: eslint-preset
 description: >-
   Use when configuring ESLint flat config with @pawover/kit-eslint-rules,
   including enabling TypeScript, React, Vue, stylistic, antfu, imports, or
-  importsSort groups; overriding rules per group or per layer; and handling React
-  Compiler rules.
+  importsSort groups; overriding rules per group or per layer; handling React
+  Compiler rules; and applying stylistic (quotes / semi) or vue (naming /
+  templateNaming / attributeNaming / eventNaming) quick switches.
 metadata:
-  purpose: Configure ESLint flat config with the self-contained
-    @pawover/kit-eslint-rules preset.
+  purpose: >-
+    Configure ESLint flat config with the self-contained
+    @pawover/kit-eslint-rules preset, including style quick switches and
+    the documented precedence over explicit overrides.
   type: core
   library: "@pawover/kit-eslint-rules"
   library_version: "0.2.0-alpha.1"
@@ -19,6 +22,7 @@ sources:
   - src/reactCompiler.ts
   - src/core.javascript.ts
   - src/core.typescript.ts
+  - src/core.stylistic.ts
   - src/core.react.ts
   - src/core.vue.ts
 ---
@@ -27,7 +31,9 @@ sources:
 
 The package is a self-contained ESLint flat config preset. Every upstream plugin
 it uses is a dependency and is registered by the factory; do not install or
-register the preset's plugins manually.
+register the preset's plugins manually. It also depends on
+`@pawover/kit-utils` (shared internal utilities, used at assembly time for
+array de-duplication when merging parser options).
 
 The default export is `pawover(options?, ...userConfigs)`. It returns an
 `eslint-flat-config-utils` `FlatConfigComposer`, which extends `Promise` and can
@@ -64,15 +70,15 @@ const fullConfig = pawover({
 
 ### Enable the groups the project needs
 
-| Option | Enables | Files |
-| --- | --- | --- |
-| `typescript` | TypeScript plugin, parser, and rules | `**/*.{ts,tsx}`; adds `*.vue` when `vue` is enabled |
-| `stylistic` | Stylistic rules | source files |
-| `antfu` | `eslint-plugin-antfu` rules | source files |
-| `imports` | `eslint-plugin-import-lite` rules | source files |
-| `importsSort` | `eslint-plugin-simple-import-sort` rules | source files |
-| `react` | `@eslint-react` + `eslint-plugin-react-hooks` | source files; type-aware rules also cover `*.jsx` |
-| `vue` | Vue parser and rules | `**/*.vue` |
+| Option        | Enables                                       | Files                                                                                                                   |
+| ------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `typescript`  | TypeScript plugin, parser, and rules          | `**/*.{ts,tsx}`; adds `*.vue` when `vue` is enabled                                                                     |
+| `stylistic`   | Stylistic rules                               | source files                                                                                                            |
+| `antfu`       | `eslint-plugin-antfu` rules                   | source files                                                                                                            |
+| `imports`     | `eslint-plugin-import-lite` rules             | source files                                                                                                            |
+| `importsSort` | `eslint-plugin-simple-import-sort` rules      | source files                                                                                                            |
+| `react`       | `@eslint-react` + `eslint-plugin-react-hooks` | source files; type-aware rules also cover `*.jsx`                                                                       |
+| `vue`         | Vue parser, `vue/vue` processor, and rules    | `**/*.vue`; when `typescript` is also enabled, the TypeScript parser's `extraFileExtensions` additionally admits `.vue` |
 
 `typescript` defaults the parser to `projectService: true`. Pass parser options
 to match the project:
@@ -89,7 +95,11 @@ const parserConfig = pawover({
 ```
 
 The passed `parserOptions` are shallow-merged over the defaults; a same-named key
-wins. Use `filesTypeAware` to narrow the type-aware file range; the default is
+wins, with one exception: `extraFileExtensions` is de-duplicated and merged with
+the preset's required entries (`.vue` when `vue` is enabled) instead of being
+overwritten. When `vue` is not enabled, the user's `extraFileExtensions` is
+passed through unchanged — the preset neither trims nor rewrites it.
+Use `filesTypeAware` to narrow the type-aware file range; the default is
 `GLOB_TYPESCRIPT` (`**/*.{ts,tsx}`).
 
 ### Override rules at the group level
@@ -106,7 +116,7 @@ import pawover from "@pawover/kit-eslint-rules";
 const overrideConfig = pawover({
   typescript: {
     overrides: {
-      "ts/strict-void-return": [1, { allowReturnAny: true }],
+      "ts/consistent-type-definitions": ["error", "interface"],
     },
   },
   react: {
@@ -132,6 +142,40 @@ const typeAwareConfig = pawover({
   },
 });
 ```
+
+### Use style quick switches
+
+`stylistic` and `vue` accept ergonomic shortcut options that compile into rule
+overrides at assembly time. They sit between the rule map defaults and
+`overrides`:
+
+```ts
+import pawover from "@pawover/kit-eslint-rules";
+
+const config = pawover({
+  stylistic: { quotes: "single", semi: false },
+  vue: { naming: "kebab-case" },
+});
+```
+
+`stylistic.quotes` switches `stylistic/quotes` and `stylistic/jsx-quotes` in
+tandem (`"single"` → `"prefer-single"`, `"double"` → `"prefer-double"`).
+`stylistic.semi: false` additionally rewrites
+`stylistic/member-delimiter-style` (multiline: `delimiter: "none"`,
+`requireLast: false`; singleline: `delimiter: "comma"`). The two options are
+independent and only affect rules they explicitly own — `semi-spacing`,
+`semi-style`, `no-extra-semi`, `quote-props`, and `vue/html-quotes` are
+left untouched, and `quotes` does not inject `allowTemplateLiterals`. HTML
+attribute quotes stay at `double` regardless of the switch.
+
+`vue.naming` sets `vue/component-name-in-template-casing`,
+`vue/attribute-hyphenation`, and `vue/v-on-event-hyphenation` in one go.
+Override any of them individually with `templateNaming`, `attributeNaming`, or
+`eventNaming` — the per-item option wins over the group-wide `naming`.
+
+Precedence (highest first): `overrides` > per-item shortcut > group shortcut >
+rule map default. Both shortcut sets remain fully compatible with the existing
+`{ overrides }` shape.
 
 ### Control React Compiler rules
 
@@ -170,14 +214,11 @@ target it precisely:
 ```ts
 import pawover from "@pawover/kit-eslint-rules";
 
-const layerConfig = pawover({ typescript: true }).override(
-  "pawover/typescript/rules",
-  {
-    rules: {
-      "ts/consistent-type-definitions": ["error", "interface"],
-    },
+const layerConfig = pawover({ typescript: true }).override("pawover/typescript/rules", {
+  rules: {
+    "ts/consistent-type-definitions": ["error", "interface"],
   },
-);
+});
 ```
 
 Layer names are `pawover/<group>/<setup|parser|rules|type-aware>`; group names use
@@ -194,10 +235,7 @@ the composer methods directly.
 ```ts
 import pawover from "@pawover/kit-eslint-rules";
 
-const appendedConfig = pawover(
-  { typescript: true },
-  { rules: { "no-console": "error" } },
-);
+const appendedConfig = pawover({ typescript: true }, { rules: { "no-console": "error" } });
 
 // Equivalent composition style
 const composerConfig = pawover({ typescript: true }).append({

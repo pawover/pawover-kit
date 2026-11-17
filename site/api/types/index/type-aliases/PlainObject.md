@@ -8,7 +8,7 @@
 
 > **PlainObject**\<`K`, `T`\> = `Record`\<`K`, `T`\>
 
-Defined in: [base.ts:58](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/base.ts#L58)
+Defined in: [base.ts:58](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/base.ts#L58)
 
 普通对象类型
 

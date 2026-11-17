@@ -8,7 +8,7 @@
 
 > `const` **GLOB\_SOURCE**: `string`[]
 
-Defined in: [globs.ts:13](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/globs.ts#L13)
+Defined in: [globs.ts:13](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/globs.ts#L13)
 
 全部源文件（js / cjs / mjs / jsx / ts / tsx）
 

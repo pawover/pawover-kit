@@ -8,38 +8,38 @@ non-obvious failure modes that are not visible from the type signatures alone.
 
 ## Domains
 
-| Domain | Description | Skills |
-| --- | --- | --- |
-| `overview` | Package selection, subpaths, optional peers | `kit` |
-| `types` | Type-level utilities and ambient entries | `types` |
-| `utils` | Static utility classes and domain helpers | `utils` |
-| `hooks` | React lifecycle/responsive/title hooks and Alova request hooks | `react-hooks`, `alova-hooks` |
-| `eslint` | Flat config preset, groups, overrides, compiler switch | `eslint-preset` |
-| `zod` | Prebuilt Zod v4 schemas | `zod-schemas` |
+| Domain     | Description                                                    | Skills                       |
+| ---------- | -------------------------------------------------------------- | ---------------------------- |
+| `overview` | Package selection, subpaths, optional peers                    | `kit`                        |
+| `types`    | Type-level utilities and ambient entries                       | `types`                      |
+| `utils`    | Static utility classes and domain helpers                      | `utils`                      |
+| `hooks`    | React lifecycle/responsive/title hooks and Alova request hooks | `react-hooks`, `alova-hooks` |
+| `eslint`   | Flat config preset, groups, overrides, compiler switch         | `eslint-preset`              |
+| `zod`      | Prebuilt Zod v4 schemas                                        | `zod-schemas`                |
 
 ## Skill inventory
 
-| Skill | Type | Package | What it covers | Failure modes |
-| --- | --- | --- | --- | --- |
-| `kit` | lifecycle | `@pawover/kit` | Root vs subpackage imports, subpath map, optional peers, global type entries, ESM/CJS | 4 |
-| `types` | core | `@pawover/kit-types` | `AnyObject`, `PlainObject`, tree types, function types, `AdvancedRecord`, `ApiNameCheck`, React props, global entries | 4 |
-| `utils` | core | `@pawover/kit-utils` | `ArrayUtil`, `StringUtil`, `ObjectUtil`, `TreeUtil`, `TypeUtil`, `ValidateUtil`, specialized classes | 6 |
-| `react-hooks` | framework | `@pawover/kit-hooks` | `useMount`, `useUnmount`, `useLatest`, `useResponsive`, `useTitle` | 4 |
-| `alova-hooks` | framework | `@pawover/kit-hooks` | `useAlovaRequest`, `useAlovaPagination`, `useAlovaWatcher`, lifecycle callbacks, `immediate` defaults | 3 |
-| `eslint-preset` | core | `@pawover/kit-eslint-rules` | Factory, group options, group/layer overrides, React Compiler switch, Vue parser, globs | 4 |
-| `zod-schemas` | core | `@pawover/kit-zod` | Ids, scalar schemas, nullable variants, object records | 3 |
+| Skill           | Type      | Package                     | What it covers                                                                                                                                                                                                       | Failure modes |
+| --------------- | --------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `kit`           | lifecycle | `@pawover/kit`              | Root vs subpackage imports, subpath map, optional peers, global type entries, ESM/CJS                                                                                                                                | 4             |
+| `types`         | core      | `@pawover/kit-types`        | `AnyObject`, `PlainObject`, tree types, function types, `AdvancedRecord`, `ApiNameCheck`, React props, global entries                                                                                                | 4             |
+| `utils`         | core      | `@pawover/kit-utils`        | `ArrayUtil`, `StringUtil`, `ObjectUtil`, `TreeUtil`, `TypeUtil`, `ValidateUtil`, specialized classes                                                                                                                 | 6             |
+| `react-hooks`   | framework | `@pawover/kit-hooks`        | `useMount`, `useUnmount`, `useLatest`, `useResponsive`, `useTitle`                                                                                                                                                   | 4             |
+| `alova-hooks`   | framework | `@pawover/kit-hooks`        | `useAlovaRequest`, `useAlovaPagination`, `useAlovaWatcher`, lifecycle callbacks, `immediate` defaults                                                                                                                | 3             |
+| `eslint-preset` | core      | `@pawover/kit-eslint-rules` | Factory, group options, group/layer overrides, React Compiler switch, Vue parser, globs, style quick switches (`resolveStylisticShortcuts` / `resolveVueNamingShortcuts` / `mergeGroupOverrides` in `src/config.ts`) | 5             |
+| `zod-schemas`   | core      | `@pawover/kit-zod`          | Ids, scalar schemas, nullable variants, object records                                                                                                                                                               | 3             |
 
 ## Failure mode inventory
 
-| Skill | Count | Highest-priority examples |
-| --- | --- | --- |
-| `kit` | 4 | Empty hooks root; root entry only re-exports utils; `MathUtil`/`ViteUtil` subpaths; missing peers |
-| `types` | 4 | Runtime import of a type-only package; required `TreeLike` children; global entries imported instead of configured; callback ref with `PropsWithRef` |
-| `utils` | 6 | `merge` matcher append assumption; rejected tree parent; `find` mutation; `isChineseID` checksum assumption; `MathUtil` subpath; static class instantiation |
-| `react-hooks` | 4 | Async `useMount` cleanup; SSR `useResponsive`; `useLatest` re-render assumption; multiple `useTitle` instances |
-| `alova-hooks` | 3 | Watcher `immediate`; pagination `onPageChange`; missing `alova`/`react` peers |
-| `eslint-preset` | 4 | `javascript` switch; factory `ignores`/`renamePlugins`; manual upstream plugins; React type-aware without TypeScript |
-| `zod-schemas` | 3 | `AllowEmpty` naming; `id` domain; `empty` meaning |
+| Skill           | Count | Highest-priority examples                                                                                                                                    |
+| --------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `kit`           | 4     | Empty hooks root; root entry only re-exports utils; `MathUtil`/`ViteUtil` subpaths; missing peers                                                            |
+| `types`         | 4     | Runtime import of a type-only package; required `TreeLike` children; global entries imported instead of configured; callback ref with `PropsWithRef`         |
+| `utils`         | 6     | `merge` matcher append assumption; rejected tree parent; `find` mutation; `isChineseID` checksum assumption; `MathUtil` subpath; static class instantiation  |
+| `react-hooks`   | 4     | Async `useMount` cleanup; SSR `useResponsive`; `useLatest` re-render assumption; multiple `useTitle` instances                                               |
+| `alova-hooks`   | 3     | Watcher `immediate`; pagination `onPageChange`; missing `alova`/`react` peers                                                                                |
+| `eslint-preset` | 5     | `javascript` switch; factory `ignores`/`renamePlugins`; manual upstream plugins; React type-aware without TypeScript; quick switch precedence vs `overrides` |
+| `zod-schemas`   | 3     | `AllowEmpty` naming; `id` domain; `empty` meaning                                                                                                            |
 
 ## Tensions and cross-references
 
@@ -112,15 +112,15 @@ non-obvious failure modes that are not visible from the type signatures alone.
 
 The skills reuse the repository's existing tests rather than duplicating them:
 
-| Skill | Existing evidence |
-| --- | --- |
-| `kit` | `test/integration/exports/rootExports.test.ts` |
-| `types` | `test/types/types/typesApi.test.type.ts`, `test/types/types/globalTypes.test.type.ts`, `test/scripts/globalTypes.ts` |
-| `utils` | `test/unit/utils/*.test.ts`, `test/types/utils/utilsApi.test.type.ts` |
-| `react-hooks` | `test/unit/hooks/react/*.test.tsx`, `test/types/hooks/hooksReactApi.test.type.ts` |
-| `alova-hooks` | `test/unit/hooks/alova/*.test.ts(x)` |
-| `eslint-preset` | `test/unit/eslint-rules/eslintRules.test.ts`, `test/types/eslint-rules/eslintRulesApi.test.type.ts` |
-| `zod-schemas` | `test/unit/zod/*.test.ts`, `test/types/zod/zodApi.test.type.ts` |
+| Skill           | Existing evidence                                                                                                    |
+| --------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `kit`           | `test/integration/exports/rootExports.test.ts`                                                                       |
+| `types`         | `test/types/types/typesApi.test.type.ts`, `test/types/types/globalTypes.test.type.ts`, `test/scripts/globalTypes.ts` |
+| `utils`         | `test/unit/utils/*.test.ts`, `test/types/utils/utilsApi.test.type.ts`                                                |
+| `react-hooks`   | `test/unit/hooks/react/*.test.tsx`, `test/types/hooks/hooksReactApi.test.type.ts`                                    |
+| `alova-hooks`   | `test/unit/hooks/alova/*.test.ts(x)`                                                                                 |
+| `eslint-preset` | `test/unit/eslint-rules/eslintRules.test.ts`, `test/types/eslint-rules/eslintRulesApi.test.type.ts`                  |
+| `zod-schemas`   | `test/unit/zod/*.test.ts`, `test/types/zod/zodApi.test.type.ts`                                                      |
 
 ## Remaining work
 

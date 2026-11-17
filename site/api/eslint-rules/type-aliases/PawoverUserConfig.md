@@ -8,7 +8,7 @@
 
 > **PawoverUserConfig** = [`ConfigLayer`](ConfigLayer.md) \| [`ConfigLayer`](ConfigLayer.md)[] \| `FlatConfigComposer`\<`any`\> \| `Promise`\<[`ConfigLayer`](ConfigLayer.md)[]\>
 
-Defined in: [config.ts:118](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L118)
+Defined in: [config.ts:119](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L119)
 
 用户追加的 flat config
 

@@ -381,10 +381,13 @@ skills:
       - "Vue parser"
       - "Glob constants"
       - "Composer operations"
+      - "Style quick switches (stylistic quotes/semi, vue naming/templateNaming/attributeNaming/eventNaming)"
+      - "extraFileExtensions case-sensitive de-duplication"
     tasks:
       - "Create an ESLint flat config for TypeScript and React"
       - "Override rules per group or per layer"
       - "Configure React Compiler and Vue linting"
+      - "Apply stylistic or vue naming shortcuts with the documented precedence"
     failure_modes:
       - mistake: "Pass javascript: true as a switch"
         mechanism: "The JavaScript group is always enabled and only accepts overrides."
@@ -424,6 +427,18 @@ skills:
           pawover({ typescript: true, react: true });
         source: "packages/eslint-rules/src/config.ts"
         priority: HIGH
+        status: active
+        skills: [eslint-preset]
+      - mistake: "Expect a style quick switch to beat an explicit override"
+        mechanism: "`resolveStylisticShortcuts` / `resolveVueNamingShortcuts` feed `mergeGroupOverrides`; `overrides` is merged last and wins over every shortcut key."
+        wrong_pattern: |
+          pawover({ stylistic: { quotes: "single", overrides: { "stylistic/quotes": ["error", "prefer-double"] } } });
+          // expecting prefer-single from the shortcut
+        correct_pattern: |
+          pawover({ stylistic: { quotes: "single" } });
+          // or, to override, drop the shortcut and drive the rule from overrides
+        source: "packages/eslint-rules/src/config.ts (resolveStylisticShortcuts, resolveVueNamingShortcuts, mergeGroupOverrides)"
+        priority: MEDIUM
         status: active
         skills: [eslint-preset]
 

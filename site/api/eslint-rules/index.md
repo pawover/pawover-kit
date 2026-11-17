@@ -9,7 +9,9 @@
 - [PawoverOptions](interfaces/PawoverOptions.md)
 - [ReactOptions](interfaces/ReactOptions.md)
 - [RulesOverrideOptions](interfaces/RulesOverrideOptions.md)
+- [StylisticOptions](interfaces/StylisticOptions.md)
 - [TypeScriptOptions](interfaces/TypeScriptOptions.md)
+- [VueOptions](interfaces/VueOptions.md)
 
 ## Type Aliases
 
@@ -22,6 +24,8 @@
 - [Severity](type-aliases/Severity.md)
 - [SeverityLevel](type-aliases/SeverityLevel.md)
 - [SeverityName](type-aliases/SeverityName.md)
+- [StylisticQuotes](type-aliases/StylisticQuotes.md)
+- [VueNamingCasing](type-aliases/VueNamingCasing.md)
 
 ## Variables
 

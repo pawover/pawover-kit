@@ -8,7 +8,7 @@
 
 > **ConfigLayer** = `Linter.Config`
 
-Defined in: [config.ts:44](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L44)
+Defined in: [config.ts:45](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L45)
 
 单个 flat config 配置层
 

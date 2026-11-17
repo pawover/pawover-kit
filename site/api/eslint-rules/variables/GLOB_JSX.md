@@ -8,7 +8,7 @@
 
 > `const` **GLOB\_JSX**: `"**/*.jsx"` = `"**/*.jsx"`
 
-Defined in: [globs.ts:53](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/globs.ts#L53)
+Defined in: [globs.ts:53](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/globs.ts#L53)
 
 JSX 组件文件
 

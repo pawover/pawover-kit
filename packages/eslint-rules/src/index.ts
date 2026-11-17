@@ -10,7 +10,11 @@ export type {
   ReactOptions,
   RuleMap,
   RulesOverrideOptions,
+  StylisticOptions,
+  StylisticQuotes,
   TypeScriptOptions,
+  VueNamingCasing,
+  VueOptions,
 } from "./config.ts";
 export type { ReactCompilerPreset } from "./reactCompiler.ts";
 

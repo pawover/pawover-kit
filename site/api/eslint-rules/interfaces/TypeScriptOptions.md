@@ -6,7 +6,7 @@
 
 # Interface: TypeScriptOptions
 
-Defined in: [config.ts:226](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L226)
+Defined in: [config.ts:264](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L264)
 
 TypeScript 规则组选项
 
@@ -30,7 +30,7 @@ const options: TypeScriptOptions = {
 
 > `optional` **filesTypeAware?**: `string`[]
 
-Defined in: [config.ts:230](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L230)
+Defined in: [config.ts:268](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L268)
 
 类型感知规则的文件范围；默认 [GLOB\_TYPESCRIPT](../variables/GLOB_TYPESCRIPT.md)
 
@@ -40,7 +40,7 @@ Defined in: [config.ts:230](https://github.com/pawover/pawover-kit/blob/ec2032f3
 
 > `optional` **overrides?**: `Partial`\<`RulesConfig`\>
 
-Defined in: [config.ts:211](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L211)
+Defined in: [config.ts:212](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L212)
 
 覆盖该规则组的规则（与预设规则表浅合并，同名规则以本参数为准）
 
@@ -54,7 +54,7 @@ Defined in: [config.ts:211](https://github.com/pawover/pawover-kit/blob/ec2032f3
 
 > `optional` **overridesTypeAware?**: `Partial`\<`RulesConfig`\>
 
-Defined in: [config.ts:228](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L228)
+Defined in: [config.ts:266](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L266)
 
 仅覆盖类型感知规则（作用于 `filesTypeAware` 限定的文件）
 
@@ -64,6 +64,9 @@ Defined in: [config.ts:228](https://github.com/pawover/pawover-kit/blob/ec2032f3
 
 > `optional` **parserOptions?**: `Record`\<`string`, `unknown`\>
 
-Defined in: [config.ts:232](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L232)
+Defined in: [config.ts:275](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L275)
 
 透传给 TypeScript parser 的解析选项；与默认值浅合并，同名键以本参数为准
+
+`extraFileExtensions` 例外：启用 `vue` 时会自动并入 `.vue`，本参数中的同名数组与之去重合并；
+未启用 `vue` 时按原值透传（不裁剪、不改写）。

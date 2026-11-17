@@ -1,4 +1,5 @@
 <!-- intent-maintainer:start -->
+
 ## Library Skill Maintenance
 
 Use the repository’s installed Intent. If it is unavailable, report the missing dependency instead of downloading a replacement.
@@ -16,23 +17,23 @@ pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布�
 
 ## 命令
 
-| 命令                                     | 说明                                                                                      |
-| :--------------------------------------- | :---------------------------------------------------------------------------------------- |
-| `pnpm test`                              | `vitest run` — 双项目 (node + jsdom)                                                |
-| `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                                 |
-| `pnpm test:coverage`                     | 全量运行 + v8 覆盖率（阈值见 vitest.config.ts）                                             |
-| `pnpm test:global-types`                 | `node test/scripts/globalTypes.ts` — 全局类型入口消费校验（tsconfig types，需先 build）      |
-| `pnpm test:ci`                           | `test:types && check:types:packages && test && build && test:smoke && test:global-types && check:pack` (串行失败则停止) |
-| `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build                 |
-| `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）                  |
+| 命令                                     | 说明                                                                                                                           |
+| :--------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm test`                              | `vitest run` — 双项目 (node + jsdom)                                                                                           |
+| `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                                                                      |
+| `pnpm test:coverage`                     | 全量运行 + v8 覆盖率（阈值见 vitest.config.ts）                                                                                |
+| `pnpm test:global-types`                 | `node test/scripts/globalTypes.ts` — 全局类型入口消费校验（tsconfig types，需先 build）                                        |
+| `pnpm test:ci`                           | `test:types && check:types:packages && test && build && test:smoke && test:global-types && check:pack` (串行失败则停止)        |
+| `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build                                                      |
+| `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）                                                       |
 | `pnpm check:types`                       | `tsc --noEmit` + `check:types:packages`（根 tsconfig 聚合检查：packages src + tsdown 配置 + scripts + 根配置文件；含各包项目） |
-| `pnpm check:types:packages`              | 逐包 `tsc -p packages/*/tsconfig.json` — 各包 tsconfig 项目（IDE 归属项目）的类型检查                 |
-| `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                                  |
-| `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                                            |
-| `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                            |
-| `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）                              |
-| `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）                              |
-| `pnpm sync:main`                          | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发发布通道）                  |
+| `pnpm check:types:packages`              | 逐包 `tsc -p packages/*/tsconfig.json` — 各包 tsconfig 项目（IDE 归属项目）的类型检查                                          |
+| `pnpm check:eslint`                      | eslint 带 `--fix` 和缓存                                                                                                       |
+| `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                                                                                 |
+| `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                                                                 |
+| `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）                                                                   |
+| `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）                                                                   |
+| `pnpm sync:main`                         | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发发布通道）                                                     |
 
 ## 发布
 
@@ -43,7 +44,7 @@ pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布�
 - **`@pawover/kit-types`** (`packages/types/`) — 纯类型工具包（无运行时代码）：`AnyObject`、`PlainObject`、`TreeLike`、`TreeLikeOptionalChildren`、`AnyFunction` 族、`Primitive`、`AdvancedRecord`、`ApiNameCheck` 等。入口：`src/index.ts`，子路径：`.`（核心）、`./react`（`Props` / `PropsWithChildren` / `PropsWithRef`）、`./global` 与 `./react/global`（全局类型入口，tsconfig `types` 消费；见 ADR-0009）。测试见 `test/types/types/typesApi.test.type.ts`。
 - **`@pawover/kit-utils`** (`packages/utils/`) — 静态类工具集：`ArrayUtil`、`StringUtil`、`TypeUtil`、`ObjectUtil` 等。入口：`src/index.ts`。子路径：`.`（核心）、`./math`、`./vite`。
 - **`@pawover/kit-hooks`** (`packages/hooks/`) — React hooks （`src/react/`：5 个）+ Alova hooks（`src/alova/`：4 个导出）。**根导出为空**（`export {}`）。需从 `@pawover/kit/hooks/react` 或 `@pawover/kit/hooks/alova` 导入。
-- **`@pawover/kit-eslint-rules`** (`packages/eslint-rules/`) — 自包含 ESLint flat config 预设（默认导出工厂 `pawover(options?, ...userConfigs)`，返回 `FlatConfigComposer`）：`javascript` 常开，typescript / stylistic / antfu / imports / importsSort / react / vue 显式开关；每组拆 `setup`（无 `files` 注册插件）/ `rules`（规则 + 文件范围）/ `parser` / `type-aware` 层（`javascript` 拆 `parser` + `rules`，无插件可注册的组不产生 `setup`），每层带唯一 `name` 供 `composer.override(name)` 定位；每组接受 `{ overrides }`，typescript / react 另支持 `overridesTypeAware`，`typescript.filesTypeAware` 同时收窄 react type-aware 层（react 额外并入 `GLOB_JSX`）；`react` 组默认开启 React Compiler 规则切换（`react.compiler`：`false` 回退到 `@eslint-react` 实现，`"latest"` 额外启用实验规则）。9 个上游插件（含 vue-eslint-parser）作为**精确锁定的 dependencies** 由工厂自动注册，用户只需安装本包。依赖 `eslint-flat-config-utils` 提供链式 `append` / `prepend` / `override` / `renamePlugins`。`antfu` 组启用 `antfu/reasonable-newline`，发布包默认行宽 120；`*.type.ts` / `*.test.ts` 的宽版 240 属消费端个性化配置（本仓库在根 `eslint.config.js` 覆盖，与 `prettier.config.js` 对齐），不随包发布。导出 `GLOB_EXCLUDE` + `GLOB_SOURCE` / `GLOB_TYPESCRIPT` / `GLOB_VUE` / `GLOB_JSX` + `PawoverOptions` / `RuleMap` / `ConfigLayer` / `ConfigNames` / `PawoverUserConfig` / `RulesOverrideOptions` / `TypeScriptOptions` / `ReactOptions` / `ReactCompilerPreset` / `Severity` 族类型；无子路径（仅主入口）；单 ESM 产物（`require` 条件经 Node `require(esm)` 可达，见 ADR-0008）。规则映射（`core.*.ts`）与 `preset.ts` 均为内部模块。**仓库自身 eslint.config.js 由 Node 直跑本包源码（相对导入用显式 `.ts` 扩展名），改源码后无需构建即可跑 `check:eslint`/lint-staged**。
+- **`@pawover/kit-eslint-rules`** (`packages/eslint-rules/`) — 自包含 ESLint flat config 预设（默认导出工厂 `pawover(options?, ...userConfigs)`，返回 `FlatConfigComposer`）：`javascript` 常开，typescript / stylistic / antfu / imports / importsSort / react / vue 显式开关；每组拆 `setup`（无 `files` 注册插件）/ `rules`（规则 + 文件范围）/ `parser` / `type-aware` 层（`javascript` 拆 `parser` + `rules`，无插件可注册的组不产生 `setup`），每层带唯一 `name` 供 `composer.override(name)` 定位；每组接受 `{ overrides }`，typescript / react 另支持 `overridesTypeAware`，`typescript.filesTypeAware` 同时收窄 react type-aware 层（react 额外并入 `GLOB_JSX`）；`stylistic` 组额外接受 `{ quotes?: "single" | "double"; semi?: boolean }` 风格快捷开关（`quotes` 联动 `stylistic/jsx-quotes`，`semi: false` 联动 `stylistic/member-delimiter-style`），`vue` 组额外接受 `{ naming?; templateNaming?; attributeNaming?; eventNaming? }` 命名快捷开关（取值 `PascalCase | camelCase | kebab-case`，总开关 `naming` 一次设定标签/属性/事件，单项覆盖总开关）；两类快捷开关优先级均为 `overrides` > 单项 > 总开关 > 预设默认值；显式不联动：`stylistic/semi-spacing`、`semi-style`、`no-extra-semi`、`quote-props`、`vue/html-quotes`（HTML 属性引号恒 double），`quotes` 不注入 `allowTemplateLiterals`；`react` 组默认开启 React Compiler 规则切换（`react.compiler`：`false` 回退到 `@eslint-react` 实现，`"latest"` 额外启用实验规则）；`vue` 组为 `.vue` 挂载 `vue/vue` processor（消费 `vue/comment-directive` 的 `clear` 消息），与 `typescript` 同开时自动为 TS parser 补 `extraFileExtensions: [".vue"]`。9 个上游插件（含 vue-eslint-parser）作为**精确锁定的 dependencies** 由工厂自动注册，用户只需安装本包。依赖 `eslint-flat-config-utils` 提供链式 `append` / `prepend` / `override` / `renamePlugins`。依赖同仓库的 `@pawover/kit-utils`（装配阶段用 `ArrayUtil.merge` 做扩展名去重合并等内部共享工具）。`antfu` 组启用 `antfu/reasonable-newline`，发布包默认行宽 120；`*.type.ts` / `*.test.ts` 的宽版 240 属消费端个性化配置（本仓库在根 `eslint.config.js` 覆盖，与 `prettier.config.js` 对齐），不随包发布。导出 `GLOB_EXCLUDE` + `GLOB_SOURCE` / `GLOB_TYPESCRIPT` / `GLOB_VUE` / `GLOB_JSX` + `PawoverOptions` / `RuleMap` / `ConfigLayer` / `ConfigNames` / `PawoverUserConfig` / `RulesOverrideOptions` / `TypeScriptOptions` / `ReactOptions` / `ReactCompilerPreset` / `Severity` 族类型；无子路径（仅主入口）；单 ESM 产物（`require` 条件经 Node `require(esm)` 可达，见 ADR-0008）。规则映射（`core.*.ts`）与 `preset.ts` 均为内部模块。**仓库自身 eslint.config.js 由 Node 直跑本包源码（相对导入用显式 `.ts` 扩展名），改源码后无需构建即可跑 `check:eslint`/lint-staged**。
 - **`@pawover/kit-zod`** (`packages/zod/`) — Zod v4 schema：id、string、number、boolean、bigint 等。仅根导出。
 - **`@pawover/kit-internal`** (`packages/internal/`) — 内部工具包（`private`，不发布，不聚合进根包）：`tsdownVisualizerPlugins`（`VISUALIZER=1` 时启用 rollup-plugin-visualizer 构建分析）。**纯源码包**：`exports` 直接指向 `./src/index.ts`（Node 24 type stripping 直跑，无需构建产物）。各包 `tsdown.config.ts` 经包名导入；子包 tsconfig 开 `preserveSymlinks: true` 使 IDE/tsc 以 node_modules 路径直查其源码（**改其源码后类型即时反馈，无需先 `pnpm build`**，且不触发 rootDir 边界检查）。**其 `tsconfig.json` 为自包含配置（不 extends 根 build.json）**——否则 symlink 镜像项目（如 `packages/utils/node_modules/@pawover/kit-internal/tsconfig.json`）的 `extends` 相对路径错位导致配置退化（TS5083）；改 base/build.json 严格项时需同步此文件。**约定：内部包代码不允许出现在消费端**——仅构建期使用，禁止从发布包 `src` 导入 internal（详见 ADR-0004）。未来内部工具统一收进此包。
 

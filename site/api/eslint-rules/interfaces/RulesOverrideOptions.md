@@ -6,7 +6,7 @@
 
 # Interface: RulesOverrideOptions
 
-Defined in: [config.ts:209](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L209)
+Defined in: [config.ts:210](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L210)
 
 规则组覆盖选项
 
@@ -23,7 +23,9 @@ const options: RulesOverrideOptions = {
 ## Extended by
 
 - [`ReactOptions`](ReactOptions.md)
+- [`StylisticOptions`](StylisticOptions.md)
 - [`TypeScriptOptions`](TypeScriptOptions.md)
+- [`VueOptions`](VueOptions.md)
 
 ## Properties
 
@@ -31,6 +33,6 @@ const options: RulesOverrideOptions = {
 
 > `optional` **overrides?**: `Partial`\<`RulesConfig`\>
 
-Defined in: [config.ts:211](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L211)
+Defined in: [config.ts:212](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L212)
 
 覆盖该规则组的规则（与预设规则表浅合并，同名规则以本参数为准）

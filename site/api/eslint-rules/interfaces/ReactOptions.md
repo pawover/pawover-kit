@@ -6,7 +6,7 @@
 
 # Interface: ReactOptions
 
-Defined in: [config.ts:247](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L247)
+Defined in: [config.ts:290](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L290)
 
 React 规则组选项
 
@@ -30,7 +30,7 @@ const options: ReactOptions = {
 
 > `optional` **compiler?**: `boolean` \| [`ReactCompilerPreset`](../type-aliases/ReactCompilerPreset.md)
 
-Defined in: [config.ts:267](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L267)
+Defined in: [config.ts:310](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L310)
 
 React Compiler 规则切换
 
@@ -61,7 +61,7 @@ const legacy: ReactOptions = { compiler: false };
 
 > `optional` **overrides?**: `Partial`\<`RulesConfig`\>
 
-Defined in: [config.ts:211](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L211)
+Defined in: [config.ts:212](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L212)
 
 覆盖该规则组的规则（与预设规则表浅合并，同名规则以本参数为准）
 
@@ -75,6 +75,6 @@ Defined in: [config.ts:211](https://github.com/pawover/pawover-kit/blob/ec2032f3
 
 > `optional` **overridesTypeAware?**: `Partial`\<`RulesConfig`\>
 
-Defined in: [config.ts:269](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/config.ts#L269)
+Defined in: [config.ts:312](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/config.ts#L312)
 
 仅覆盖依赖类型信息的 react 规则（仅在开启 `typescript` 时生效）

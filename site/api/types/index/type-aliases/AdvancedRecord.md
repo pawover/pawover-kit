@@ -8,7 +8,7 @@
 
 > **AdvancedRecord**\<`K`, `A`, `mode`\> = `object`\[`mode`\[`0`\]\]\[`mode`\[`1`\]\]
 
-Defined in: [advancedRecord.ts:36](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/advancedRecord.ts#L36)
+Defined in: [advancedRecord.ts:36](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/advancedRecord.ts#L36)
 
 高级记录（Advanced Record）
 

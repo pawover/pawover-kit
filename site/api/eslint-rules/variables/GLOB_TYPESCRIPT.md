@@ -8,7 +8,7 @@
 
 > `const` **GLOB\_TYPESCRIPT**: `string`[]
 
-Defined in: [globs.ts:27](https://github.com/pawover/pawover-kit/blob/ec2032f35fecda346aa287a28c2f1127f9562f44/packages/eslint-rules/src/globs.ts#L27)
+Defined in: [globs.ts:27](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/globs.ts#L27)
 
 TypeScript 源文件（ts / tsx）
 

@@ -1,3 +1,4 @@
+import { ArrayUtil } from "@pawover/kit-utils";
 import type { Linter } from "eslint";
 import { composer, type FlatConfigComposer } from "eslint-flat-config-utils";
 import antfuRules from "./core.antfu.ts";
@@ -133,22 +134,15 @@ const vue = vueRules as unknown as RuleMap;
 
 /** react 映射中依赖类型信息的规则 id（`react/` 前缀） */
 const reactTypeCheckedRuleIds = new Set(reactTypeCheckedNames.map((name) => `react/${name}`));
+/** 按是否依赖类型信息对 react 规则表一次分区（各组保持原映射顺序） */
+const [reactTypeCheckedEntries, reactBaseEntries] = ArrayUtil.fork(
+  Object.entries(react),
+  ([ruleId]) => reactTypeCheckedRuleIds.has(ruleId),
+);
 /** react 映射中的 type-aware 规则子集（仅在 ts/tsx/jsx 层启用） */
-const reactTypeCheckedRules = Object.fromEntries(
-  [...reactTypeCheckedRuleIds].flatMap((ruleId) => {
-    const rule = react[ruleId];
-
-    return rule === undefined
-      ? []
-      : [
-        [ruleId, rule] as const,
-      ];
-  }),
-);
+const reactTypeCheckedRules = Object.fromEntries(reactTypeCheckedEntries);
 /** react 映射中剔除 type-aware 规则后的基础规则表（作用于全部源文件） */
-const reactBase = Object.fromEntries(
-  Object.entries(react).filter(([ruleId]) => !reactTypeCheckedRuleIds.has(ruleId)),
-);
+const reactBase = Object.fromEntries(reactBaseEntries);
 
 /** flat config 插件类型。 */
 type FlatConfigPlugin = NonNullable<Linter.Config["plugins"]>[string];
@@ -212,6 +206,43 @@ export interface RulesOverrideOptions {
 }
 
 /**
+ * 引号风格快捷值
+ *
+ * 用于 `stylistic.quotes` 快捷项；仅支持单引号与双引号，不包含模板字符串（backtick）。
+ *
+ * @example
+ * ```ts
+ * const quotes: StylisticQuotes = "single";
+ * ```
+ */
+export type StylisticQuotes = "single" | "double";
+
+/**
+ * stylistic 规则组选项
+ *
+ * 除通用 `overrides` 外提供常用风格快捷项；快捷项在装配阶段编译为规则配置，
+ * 优先级低于 `overrides`、高于规则映射默认值。
+ *
+ * @example
+ * ```ts
+ * // 单引号 + 不写分号（自动联动 JSX 引号与 TypeScript 成员分隔符）
+ * const options: StylisticOptions = { quotes: "single", semi: false };
+ * ```
+ *
+ * @example
+ * ```ts
+ * // 保留原有 `{ overrides }` 用法
+ * const legacy: StylisticOptions = { overrides: { "stylistic/quotes": 0 } };
+ * ```
+ */
+export interface StylisticOptions extends RulesOverrideOptions {
+  /** 引号风格：同时切换 `stylistic/quotes` 与 `stylistic/jsx-quotes`（不传则不产生覆写） */
+  quotes?: StylisticQuotes;
+  /** 是否保留语句分号；传 `false` 时自动联动 `stylistic/member-delimiter-style`（不传则不产生覆写） */
+  semi?: boolean;
+}
+
+/**
  * TypeScript 规则组选项
  *
  * @example
@@ -228,7 +259,12 @@ export interface TypeScriptOptions extends RulesOverrideOptions {
   overridesTypeAware?: RuleMap;
   /** 类型感知规则的文件范围；默认 {@link GLOB_TYPESCRIPT} */
   filesTypeAware?: string[];
-  /** 透传给 TypeScript parser 的解析选项；与默认值浅合并，同名键以本参数为准 */
+  /**
+   * 透传给 TypeScript parser 的解析选项；与默认值浅合并，同名键以本参数为准
+   *
+   * `extraFileExtensions` 例外：启用 `vue` 时会自动并入 `.vue`，本参数中的同名数组与之去重合并；
+   * 未启用 `vue` 时按原值透传（不裁剪、不改写）。
+   */
   parserOptions?: Record<string, unknown>;
 }
 
@@ -270,6 +306,47 @@ export interface ReactOptions extends RulesOverrideOptions {
 }
 
 /**
+ * Vue 组件命名风格
+ *
+ * 同时适用于模板标签、组件属性与自定义事件三处命名快捷项。
+ *
+ * @example
+ * ```ts
+ * const casing: VueNamingCasing = "kebab-case";
+ * ```
+ */
+export type VueNamingCasing = "PascalCase" | "camelCase" | "kebab-case";
+
+/**
+ * vue 规则组选项
+ *
+ * 命名快捷项分别映射到模板标签、组件属性与自定义事件三条规则：单项优先于总开关 `naming`，
+ * `overrides` 优先于全部快捷项。
+ *
+ * @example
+ * ```ts
+ * // 属性与事件使用 kebab-case，仅模板标签保留 PascalCase
+ * const options: VueOptions = { naming: "kebab-case", templateNaming: "PascalCase" };
+ * ```
+ *
+ * @example
+ * ```ts
+ * // 保留原有 `{ overrides }` 用法
+ * const legacy: VueOptions = { overrides: { "vue/attribute-hyphenation": "off" } };
+ * ```
+ */
+export interface VueOptions extends RulesOverrideOptions {
+  /** 命名总开关：一次设定模板标签 / 组件属性 / 自定义事件三条规则 */
+  naming?: VueNamingCasing;
+  /** 模板标签命名（`vue/component-name-in-template-casing`），优先于 `naming` */
+  templateNaming?: VueNamingCasing;
+  /** 组件属性命名（`vue/attribute-hyphenation`），优先于 `naming` */
+  attributeNaming?: VueNamingCasing;
+  /** 自定义事件命名（`vue/v-on-event-hyphenation`），优先于 `naming` */
+  eventNaming?: VueNamingCasing;
+}
+
+/**
  * 预设工厂选项
  *
  * 除 `javascript` 规则组常开外，其余规则组均通过对应字段显式开启。
@@ -284,14 +361,23 @@ export interface ReactOptions extends RulesOverrideOptions {
  *   react: true,
  * };
  * ```
+ *
+ * @example
+ * ```ts
+ * // 风格快捷开关
+ * const options: PawoverOptions = {
+ *   stylistic: { quotes: "single", semi: false },
+ *   vue: { naming: "kebab-case" },
+ * };
+ * ```
  */
 export interface PawoverOptions {
   /** javascript 规则组覆盖选项（该组常开） */
   javascript?: RulesOverrideOptions;
   /** 启用 `typescript` 规则组（ts / tsx 文件；同时注册 TypeScript parser，默认启用 type-aware 解析） */
   typescript?: boolean | TypeScriptOptions;
-  /** 启用 `stylistic` 规则组 */
-  stylistic?: boolean | RulesOverrideOptions;
+  /** 启用 `stylistic` 规则组（支持 `quotes` / `semi` 风格快捷项） */
+  stylistic?: boolean | StylisticOptions;
   /** 启用 `antfu` 规则组 */
   antfu?: boolean | RulesOverrideOptions;
   /** 启用 `imports` 规则组（eslint-plugin-import-lite） */
@@ -300,8 +386,8 @@ export interface PawoverOptions {
   importsSort?: boolean | RulesOverrideOptions;
   /** 启用 `react` 规则组（注册 `@eslint-react` 与 `eslint-plugin-react-hooks` 两个插件，默认开启 React Compiler 规则切换）；与 `typescript` 同开时，依赖类型信息的规则作用于 ts/tsx/jsx */
   react?: boolean | ReactOptions;
-  /** 启用 `vue` 规则组（vue / vue+ts 单文件组件；同时接入 vue-eslint-parser） */
-  vue?: boolean | RulesOverrideOptions;
+  /** 启用 `vue` 规则组（vue / vue+ts 单文件组件；同时接入 vue-eslint-parser，与 `typescript` 同开时自动为 TypeScript parser 放行 `.vue` 扩展名；支持 `naming` 命名快捷项） */
+  vue?: boolean | VueOptions;
 }
 
 /** 将布尔 / 对象选项归一化为选项对象。 */
@@ -320,6 +406,152 @@ function resolveReactCompilerPreset (value: boolean | ReactCompilerPreset | unde
   return value === "latest"
     ? "latest"
     : "recommended";
+}
+
+/** `stylistic/quotes` 引号风格 → `stylistic/jsx-quotes` 选项 */
+const JSX_QUOTES_BY_QUOTES = {
+  single: "prefer-single",
+  double: "prefer-double",
+} as const;
+
+/**
+ * 把 stylistic 快捷项编译为规则覆写
+ *
+ * 仅编译用户显式传入的快捷项，未传时返回空表，保证装配结果与规则映射默认值完全一致。
+ *
+ * @param options stylistic 规则组选项（布尔形式已归一化为空对象）
+ * @returns 快捷项对应的规则覆写表
+ *
+ * @example
+ * ```ts
+ * const rules = resolveStylisticShortcuts({ semi: false });
+ * // {"stylistic/semi": [2, "never"], "stylistic/member-delimiter-style": [...]}
+ * ```
+ */
+function resolveStylisticShortcuts (options: Partial<StylisticOptions>): RuleMap {
+  const rules: RuleMap = {};
+  const { quotes, semi } = options;
+
+  if (quotes !== undefined) {
+    rules["stylistic/quotes"] = [2, quotes];
+    rules["stylistic/jsx-quotes"] = [2, JSX_QUOTES_BY_QUOTES[quotes]];
+  }
+
+  if (semi !== undefined) {
+    rules["stylistic/semi"] = [
+      2,
+      semi ? "always" : "never",
+    ];
+
+    // 不写分号时，TypeScript 接口/类型字面量的成员分隔符必须同步改为无分隔符风格。
+    if (!semi) {
+      rules["stylistic/member-delimiter-style"] = [
+        2,
+        {
+          multiline: { delimiter: "none", requireLast: false },
+          singleline: { delimiter: "comma" },
+          multilineDetection: "brackets",
+        },
+      ];
+    }
+  }
+
+  return rules;
+}
+
+/** 把命名风格转换为 `always`（kebab-case）/ `never`（PascalCase、camelCase）连字符选项。 */
+function toHyphenationOption (casing: VueNamingCasing): "always" | "never" {
+  return casing === "kebab-case"
+    ? "always"
+    : "never";
+}
+
+/**
+ * 把 vue 命名快捷项编译为规则覆写
+ *
+ * 单项（`templateNaming` / `attributeNaming` / `eventNaming`）优先于总开关 `naming`；
+ * 两者都未传时返回空表，保证装配结果与规则映射默认值完全一致。
+ *
+ * @param options vue 规则组选项（布尔形式已归一化为空对象）
+ * @returns 命名快捷项对应的规则覆写表
+ *
+ * @example
+ * ```ts
+ * const rules = resolveVueNamingShortcuts({ naming: "kebab-case" });
+ * // 三条规则同时切换为 kebab-case
+ * ```
+ */
+function resolveVueNamingShortcuts (options: Partial<VueOptions>): RuleMap {
+  const rules: RuleMap = {};
+  const templateNaming = options.templateNaming ?? options.naming;
+  const attributeNaming = options.attributeNaming ?? options.naming;
+  const eventNaming = options.eventNaming ?? options.naming;
+
+  if (templateNaming !== undefined) {
+    rules["vue/component-name-in-template-casing"] = [
+      2,
+      templateNaming,
+      { registeredComponentsOnly: false },
+    ];
+  }
+
+  if (attributeNaming !== undefined) {
+    rules["vue/attribute-hyphenation"] = [
+      2,
+      toHyphenationOption(attributeNaming),
+      { ignore: [] },
+    ];
+  }
+
+  if (eventNaming !== undefined) {
+    rules["vue/v-on-event-hyphenation"] = [
+      2,
+      toHyphenationOption(eventNaming),
+      { autofix: true },
+    ];
+  }
+
+  return rules;
+}
+
+/**
+ * 合并规则组覆写（优先级：`overrides` > 快捷项 > 规则映射默认值）
+ *
+ * @param shortcutRules 快捷项编译结果
+ * @param overrides 用户显式规则覆盖
+ * @returns 合并后的规则表；两者皆为空时返回 `undefined`，保持不传快捷项时的装配结果不变
+ */
+function mergeGroupOverrides (shortcutRules: RuleMap, overrides: RuleMap | undefined): RuleMap | undefined {
+  const merged = {
+    ...shortcutRules,
+    ...(overrides ?? {}),
+  };
+
+  return Object.keys(merged).length > 0
+    ? merged
+    : undefined;
+}
+
+/**
+ * 合并 `parserOptions.extraFileExtensions`
+ *
+ * 用户项保持原顺序在前，随后追加预设必需的扩展名并去重。用户值不是数组时原样返回，
+ * 不在预设内做运行时裁剪；用户未提供且无必需扩展名时返回 `undefined`，避免写入空数组。
+ *
+ * @param provided 用户传入的 `parserOptions.extraFileExtensions` 字段值
+ * @param required 预设必需的扩展名
+ * @returns 去重合并后的扩展名数组；用户值不是数组时原样返回该值；用户未提供且无必需扩展名时返回 `undefined`
+ */
+function mergeExtraFileExtensions (provided: unknown, required: readonly string[]): unknown {
+  if (provided === undefined) {
+    return required.length > 0
+      ? [...required]
+      : undefined;
+  }
+
+  return Array.isArray(provided)
+    ? ArrayUtil.merge(provided, required)
+    : provided;
 }
 
 /**
@@ -387,25 +619,32 @@ function pawover (
 
   const enableTypescript = Boolean(options.typescript);
   const typescriptOptions = resolveOptions<TypeScriptOptions>(options.typescript);
-  const stylisticOptions = resolveOptions<RulesOverrideOptions>(options.stylistic);
+  const stylisticOptions = resolveOptions<StylisticOptions>(options.stylistic);
   const antfuOptions = resolveOptions<RulesOverrideOptions>(options.antfu);
   const importsOptions = resolveOptions<RulesOverrideOptions>(options.imports);
   const importsSortOptions = resolveOptions<RulesOverrideOptions>(options.importsSort);
   const reactOptions = resolveOptions<ReactOptions>(options.react);
   const reactCompilerPreset = resolveReactCompilerPreset(reactOptions.compiler);
-  const vueOptions = resolveOptions<RulesOverrideOptions>(options.vue);
+  const vueOptions = resolveOptions<VueOptions>(options.vue);
 
   const sourceFiles = enableVue
     ? [...GLOB_SOURCE, GLOB_VUE]
     : [...GLOB_SOURCE];
+  // 启用 vue 时，vue-eslint-parser 会把 `.vue` 交给 TypeScript parser 解析 script 块，
+  // 需显式放行该非标准扩展名，否则 project service 会报「extension is non-standard」。
+  // 未启用 vue 时不触碰用户的 extraFileExtensions，原样透传。
+  const extraFileExtensions = enableVue
+    ? mergeExtraFileExtensions(typescriptOptions.parserOptions?.["extraFileExtensions"], [".vue"])
+    : undefined;
   const typescriptParserOptions = {
     projectService: true,
     ...(typescriptOptions.parserOptions ?? {}),
+    ...(extraFileExtensions === undefined
+      ? {}
+      : { extraFileExtensions }),
   };
   const filesTypeAware = typescriptOptions.filesTypeAware ?? [...GLOB_TYPESCRIPT];
-  const reactTypeAwareFiles = [
-    ...new Set([...filesTypeAware, GLOB_JSX]),
-  ];
+  const reactTypeAwareFiles = ArrayUtil.merge(filesTypeAware, [GLOB_JSX]);
 
   const configs: ConfigLayer[] = [
     {
@@ -477,7 +716,7 @@ function pawover (
       plugin: "stylistic",
       pluginImpl: plugins.stylistic,
       ruleMap: stylistic,
-      overrides: stylisticOptions.overrides,
+      overrides: mergeGroupOverrides(resolveStylisticShortcuts(stylisticOptions), stylisticOptions.overrides),
       files: sourceFiles,
     });
   }
@@ -565,6 +804,9 @@ function pawover (
       parserLayer: {
         name: LAYER_NAMES.vue.parser,
         files: [GLOB_VUE],
+        // vue processor 负责消费 `vue/comment-directive` 的 `clear` 消息，
+        // 缺失时每条 `clear` 都会作为错误暴露给用户。
+        processor: "vue/vue",
         languageOptions: {
           parser: plugins.vueParser,
           parserOptions: enableTypescript
@@ -576,7 +818,7 @@ function pawover (
       plugin: "vue",
       pluginImpl: plugins.vue,
       ruleMap: vue,
-      overrides: vueOptions.overrides,
+      overrides: mergeGroupOverrides(resolveVueNamingShortcuts(vueOptions), vueOptions.overrides),
       files: [GLOB_VUE],
     });
   }

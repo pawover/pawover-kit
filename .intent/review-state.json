@@ -3,25 +3,28 @@
   "baseline": "948686cbd56793d76e9585d18b4c63fe33073070",
   "items": {
     "skill:packages/eslint-rules/skills/eslint-preset/SKILL.md": {
-      "fingerprint": "fd1b5a8247adfee672252389ae20df5ece00dcca257a21edd613076dc78db120",
+      "fingerprint": "7086dca8355fb046c743daac9d744de9c600e76c22222fe94d73f848d5a14484",
       "snapshot": {
-        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "d98f9c40bb1fd25d921d9c0a4c0b6bbf2f461ce93ff4975159d06649f27896f9",
-        "packages/eslint-rules/skills/eslint-preset/references/options.md": "157ef8f5746efcf2f9f3aab4e51e5db465b79533cc293de5e4192990e033fb30",
-        "packages/eslint-rules/src/config.ts": "529aeef43bd5736911a956ebba690c95e0aedf76057c1ea22ebf7e1dab99ca63",
+        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
+        "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
+        "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
         "packages/eslint-rules/src/core.javascript.ts": "3d7dfe2587a87745424aa8164b00de8d34f6c6453c1840f528225a5e2d11c408",
-        "packages/eslint-rules/src/core.react.ts": "b9807c71fc8f78413e7553f179346b862ee8bc1bea83204f4f7bc16562a98368",
-        "packages/eslint-rules/src/core.typescript.ts": "dc2dafebf52fb6a048db7f496ee5c3ee862cd802afd6be14b73a36bdcb38151b",
-        "packages/eslint-rules/src/core.vue.ts": "aa85ff2afe021a745096b6bde614799a37313cbc975df80e94b3104bfa6595a8",
+        "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
+        "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
+        "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
+        "packages/eslint-rules/src/core.vue.ts": "ee740bdbdf93a72f208b65098b234ae96e219b0961b56e3828947dacc732db47",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
-        "packages/eslint-rules/src/index.ts": "43cd2b13a3792e60b237f30417370edb9e03c7fab566d47be086d0b812acc1a8",
+        "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
         "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a"
       },
-      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "updated",
-      "reason": "Corrected the composer reference: renamePlugins rewrites matching plugin keys and rule prefixes across the composer.",
+      "reason": "Updated frontmatter description/purpose to mention style quick switches; removed duplicate Use style quick switches body section; added .Vue/.vue strict-equality note to references/options.md.",
       "evidence": [
-        "intent validate passed 7 skills; examples compile; the edits are documentation-only and do not change runtime code. Previous pnpm test:ci passed (33 files, 910 tests, build, smoke, global-type checks, pack checks)."
+        "Changed: packages/eslint-rules/skills/eslint-preset/SKILL.md frontmatter + duplicate section removal",
+        "Source ground: packages/eslint-rules/src/config.ts (resolveStylisticShortcuts, resolveVueNamingShortcuts, mergeGroupOverrides, mergeExtraFileExtensions)",
+        "Test lock: test/unit/eslint-rules/eslintRules.test.ts (72 tests green)"
       ]
     },
     "skill:packages/hooks/skills/alova-hooks/SKILL.md": {
@@ -124,41 +127,42 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "2ab4ed87f134c373b8d9ef711c21bc319d8d1513efde68a42b0ca1ea609476e1",
+      "fingerprint": "e084db9f325375987d1b309566fa0f8a1c3806e98298e735dcc5a4c52da7e32d",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "2c0040d1f055f55b8a2267698ec59ec9de6358aa62aa5095e045c008d7cf2492",
+        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
-      "outcome": "updated",
-      "reason": "Authored the root package-selection skill: root entry only re-exports utils, hooks root is empty, subpaths and optional peers are documented.",
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Only package.json changed (version bump); no guidance in skills/kit/SKILL.md is affected.",
       "evidence": [
-        "head 948686c; intent validate passed 7 skills; examples compile; pnpm test:ci passed (33 test files, 910 tests, build, smoke, global-type consumer checks, pack checks); pnpm test:types and pnpm check:types passed."
+        "package.json version bump only; skills/kit/SKILL.md unchanged at c993ccd3f70eda776a13d0570a89ef052016849b"
       ]
     },
     "planning:_artifacts": {
-      "fingerprint": "004d13ffc9865a3c53e5040de71a391b251efa8e72392d7cfa073d21c6943b79",
+      "fingerprint": "a916d52b1d151fc9402905129a79293b5d26d7f3069f7c212796b90fc92a28d7",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "1e209b53d7b4b0e8682f1f778dbfb8dd94c9822e71c842bdaaa81c93f1926b4f",
-        "_artifacts/skill_spec.md": "67b56b3f2b2c76e409780b2306774d4e009c2275725a16557bff08e3541e67be",
-        "_artifacts/skill_tree.yaml": "474a2ee834f242c0bf89d937061a4dbc77734e45a39d784e28ed9c8d97611988",
+        "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
+        "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
+        "_artifacts/skill_tree.yaml": "9c8731e8ed2c92be378c8ac01911fe00113f919af1f82ec5e4e2c3f07f0b54d2",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "2c0040d1f055f55b8a2267698ec59ec9de6358aa62aa5095e045c008d7cf2492",
-        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "d98f9c40bb1fd25d921d9c0a4c0b6bbf2f461ce93ff4975159d06649f27896f9",
-        "packages/eslint-rules/skills/eslint-preset/references/options.md": "157ef8f5746efcf2f9f3aab4e51e5db465b79533cc293de5e4192990e033fb30",
-        "packages/eslint-rules/src/config.ts": "529aeef43bd5736911a956ebba690c95e0aedf76057c1ea22ebf7e1dab99ca63",
+        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
+        "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
+        "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
+        "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
         "packages/eslint-rules/src/core.javascript.ts": "3d7dfe2587a87745424aa8164b00de8d34f6c6453c1840f528225a5e2d11c408",
-        "packages/eslint-rules/src/core.react.ts": "b9807c71fc8f78413e7553f179346b862ee8bc1bea83204f4f7bc16562a98368",
-        "packages/eslint-rules/src/core.typescript.ts": "dc2dafebf52fb6a048db7f496ee5c3ee862cd802afd6be14b73a36bdcb38151b",
-        "packages/eslint-rules/src/core.vue.ts": "aa85ff2afe021a745096b6bde614799a37313cbc975df80e94b3104bfa6595a8",
+        "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
+        "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
+        "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
+        "packages/eslint-rules/src/core.vue.ts": "ee740bdbdf93a72f208b65098b234ae96e219b0961b56e3828947dacc732db47",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
-        "packages/eslint-rules/src/index.ts": "43cd2b13a3792e60b237f30417370edb9e03c7fab566d47be086d0b812acc1a8",
+        "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
         "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a",
         "packages/hooks/skills/alova-hooks/SKILL.md": "ac9aaed9cea56913c7b670fcc723152984183dfafd97ef4dbcb4e19cccf7e8b5",
         "packages/hooks/skills/react-hooks/SKILL.md": "440e0ae7ed28140141d73a14ef6f1f0b1eafc51bb8853d4a437b6fc558f44b15",
@@ -210,11 +214,12 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "updated",
-      "reason": "Clarified tree-filter descendant semantics and corrected the Zod AllowEmpty failure-mode example; both changes are source-backed documentation corrections.",
+      "reason": "skill_tree.yaml re-synchronized from updated SKILL.md frontmatter; _artifacts already reflect style-quick-switch coverage.",
       "evidence": [
-        "Changed: _artifacts/domain_map.yaml, packages/utils/skills/utils/SKILL.md at 948686cbd56793d76e9585d18b4c63fe33073070"
+        "Changed: _artifacts/skill_tree.yaml via intent maintainer sync",
+        "Source ground: packages/eslint-rules/src/config.ts"
       ]
     },
     "source:.changeset/tanstack-intent-skills.md": {
@@ -226,6 +231,1380 @@
       "outcome": "no-change",
       "reason": "Resolved merge conflict with origin/feature by keeping the current changeset content (root package removed from frontmatter) and the latest review-state snapshot; no guidance change.",
       "evidence": ["Changed: .changeset/tanstack-intent-skills.md at 06aff01f70a489ef5a7533e6aa6c15ca7548fb32"]
+    },
+    "source:.changeset/pre/tanstack-intent-skills.md": {
+      "fingerprint": "a44ebc03359a8b866a9d5656b98399549f649a5d060b0a993027172382a862ce",
+      "snapshot": {
+        ".changeset/pre/tanstack-intent-skills.md": "9567ba4e68c813de7b7027213cc17e810c3307c5b3c004cec86f9bafb511bf8e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: .changeset/pre/tanstack-intent-skills.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:.changeset/shiny-vans-wave.md": {
+      "fingerprint": "31e19f90ab412753f68adcf4d7d82c9d4f595b2148510f15e77eec2633db6f10",
+      "snapshot": {
+        ".changeset/shiny-vans-wave.md": "84cc02c8ce0f0a025b7a087cc55fdacce289602f82f52de96d7f6538eb806c1e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Changeset entry; no skill guidance is affected.",
+      "evidence": [".changeset/shiny-vans-wave.md is release metadata"]
+    },
+    "source:packages/eslint-rules/CHANGELOG.md": {
+      "fingerprint": "6cf94452ed1a4d3c8f0dabfe7fe25e8975bcc2a120ed91f7d5f6c3e3e87810da",
+      "snapshot": {
+        "packages/eslint-rules/CHANGELOG.md": "139dabe16356bac91fd6580ea9581e637d70dc6bc0778bda8089a863914b0c71"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: packages/eslint-rules/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:packages/hooks/CHANGELOG.md": {
+      "fingerprint": "c9d9efe825fc2fd970c7ecce92b895a3f9119a8694a32d3b238ddd9ec9e57f52",
+      "snapshot": {
+        "packages/hooks/CHANGELOG.md": "1aa65bcd22f9f0d0978bb0ef29151505c8a4faa84214b19b3fb85e0cc2138cb3"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: packages/hooks/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:packages/types/CHANGELOG.md": {
+      "fingerprint": "b07a8fced50c636d66e6a5f162fd3fd784ec45b763e407f0c872bb41b4649898",
+      "snapshot": {
+        "packages/types/CHANGELOG.md": "54e20e6196b0e126fdec62885228b2a28d0eb6efb39367773123edcfa286aae2"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: packages/types/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:packages/utils/CHANGELOG.md": {
+      "fingerprint": "ed4c4224f6cc744260f218ec9e067b5f00d94173860574ded0121be1a9d17ec2",
+      "snapshot": {
+        "packages/utils/CHANGELOG.md": "2a49e08a7f95d207d92dbde1f1cc8b3b3d0726960c9061d683e9cb5948fec256"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: packages/utils/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:packages/zod/CHANGELOG.md": {
+      "fingerprint": "9ed0cb5a4b5e24ebd48307d02a45721f45eecad09ef15e2557692430f6c3396c",
+      "snapshot": {
+        "packages/zod/CHANGELOG.md": "2ee5ec725d0f466bd3aaada664460dfb9d0865f3a9975f1cdea5b78e3b515676"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: packages/zod/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:review-report.json": {
+      "fingerprint": "de966105f0e6c046c46f683b04cdd90bc55ea6909bcf8b9820175f75469fb85a",
+      "snapshot": {
+        "review-report.json": "631adf62a49bfdd77fd83c392dd68bb6192db4ae1ca5e2de53ad1243f205a2e2"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: review-report.json at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/eslint-rules/functions/default.md": {
+      "fingerprint": "254d29680f14d0c9c5e616cca5a6b97ca27fed109c1bb7098562bfd27bdc5af7",
+      "snapshot": {
+        "site/api/eslint-rules/functions/default.md": "0f6041f9a28bec891ff915b95b14b347dbdca09f0f36fffe27a10a6f81e488fe"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; reflects updated source types, no skill guidance impact.",
+      "evidence": ["site/api/eslint-rules/functions/default.md regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/interfaces/PawoverOptions.md": {
+      "fingerprint": "328cf07402a2757e4b7de0fab5f35102da491d016b6e0b8b0de16befb89e335f",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/PawoverOptions.md": "76704c8f855a21bb84e2cfd5a4fe6c8eefacaa81c290aa0607e40f3fdf9dfb7d"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/interfaces/ReactOptions.md": {
+      "fingerprint": "17be22f54b4d1e21339a0adc8e8ce0cc92100101be3819b85e62714ec3fe846d",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/ReactOptions.md": "82b4174ad7911a4f7d0fd3a5f06aa7aeadc44571c0a917dad7cc06842e9d7a0c"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/interfaces/RulesOverrideOptions.md": {
+      "fingerprint": "dacd7b08ab13fbd2083e225f967201a412d06153a631efd80faf037be68fb169",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/RulesOverrideOptions.md": "eb518ce2251611593c03774941deec27f239e97eb2db8e6eb8138a2c983db029"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/interfaces/TypeScriptOptions.md": {
+      "fingerprint": "9fd9fce3b91615a365cc56c2994891e42b13818400b7cf50c0d602185d04f499",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/TypeScriptOptions.md": "4c395c73a5e7689c80667d4445fe6c62cb390f7e8b2defa61bf57c4d32786650"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/ConfigLayer.md": {
+      "fingerprint": "3e4b1de2a208c272dcf8c154bc1ba9a4e7ecacc7cbc03faa754f72209dabf202",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/ConfigLayer.md": "abc92f8dc92115db52c47efb70a0b2dd24e9e2b8c3e20fb5bb53e09ab9442619"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/ConfigNames.md": {
+      "fingerprint": "ffe49ec84a1c2242d3c8aa818c4110402dc16ed5954b25622bc2ed0fcf311414",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/ConfigNames.md": "ab98f0762a0fb11df8a192994ab54b50032cad23856c152f112616fd1f744e62"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/PawoverUserConfig.md": {
+      "fingerprint": "fd2816282a3e1a0d3a2c0e2cdec3cbde9f039084044b97bb1d249474e4528ed4",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/PawoverUserConfig.md": "69d00e2e05ec4caf17074811945f284c5367145fafea3c3a8f8889437367f9db"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/ReactCompilerPreset.md": {
+      "fingerprint": "c166e34fc9c73c474d36e4caee9fddadd1df19f4bcfe68c3d7ad7ead2d0c7307",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/ReactCompilerPreset.md": "b83bc91caf33234e2210a6fc1d4a47acd5ed4a22f61237ed551232ef4441653d"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/eslint-rules/type-aliases/ReactCompilerPreset.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/eslint-rules/type-aliases/RuleConfig.md": {
+      "fingerprint": "be50095d18a0626d56d1f718cafe6ae4af97dac1aef7e8af9e7ab95502d00b6e",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/RuleConfig.md": "0ea8af03783fecea0b718cb2c8d0ad4f66fbfbcaf064788c2aab08d7435b4753"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/RuleMap.md": {
+      "fingerprint": "fb9219e039c30173c3c4bf940f746a718d77759ab930f9362e96a70fed469f2d",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/RuleMap.md": "d5b80fb770d4e77383a8c36fa68ff910c56d2dc2d4b806474d3b6ab20ba5d9b3"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/Severity.md": {
+      "fingerprint": "8efe6c2dbff0e67c90aabea8f2bfca96a400c6d9587b9ac358db5509be72c5f3",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/Severity.md": "853384c53cf0eb7002c2ef707f037f3b4dc0aea9eeead3992bab9e0e9e3a1554"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/SeverityLevel.md": {
+      "fingerprint": "70d0ae411f361220542ff1b269c9d53320a24d7d441349cd8be5cb854ba3a61d",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/SeverityLevel.md": "6e14f30b2e9ec44bb363a459f5facdc6e0bba94909e3e1a7f2cf5d7ee567e067"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/SeverityName.md": {
+      "fingerprint": "1f6f07313a1560e2ac0b96aac1c084dc47422ee5f416e8b3c65f714c004dad7c",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/SeverityName.md": "208e7ae8aee737bf34339f516639a7d0c0927dd187cd1a42a1ee47ac0c214b3a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; no skill guidance impact.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/variables/GLOB_EXCLUDE.md": {
+      "fingerprint": "95692ce686a2104ca2d3732a14fe9f451a270402e51409b2d2c87ca9947f09b8",
+      "snapshot": {
+        "site/api/eslint-rules/variables/GLOB_EXCLUDE.md": "31e6461e7b84247956ed6195a107f4c377d1ee1d15ea4bb416e109fc94a920a7"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/eslint-rules/variables/GLOB_EXCLUDE.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/eslint-rules/variables/GLOB_JSX.md": {
+      "fingerprint": "1f2a7de4e290c2d3eb6073b17921123acafc5c40d2b0f2822fd8759bf3742e37",
+      "snapshot": {
+        "site/api/eslint-rules/variables/GLOB_JSX.md": "8dfb3b3c979cff1b5c452cd1808291c15854c7303dd63860b399626e869f0abc"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/eslint-rules/variables/GLOB_JSX.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/eslint-rules/variables/GLOB_SOURCE.md": {
+      "fingerprint": "5467de05debe12f22af9e8207d973845642660c7699c3e04d9b2701f0ced9134",
+      "snapshot": {
+        "site/api/eslint-rules/variables/GLOB_SOURCE.md": "19196b8e99fa58b393de5e7dcad9bbf23b7838a2275ea3ce81941028d1acaa18"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/eslint-rules/variables/GLOB_SOURCE.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/eslint-rules/variables/GLOB_TYPESCRIPT.md": {
+      "fingerprint": "fa781a81e7dc791e245e0477960fee9d7c1e8f6537d92a153438c952b9417cbc",
+      "snapshot": {
+        "site/api/eslint-rules/variables/GLOB_TYPESCRIPT.md": "9ca146fcd1cd4a7972575f267573fd808f354cfaa4cd61e4db0bfeb75a74cb3e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/eslint-rules/variables/GLOB_TYPESCRIPT.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/eslint-rules/variables/GLOB_VUE.md": {
+      "fingerprint": "d97e134b9181bbc7a91ae15fe9a211a78e6ff548826fdbfc17b8207939422a1e",
+      "snapshot": {
+        "site/api/eslint-rules/variables/GLOB_VUE.md": "59c9217609c63b31afe8e97db79be38ea76f655788db7885b41eb1dec692633a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/eslint-rules/variables/GLOB_VUE.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/hooks/alova/functions/useAlovaPagination.md": {
+      "fingerprint": "a6066c64831fb4696d6a61fa2d1c0d37fdb5a1d5e926fe4282ce82f8275b372c",
+      "snapshot": {
+        "site/api/hooks/alova/functions/useAlovaPagination.md": "3408cfc42cc5e7ce972c362ae2be3517b7130f89dfd367a0e82b658de99802f6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/alova/functions/useAlovaPagination.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/alova/functions/useAlovaRequest.md": {
+      "fingerprint": "3e40f4e669bfcfe0ce21198f5e9a280dfee058fb8b22ccd6ae6d682f2790c6f3",
+      "snapshot": {
+        "site/api/hooks/alova/functions/useAlovaRequest.md": "a0884aeb3d2f383c520383810ead26b22cc752af93da38f6ecbb9abdce8a447a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/alova/functions/useAlovaRequest.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/alova/functions/useAlovaWatcher.md": {
+      "fingerprint": "1ecb1cfe3f11062e1532dafe90c889c32eced6802a15e06f85759a1f7f3167d1",
+      "snapshot": {
+        "site/api/hooks/alova/functions/useAlovaWatcher.md": "53da6a05c51d0264bd0f111738e267a7f4ff9aa38b715348985e940f56e01a29"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/alova/functions/useAlovaWatcher.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/alova/type-aliases/BeforeRequestHandler.md": {
+      "fingerprint": "6e525ab804cfc662b141b50d03eee2c351ad25d0449a6b270faaaed406a02771",
+      "snapshot": {
+        "site/api/hooks/alova/type-aliases/BeforeRequestHandler.md": "78a2f6b942424813d352bb88e0d4834fa6fb2512b8fc4d8454fa4c446c30bbe5"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/alova/type-aliases/BeforeRequestHandler.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/react/functions/useLatest.md": {
+      "fingerprint": "6a0f2e709c330c856d761c9587af0ecab0141eee63e4b562f80da1de78b76fb8",
+      "snapshot": {
+        "site/api/hooks/react/functions/useLatest.md": "700ffaf690396663773fe7450755d1444e62f68cfca81b92e533c065ac5ef9b5"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/hooks/react/functions/useLatest.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/hooks/react/functions/useMount.md": {
+      "fingerprint": "2c614f5c8540e48cec1a2078db2271cf2b565339f7ae6541fee4c69702320bff",
+      "snapshot": {
+        "site/api/hooks/react/functions/useMount.md": "9ae0c6d2471cad06c4efef9f14ebe61ad6683e02e9bc0c417ffde42a97cb6f95"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/hooks/react/functions/useMount.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/hooks/react/functions/useResponsive.md": {
+      "fingerprint": "579e22763a8e9cff7edff7c98dc576fed59c73aa1987fd296c1c50093cbd533c",
+      "snapshot": {
+        "site/api/hooks/react/functions/useResponsive.md": "e4a81b65deed2f93cfd21fc25c42e713f776685b389688f570749329bb86f05b"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/react/functions/useResponsive.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/react/functions/useTitle.md": {
+      "fingerprint": "9fa6ff01a7347bc7bf36b425beb745a8b49e3740187800fa80a8b88dbbe8f8f1",
+      "snapshot": {
+        "site/api/hooks/react/functions/useTitle.md": "8049aa545e280b7493942b54d2a5bc5535b71e034d69ca0beaf716f47a82cfdd"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/hooks/react/functions/useTitle.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/hooks/react/functions/useUnmount.md": {
+      "fingerprint": "7c1bebaca7adcd7c3dab75786a16321a3bf78042b29c4ab51fbbfcd12892c1c0",
+      "snapshot": {
+        "site/api/hooks/react/functions/useUnmount.md": "7362fb3253f8c28901e20a949983467a9667d715e34353a352ecc1f34f1c7a6e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/hooks/react/functions/useUnmount.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/hooks/react/interfaces/ResponsiveHookOptions.md": {
+      "fingerprint": "62c8431d896a6ef6e441576828b1784387ac434ae2a33077365d53bb1f0bebe0",
+      "snapshot": {
+        "site/api/hooks/react/interfaces/ResponsiveHookOptions.md": "16246f129510ea054f77ca95f9b402f6b24586184da9870d759ea04388cfcc67"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/react/interfaces/ResponsiveHookOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/react/type-aliases/BreakPointTokens.md": {
+      "fingerprint": "be9896becee990cecaac8667d785cda3a7d7131909fc49573565e24f9ca17706",
+      "snapshot": {
+        "site/api/hooks/react/type-aliases/BreakPointTokens.md": "5605b8a12c1863cb950f505af56d29611f39b356cc60f5eeca11a49d38af7cd5"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/react/type-aliases/BreakPointTokens.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/hooks/react/variables/BREAK_POINT_TOKEN.md": {
+      "fingerprint": "d14fb6bf62bd3e1435e2ff0e626e709ecacb7676326eca4a7a7b80b2af0612b0",
+      "snapshot": {
+        "site/api/hooks/react/variables/BREAK_POINT_TOKEN.md": "429c9ef3438172e9f3c03adaa836e07ec0ad83ff0cc349efbb76c55a1fce632f"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/hooks/react/variables/BREAK_POINT_TOKEN.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AdvancedRecord.md": {
+      "fingerprint": "507d663f4f0f08469ac18c3961ad23be9af016a89c9ef6fab68c020ed9828cbe",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AdvancedRecord.md": "0142d9856ebad42068b26957809a51efda29986cd759bff84aafa359150ee9b8"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AdvancedRecord.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AdvancedRecordMode.md": {
+      "fingerprint": "ffe9e64a305462f37abe6ef1d0bc66f84cd714b4f4d1b333e237f292237bf0fd",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AdvancedRecordMode.md": "3e1c39736a250a7729a156bdcadfb1cf02988bc2238ced9ce1ae78a8700a3b57"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AdvancedRecordMode.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AnyAsyncFunction.md": {
+      "fingerprint": "d999ad09bfcdbaa954ff2515441f64183285d844ea2dab4c7a10a1680e923bcd",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AnyAsyncFunction.md": "7ad89f36643641e6e4d55317921029669eb98d92da16ba65c8f99ab8893e4969"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AnyAsyncFunction.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AnyAsyncGeneratorFunction.md": {
+      "fingerprint": "05524877585271a7df76af15f4b769fd94533ad08ebf4d696cd224d78550da4b",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AnyAsyncGeneratorFunction.md": "03faa6e79acf5b866330e8b29422ac54cf4067a16759900318f98d9be9577846"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AnyAsyncGeneratorFunction.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AnyFunction.md": {
+      "fingerprint": "c2b6da3c8347d266532ee37a028dfe59f90d571b3105d4f451decb7d7a8ad9f1",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AnyFunction.md": "78624d8b8d423de31c0382ca52e41f1afebabf780866f3dbc0b4f2616aeead37"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AnyFunction.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AnyGeneratorFunction.md": {
+      "fingerprint": "b07e4620b6235835d11e0942fccfe8b8755b09182819fc2a24f89637128d4b81",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AnyGeneratorFunction.md": "58bbcaa132306041dfb1c9ccb4d00b186863819114eca54c10d3800608886f41"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AnyGeneratorFunction.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/AnyObject.md": {
+      "fingerprint": "ea7c39b016005948c2225fd19e8dd6fba2aa1cfa777c80846cb5174b5d85cd02",
+      "snapshot": {
+        "site/api/types/index/type-aliases/AnyObject.md": "84e2bf1380d41bff782ac9218a924a9d4b91021643dc335b689b0b0611562522"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/AnyObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/ApiNameCheck.md": {
+      "fingerprint": "d184f8893575726aaaecec6118eeb43f52352dd5aa3decb509daa48e6b1256d3",
+      "snapshot": {
+        "site/api/types/index/type-aliases/ApiNameCheck.md": "9f292be16af209f20c6a793c631354b06eac39181d77e65c3b16c35168b41c69"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/ApiNameCheck.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/HasStringIndex.md": {
+      "fingerprint": "39a12dd429f2feebe2849998a3fc0a9e3f25291e62b89f1250e23252b10e21f8",
+      "snapshot": {
+        "site/api/types/index/type-aliases/HasStringIndex.md": "b00ff7ade571320ba8173510b4c36c9123f73f1b1bb61ed1db1c650f5212445e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/HasStringIndex.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/IsPrimitive.md": {
+      "fingerprint": "f1a29369a5aebbce663f060f5d1f4e2de7e3a0a7273be4995896bc5eb3070c35",
+      "snapshot": {
+        "site/api/types/index/type-aliases/IsPrimitive.md": "58cad17668cb4e1f0ee6a4a67ef70afd47a251ad524403612cadb575307f17cd"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/IsPrimitive.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/Nullish.md": {
+      "fingerprint": "ee03bccab8527588a0e8b0a7c88056d9cbfab0754b3cd0d52469ec1a1a3c92cf",
+      "snapshot": {
+        "site/api/types/index/type-aliases/Nullish.md": "610ec1f6dad2d79f3e3aabd64614394da33a9905367d734e42fa0a4040c058ed"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/types/index/type-aliases/Nullish.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/types/index/type-aliases/PlainObject.md": {
+      "fingerprint": "74a5d31fe89b82da54ab1d9aaac586431f0a822f14f8f7efe5e0739a31d90d14",
+      "snapshot": {
+        "site/api/types/index/type-aliases/PlainObject.md": "9accf93067dd923b32d6cbc14f98aa44561ec21e7860b261edb080dbc1eeaf2f"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/PlainObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/Primitive.md": {
+      "fingerprint": "d59dbdfbb90884d72ab815e887bce42117debb8d4619ac711da58456f7d2a3d8",
+      "snapshot": {
+        "site/api/types/index/type-aliases/Primitive.md": "0a46842f5699c37a2f847e7277c04b21a8852405e16ee26556d6658d74f6f5d7"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/Primitive.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/index/type-aliases/TreeLike.md": {
+      "fingerprint": "d18ca82cfc65da8f10e83745f6607c2dd7560eaac8ea0163e50bea5ce4b28a5a",
+      "snapshot": {
+        "site/api/types/index/type-aliases/TreeLike.md": "2c06d6b46155c47923a3f0a042c4d2e5d81053d4a36d8d37658e3191bf4b984a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/types/index/type-aliases/TreeLike.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/types/index/type-aliases/TreeLikeOptionalChildren.md": {
+      "fingerprint": "e9e29c2e28efc4c983e225eac995baa4c596d4d0fd651483bee84cf4d36ff6aa",
+      "snapshot": {
+        "site/api/types/index/type-aliases/TreeLikeOptionalChildren.md": "0726b339814d77463a7eb16e5bcb3732e858fd98cc741c8d76fc472f487d0ed1"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/index/type-aliases/TreeLikeOptionalChildren.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/react/type-aliases/Props.md": {
+      "fingerprint": "ee049021b23250c71f9dd568b35c59dba29745e830c27a690a7ade161426ba4e",
+      "snapshot": {
+        "site/api/types/react/type-aliases/Props.md": "14d94545727be7a09d079681a912eebc751b3e91b34c17dece431a157faee7fd"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/types/react/type-aliases/Props.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/types/react/type-aliases/PropsWithChildren.md": {
+      "fingerprint": "565bf5250afc91a067fdfccc69765be46d48ad4b0615d78811bef5749d2097da",
+      "snapshot": {
+        "site/api/types/react/type-aliases/PropsWithChildren.md": "474ed2603d3d1581fe0f7d98080ae259a20c4b931f52d08495f80ad2903964c7"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/react/type-aliases/PropsWithChildren.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/types/react/type-aliases/PropsWithRef.md": {
+      "fingerprint": "940bfd50f72a68ebec55945e1bb0a28da34f66856e05b99e4e81a9c7f8bb9321",
+      "snapshot": {
+        "site/api/types/react/type-aliases/PropsWithRef.md": "8f66f828d61ad2e36e200a92d5935f5ed81a7d43bcf0bb23559d67b1a96a6985"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/types/react/type-aliases/PropsWithRef.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/classes/ArrayUtil.md": {
+      "fingerprint": "38295ca661ec30a946d8eee9480cc3ff69a62f1420300d3594e4e953e1f56ee0",
+      "snapshot": {
+        "site/api/utils/index/classes/ArrayUtil.md": "42da0053cb3ce6c97f001ffb434c506f261a3ac07446933d3621572a72dfc405"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/ArrayUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/CurrencyUtil.md": {
+      "fingerprint": "956c96b23fd836579179d4f6392741c2b3eb0ea4c47d30402685ef0841d835d8",
+      "snapshot": {
+        "site/api/utils/index/classes/CurrencyUtil.md": "572bdb892cc76423bbb768d2e1bd930dcebba6be85d699f550ede33eba0ee8ae"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/CurrencyUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/DateTimeUtil.md": {
+      "fingerprint": "79ae9fa0070b5fbddd8190d09841159a4a0f8c47aafa52f8866b457ba310bebf",
+      "snapshot": {
+        "site/api/utils/index/classes/DateTimeUtil.md": "da8cb08c11a033a18a48d7245ff1a8a169f3d65898c004ebe9a2b34f17caef50"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/DateTimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/EnvUtil.md": {
+      "fingerprint": "a9094767a9691586db76146d9eeb2b2f3f31d8f4d52da5af08b99463bc7d3206",
+      "snapshot": {
+        "site/api/utils/index/classes/EnvUtil.md": "6275739fed484fe68348a735f70d52c2a8d69d43da0ea2dca86c271c7345321f"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/EnvUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/FunctionUtil.md": {
+      "fingerprint": "de6644674a2f5f40517f31c13d5c75395f00c54b65547adab82d68e925892ec7",
+      "snapshot": {
+        "site/api/utils/index/classes/FunctionUtil.md": "f4e20568149b1881f585814baf0fc7a1ac33eb71dabf1a903bed39f849290b05"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/FunctionUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/I18nUtil.md": {
+      "fingerprint": "9cb3b9d559487b4874216da14656e10a451f35b0443073730906a6b55b5471a7",
+      "snapshot": {
+        "site/api/utils/index/classes/I18nUtil.md": "064081fa8f560294b8ff2660c32c3f9b300be860961d102b5f586649f178d90d"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/I18nUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/MimeUtil.md": {
+      "fingerprint": "c5c55e3a366b5ec3ed16ec6059b63c48f68e61e3647e8e331f59ecd7315d8f9b",
+      "snapshot": {
+        "site/api/utils/index/classes/MimeUtil.md": "4648683f41bbba11809daecc47106ce8da7cb2f472b66bf458a268653ce2822b"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/MimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/NumberUtil.md": {
+      "fingerprint": "31f19d752e1788e8d1cd19c8eb466811ab1f2c5bd5f9a526426267194c9e9bdc",
+      "snapshot": {
+        "site/api/utils/index/classes/NumberUtil.md": "2432f91477498e907337b768b795c74c68962ea39a6cc6bb87b65d9630e14ad6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/NumberUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/ObjectUtil.md": {
+      "fingerprint": "397743e7466ef1aca818bb007495996c03c9af8d9f63cfad86e59c4e21b34f56",
+      "snapshot": {
+        "site/api/utils/index/classes/ObjectUtil.md": "33f3d272ce791fcb260921f836744e35eddd2c92c7e9af0eba243b3a271678d1"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/ObjectUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/StringUtil.md": {
+      "fingerprint": "bacfc03699bfba2d2fdee6dc043c1c2a5573664ea62eabd573ff046872ecf1df",
+      "snapshot": {
+        "site/api/utils/index/classes/StringUtil.md": "ce3601b4fa17accda5f2b10a72dc4c5d6cb18d8907b93fb95fdc9c4bf05490f3"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/StringUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/ThemeUtil.md": {
+      "fingerprint": "33b4c1d7205ce4e8557913b405fb413c31e342873336c730a8f613fb8208e9e2",
+      "snapshot": {
+        "site/api/utils/index/classes/ThemeUtil.md": "fb0bbe353cabb0089a1ce8ca163d067abb45c5024838334c1c2597b7fe503be4"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/ThemeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/TreeUtil.md": {
+      "fingerprint": "fafebf0f6d6e9baaec484eb566756505c397a4ceff65e048e83698263266403a",
+      "snapshot": {
+        "site/api/utils/index/classes/TreeUtil.md": "ad8291c34158fbfef11b625c60101f71bcfcbffab5dbc59ae48a6943e944ec89"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/TreeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/TypeUtil.md": {
+      "fingerprint": "bf9869a9fbc0e7592a939ff2109acfee9c6fdafe0ae7ca603af205b8016c4e35",
+      "snapshot": {
+        "site/api/utils/index/classes/TypeUtil.md": "b321b9053fcfd548538c2e09b7f8b376fe3f2e3c27b8992c3e30da9035a2f3b1"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/TypeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/classes/ValidateUtil.md": {
+      "fingerprint": "0ea7a53eee295a18faab3655003e926950f2beeab2bd0a209c999266d9425b0b",
+      "snapshot": {
+        "site/api/utils/index/classes/ValidateUtil.md": "4dd23a699abd21ec9148e8a6e4d631b80e9719ea09d46c1c074e69b43c1c4a6b"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/classes/ValidateUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/interfaces/FormatterOptions.md": {
+      "fingerprint": "15020607204edbb6b753f74bfd97237988a5798dd75dd734f08d7b0d336cea19",
+      "snapshot": {
+        "site/api/utils/index/interfaces/FormatterOptions.md": "8a690c4cecb147006cd508cd9e0f51d5e027b4f5fbcc0ea53ee37febba9b9043"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/interfaces/FormatterOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/interfaces/ToLocaleDisplayNameOptions.md": {
+      "fingerprint": "4cca30cf18f96e31c64c657433638ffb53675a6674b61e2982f8651dff5a5826",
+      "snapshot": {
+        "site/api/utils/index/interfaces/ToLocaleDisplayNameOptions.md": "5fcbe99854129db4735f30b2fac401d093dec91e37f77a9fc531af96f390f43a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/interfaces/ToLocaleDisplayNameOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/interfaces/ZipOptions.md": {
+      "fingerprint": "005cd1a70d03ded2f8bedd4ed340bb83111479f5b2a1821ce03d15acf5badd5b",
+      "snapshot": {
+        "site/api/utils/index/interfaces/ZipOptions.md": "eb8fa288eab4f4b6eff90660b30ab9e12eeb78be675ea3a07624b76e75a8bd6e"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/index/interfaces/ZipOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/index/type-aliases/CountryCode.md": {
+      "fingerprint": "2ce8e8d1d2c61234a77f860b1101fdc15cbf59ab985e7c85f4ee7fdfc108a33a",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/CountryCode.md": "965ffc638f9f025eba1a26fe42dab0cabd667ac9f59667f2b3a9fdd0f9a69ef8"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/CountryCode.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/CurrencyCode.md": {
+      "fingerprint": "739eee5434137f6834ec5553fbc99a4672fb2724a2c68aeffa2b343938b49c67",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/CurrencyCode.md": "ddc30a0e2a3b5960d0a7409cd48d3ed91bf4b6d5c8afe3e9b63734821b3be595"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/CurrencyCode.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/CurrencyLocale.md": {
+      "fingerprint": "7a2ef7017b07a8df2882247a254debb347a9b0fd9465c4901e48181d57adbf3c",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/CurrencyLocale.md": "919c34f58afae3902d336f61f09c60b540c2ad59e4f38b9e97586bd8e06deb83"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/CurrencyLocale.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/MatchFunction.md": {
+      "fingerprint": "643bc4d030581516319fa823b04e2876c165df4f922335b293fa9b2757b93dc9",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/MatchFunction.md": "c59e83ae326a90c2d5eaeb43d205e415e938609bc354c75b57b1baca60348ddf"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/MatchFunction.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/PrimaryLanguageEnum.md": {
+      "fingerprint": "8857793a29cc4f4235919851ff337d528463a73480d35ee6a24ab605763dd8d6",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/PrimaryLanguageEnum.md": "dcd6e50833958965c80009fb263d83d23c71e43461d410aea03638c722c66b54"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/PrimaryLanguageEnum.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/ThemeEnumValue.md": {
+      "fingerprint": "df004cd5e16e6e2702c2c4da0275fcc0a6aa6eb8275a53cb07ee56567691da12",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/ThemeEnumValue.md": "d95c3d5313b296c942e8597676c9a16bec5d0cd3cc59cb001c42ab7e3551f6f9"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/ThemeEnumValue.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/ThemeModeEnumValue.md": {
+      "fingerprint": "741eacbc31108c7b51cb39b55bc93ae1b6e44748882809adbb3cbae41df6fbda",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/ThemeModeEnumValue.md": "aec2a527c7a09735272fc56b3c035a26ae6db686668a97b71faf0b07c6cc3b17"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/ThemeModeEnumValue.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/ToBaseLanguage.md": {
+      "fingerprint": "fbd1d6646cf024732ae084961f8ee795c5b6bb582e6a5f3b1ce115c7e12ccc13",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/ToBaseLanguage.md": "c939e112cefcd8b11f73a6a11f78f60d655192734df18f5cb9cf1df0d04663ec"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/ToBaseLanguage.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/ToFullLocale.md": {
+      "fingerprint": "ca6249708ee79c82294cefa6189f2a1101216523d56bec324a22ef1d3984a84f",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/ToFullLocale.md": "215118054c5a9fff7338b1fc4496dff8386d9a54b170a614fc4c2a0aace8dd67"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/ToFullLocale.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/index/type-aliases/ToLocaleDisplayNameType.md": {
+      "fingerprint": "5cbfc503940da6801a92e510aac77406714a34b686555b657b823babcb111a51",
+      "snapshot": {
+        "site/api/utils/index/type-aliases/ToLocaleDisplayNameType.md": "803bcba3a58c80f0de393cac1df0b218423b957f764e2d0172a3c5261a784219"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/utils/index/type-aliases/ToLocaleDisplayNameType.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/utils/math/classes/MathUtil.md": {
+      "fingerprint": "a2be7feeabec907ba75d0bd438ad35c8e13f87af9dc04764de5eaec0871338e2",
+      "snapshot": {
+        "site/api/utils/math/classes/MathUtil.md": "e437815711561e17e6b87b189b406ffbda5303c328a193c05328b8fa953b4089"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/math/classes/MathUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/utils/vite/classes/ViteUtil.md": {
+      "fingerprint": "30d424324107c0f80e8c2de86f075d69a9e3e6fcda7bbad6e4a1c024366948bb",
+      "snapshot": {
+        "site/api/utils/vite/classes/ViteUtil.md": "50b9c0ec350294251fe0cf6e20982a999e33411f1e3ebcbe8c53cdf8cf3524d8"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/utils/vite/classes/ViteUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/any.md": {
+      "fingerprint": "1ee972c00a2ace905b047fc05535c95f3686d1d8560e40275604ccde2e9cf32d",
+      "snapshot": {
+        "site/api/zod/variables/any.md": "718b196d5b6c65f87a30d0555b3fbffa780d6b72209bf0ea2fa0e02f8866ae04"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/any.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/anyObject.md": {
+      "fingerprint": "b0d8f75872d5b9ab1655ef278c475516d9d6730177f669adfd5c554a572ba80c",
+      "snapshot": {
+        "site/api/zod/variables/anyObject.md": "56828d47e115a12bd1320f81df943a87682944d8da1300c06d092beea238f868"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/anyObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/bigint.md": {
+      "fingerprint": "9330ce7e6a5697fa096030ede23e01d7159a647249edd3da4f8e3bdcd1a050b5",
+      "snapshot": {
+        "site/api/zod/variables/bigint.md": "9422718113f6432b82cdeb75bceb3b161760ad8cb8beb630b732b9988aca6c00"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/bigint.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/bigintAllowEmpty.md": {
+      "fingerprint": "11afd587c43aaa7246a0d404e43d049be2a2702ee5fcd08c16d1a7e2aaf0b06f",
+      "snapshot": {
+        "site/api/zod/variables/bigintAllowEmpty.md": "408b038738bb385a65c5a5e408fec8dab603a08d0837a46cc8aa5b76f10f45c4"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/bigintAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/bigintNegative.md": {
+      "fingerprint": "82472f86d3f32f783827e019fb5145317207af8fca26da0182c52240d0bc12d7",
+      "snapshot": {
+        "site/api/zod/variables/bigintNegative.md": "f8ec34895fac7e6b434c85c6b8e1f02fad2b06a4228b691df869a543c66c11cb"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/bigintNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/bigintNegativeAllowEmpty.md": {
+      "fingerprint": "4fb9cba040f7cfde317a26b89372a81239c6ad6ffe8db7a843a0747fb0f34281",
+      "snapshot": {
+        "site/api/zod/variables/bigintNegativeAllowEmpty.md": "f77ba4a986f8ee8e11b3b02117fcd6af2c8678bc68d01fef60b8470a51620235"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/zod/variables/bigintNegativeAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/zod/variables/bigintPositive.md": {
+      "fingerprint": "c87b8e9ec993fcb96952d66be077859bc99e340a9ea05201af288bec8aeedae4",
+      "snapshot": {
+        "site/api/zod/variables/bigintPositive.md": "9dfbae393848d0af44ecd28b58647532d6eb0dae70e5f7c3a82d253d2be07be6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/bigintPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/bigintPositiveAllowEmpty.md": {
+      "fingerprint": "0d334222311c47f2a3462267bae122dfdfcf3a8d2cbf70196c7ce5e62014384d",
+      "snapshot": {
+        "site/api/zod/variables/bigintPositiveAllowEmpty.md": "a45e43350b913a1a85771a66652f4dcfab3533a42215399ddd21d06b59326597"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/zod/variables/bigintPositiveAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/zod/variables/boolean.md": {
+      "fingerprint": "1d41beddf7eb68aeb0da13fcbd12cabce2e04f0746bf53c457c827377fd4de79",
+      "snapshot": {
+        "site/api/zod/variables/boolean.md": "30cd5c8ee0bb3241f1c6a26d212d6d4a20d7f1af6beda521ad4d2241f07c8936"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/boolean.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/booleanAllowEmpty.md": {
+      "fingerprint": "c7c026141ac850da1cb9137bc01154bc786c9fdfacacbc8fe84d2cb9d85b1b9d",
+      "snapshot": {
+        "site/api/zod/variables/booleanAllowEmpty.md": "ae9bdd6ba9617d4ef6511477511058b9c27ae1f4935fb576d34597b59198f9e8"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/booleanAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/empty.md": {
+      "fingerprint": "3968c86ee1724ab24b0367a546b4b5ef058856f883ae6172397503428a147df4",
+      "snapshot": {
+        "site/api/zod/variables/empty.md": "ff5d865a9b64c92357e02f017b2b24afaeae73dbba48ae10043e126108588cd6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/empty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/id.md": {
+      "fingerprint": "1c54aac0881e2bd2f1d8c901b057f0ae6f45c403926ce3c25efe943768878b7b",
+      "snapshot": {
+        "site/api/zod/variables/id.md": "42b0d634a944d53bee449ba3c2664f60f184cd10d3331981afd39ff37d404390"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/id.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/idAllowEmpty.md": {
+      "fingerprint": "a1cdba44d3a93d748dee3870b35e700a0315e6b3b9003f9a7afd788ed27f0e8e",
+      "snapshot": {
+        "site/api/zod/variables/idAllowEmpty.md": "185374751bbbeedbe67baf3d81b819af5ef83a5a4997064ff5e228d096625047"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/idAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/integer.md": {
+      "fingerprint": "4da14ab397d439d232d09d4b7a2f0ff457794e017aed22e69ef360054bb89012",
+      "snapshot": {
+        "site/api/zod/variables/integer.md": "93199c298021a4124627f682c9ab6283bbb886ee7f49e178d329c0aa4ccb2c13"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/integer.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/integerAllowEmpty.md": {
+      "fingerprint": "57062626c20411e74fb4580782c47211781bc24585747b3057620a2e6e786a1e",
+      "snapshot": {
+        "site/api/zod/variables/integerAllowEmpty.md": "26491f5bd574f942928b211b975d68530a98a50b039448efd7f67722c9e0a360"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/integerAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/integerNegative.md": {
+      "fingerprint": "73d88ba97d34aa8bacf8766238565632fc4c2beb701b6ccdffe33b0b270cc7f4",
+      "snapshot": {
+        "site/api/zod/variables/integerNegative.md": "24e0c17db5ea6790d9345d3a672f31298ee983a1d7bf94b6192bbd4fbd4fa96c"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/integerNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/integerNegativeAllowEmpty.md": {
+      "fingerprint": "c9173542ed3ff0751961989536d6a7991026a4ca6f490d791187bb326c29a77d",
+      "snapshot": {
+        "site/api/zod/variables/integerNegativeAllowEmpty.md": "2ac7f22c490abce5804e4fc66d9d3a8ddbc4e747ba657d4bbb8283f7e496efbb"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/zod/variables/integerNegativeAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/zod/variables/integerPositive.md": {
+      "fingerprint": "211c4eac48b8d17a05e9365a1ef0d31c046446e92441e5e0cc507648412af840",
+      "snapshot": {
+        "site/api/zod/variables/integerPositive.md": "5229f1d6acd206e94e4a14bc60f1847de3b0254442c92f34a8a133b361561e61"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/integerPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/integerPositiveAllowEmpty.md": {
+      "fingerprint": "318fa6c78f979e52bd2dc0dbfeaf5c0bb397d18425cb0e678babb3bc56ec9250",
+      "snapshot": {
+        "site/api/zod/variables/integerPositiveAllowEmpty.md": "c11f94fdd9a8a2b6120b2f2bd0c7923188707a7387f602a14a295f5905a48888"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": [
+        "Changed: site/api/zod/variables/integerPositiveAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
+      ]
+    },
+    "source:site/api/zod/variables/never.md": {
+      "fingerprint": "e2e85be7c6f710cd968e085fa32b0e3e3ea82e8c4e04cf05b3fca74f9c287579",
+      "snapshot": {
+        "site/api/zod/variables/never.md": "aa5c64c29b7679ee71713e98ad0be84893b22d696a155339d5e726547fac06bf"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/never.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/number.md": {
+      "fingerprint": "8ec4e716595f7c545431a7c32a8ebed0f3388e12ff1a9af3f2c04d5e76147a19",
+      "snapshot": {
+        "site/api/zod/variables/number.md": "87e7e408643f19d92c700668bd62c0b5038ba0a7ec9a0327156890df5eb735cf"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/number.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/numberAllowEmpty.md": {
+      "fingerprint": "c33c1101c419924e03606f183f3cbc3192fafaa0bd7b610ee46b05980b5e5a33",
+      "snapshot": {
+        "site/api/zod/variables/numberAllowEmpty.md": "00af76acf2786de615ce8b701f743cf0789b2d748bf79b29062a55ec842d7b52"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/numberAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/plainObject.md": {
+      "fingerprint": "e8d5eeddcb7ded8023ade72c4526dcfbf4db8f26501e103d9f2591aae87945a9",
+      "snapshot": {
+        "site/api/zod/variables/plainObject.md": "8cf380ef185ddd4187965f553e4071bec4d1ddd50c8fb2c5c28c7692f46dce9b"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/plainObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/propertyKey.md": {
+      "fingerprint": "d7af87e445e5dfd6ababaa3b229cde40aa69b851c3256faebc8a040aad0574f2",
+      "snapshot": {
+        "site/api/zod/variables/propertyKey.md": "f5bdf92d0a25997e1af3877e6dddf4187f77afa05afa73bee6576a0d01df32d0"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/propertyKey.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/string.md": {
+      "fingerprint": "7fa7e2d8421d70968bb8b9cd489266e3376f146fd53cbf8efa46218ed0eb9748",
+      "snapshot": {
+        "site/api/zod/variables/string.md": "3161b1e5b7b5d9b82df63512a589c9eecb0f75d2c8f772a16cd9f4c688ce55b6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/string.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/stringAllowEmpty.md": {
+      "fingerprint": "44f44ecec65f6604dc623d3edbb7f6cfe04da4a527667538d18da21822de14d5",
+      "snapshot": {
+        "site/api/zod/variables/stringAllowEmpty.md": "8d9dde9238248df758cdde5500763887a3e9ad367cb7d44b8f327f7e44015a9a"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/stringAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/stringEmpty.md": {
+      "fingerprint": "badd67385a4dca16848d6ac8848a7c54da63f2fc89aaf1d9eca7b52cd251d8ab",
+      "snapshot": {
+        "site/api/zod/variables/stringEmpty.md": "c98fb3b898ea999247283272c502be9527519a154c41ef6bdbe0dc14d76dc8d0"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/stringEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/stringNoEmpty.md": {
+      "fingerprint": "29cfa01d94b44897815f03246bac1a7c73586b03d544700a8cb7048ad6c39d15",
+      "snapshot": {
+        "site/api/zod/variables/stringNoEmpty.md": "90e0ce795e99a8699a319d55e64aa9e1d8d6ec20cc8f471a4a68f33c8616413d"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/stringNoEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/symbol.md": {
+      "fingerprint": "1609aaa42d798cabf7ee4439500b04cab85a0328b555836e20ebb7173d7e910e",
+      "snapshot": {
+        "site/api/zod/variables/symbol.md": "b1a4d6014da059ea4dd16c662219dfbbe9adeb70254ec0cca18cac5aae32abab"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/symbol.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:site/api/zod/variables/unknown.md": {
+      "fingerprint": "050e22844966666af306467e9d23ae7e311652da1a810c8f35ba1daf4ff4a028",
+      "snapshot": {
+        "site/api/zod/variables/unknown.md": "a49b4c0ed02edebb41cee262adc48b02b0e04a18d86b0a63a654a436e84058e6"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
+      "evidence": ["Changed: site/api/zod/variables/unknown.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+    },
+    "source:test/unit/eslint-rules/eslintRules.test.ts": {
+      "fingerprint": "30ffe281aa866016e05f282f60b1c0039b3ee1170134ea313d5b83aaf4c5a1f0",
+      "snapshot": {
+        "test/unit/eslint-rules/eslintRules.test.ts": "137248b393baa9242e5541eec7fed008ad39442c34a490b0fae26c350fe4bd00"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Test source added/updated by the code-side fix agent; it is the executable evidence the skill cites, not guidance that needs updating.",
+      "evidence": [
+        "test/unit/eslint-rules/eslintRules.test.ts — 72 unit tests green; already referenced by skill_spec.md as existing evidence"
+      ]
+    },
+    "source:.changeset/bump-eslint-plugins.md": {
+      "fingerprint": "03fb8577dc4204009900d9604f299a68eb4adf497f1f8bae636ac4834685a529",
+      "snapshot": {
+        ".changeset/bump-eslint-plugins.md": "0ce8f03c89613f60303f2a35c07f6e7071696ae2e99d5d3cc386adac1b70e8d8"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Changeset entry; no skill guidance is affected.",
+      "evidence": [".changeset/bump-eslint-plugins.md is release metadata, not guidance"]
+    },
+    "source:.changeset/quick-style-switches.md": {
+      "fingerprint": "c09988f075d2812c4fef1411c0c5fddffff1e573f73d8d3cd1f1025c9b152ae5",
+      "snapshot": {
+        ".changeset/quick-style-switches.md": "df706a649f9b3c6d779826c55c3ad4ad50c84622d549b724398a2279f4aa912c"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Changeset entry; the capability it announces is already documented in the eslint-preset skill and planning records.",
+      "evidence": [
+        ".changeset/quick-style-switches.md is release metadata; skill and planning records updated in this round"
+      ]
+    },
+    "source:packages/eslint-rules/CONTEXT.md": {
+      "fingerprint": "478fc8470dc0860bf299a7d08f619a469b5a252249ffd89b006007b16d50d5dc",
+      "snapshot": {
+        "packages/eslint-rules/CONTEXT.md": "18ff867b5ba45dbb703f4e6edca4860753df2bda63c2b803f0bccc8495aaa6f3"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "updated",
+      "reason": "Added .Vue/.vue strict-equality note under Shared Runtime Dependency to document the case-sensitive extraFileExtensions de-duplication that the preset implements via mergeExtraFileExtensions.",
+      "evidence": [
+        "Changed: packages/eslint-rules/CONTEXT.md (Shared Runtime Dependency size-case note)",
+        "Source ground: packages/eslint-rules/src/config.ts (mergeExtraFileExtensions)",
+        "Test lock: test/unit/eslint-rules/eslintRules.test.ts (extraFileExtensions casing preservation)"
+      ]
+    },
+    "source:pnpm-workspace.yaml": {
+      "fingerprint": "95398420fb201580b3d87b4ea5aaeb0853400b8de01f3059e2b9ebd2dd9cda13",
+      "snapshot": {
+        "pnpm-workspace.yaml": "8b9d38494c2d08d4b154d4f6ebdb65fc9c9f0a826201def2716fb781b6e2fa29"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Comment-only annotation added above typescript-eslint@8.73.0 minimumReleaseAgeExclude entries; no skill guidance is affected.",
+      "evidence": ["pnpm-workspace.yaml now carries a TODO comment for the temporary exemption; entry list unchanged"]
+    },
+    "source:site/api/eslint-rules/index.md": {
+      "fingerprint": "87017d2836336d46485635871182027826edbe8ad75558ea81043c71524d5d99",
+      "snapshot": {
+        "site/api/eslint-rules/index.md": "ced18bfad25df86c6a2595c24bb0ae73f035d1f6a9e744b2f130e1c531869dd2"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc index; no skill guidance impact.",
+      "evidence": ["site/api/eslint-rules/index.md regenerated"]
+    },
+    "source:site/api/eslint-rules/interfaces/StylisticOptions.md": {
+      "fingerprint": "dd9a2e4afe496abb7ba810bedc1ff30e69cd95f9a2c730946a565d801583f146",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/StylisticOptions.md": "75fa06d1adf8490439bd073723f0eb9b77d488ef9d77789ddec9596dc2fa33b4"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/interfaces/VueOptions.md": {
+      "fingerprint": "8fa53df3a617e8bf3a840f0200ec18974a57aac7886902417ba54fe3525eaee0",
+      "snapshot": {
+        "site/api/eslint-rules/interfaces/VueOptions.md": "ff6322bbf11941f62dca317a1998dc54646ce8d2399a6888efa0081efcc7ac60"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/StylisticQuotes.md": {
+      "fingerprint": "fabac45d635064207e58379acb6693a34c2e0e1ca4f7f6ccc5c5a6ef3e1ae3ee",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/StylisticQuotes.md": "92c45fd332a63f46103809fe8c329801abd5d1f3663c5f5c803d7ae076000131"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/api/eslint-rules/type-aliases/VueNamingCasing.md": {
+      "fingerprint": "ae9a60a6654389f19d02ff703c9677356fc375a9078caf6b29b0465d5ae22bbe",
+      "snapshot": {
+        "site/api/eslint-rules/type-aliases/VueNamingCasing.md": "bf1956a0e8dec01015ae53780f101f4e16b1941fed50d1df54c5ecd24fde9efb"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
+      "evidence": ["regenerated from updated source"]
+    },
+    "source:site/examples/eslint-config.md": {
+      "fingerprint": "1b9fd4d9ce034506d4f3ca4b17bb6f5f9fe82e40e56c98fd9059e6b3b607ed3d",
+      "snapshot": {
+        "site/examples/eslint-config.md": "82dde4f3a8e603ebcda65c624b0fe74a62f95d93f22c39217fd93a899dd24d17"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Example doc regenerated from updated source; the skill already covers the same patterns.",
+      "evidence": ["site/examples/eslint-config.md regenerated"]
+    },
+    "source:site/guide/introduction.md": {
+      "fingerprint": "a396e7fa0e77e0a6c15d2682db1be607ec0a00178621d78d766b8eea2b8c1d48",
+      "snapshot": {
+        "site/guide/introduction.md": "75479ee2d4eb4b475ad6b639aa7551b0d5f55381a3c4f450ec672afb3f6dd6fd"
+      },
+      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "outcome": "no-change",
+      "reason": "Guide regenerated; no skill guidance impact.",
+      "evidence": ["site/guide/introduction.md regenerated"]
     }
   }
 }

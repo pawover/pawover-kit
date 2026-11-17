@@ -41,6 +41,12 @@ _Avoid_: 类型规则覆盖（口语可用）
 本包的交付形态：全部上游 ESLint 插件作为**精确锁定的 dependencies** 随包安装并由工厂自动注册，用户只需安装本包，拿到的插件组合即本仓库 CI 验证过的唯一组合。
 _Avoid_: vendoring（那是把插件源码内联进产物的做法，本包不采用）
 
+#### 共享运行时依赖（Shared Runtime Dependency）
+
+除上游 ESLint 插件外，本包还依赖同仓库的 `@pawover/kit-utils`（`workspace:*`）——装配阶段使用 `ArrayUtil.merge` 对 `parserOptions.extraFileExtensions` 做**保持原顺序的去重合并**（用户项在前，预设必需项如 `.vue` 追加在后），并在 react 类型感知文件范围合并时复用同一工具。该依赖属于内部共享工具，不暴露给消费端；消费端无需感知。
+**大小写语义**：`extraFileExtensions` 的去重使用**严格字符串相等**，`.Vue` 与 `.vue` 视为不同项（不做大小写归一）。需要自己去重时请用户自行归一大小写。
+_Avoid_: 外部工具库（那是另起炉灶的做法，本包复用既有工具链）
+
 #### 注册名（Registration Name）
 
 插件在 flat config `plugins` 字段中的键名，与规则映射的命名空间前缀一一对应（`ts`、`stylistic`、`antfu`、`imports`、`importsSort`、`react`、`react-hooks`、`vue`）。部分注册名与上游包名不同（如 `importsSort` 对应 eslint-plugin-simple-import-sort）。
@@ -65,3 +71,11 @@ _Avoid_: 同时开启两套规则（会产生重复诊断）
 
 `antfu/reasonable-newline` 的行宽阈值（`objectLineLength` / `arrayLineLength`）在发布包中默认为常规 `printWidth` 120。`*.type.ts` / `*.test.ts` 的宽版 240 属消费端个性化配置（本仓库在根 `eslint.config.js` 中覆盖，与 `prettier.config.js` 的 overrides 对齐），不随包发布。复杂子项（调用、函数、嵌套对象/数组）拆行比 Prettier 更严格，属于规则既有设计。
 _Avoid_: 强制 Prettier 化（本规则只拆行、不合并行）
+
+#### 风格快捷开关（Style Quick Switches）
+
+`stylistic` / `vue` 规则组的**装配期编译型**选项：用户传入的 `quotes` / `semi` / `naming` / `templateNaming` / `attributeNaming` / `eventNaming` 在工厂阶段被翻译为对应规则覆写，再与 `{ overrides }` 合并后注入规则层。优先级链（最高优先）：`overrides` > 单项（如 `templateNaming`）> 总开关（如 `naming`）> 规则映射默认值。快捷项未传时返回空表，保证装配结果与规则映射默认值完全一致。
+
+**显式不联动清单**：`semi: false` 只改 `stylistic/semi` 与 `stylistic/member-delimiter-style`；`stylistic/semi-spacing`、`semi-style`、`no-extra-semi`、`quote-props`、`vue/html-quotes`（HTML 属性引号恒为 double）保持预设默认。`quotes` 不注入 `allowTemplateLiterals`。
+
+_Avoid_: 风格预设（那是外部包的做法，本包在装配阶段直接编译为规则）

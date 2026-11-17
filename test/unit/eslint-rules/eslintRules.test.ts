@@ -3,6 +3,8 @@ import { Linter } from "eslint";
 import { builtinRules } from "eslint/use-at-your-own-risk";
 import pawover, { GLOB_EXCLUDE, GLOB_TYPESCRIPT } from "@pawover/kit/eslint-rules";
 import type { ConfigNames, PawoverOptions } from "@pawover/kit/eslint-rules";
+import stylisticCoreRules from "../../../packages/eslint-rules/src/core.stylistic.ts";
+import vueCoreRules from "../../../packages/eslint-rules/src/core.vue.ts";
 import {
   getReactHooksPresetRules,
   normalizeRuleLevel,
@@ -11,6 +13,11 @@ import {
   REACT_COMPILER_RULE_MAP,
   REACT_HOOKS_CORE_RULES,
 } from "../../../packages/eslint-rules/src/reactCompiler.ts";
+
+/** `core.stylistic.ts` 现状规则映射（默认值守卫基准）。 */
+const STYLISTIC_DEFAULTS = stylisticCoreRules as Record<string, unknown>;
+/** `core.vue.ts` 现状规则映射（默认值守卫基准）。 */
+const VUE_DEFAULTS = vueCoreRules as Record<string, unknown>;
 
 const ALL_OPTIONS: PawoverOptions = {
   typescript: true,
@@ -207,6 +214,108 @@ describe("typescript parser", () => {
 
     expect(vueLayer?.languageOptions?.parserOptions).toEqual({});
   });
+
+  it("should forward the vue extension through both typescript parser layers when vue is enabled", async () => {
+    const configs = await resolvePreset({ typescript: true, vue: true });
+    const parserOptions = findLayer(configs, "pawover/typescript/parser")?.languageOptions?.parserOptions;
+    const vueParserOptions = findLayer(configs, "pawover/vue/parser")?.languageOptions?.parserOptions;
+
+    expect(parserOptions).toMatchObject({ extraFileExtensions: [".vue"] });
+    expect(vueParserOptions).toMatchObject({ extraFileExtensions: [".vue"] });
+  });
+
+  it("should not add extraFileExtensions when vue is disabled", async () => {
+    const configs = await resolvePreset({ typescript: true });
+    const parserLayer = findLayer(configs, "pawover/typescript/parser");
+
+    expect(parserLayer?.languageOptions?.parserOptions).not.toHaveProperty("extraFileExtensions");
+  });
+
+  it("should keep user extraFileExtensions untouched when vue is disabled", async () => {
+    const emptyConfigs = await resolvePreset({ typescript: { parserOptions: { extraFileExtensions: [] } } });
+    // 非字符串项与重复项原样保留：预设不做运行时过滤或去重
+    const userConfigs = await resolvePreset({
+      typescript: { parserOptions: { extraFileExtensions: [".md", 42, ".md"] } },
+    });
+
+    expect(findLayer(emptyConfigs, "pawover/typescript/parser")?.languageOptions?.parserOptions).toEqual({
+      projectService: true,
+      extraFileExtensions: [],
+    });
+    expect(findLayer(userConfigs, "pawover/typescript/parser")?.languageOptions?.parserOptions).toEqual({
+      projectService: true,
+      extraFileExtensions: [".md", 42, ".md"],
+    });
+  });
+
+  it("should append the vue extension after user extraFileExtensions", async () => {
+    const configs = await resolvePreset({
+      typescript: { parserOptions: { extraFileExtensions: [".md"] } },
+      vue: true,
+    });
+    const parserLayer = findLayer(configs, "pawover/typescript/parser");
+
+    expect(parserLayer?.languageOptions?.parserOptions).toMatchObject({
+      extraFileExtensions: [".md", ".vue"],
+    });
+  });
+
+  it("should keep user extraFileExtensions casing and append the vue extension verbatim", async () => {
+    const configs = await resolvePreset({
+      typescript: { parserOptions: { extraFileExtensions: [".Vue"] } },
+      vue: true,
+    });
+    const parserLayer = findLayer(configs, "pawover/typescript/parser");
+
+    // 严格相等：预设不做大小写归一，用户项原样保留、预设项原样追加
+    expect(parserLayer?.languageOptions?.parserOptions).toMatchObject({
+      extraFileExtensions: [".Vue", ".vue"],
+    });
+  });
+
+  it("should keep user extraFileExtensions order and dedupe the vue extension", async () => {
+    const configs = await resolvePreset({
+      typescript: { parserOptions: { extraFileExtensions: [".vue", ".md"] } },
+      vue: true,
+    });
+    const parserLayer = findLayer(configs, "pawover/typescript/parser");
+
+    expect(parserLayer?.languageOptions?.parserOptions).toMatchObject({
+      extraFileExtensions: [".vue", ".md"],
+    });
+  });
+});
+
+describe("vue processor", () => {
+  it("should attach the vue processor to the vue parser layer", async () => {
+    const configs = await resolvePreset({ vue: true });
+    const vueLayer = findLayer(configs, "pawover/vue/parser");
+
+    expect(vueLayer?.processor).toBe("vue/vue");
+  });
+
+  it("should not leak comment-directive clear messages when linting vue files", async () => {
+    const linter = new Linter({ configType: "flat" });
+    const configs = (await resolvePreset({ vue: true })).filter((config) => !config.ignores);
+    const messages = linter.verify("<template><div /></template>\n", configs, { filename: "App.vue" });
+
+    expect(messages.filter((message) => message.ruleId === "vue/comment-directive")).toEqual([]);
+  });
+
+  it("should honor eslint-disable-next-line comments inside vue templates", async () => {
+    const linter = new Linter({ configType: "flat" });
+    const directive = "  <!-- eslint-disable-next-line vue/no-v-html -->\n";
+    const source = `<template>\n${directive}  <div v-html="html" />\n</template>\n`;
+    const configs: Linter.Config[] = [
+      ...(await resolvePreset({ vue: true })).filter((config) => !config.ignores),
+      { rules: { "vue/no-v-html": "error" } },
+    ];
+    const disabledMessages = linter.verify(source, configs, { filename: "App.vue" });
+    const plainMessages = linter.verify(source.replace(directive, ""), configs, { filename: "App.vue" });
+
+    expect(disabledMessages.map((message) => message.ruleId)).not.toContain("vue/no-v-html");
+    expect(plainMessages.map((message) => message.ruleId)).toContain("vue/no-v-html");
+  });
 });
 
 describe("layer composition", () => {
@@ -380,6 +489,182 @@ describe("group overrides", () => {
 
     expect(configs.at(-1)?.ignores).toContain("dist/**");
     expect(configs[0]?.ignores).toContain("**/node_modules");
+  });
+});
+
+describe("stylistic shortcuts", () => {
+  const shortcutRuleIds = [
+    "stylistic/quotes",
+    "stylistic/jsx-quotes",
+    "stylistic/semi",
+    "stylistic/member-delimiter-style",
+  ] as const;
+
+  it("should not add any stylistic override when shortcuts are omitted", async () => {
+    for (const stylistic of [true, {}]) {
+      const layer = findLayer(await resolvePreset({ stylistic }), "pawover/stylistic/rules");
+
+      // 整表全等：快捷项未传时装配结果必须与 core.stylistic.ts 逐条一致
+      expect(layer?.rules).toEqual(STYLISTIC_DEFAULTS);
+      for (const ruleId of shortcutRuleIds) {
+        expect(layer?.rules?.[ruleId], ruleId).toEqual(STYLISTIC_DEFAULTS[ruleId]);
+      }
+    }
+
+    expect(findLayer(await resolvePreset(), "pawover/stylistic/rules")).toBeUndefined();
+  });
+
+  it("should switch quotes and jsx quotes together for quotes: single", async () => {
+    const rules = findLayer(await resolvePreset({ stylistic: { quotes: "single" } }), "pawover/stylistic/rules")?.rules;
+
+    expect(rules?.["stylistic/quotes"]).toEqual([2, "single"]);
+    expect(rules?.["stylistic/jsx-quotes"]).toEqual([2, "prefer-single"]);
+    // 未传的快捷项不产生覆写
+    expect(rules?.["stylistic/semi"]).toBe(STYLISTIC_DEFAULTS["stylistic/semi"]);
+    expect(rules?.["stylistic/member-delimiter-style"]).toBe(STYLISTIC_DEFAULTS["stylistic/member-delimiter-style"]);
+  });
+
+  it("should switch quotes and jsx quotes together for quotes: double", async () => {
+    const rules = findLayer(await resolvePreset({ stylistic: { quotes: "double" } }), "pawover/stylistic/rules")?.rules;
+
+    expect(rules?.["stylistic/quotes"]).toEqual([2, "double"]);
+    expect(rules?.["stylistic/jsx-quotes"]).toEqual([2, "prefer-double"]);
+  });
+
+  it("should link member-delimiter-style to semi: false", async () => {
+    const rules = findLayer(await resolvePreset({ stylistic: { semi: false } }), "pawover/stylistic/rules")?.rules;
+
+    expect(rules?.["stylistic/semi"]).toEqual([2, "never"]);
+    expect(rules?.["stylistic/member-delimiter-style"]).toEqual([
+      2,
+      {
+        multiline: { delimiter: "none", requireLast: false },
+        singleline: { delimiter: "comma" },
+        multilineDetection: "brackets",
+      },
+    ]);
+    // 明确不联动这些规则
+    expect(rules?.["stylistic/semi-spacing"]).toBe(STYLISTIC_DEFAULTS["stylistic/semi-spacing"]);
+    expect(rules?.["stylistic/semi-style"]).toBe(STYLISTIC_DEFAULTS["stylistic/semi-style"]);
+    expect(rules?.["stylistic/no-extra-semi"]).toBe(STYLISTIC_DEFAULTS["stylistic/no-extra-semi"]);
+    expect(rules?.["stylistic/quote-props"]).toEqual(STYLISTIC_DEFAULTS["stylistic/quote-props"]);
+  });
+
+  it("should not link quotes to vue/html-quotes", async () => {
+    const configs = await resolvePreset({ stylistic: { quotes: "single" }, vue: true });
+    const stylisticRules = findLayer(configs, "pawover/stylistic/rules")?.rules;
+    const vueRules = findLayer(configs, "pawover/vue/rules")?.rules;
+
+    // 快捷项只编译 stylistic 自有规则，不产生 vue 规则覆写
+    expect(stylisticRules).not.toHaveProperty("vue/html-quotes");
+    // vue 组维持预设的 HTML 属性引号（恒为 double）
+    expect(vueRules?.["vue/html-quotes"]).toEqual(VUE_DEFAULTS["vue/html-quotes"]);
+  });
+
+  it("should keep member-delimiter-style default for semi: true", async () => {
+    const rules = findLayer(await resolvePreset({ stylistic: { semi: true } }), "pawover/stylistic/rules")?.rules;
+
+    expect(rules?.["stylistic/semi"]).toEqual([2, "always"]);
+    expect(rules?.["stylistic/member-delimiter-style"]).toEqual(STYLISTIC_DEFAULTS["stylistic/member-delimiter-style"]);
+  });
+
+  it("should let stylistic overrides win over shortcuts", async () => {
+    const rules = findLayer(await resolvePreset({
+      stylistic: {
+        quotes: "single",
+        overrides: { "stylistic/quotes": [2, "double"] },
+      },
+    }), "pawover/stylistic/rules")?.rules;
+
+    expect(rules?.["stylistic/quotes"]).toEqual([2, "double"]);
+    // 未被 overrides 覆盖的联动项仍按快捷项生效
+    expect(rules?.["stylistic/jsx-quotes"]).toEqual([2, "prefer-single"]);
+  });
+});
+
+describe("vue naming shortcuts", () => {
+  const namingRuleIds = [
+    "vue/component-name-in-template-casing",
+    "vue/attribute-hyphenation",
+    "vue/v-on-event-hyphenation",
+  ] as const;
+
+  it("should not add any naming override when shortcuts are omitted", async () => {
+    const layer = findLayer(await resolvePreset({ vue: {} }), "pawover/vue/rules");
+
+    // 整表全等：命名快捷项未传时装配结果必须与 core.vue.ts 逐条一致
+    expect(layer?.rules).toEqual(VUE_DEFAULTS);
+    for (const ruleId of namingRuleIds) {
+      expect(layer?.rules?.[ruleId], ruleId).toEqual(VUE_DEFAULTS[ruleId]);
+    }
+  });
+
+  it("should keep the boolean vue: true path untouched", async () => {
+    const rules = findLayer(await resolvePreset({ vue: true }), "pawover/vue/rules")?.rules;
+
+    expect(rules).toEqual(VUE_DEFAULTS);
+    for (const ruleId of namingRuleIds) {
+      expect(rules?.[ruleId], ruleId).toEqual(VUE_DEFAULTS[ruleId]);
+    }
+  });
+
+  it("should switch all three naming rules for naming: kebab-case", async () => {
+    const rules = findLayer(await resolvePreset({ vue: { naming: "kebab-case" } }), "pawover/vue/rules")?.rules;
+
+    expect(rules?.["vue/component-name-in-template-casing"]).toEqual([
+      2,
+      "kebab-case",
+      { registeredComponentsOnly: false },
+    ]);
+    expect(rules?.["vue/attribute-hyphenation"]).toEqual([2, "always", { ignore: [] }]);
+    expect(rules?.["vue/v-on-event-hyphenation"]).toEqual([2, "always", { autofix: true }]);
+  });
+
+  it("should only switch the matching rule for a single templateNaming shortcut", async () => {
+    const rules = findLayer(await resolvePreset({ vue: { templateNaming: "kebab-case" } }), "pawover/vue/rules")?.rules;
+
+    expect(rules?.["vue/component-name-in-template-casing"]).toEqual([
+      2,
+      "kebab-case",
+      { registeredComponentsOnly: false },
+    ]);
+    // 未传的单项保持预设默认值：不得回退到未传的 naming 而联动其他规则
+    expect(rules?.["vue/attribute-hyphenation"]).toEqual(VUE_DEFAULTS["vue/attribute-hyphenation"]);
+    expect(rules?.["vue/v-on-event-hyphenation"]).toEqual(VUE_DEFAULTS["vue/v-on-event-hyphenation"]);
+  });
+
+  it("should let single naming shortcuts win over the global naming switch", async () => {
+    const rules = findLayer(await resolvePreset({
+      vue: {
+        naming: "kebab-case",
+        templateNaming: "PascalCase",
+      },
+    }), "pawover/vue/rules")?.rules;
+
+    expect(rules?.["vue/component-name-in-template-casing"]).toEqual([
+      2,
+      "PascalCase",
+      { registeredComponentsOnly: false },
+    ]);
+    expect(rules?.["vue/attribute-hyphenation"]).toEqual([2, "always", { ignore: [] }]);
+    expect(rules?.["vue/v-on-event-hyphenation"]).toEqual([2, "always", { autofix: true }]);
+  });
+
+  it("should let vue overrides win over naming shortcuts", async () => {
+    const rules = findLayer(await resolvePreset({
+      vue: {
+        naming: "camelCase",
+        overrides: { "vue/attribute-hyphenation": "off" },
+      },
+    }), "pawover/vue/rules")?.rules;
+
+    expect(rules?.["vue/attribute-hyphenation"]).toBe("off");
+    expect(rules?.["vue/component-name-in-template-casing"]).toEqual([
+      2,
+      "camelCase",
+      { registeredComponentsOnly: false },
+    ]);
+    expect(rules?.["vue/v-on-event-hyphenation"]).toEqual([2, "never", { autofix: true }]);
   });
 });
 

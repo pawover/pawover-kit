@@ -1,6 +1,6 @@
 # ESLint 配置实战
 
-`@pawover/kit-eslint-rules` 是**自包含**的 flat config 预设：全部上游插件已作为包依赖精确锁定并自动注册，只需安装本包，无需手动安装或注册插件。
+`@pawover/kit-eslint-rules` 是**自包含**的 flat config 预设：全部上游插件已作为包依赖精确锁定并自动注册，同时依赖同仓库的 `@pawover/kit-utils` 作为装配期共享工具；只需安装本包，无需手动安装或注册插件。
 
 预设工厂返回 [`eslint-flat-config-utils`](https://github.com/antfu/eslint-flat-config-utils) 的 `FlatConfigComposer`（继承 Promise），可以直接作为 `eslint.config.js` 的默认导出，也可以继续链式组合。
 
@@ -15,15 +15,15 @@ export default pawover();
 
 默认返回三层：全局忽略（`GLOB_EXCLUDE`）、`javascript` parser 层与 `javascript` 规则层。其余规则组通过选项显式开启：
 
-| 选项          | 启用内容                                                         | 适用文件                                     |
-| :------------ | :--------------------------------------------------------------- | :------------------------------------------- |
-| `typescript`  | `typescript` 规则组 + TypeScript parser（默认 `projectService`） | `**/*.{ts,tsx}`（开启 `vue` 时并入 `*.vue`） |
-| `stylistic`   | `stylistic` 规则组                                               | 全部源文件                                   |
-| `antfu`       | `antfu` 规则组                                                   | 全部源文件                                   |
-| `imports`     | `imports` 规则组（eslint-plugin-import-lite）                    | 全部源文件                                   |
-| `importsSort` | `importsSort` 规则组（eslint-plugin-simple-import-sort）         | 全部源文件                                   |
+| 选项          | 启用内容                                                               | 适用文件                                     |
+| :------------ | :--------------------------------------------------------------------- | :------------------------------------------- |
+| `typescript`  | `typescript` 规则组 + TypeScript parser（默认 `projectService`）       | `**/*.{ts,tsx}`（开启 `vue` 时并入 `*.vue`） |
+| `stylistic`   | `stylistic` 规则组                                                     | 全部源文件                                   |
+| `antfu`       | `antfu` 规则组                                                         | 全部源文件                                   |
+| `imports`     | `imports` 规则组（eslint-plugin-import-lite）                          | 全部源文件                                   |
+| `importsSort` | `importsSort` 规则组（eslint-plugin-simple-import-sort）               | 全部源文件                                   |
 | `react`       | `react` + `react-hooks` 两个插件与规则组（默认开启 Compiler 规则切换） | `**/*.{js,cjs,mjs,jsx,ts,tsx}`               |
-| `vue`         | `vue` 规则组 + vue-eslint-parser                                 | `**/*.vue`                                   |
+| `vue`         | `vue` 规则组 + vue-eslint-parser                                       | `**/*.vue`                                   |
 
 ## TypeScript 项目
 
@@ -87,12 +87,15 @@ export default pawover({ antfu: true });
 export default pawover({ antfu: true }).append({
   files: ["**/*.type.ts", "**/*.test.ts"],
   rules: {
-    "antfu/reasonable-newline": [2, {
-      minObjectProperties: 4,
-      objectLineLength: 240,
-      minArrayItems: 4,
-      arrayLineLength: 240,
-    }],
+    "antfu/reasonable-newline": [
+      2,
+      {
+        minObjectProperties: 4,
+        objectLineLength: 240,
+        minArrayItems: 4,
+        arrayLineLength: 240,
+      },
+    ],
   },
 });
 ```
@@ -109,13 +112,45 @@ export default pawover({ antfu: true }).append({
 export default pawover({
   typescript: {
     overrides: {
-      "ts/strict-void-return": [1, { allowReturnAny: true }],
+      "ts/consistent-type-definitions": ["error", "interface"],
     },
   },
   react: {
     overrides: {
       "react/no-implicit-key": "warn",
     },
+  },
+});
+```
+
+### 风格快捷开关
+
+`stylistic` 组提供 `quotes` / `semi` 两个常用风格快捷项，`vue` 组提供 `naming` / `templateNaming` / `attributeNaming` / `eventNaming` 命名快捷项——它们在装配阶段被编译为对应的规则覆写，省去手写规则元组：
+
+```ts
+export default pawover({
+  stylistic: { quotes: "single", semi: false },
+  vue: { naming: "kebab-case" },
+});
+```
+
+- `stylistic.quotes` 同时切换 `stylistic/quotes` 与 `stylistic/jsx-quotes`（`"single"` → `prefer-single`，`"double"` → `prefer-double`），不注入 `allowTemplateLiterals`。
+- `stylistic.semi: false` 除关闭 `stylistic/semi` 外，还会联动 `stylistic/member-delimiter-style`（多行 `delimiter: "none"` + `requireLast: false`、单行 `delimiter: "comma"`）。
+- `vue.naming` 一次设定模板标签 / 属性 / 事件三条规则；`templateNaming` / `attributeNaming` / `eventNaming` 可单独覆盖某一项。
+
+优先级（高到低）：`overrides` > 单项 > 总开关 > 预设默认值。显式不联动：`stylistic/semi-spacing`、`semi-style`、`no-extra-semi`、`quote-props`、`vue/html-quotes`（HTML 属性引号恒为 double）。
+
+快捷项也可与 `{ overrides }` 共存——同一规则在两边都出现时，`overrides` 优先：
+
+```ts
+export default pawover({
+  stylistic: {
+    quotes: "single",
+    overrides: { "stylistic/quotes": 0 }, // 最终关闭 stylistic/quotes
+  },
+  vue: {
+    naming: "kebab-case",
+    templateNaming: "PascalCase", // 单项优先于 naming
   },
 });
 ```
@@ -140,10 +175,7 @@ export default pawover({
 工厂第二个参数起是任意 flat config（单个对象、数组、composer 或 Promise）：
 
 ```ts
-export default pawover(
-  { typescript: true },
-  { rules: { "no-console": "error" } },
-);
+export default pawover({ typescript: true }, { rules: { "no-console": "error" } });
 ```
 
 ### 按层名称覆盖
@@ -151,12 +183,11 @@ export default pawover(
 每层配置都有唯一 `name`（`pawover/<规则组>/<setup|parser|rules|type-aware>`，组名使用 kebab-case，如 `importsSort` → `imports-sort`；全局忽略层为 `pawover/ignores`），可用 composer 的 `override` 精确定位：
 
 ```ts
-export default pawover({ typescript: true })
-  .override("pawover/typescript/rules", {
-    rules: {
-      "ts/consistent-type-definitions": ["error", "interface"],
-    },
-  });
+export default pawover({ typescript: true }).override("pawover/typescript/rules", {
+  rules: {
+    "ts/consistent-type-definitions": ["error", "interface"],
+  },
+});
 ```
 
 ### 插件注册机制
@@ -188,13 +219,7 @@ export default pawover(
 命名导出供手工组装配置或后置覆盖使用：
 
 ```ts
-import {
-  GLOB_EXCLUDE,
-  GLOB_JSX,
-  GLOB_SOURCE,
-  GLOB_TYPESCRIPT,
-  GLOB_VUE,
-} from "@pawover/kit-eslint-rules";
+import { GLOB_EXCLUDE, GLOB_JSX, GLOB_SOURCE, GLOB_TYPESCRIPT, GLOB_VUE } from "@pawover/kit-eslint-rules";
 ```
 
 `GLOB_EXCLUDE` 覆盖依赖目录、构建产物、锁文件、编辑器目录、缓存、自动生成文件等（`node_modules`、`dist`、`pnpm-lock.yaml`、`.changeset`、`.vitepress/cache`、`auto-imports.d.ts`…）。
