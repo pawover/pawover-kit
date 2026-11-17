@@ -1339,23 +1339,26 @@ const rules = {
 
   // Extension Rules
   /**
-   * @desc 要求模板中数组字面量开闭括号遵循换行规则
+   * @desc 要求模板中数组字面量开闭括号遵循换行规则（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce linebreaks after opening and before closing array brackets in `<template>`
    * @see https://eslint.vuejs.org/rules/array-bracket-newline.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/array-bracket-newline": [2, "consistent"],
+  "vue/array-bracket-newline": 0,
   /**
-   * @desc 要求模板中数组括号内空格一致
+   * @desc 要求模板中数组括号内空格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce consistent spacing inside array brackets in `<template>`
    * @see https://eslint.vuejs.org/rules/array-bracket-spacing.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/array-bracket-spacing": 2,
+  "vue/array-bracket-spacing": 0,
   /**
-   * @desc 要求模板中数组元素逐个换行
+   * @desc 要求模板中数组元素逐个换行（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce line breaks after each array element in `<template>`
    * @see https://eslint.vuejs.org/rules/array-element-newline.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/array-element-newline": [2, "consistent"],
+  "vue/array-element-newline": 0,
   /**
    * @desc 要求模板中箭头函数箭头前后空格一致
    * @descEN Enforce consistent spacing before and after the arrow in arrow functions in `<template>`
@@ -1518,26 +1521,26 @@ const rules = {
    */
   "vue/no-useless-concat": 0,
   /**
-   * @desc 要求模板中对象花括号内换行风格一致
+   * @desc 要求模板中对象花括号内换行风格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce consistent line breaks after opening and before closing braces in `<template>`
    * @see https://eslint.vuejs.org/rules/object-curly-newline.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/object-curly-newline": 2,
+  "vue/object-curly-newline": 0,
   /**
-   * @desc 要求模板中对象花括号内空格一致
+   * @desc 要求模板中对象花括号内空格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce consistent spacing inside braces in `<template>`
    * @see https://eslint.vuejs.org/rules/object-curly-spacing.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/object-curly-spacing": [2, "always"],
+  "vue/object-curly-spacing": 0,
   /**
-   * @desc 要求模板中对象属性逐个换行
+   * @desc 要求模板中对象属性逐个换行（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
    * @descEN Enforce placing object properties on separate lines in `<template>`
    * @see https://eslint.vuejs.org/rules/object-property-newline.html
+   * @see https://eslint.style/rules/list-style
    */
-  "vue/object-property-newline": [
-    2,
-    { allowAllPropertiesOnSameLine: true },
-  ],
+  "vue/object-property-newline": 0,
   /**
    * @desc 要求模板中使用对象简写语法
    * @descEN Require or disallow method and property shorthand syntax for object literals in `<template>`

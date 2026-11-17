@@ -668,6 +668,26 @@ describe("vue naming shortcuts", () => {
   });
 });
 
+describe("vue deprecated stylistic bridge rules", () => {
+  const deprecatedBridgeRuleIds = [
+    "vue/array-bracket-newline",
+    "vue/array-bracket-spacing",
+    "vue/array-element-newline",
+    "vue/object-curly-newline",
+    "vue/object-curly-spacing",
+    "vue/object-property-newline",
+  ] as const;
+
+  it("should disable rules that upstream merged into stylistic/list-style", async () => {
+    const rules = findLayer(await resolvePreset({ vue: true }), "pawover/vue/rules")?.rules;
+
+    // 上游复用 @stylistic 实现会触发运行时弃用告警，默认必须为 0 且不带配置对象
+    for (const ruleId of deprecatedBridgeRuleIds) {
+      expect(rules?.[ruleId], ruleId).toBe(0);
+    }
+  });
+});
+
 describe("reasonable-newline", () => {
   it("should align the default line length with Prettier printWidth", async () => {
     const configs = await resolvePreset({ antfu: true });

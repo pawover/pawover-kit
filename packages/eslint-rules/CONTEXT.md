@@ -79,3 +79,13 @@ _Avoid_: 强制 Prettier 化（本规则只拆行、不合并行）
 **显式不联动清单**：`semi: false` 只改 `stylistic/semi` 与 `stylistic/member-delimiter-style`；`stylistic/semi-spacing`、`semi-style`、`no-extra-semi`、`quote-props`、`vue/html-quotes`（HTML 属性引号恒为 double）保持预设默认。`quotes` 不注入 `allowTemplateLiterals`。
 
 _Avoid_: 风格预设（那是外部包的做法，本包在装配阶段直接编译为规则）
+
+#### 弃用桥接规则关闭（Deprecated Bridge Rule Off）
+
+`vue` 组默认关闭 6 条已被上游弃用、实现合并进 `stylistic/list-style` 的桥接规则（`vue/array-bracket-newline`、`vue/array-bracket-spacing`、`vue/array-element-newline`、`vue/object-curly-newline`、`vue/object-curly-spacing`、`vue/object-property-newline`）。规则映射保留条目、严重级别置为 `0`，以消除消费端 lint `.vue` 时来自 @stylistic 的运行时弃用告警（开箱零告警，不提供开关）。
+
+**损失**：模板插值 `{{ ... }}` 与指令值（如 `:prop="{...}"`）内的数组/对象括号间距、括号换行、元素/属性换行不再检查；`<script>` 块不受影响，仍由 `stylistic` 组覆盖。
+
+**消费端自救**：需要保留这些检查时，用规则组覆盖恢复，例如 `vue: { overrides: { "vue/object-curly-spacing": [2, "always"] } }`；或改用 Prettier 格式化 `.vue`。恢复后 @stylistic 的运行时弃用告警会重新出现。
+
+_Avoid_: 运行时过滤（本包在映射层定值，不做告警屏蔽）
