@@ -688,6 +688,31 @@ describe("vue deprecated stylistic bridge rules", () => {
   });
 });
 
+describe("vue severity tuning and stylistic alignment", () => {
+  it("should soften rules that cannot be assumed for every consumer", async () => {
+    const rules = findLayer(await resolvePreset({ vue: true }), "pawover/vue/rules")?.rules;
+
+    // `useTemplateRef` 是 Vue 3.5+ API，预设不假设消费端版本，降为警告提醒迁移
+    expect(rules?.["vue/prefer-use-template-ref"]).toBe(1);
+    // 要求所有 slot 显式声明对透传类组件偏严格（且仅对 lang="ts" 的 script 生效）
+    expect(rules?.["vue/require-explicit-slots"]).toBe(1);
+    // ref(null) 哨兵值在 .ts 工具文件中会误报
+    expect(rules?.["vue/require-typed-ref"]).toBe(0);
+  });
+
+  it("should align the template operator style with the stylistic group", async () => {
+    const rules = findLayer(await resolvePreset({ vue: true }), "pawover/vue/rules")?.rules;
+
+    // 运算符置于行首，与 stylistic/operator-linebreak 方向一致；三元表达式保留宽赦
+    expect(rules?.["vue/operator-linebreak"]).toEqual([2, "before", { overrides: { "?": "ignore", ":": "ignore" } }]);
+    // 与 stylistic/no-multi-spaces 同向：均为不带 exceptions 的严格模式
+    expect(rules?.["vue/no-multi-spaces"]).toBe(2);
+    // 刻意不一致：模板侧保留逗号位置检查，script 侧维持宽松选择
+    expect(rules?.["vue/comma-style"]).toBe(2);
+    expect(STYLISTIC_DEFAULTS["stylistic/comma-style"]).toBe(0);
+  });
+});
+
 describe("reasonable-newline", () => {
   it("should align the default line length with Prettier printWidth", async () => {
     const configs = await resolvePreset({ antfu: true });

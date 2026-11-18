@@ -1214,7 +1214,7 @@ const rules = {
    * @descEN require using `useTemplateRef` instead of `ref`/`shallowRef` for template refs
    * @see https://eslint.vuejs.org/rules/prefer-use-template-ref.html
    */
-  "vue/prefer-use-template-ref": 2,
+  "vue/prefer-use-template-ref": 1,
   /**
    * @desc 要求使用 v-model 而非 :prop / @update:prop 组合
    * @descEN enforce using `v-model` instead of `:prop`/`@update:prop` pair
@@ -1244,7 +1244,7 @@ const rules = {
    * @descEN require slots to be explicitly defined
    * @see https://eslint.vuejs.org/rules/require-explicit-slots.html
    */
-  "vue/require-explicit-slots": 2,
+  "vue/require-explicit-slots": 1,
   /**
    * @desc 要求使用 expose 显式声明公开属性
    * @descEN require declare public properties using `expose`
@@ -1283,7 +1283,7 @@ const rules = {
    * @descEN require `ref` and `shallowRef` functions to be strongly typed
    * @see https://eslint.vuejs.org/rules/require-typed-ref.html
    */
-  "vue/require-typed-ref": 2,
+  "vue/require-typed-ref": 0,
   /**
    * @desc 限制只能使用指定组件名
    * @descEN enforce using only specific component names
@@ -1339,21 +1339,21 @@ const rules = {
 
   // Extension Rules
   /**
-   * @desc 要求模板中数组字面量开闭括号遵循换行规则（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中数组字面量开闭括号遵循换行规则
    * @descEN Enforce linebreaks after opening and before closing array brackets in `<template>`
    * @see https://eslint.vuejs.org/rules/array-bracket-newline.html
    * @see https://eslint.style/rules/list-style
    */
   "vue/array-bracket-newline": 0,
   /**
-   * @desc 要求模板中数组括号内空格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中数组括号内空格一致
    * @descEN Enforce consistent spacing inside array brackets in `<template>`
    * @see https://eslint.vuejs.org/rules/array-bracket-spacing.html
    * @see https://eslint.style/rules/list-style
    */
   "vue/array-bracket-spacing": 0,
   /**
-   * @desc 要求模板中数组元素逐个换行（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中数组元素逐个换行
    * @descEN Enforce line breaks after each array element in `<template>`
    * @see https://eslint.vuejs.org/rules/array-element-newline.html
    * @see https://eslint.style/rules/list-style
@@ -1521,21 +1521,21 @@ const rules = {
    */
   "vue/no-useless-concat": 0,
   /**
-   * @desc 要求模板中对象花括号内换行风格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中对象花括号内换行风格一致
    * @descEN Enforce consistent line breaks after opening and before closing braces in `<template>`
    * @see https://eslint.vuejs.org/rules/object-curly-newline.html
    * @see https://eslint.style/rules/list-style
    */
   "vue/object-curly-newline": 0,
   /**
-   * @desc 要求模板中对象花括号内空格一致（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中对象花括号内空格一致
    * @descEN Enforce consistent spacing inside braces in `<template>`
    * @see https://eslint.vuejs.org/rules/object-curly-spacing.html
    * @see https://eslint.style/rules/list-style
    */
   "vue/object-curly-spacing": 0,
   /**
-   * @desc 要求模板中对象属性逐个换行（上游已弃用，已并入 stylistic/list-style；模板内无替代规则，默认关闭）
+   * @desc 要求模板中对象属性逐个换行
    * @descEN Enforce placing object properties on separate lines in `<template>`
    * @see https://eslint.vuejs.org/rules/object-property-newline.html
    * @see https://eslint.style/rules/list-style
@@ -1554,9 +1554,9 @@ const rules = {
    */
   "vue/operator-linebreak": [
     2,
-    "after",
+    "before",
     {
-      overrides: { "?": "ignore", ":": "ignore", "|": "before" },
+      overrides: { "?": "ignore", ":": "ignore" },
     },
   ],
   /**
