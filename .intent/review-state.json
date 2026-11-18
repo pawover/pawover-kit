@@ -3,7 +3,7 @@
   "baseline": "948686cbd56793d76e9585d18b4c63fe33073070",
   "items": {
     "skill:packages/eslint-rules/skills/eslint-preset/SKILL.md": {
-      "fingerprint": "7086dca8355fb046c743daac9d744de9c600e76c22222fe94d73f848d5a14484",
+      "fingerprint": "a9adefd9b3ff280da0051c9a058c9219d9a2746b7e0097378f48831c364cc4bf",
       "snapshot": {
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
@@ -12,19 +12,19 @@
         "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
         "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
         "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
-        "packages/eslint-rules/src/core.vue.ts": "ee740bdbdf93a72f208b65098b234ae96e219b0961b56e3828947dacc732db47",
+        "packages/eslint-rules/src/core.vue.ts": "652a26a82b16189c34df4d76cabdd132d4045314262d614c3db10b37e4617d5b",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
         "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
         "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "updated",
-      "reason": "Updated frontmatter description/purpose to mention style quick switches; removed duplicate Use style quick switches body section; added .Vue/.vue strict-equality note to references/options.md.",
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "src/core.vue.ts changed only per-rule defaults: six @stylistic-deprecated bridge rules set to 0, prefer-use-template-ref/require-explicit-slots lowered to warn, require-typed-ref turned off, and operator-linebreak switched from after to before. The skill documents the configuration surface (groups, generated layer names, override precedence, vue processor/extraFileExtensions, style shortcuts) and never names these rules or their severities; references/options.md has no rule-level severity claims either. No documented statement became wrong.",
       "evidence": [
-        "Changed: packages/eslint-rules/skills/eslint-preset/SKILL.md frontmatter + duplicate section removal",
-        "Source ground: packages/eslint-rules/src/config.ts (resolveStylisticShortcuts, resolveVueNamingShortcuts, mergeGroupOverrides, mergeExtraFileExtensions)",
-        "Test lock: test/unit/eslint-rules/eslintRules.test.ts (72 tests green)"
+        "Changed: packages/eslint-rules/src/core.vue.ts at 641da3c",
+        "grep of SKILL.md and references/options.md: no mention of operator-linebreak, prefer-use-template-ref, require-explicit-slots, require-typed-ref, or the six bridge rules",
+        "test/unit/eslint-rules/eslintRules.test.ts:673-707 asserts the 0 defaults and the new severities/overrides"
       ]
     },
     "skill:packages/hooks/skills/alova-hooks/SKILL.md": {
@@ -127,31 +127,29 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "e084db9f325375987d1b309566fa0f8a1c3806e98298e735dcc5a4c52da7e32d",
+      "fingerprint": "99eda108d38eabdeb4eeda60c9608490c60552d5bf58cdb8e94008f6439bed0d",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
+        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
       "outcome": "no-change",
-      "reason": "Only package.json changed (version bump); no guidance in skills/kit/SKILL.md is affected.",
-      "evidence": [
-        "package.json version bump only; skills/kit/SKILL.md unchanged at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
+      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
     },
     "planning:_artifacts": {
-      "fingerprint": "a916d52b1d151fc9402905129a79293b5d26d7f3069f7c212796b90fc92a28d7",
+      "fingerprint": "9ea7f232cd26c956f1fe439bdc4e37b9c69dc4dd5ea50318ca69da2abee12d57",
       "snapshot": {
         "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
         "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
-        "_artifacts/skill_tree.yaml": "9c8731e8ed2c92be378c8ac01911fe00113f919af1f82ec5e4e2c3f07f0b54d2",
+        "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "5b1401bfdf092855bd724a87cd3eae53261ab82d1fccd5efeaee05261f2ed9f9",
+        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
         "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
@@ -159,7 +157,7 @@
         "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
         "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
         "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
-        "packages/eslint-rules/src/core.vue.ts": "ee740bdbdf93a72f208b65098b234ae96e219b0961b56e3828947dacc732db47",
+        "packages/eslint-rules/src/core.vue.ts": "652a26a82b16189c34df4d76cabdd132d4045314262d614c3db10b37e4617d5b",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
         "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
@@ -214,13 +212,10 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "updated",
-      "reason": "skill_tree.yaml re-synchronized from updated SKILL.md frontmatter; _artifacts already reflect style-quick-switch coverage.",
-      "evidence": [
-        "Changed: _artifacts/skill_tree.yaml via intent maintainer sync",
-        "Source ground: packages/eslint-rules/src/config.ts"
-      ]
+      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "outcome": "no-change",
+      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
+      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -253,14 +248,17 @@
       "evidence": [".changeset/shiny-vans-wave.md is release metadata"]
     },
     "source:packages/eslint-rules/CHANGELOG.md": {
-      "fingerprint": "6cf94452ed1a4d3c8f0dabfe7fe25e8975bcc2a120ed91f7d5f6c3e3e87810da",
+      "fingerprint": "07a9d1eac10c0e3b29cfd0e36c1a5e7df9b6b6c23da704be3930e0217a1f4f0d",
       "snapshot": {
-        "packages/eslint-rules/CHANGELOG.md": "139dabe16356bac91fd6580ea9581e637d70dc6bc0778bda8089a863914b0c71"
+        "packages/eslint-rules/CHANGELOG.md": "6288f5e71fd76d0a251b2aeae2b025517be7c47ede379746a837aaa08ad90b6f"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
       "outcome": "no-change",
-      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": ["Changed: packages/eslint-rules/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+      "reason": "Generated 0.2.0-alpha.4 section restating the two vue fixes (98ecea7, 641da3c). The changelog is derived release text; durable decisions live in packages/eslint-rules/CONTEXT.md and the skill does not quote changelog entries.",
+      "evidence": [
+        "packages/eslint-rules/CHANGELOG.md 0.2.0-alpha.4 section quotes the same changeset bodies",
+        "no skill or reference derives statements from the changelog"
+      ]
     },
     "source:packages/hooks/CHANGELOG.md": {
       "fingerprint": "c9d9efe825fc2fd970c7ecce92b895a3f9119a8694a32d3b238ddd9ec9e57f52",
@@ -1479,15 +1477,16 @@
       "evidence": ["Changed: site/api/zod/variables/unknown.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:test/unit/eslint-rules/eslintRules.test.ts": {
-      "fingerprint": "30ffe281aa866016e05f282f60b1c0039b3ee1170134ea313d5b83aaf4c5a1f0",
+      "fingerprint": "cf3d283b68ade104c28564bfae6e293e9b367d8a4d96424c41531fe98a8a7b6b",
       "snapshot": {
-        "test/unit/eslint-rules/eslintRules.test.ts": "137248b393baa9242e5541eec7fed008ad39442c34a490b0fae26c350fe4bd00"
+        "test/unit/eslint-rules/eslintRules.test.ts": "6419ea04af99dd03d1488ebd8c786b89a37b445b541da9a99c9857edb4091887"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
       "outcome": "no-change",
-      "reason": "Test source added/updated by the code-side fix agent; it is the executable evidence the skill cites, not guidance that needs updating.",
+      "reason": "The updated test is the executable evidence cited by skill_spec.md, not guidance. It asserts the new severities (prefer-use-template-ref 1, require-explicit-slots 1, require-typed-ref 0), the 0 defaults for the six bridge rules, and the operator-linebreak before/ignore overrides.",
       "evidence": [
-        "test/unit/eslint-rules/eslintRules.test.ts — 72 unit tests green; already referenced by skill_spec.md as existing evidence"
+        "test/unit/eslint-rules/eslintRules.test.ts:673-707 asserts the new defaults",
+        "test/unit/eslint-rules/eslintRules.test.ts is listed as eslint-preset evidence in _artifacts/skill_spec.md"
       ]
     },
     "source:.changeset/bump-eslint-plugins.md": {
@@ -1513,28 +1512,30 @@
       ]
     },
     "source:packages/eslint-rules/CONTEXT.md": {
-      "fingerprint": "478fc8470dc0860bf299a7d08f619a469b5a252249ffd89b006007b16d50d5dc",
+      "fingerprint": "4cf8a5af8743c27e420b9bc82df80f28cc6a08d342fb0717a8a795757c6a3e76",
       "snapshot": {
-        "packages/eslint-rules/CONTEXT.md": "18ff867b5ba45dbb703f4e6edca4860753df2bda63c2b803f0bccc8495aaa6f3"
+        "packages/eslint-rules/CONTEXT.md": "c0922b3e73404a4ff96c727cb206252b763bbebb14a5144662bcf21aabe2ff8a"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
-      "outcome": "updated",
-      "reason": "Added .Vue/.vue strict-equality note under Shared Runtime Dependency to document the case-sensitive extraFileExtensions de-duplication that the preset implements via mergeExtraFileExtensions.",
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Adds the Shared Runtime Dependency, Style Quick Switches, and Deprecated Bridge Rule Off entries. Each agrees with the skill (kit-utils dependency and merge semantics, shortcut precedence, bridge rules off) and no skill text contradicts them, so the domain document now carries decisions the skill intentionally leaves out.",
       "evidence": [
-        "Changed: packages/eslint-rules/CONTEXT.md (Shared Runtime Dependency size-case note)",
-        "Source ground: packages/eslint-rules/src/config.ts (mergeExtraFileExtensions)",
-        "Test lock: test/unit/eslint-rules/eslintRules.test.ts (extraFileExtensions casing preservation)"
+        "packages/eslint-rules/CONTEXT.md new sections match SKILL.md and references/options.md",
+        "no conflicting statement found in the skill or references"
       ]
     },
     "source:pnpm-workspace.yaml": {
-      "fingerprint": "95398420fb201580b3d87b4ea5aaeb0853400b8de01f3059e2b9ebd2dd9cda13",
+      "fingerprint": "8827396fbb9ba309ee8c33f4fb92eaf67251d50214dce5f70c293727b69020d2",
       "snapshot": {
-        "pnpm-workspace.yaml": "8b9d38494c2d08d4b154d4f6ebdb65fc9c9f0a826201def2716fb781b6e2fa29"
+        "pnpm-workspace.yaml": "9f91c93fcf891efc01f9566a95c18293a62d9abb5dbec5f14ca52ed1932d840a"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
       "outcome": "no-change",
-      "reason": "Comment-only annotation added above typescript-eslint@8.73.0 minimumReleaseAgeExclude entries; no skill guidance is affected.",
-      "evidence": ["pnpm-workspace.yaml now carries a TODO comment for the temporary exemption; entry list unchanged"]
+      "reason": "Dependency-policy file: quote-style normalisation plus temporary typescript-eslint@8.73.0 minimumReleaseAgeExclude entries carrying a removal TODO. No skill guidance depends on workspace dependency policy or lockfile-age exemptions.",
+      "evidence": [
+        "pnpm-workspace.yaml diff is limited to quoting and the 8.73.0 exemptions with a TODO comment",
+        "no skill or reference mentions pnpm minimumReleaseAge"
+      ]
     },
     "source:site/api/eslint-rules/index.md": {
       "fingerprint": "87017d2836336d46485635871182027826edbe8ad75558ea81043c71524d5d99",
@@ -1605,6 +1606,97 @@
       "outcome": "no-change",
       "reason": "Guide regenerated; no skill guidance impact.",
       "evidence": ["site/guide/introduction.md regenerated"]
+    },
+    "source:.changeset/pre/bump-eslint-plugins.md": {
+      "fingerprint": "ba57926d5fd1571bdda21322dcc467243444d232a8941533d8ccf0529b04e482",
+      "snapshot": {
+        ".changeset/pre/bump-eslint-plugins.md": "0ce8f03c89613f60303f2a35c07f6e7071696ae2e99d5d3cc386adac1b70e8d8"
+      },
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Release metadata for the upstream plugin upgrade. Its only guidance-relevant effect - the new @pawover/kit-utils runtime dependency used at assembly time for extension merging - is already stated in eslint-preset SKILL.md. The rule-map additions/disables (react/unstable-exhaustive-deps, ts/no-unsafe-class-instance-assignment, ts/strict-void-return) are intentionally not documented at rule level.",
+      "evidence": [
+        ".changeset/pre/bump-eslint-plugins.md is release metadata",
+        "eslint-preset SKILL.md already documents the @pawover/kit-utils dependency and parserOptions merge"
+      ]
+    },
+    "source:.changeset/pre/quick-style-switches.md": {
+      "fingerprint": "56e33790716cad3fbcbbbe0d3dea10de317d52a9ad8ff8e9b7d388d84b26e563",
+      "snapshot": {
+        ".changeset/pre/quick-style-switches.md": "df706a649f9b3c6d779826c55c3ad4ad50c84622d549b724398a2279f4aa912c"
+      },
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Announces the stylistic quotes/semi and vue naming shortcuts, which are already documented in SKILL.md ('Use style quick switches') and references/options.md ('Style quick switches'), including the overrides > per-item > group > default precedence and the explicit non-linked rule list.",
+      "evidence": [
+        "SKILL.md:146-178 documents both shortcut sets and precedence",
+        "references/options.md:68-98 documents the same option shapes"
+      ]
+    },
+    "source:.changeset/pre/shiny-vans-wave.md": {
+      "fingerprint": "950bd8f2eb498c619728e96f9ee84813531ea610fe4cdaaae7c907622e557193",
+      "snapshot": {
+        ".changeset/pre/shiny-vans-wave.md": "84cc02c8ce0f0a025b7a087cc55fdacce289602f82f52de96d7f6538eb806c1e"
+      },
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Describes the vue/vue processor mount and the extraFileExtensions merge. Both are already documented: the vue option row in SKILL.md and the pawover/vue/parser row plus parserOptions note in references/options.md, including user-value-first de-duplication and the pass-through case when vue is disabled.",
+      "evidence": [
+        "SKILL.md:81 and 97-101 document the processor effect and extraFileExtensions merge",
+        "references/options.md:17 and 155-160 document the same layer and merge semantics"
+      ]
+    },
+    "source:.changeset/quiet-vue-deprecated-bridge.md": {
+      "fingerprint": "23087530039b20503f84208002e858f0cad8a31f61e95b6ab6dc3c1ffa2dd438",
+      "snapshot": {
+        ".changeset/quiet-vue-deprecated-bridge.md": "90a2ae374c8f403973b927c5c357ee2b52c46faa6571d24008c7185102996574"
+      },
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Records disabling the six @stylistic-deprecated vue bridge rules; the decision, the user-visible loss, and the vue.overrides recovery path are documented in packages/eslint-rules/CONTEXT.md under 'Deprecated Bridge Rule Off'. The skill deliberately does not enumerate rule severities, so it needs no edit.",
+      "evidence": [
+        "packages/eslint-rules/CONTEXT.md 'Deprecated Bridge Rule Off' section",
+        "test/unit/eslint-rules/eslintRules.test.ts asserts the six rules resolve to 0"
+      ]
+    },
+    "source:.changeset/tidy-vue-severity-rules.md": {
+      "fingerprint": "5eb495198a586a742296c1017190a500ce05c2a386d976aa1c164307b39fa0f3",
+      "snapshot": {
+        ".changeset/tidy-vue-severity-rules.md": "5ba677cb3c9aa5b4a3457845e484c3d5b24d6ef79d2fe25253888967bce37964"
+      },
+      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
+      "outcome": "no-change",
+      "reason": "Records the three severity adjustments and the operator-linebreak after->before alignment with stylistic/operator-linebreak. The behaviour is locked by unit assertions and the rationale lives in the changeset; skill guidance covers configuration mechanics rather than per-rule defaults, so nothing it states became inaccurate.",
+      "evidence": [
+        "test/unit/eslint-rules/eslintRules.test.ts:696-707 asserts 1/1/0 and [2,'before',{overrides:{'?':'ignore',':':'ignore'}}]",
+        ".changeset/tidy-vue-severity-rules.md carries the rationale and the consumer-visible impact"
+      ]
+    },
+    "source:.changeset/pre/quiet-vue-deprecated-bridge.md": {
+      "fingerprint": "c644778113b49c1607e3306f8177d749a89b5a49c1814e25737fe37c578fa108",
+      "snapshot": {
+        ".changeset/pre/quiet-vue-deprecated-bridge.md": "90a2ae374c8f403973b927c5c357ee2b52c46faa6571d24008c7185102996574"
+      },
+      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "outcome": "no-change",
+      "reason": "Changeset promoted into .changeset/pre/ by the alpha versioning commit with byte-identical content (100% rename). The decision, the consumer-visible loss, and the vue.overrides recovery path are documented in packages/eslint-rules/CONTEXT.md; the skill deliberately does not enumerate rule severities.",
+      "evidence": [
+        "git show --stat b711140: .changeset/quiet-vue-deprecated-bridge.md => .changeset/pre/quiet-vue-deprecated-bridge.md with 0 insertions/deletions",
+        "recorded as no-change earlier in this session when it lived at the old path"
+      ]
+    },
+    "source:.changeset/pre/tidy-vue-severity-rules.md": {
+      "fingerprint": "d0a615022faa6683b8b79698b81aa53d46b94b421eb790beb0c399618a55a7a6",
+      "snapshot": {
+        ".changeset/pre/tidy-vue-severity-rules.md": "5ba677cb3c9aa5b4a3457845e484c3d5b24d6ef79d2fe25253888967bce37964"
+      },
+      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "outcome": "no-change",
+      "reason": "Changeset promoted into .changeset/pre/ by the alpha versioning commit with byte-identical content (100% rename). The severity and operator-linebreak decisions are asserted by unit tests and restated in the generated changelog; the skill documents configuration mechanics, not per-rule defaults.",
+      "evidence": [
+        "git show --stat b711140: .changeset/tidy-vue-severity-rules.md => .changeset/pre/tidy-vue-severity-rules.md with 0 insertions/deletions",
+        "test/unit/eslint-rules/eslintRules.test.ts:696-707 asserts the recorded defaults"
+      ]
     }
   }
 }
