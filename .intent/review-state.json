@@ -1793,6 +1793,278 @@
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
       "evidence": ["Changed: .changeset/pre/utils-tree-to-rows-refactor.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:commitlint.config.js": {
+      "fingerprint": "587bcbed45d746ab1e8435078262ee1cfc510602687d647a361ac2e349e011e8",
+      "snapshot": {
+        "commitlint.config.js": "a46af4177008d7b35784fb0feaccf9b41f246df50b19025f55d059d5994f123c"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: commitlint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:cz.config.cjs": {
+      "fingerprint": "73062856dda00b1110acff2076263fc6298f872165b25f3169ed50defd85939d",
+      "snapshot": {
+        "cz.config.cjs": "323cca391182018c28a6e3b2dd0e2d17624322ca1608c9851a06046e0ea9b856"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: cz.config.cjs at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:docs/agents/architecture.md": {
+      "fingerprint": "2b2e2f0bf6e8c5b07f1cde5944dcf83f3e8f009ca531c49930817031803d57e8",
+      "snapshot": {
+        "docs/agents/architecture.md": "f117051939063f1e6dd33f7d7238e6829aeceff9cf57487e5c44942cd9162d9b"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: docs/agents/architecture.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:eslint.config.js": {
+      "fingerprint": "e778c057bf4bfb6d587f1727893b0bd4f72f325bcf93d7815d0c790ad974f24b",
+      "snapshot": {
+        "eslint.config.js": "aae1edfff06890351f2e267ef6a6a10001a52964af99fafd94ca506e09ed81ab"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: eslint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/eslint-rules/src/core.antfu.ts": {
+      "fingerprint": "4679e33cc713b887a5b477136a280f34df13aa6ef24771ace22ab4874fd984b8",
+      "snapshot": {
+        "packages/eslint-rules/src/core.antfu.ts": "762a79b3252572fdbf8a432dffa19c75c75c038ef9e5886f869d63452d7011ee"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/eslint-rules/src/core.antfu.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/eslint-rules/src/core.imports.ts": {
+      "fingerprint": "e2a47e3b0f095623ff32df271d50336a3c3073719e28e06cc61c2e1632ae2b7e",
+      "snapshot": {
+        "packages/eslint-rules/src/core.imports.ts": "17591d9ed15ba286e5b1b45cdf9170bf73fbdc1fd83404207f7bf89c2f768c1d"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/eslint-rules/src/core.imports.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/eslint-rules/src/core.reactHooks.ts": {
+      "fingerprint": "cf219696cba9ab3029fa99a19bc71b174c86e16321087e06745718e32a6dc906",
+      "snapshot": {
+        "packages/eslint-rules/src/core.reactHooks.ts": "f84e8fdd3ebb2cfc1d2eac40cb21786a1e5d24441c5d5522024bdf9644d69fff"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/eslint-rules/src/core.reactHooks.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/eslint-rules/src/plugins.ts": {
+      "fingerprint": "b3d33123c0297de44f85ac07f65a9448caa686b9e5dc9038dfe7db014ec93cec",
+      "snapshot": {
+        "packages/eslint-rules/src/plugins.ts": "ecf8eab467d3eacf671723517eac24a727b0c927a0cb232965d0bbfbbc9f7ba9"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/eslint-rules/src/plugins.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/eslint-rules/src/preset.ts": {
+      "fingerprint": "018f1c2fdb6870df4bf516b9d1970cdedf0b5d0dbce26bbf7c8193367e3798ab",
+      "snapshot": {
+        "packages/eslint-rules/src/preset.ts": "3eda392bc761ac1f698dafc4ee0eeb78e8a3bcef461245bfcc1579ed69fc76dd"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/eslint-rules/src/preset.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/utils/src/tree/filter.ts": {
+      "fingerprint": "8af67d7ec35e4c31a3b1609d0a969d82c8fe5f08ddbaac2af9207c8efb533815",
+      "snapshot": {
+        "packages/utils/src/tree/filter.ts": "e7f5101022bf01571eb843371853ffb665f3fd5ad72d17f2f8c71af42b58c20c"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/utils/src/tree/filter.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/utils/src/tree/find.ts": {
+      "fingerprint": "d3bc79f25017856a57dcebd759f531e54538202767970b95b7d2a4f45ca9d2b2",
+      "snapshot": {
+        "packages/utils/src/tree/find.ts": "fe988c7071c7e6fa807c2cc6d7426bac7b17fbcc62ca4e29ef04057567110645"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/utils/src/tree/find.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/utils/src/tree/forEach.ts": {
+      "fingerprint": "e687db9320c5f29dd26e93fbea058202e4bbbc91a486d8d4189a17f06849a618",
+      "snapshot": {
+        "packages/utils/src/tree/forEach.ts": "5993a34b12d265142a310806eedc6d94f86311caf9375eb1681aa227eede9cac"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/utils/src/tree/forEach.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/utils/src/tree/map.ts": {
+      "fingerprint": "e5a82d29e42d92658081d4b2860b22fd2474295044f399149de651c29e3cce7b",
+      "snapshot": {
+        "packages/utils/src/tree/map.ts": "7dba40c4509ccc477fcaf30fab8ee3d288fd316e3523eca2fdc7d6ce4d72bc93"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/utils/src/tree/map.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:packages/utils/src/tree/utils.ts": {
+      "fingerprint": "515270d291f73ab5cf37d391d34f0d956eb0ba0fe2ead35e0da3c27ff67f6b2b",
+      "snapshot": {
+        "packages/utils/src/tree/utils.ts": "90c1c9e5974ef15cd4c131b2f55050cf4b16c7e82f5636a89a2a1e383c590d5b"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: packages/utils/src/tree/utils.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:prettier.config.js": {
+      "fingerprint": "18160e0ebcec77cd5f72a470e7bc677d1c9b0f264eedfd2006bd7301ab4e5eda",
+      "snapshot": {
+        "prettier.config.js": "f505f201863c4323a3d41aab4448ed4d6cae44244b1af034a7c26322f7f8e599"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: prettier.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/bumpRoot.ts": {
+      "fingerprint": "e007d89e6ce032c150ed820f830591c6a7642899ed77ae5d0300d272adcb1669",
+      "snapshot": {
+        "scripts/bumpRoot.ts": "0b78a942904b108b78739fe4eda1da57ac14aaebe4ceb5a7bf74fcf3ff4d50c5"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/bumpRoot.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/checkPack.ts": {
+      "fingerprint": "6ea9f9f65d57753b67fba893aaed9c71148c8b26093a728a3e637a94f13522b5",
+      "snapshot": {
+        "scripts/checkPack.ts": "545382357d2103696c83ec7ffd9d728104fb448ef5c6eaf23aad60d1a3887933"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/checkPack.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/checkPackageTypes.ts": {
+      "fingerprint": "9d76d548d1c64cb1416431a7735ecf4ddb83ef875f8fe837fdfe7f26daf09a1c",
+      "snapshot": {
+        "scripts/checkPackageTypes.ts": "d00f8a548708335ab1c54fb60dbb8e4f625cc9b3aa8aa298428c1fa5360795c3"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/checkPackageTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/packages.ts": {
+      "fingerprint": "21189f368821299697562864a2202fd8a9bf7d19363bcdb74189990931d6527d",
+      "snapshot": {
+        "scripts/packages.ts": "4d235947f8050c6427f782ccbecd74ee1539cde5b9fde798aec3bc4f92c692dd"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/packages.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/releaseMerge.ts": {
+      "fingerprint": "711b72fbffad40044143470e205fd37802b32a030e79121b591a0493187ee8a3",
+      "snapshot": {
+        "scripts/releaseMerge.ts": "67ce08d89f47c620fff62e769547af141050e7dea91bea94a9cb05766ca380f0"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/releaseMerge.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/syncBaseline.ts": {
+      "fingerprint": "f6d28e8e893b8039cd9a4519cbd096de948a26c27cc7a9e310122c0760dba647",
+      "snapshot": {
+        "scripts/syncBaseline.ts": "022dd6ab340a641a509364056f95dbfa42727ac15e4fc19ca9da1b64bb9c463d"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/syncBaseline.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:scripts/syncMain.ts": {
+      "fingerprint": "cbaf2e485addf9d50d312d93347a6d8867f4b941e07437d39a1aa823eb6e4666",
+      "snapshot": {
+        "scripts/syncMain.ts": "973c6d43dd4360d767540de07dc58a3667df56ba9f9fadd4223a592dc36a2212"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: scripts/syncMain.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:site/api/eslint-rules.md": {
+      "fingerprint": "5727e50171735f7c9330f7c5362b2b73d8afc9ca85b200d8b613ac845b63e792",
+      "snapshot": {
+        "site/api/eslint-rules.md": "2336eebdf2a6521de07f9ca0980a3edd0effb79c4b946b43c4bcd691e1a2728b"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: site/api/eslint-rules.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:test/scripts/globalTypes.ts": {
+      "fingerprint": "18b2808ebed8473e96e18cb064becece8a5fcaf686698f394f3db3e570987408",
+      "snapshot": {
+        "test/scripts/globalTypes.ts": "c2455fd72c263b2c8d43e1da7435cbc9f2a57bc461210cd497500f727084ea1d"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: test/scripts/globalTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:test/scripts/smoke.ts": {
+      "fingerprint": "7e17d8480e184af58cc99f71b52f08cd6105d663a209b872b2a514492930721e",
+      "snapshot": {
+        "test/scripts/smoke.ts": "a0e40d99ef66a0cc8c31f91da0d3cf1d7a223fc1e489b1df3b8ea04f2537640f"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: test/scripts/smoke.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:test/types/eslint-rules/eslintRulesApi.test.type.ts": {
+      "fingerprint": "74881e6c18c02925a0575446c13bce677ab31f169d86e7b0b79e51b14bd14283",
+      "snapshot": {
+        "test/types/eslint-rules/eslintRulesApi.test.type.ts": "481d00498c4533797e99340e8a0c9df1985e11331e192bde883d7586b75ebf48"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": [
+        "Changed: test/types/eslint-rules/eslintRulesApi.test.type.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
+      ]
+    },
+    "source:vitest.config.ts": {
+      "fingerprint": "1dcc36aebe7214fea328daee3236ba80eb1d309a691d81bbbe3ed99674e6b814",
+      "snapshot": {
+        "vitest.config.ts": "5b506d5789ae50103abdd5027a521babc699379e662891845e508c75297a667a"
+      },
+      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "outcome": "no-change",
+      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
+      "evidence": ["Changed: vitest.config.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     }
   }
 }
