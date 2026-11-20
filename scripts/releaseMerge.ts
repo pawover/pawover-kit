@@ -12,10 +12,11 @@
  *  5. 防撞车校验：剥离后的版本若已发布到 npm 则报错停止（防静默失败）；
  *  6. 切到 release-main 分支并提交「剔除归档 + 剥离版本」变更（feature 保持 alpha 状态，
  *     发布合并 PR 被关闭时不会锁死 feature）；
- *  7. 清理远端旧 release-main 分支并推送新的 release-main；
- *  8. 自动创建 PR（release-main → main，已存在 open PR 时跳过），输出 PR 链接；
- *  9. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点；
- *  10. 收尾：切回 feature 并删除本地 release-main（远端保留至 PR 合并后自动删除）。
+ *  7. 记录机械改动的 intent 审查结论（no-change）并提交；
+ *  8. 清理远端旧 release-main 分支（跳过 pre-push 校验）并推送新的 release-main；
+ *  9. 自动创建 PR（release-main → main，已存在 open PR 时跳过），输出 PR 链接；
+ *  10. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点；
+ *  11. 收尾：切回 feature 并删除本地 release-main（远端保留至 PR 合并后自动删除）。
  *
  * 用法：
  *   pnpm release:merge
@@ -28,9 +29,15 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { recordReleaseReviewOutcomes } from "./intentReview.ts";
 import { PACKAGE_FILES } from "./packages.ts";
 
 const HEAD_BRANCH = "release-main";
+
+/** 发布准备机械改动写入 review-state 的统一理由 */
+const RELEASE_REVIEW_REASON
+  = "release 准备：剔除 .changeset/pre 归档并剥离 prerelease 版本号，仅发布元数据变更，"
+    + "无源码实现、skill 内容、exports 或 planning 记录变动。";
 
 function isAncestor (ancestor: string, descendant: string) {
   try {
@@ -229,11 +236,19 @@ async function main () {
     console.log("   ✔ 无变更可提交");
   }
 
-  console.log("⑤ 清理远端旧 release-main 并推送新分支");
+  console.log("⑤ 记录发布准备机械改动的 intent 审查结论");
+  if (recordReleaseReviewOutcomes(RELEASE_REVIEW_REASON)) {
+    run("git add .intent/review-state.json");
+    run("git commit -m \"chore(release): 记录发布合并准备的审查结论\"");
+    console.log("   ✔ 审查结论已提交到 release-main");
+  }
+
+  console.log("⑥ 清理远端旧 release-main 并推送新分支");
   try {
     const remoteHas = run(`git ls-remote --heads origin ${HEAD_BRANCH}`).trim() !== "";
     if (remoteHas) {
-      run(`git push origin --delete ${HEAD_BRANCH}`);
+      // 删除分支不推送任何提交，跳过 pre-push 的 test:ci，避免被无关校验拦截
+      run(`git push --no-verify origin --delete ${HEAD_BRANCH}`);
     }
   } catch (err) {
     throw new Error(
@@ -245,7 +260,7 @@ async function main () {
   run(`git push -u origin ${HEAD_BRANCH}`);
   console.log("   ✔ release-main 已推送");
 
-  console.log("⑥ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
+  console.log("⑦ 创建发布合并 PR（人工合并 = 正式版发布确认节点）");
   const rootVersion = versionOf("package.json");
   const title = `chore: Release merge from feature (${rootVersion})`;
   const body
@@ -277,7 +292,7 @@ async function main () {
 }
 
 async function cleanup () {
-  console.log("⑦ 清理本地 release-main 并切回 feature");
+  console.log("⑧ 清理本地 release-main 并切回 feature");
   git("switch", "feature");
   try {
     run(`git branch -D ${HEAD_BRANCH}`, { stdio: "ignore" });

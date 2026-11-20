@@ -1697,6 +1697,36 @@
         "git show --stat b711140: .changeset/tidy-vue-severity-rules.md => .changeset/pre/tidy-vue-severity-rules.md with 0 insertions/deletions",
         "test/unit/eslint-rules/eslintRules.test.ts:696-707 asserts the recorded defaults"
       ]
+    },
+    "source:scripts/intentReview.ts": {
+      "fingerprint": "6d567bb1cd3a8a28144be0d5fa8765aec53ea021a614908bc40cc0adf3bc898c",
+      "snapshot": {
+        "scripts/intentReview.ts": "7402c4f7f92433759b4c6dbdd2d04ddadc962be357b63499dd604986aa1c73f7"
+      },
+      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "outcome": "no-change",
+      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
+      "evidence": ["Changed: scripts/intentReview.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
+    },
+    "source:scripts/releaseMerge.ts": {
+      "fingerprint": "d2a2def45d2fd64136de5c46beffb0a657f2b4fba5aae91b20db1418e16d5750",
+      "snapshot": {
+        "scripts/releaseMerge.ts": "cc72db472aee75f99fce23a2ee48a023457f6afc7b3ed121148f1b549066f96b"
+      },
+      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "outcome": "no-change",
+      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
+      "evidence": ["Changed: scripts/releaseMerge.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
+    },
+    "source:scripts/syncMain.ts": {
+      "fingerprint": "a3de2b99326e8063882a70d365227a7da46faad79d34744616cf465d3071a3fe",
+      "snapshot": {
+        "scripts/syncMain.ts": "ddadd4ca8374cc2aa3c99c003bf6485c16e77cc5c84241a8cb0ebd2fa9b00985"
+      },
+      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "outcome": "no-change",
+      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
+      "evidence": ["Changed: scripts/syncMain.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
     }
   }
 }

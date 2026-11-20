@@ -15,10 +15,11 @@
  *  3. 剔除 `.changeset/pre/` 归档；
  *  4. 还原 PACKAGE_FILES 版本号为 origin/main 侧（feature 的 alpha 版本不进入 main）；
  *  5. 切到 sync-main 分支并提交同步变更（feature 保持原状）；
- *  6. 清理远端旧 sync-main 并推送；
- *  7. 自动创建 PR（sync-main → main，已存在 open PR 时跳过），输出 PR 链接；
- *  8. 不启用 auto-merge —— 人工合并 PR；
- *  9. 收尾：切回 feature 并删除本地 sync-main（远端保留至 PR 合并后自动删除）。
+ *  6. 记录机械改动的 intent 审查结论（no-change）并提交；
+ *  7. 清理远端旧 sync-main（跳过 pre-push 校验）并推送；
+ *  8. 自动创建 PR（sync-main → main，已存在 open PR 时跳过），输出 PR 链接；
+ *  9. 不启用 auto-merge —— 人工合并 PR；
+ *  10. 收尾：切回 feature 并删除本地 sync-main（远端保留至 PR 合并后自动删除）。
  *
  * 用法：
  *   pnpm sync:main
@@ -31,9 +32,15 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { recordReleaseReviewOutcomes } from "./intentReview.ts";
 import { PACKAGE_FILES } from "./packages.ts";
 
 const HEAD_BRANCH = "sync-main";
+
+/** 同步机械改动写入 review-state 的统一理由 */
+const SYNC_REVIEW_REASON
+  = "main 同步：剔除 .changeset/pre 归档并将版本号还原为 origin/main 侧，仅同步元数据变更，"
+    + "无源码实现、skill 内容、exports 或 planning 记录变动。";
 
 function isAncestor (ancestor: string, descendant: string) {
   try {
@@ -211,11 +218,19 @@ async function main () {
     console.log("   ✔ 无变更可提交（feature 与 main 内容一致）");
   }
 
-  console.log("⑤ 清理远端旧 sync-main 并推送新分支");
+  console.log("⑤ 记录同步机械改动的 intent 审查结论");
+  if (recordReleaseReviewOutcomes(SYNC_REVIEW_REASON)) {
+    run("git add .intent/review-state.json");
+    run("git commit -m \"chore(release): 记录 main 同步的审查结论\"");
+    console.log("   ✔ 审查结论已提交到 sync-main");
+  }
+
+  console.log("⑥ 清理远端旧 sync-main 并推送新分支");
   try {
     const remoteHas = run(`git ls-remote --heads origin ${HEAD_BRANCH}`).trim() !== "";
     if (remoteHas) {
-      run(`git push origin --delete ${HEAD_BRANCH}`);
+      // 删除分支不推送任何提交，跳过 pre-push 的 test:ci，避免被无关校验拦截
+      run(`git push --no-verify origin --delete ${HEAD_BRANCH}`);
     }
   } catch (err) {
     throw new Error(
@@ -227,7 +242,7 @@ async function main () {
   run(`git push -u origin ${HEAD_BRANCH}`);
   console.log("   ✔ sync-main 已推送");
 
-  console.log("⑥ 创建同步 PR（人工合并）");
+  console.log("⑦ 创建同步 PR（人工合并）");
   const repo = repoOf();
   const owner = repo.split("/")[0];
   const existing = await api("GET", `/repos/${repo}/pulls?state=open&head=${owner}:${HEAD_BRANCH}&base=main`);
@@ -258,7 +273,7 @@ function repoOf () {
 }
 
 async function cleanup () {
-  console.log("⑦ 清理本地 sync-main 并切回 feature");
+  console.log("⑧ 清理本地 sync-main 并切回 feature");
   git("switch", "feature");
   try {
     run(`git branch -D ${HEAD_BRANCH}`, { stdio: "ignore" });
