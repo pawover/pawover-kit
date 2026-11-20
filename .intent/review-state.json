@@ -127,29 +127,29 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "99eda108d38eabdeb4eeda60c9608490c60552d5bf58cdb8e94008f6439bed0d",
+      "fingerprint": "384d7c529ecb352f34262ffe64a5f120c6eb12c41cf55db313520737f701760b",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
+        "package.json": "5f16e753b8c1f369192aca7e3307cd056c05576c19bb9a847ee9bd315f0c9351",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
-      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: package.json at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "planning:_artifacts": {
-      "fingerprint": "9ea7f232cd26c956f1fe439bdc4e37b9c69dc4dd5ea50318ca69da2abee12d57",
+      "fingerprint": "fd587730dc2a65c09b5df972abfc989430153c08f03556d5b09213e7f6f0cf05",
       "snapshot": {
         "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
         "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
         "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
+        "package.json": "5f16e753b8c1f369192aca7e3307cd056c05576c19bb9a847ee9bd315f0c9351",
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
         "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
@@ -212,10 +212,10 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
-      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: package.json at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -1697,6 +1697,102 @@
         "git show --stat b711140: .changeset/tidy-vue-severity-rules.md => .changeset/pre/tidy-vue-severity-rules.md with 0 insertions/deletions",
         "test/unit/eslint-rules/eslintRules.test.ts:696-707 asserts the recorded defaults"
       ]
+    },
+    "source:.changeset/pre/close-no-unstable-context-value.md": {
+      "fingerprint": "636bfa355bd5532f6896ad87c058886dc1f78f22b52cd68db853c8582e3409f8",
+      "snapshot": {
+        ".changeset/pre/close-no-unstable-context-value.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": [
+        "Changed: .changeset/pre/close-no-unstable-context-value.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
+      ]
+    },
+    "source:.changeset/pre/eslint-rules-composer.md": {
+      "fingerprint": "68fe5e0cfd9a802721a6e22e07702d6e5835d8e4dca4ca1311cb3b3a4aca2204",
+      "snapshot": {
+        ".changeset/pre/eslint-rules-composer.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/eslint-rules-composer.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:.changeset/pre/eslint-rules-list-style.md": {
+      "fingerprint": "997917ba8cdae62b49cfadc65632e7103f87be88cc464255634ff6483de56352",
+      "snapshot": {
+        ".changeset/pre/eslint-rules-list-style.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/eslint-rules-list-style.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:.changeset/pre/eslint-rules-plugin-upgrade.md": {
+      "fingerprint": "846b92c940ee6ce121908a3b66474ee46b34be284e9fbfee4dbeeb3b9d644792",
+      "snapshot": {
+        ".changeset/pre/eslint-rules-plugin-upgrade.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/eslint-rules-plugin-upgrade.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:.changeset/pre/eslint-rules-self-contained-preset.md": {
+      "fingerprint": "809ef24927d666032f297eb6e2bc715b5e07d874ea81ec44c71860448ce92a6b",
+      "snapshot": {
+        ".changeset/pre/eslint-rules-self-contained-preset.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": [
+        "Changed: .changeset/pre/eslint-rules-self-contained-preset.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
+      ]
+    },
+    "source:.changeset/pre/react-compiler-switch.md": {
+      "fingerprint": "464fff5855c37b08af2926fb45823b47c47df1995e4704be8ce328e9b0b0053f",
+      "snapshot": {
+        ".changeset/pre/react-compiler-switch.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/react-compiler-switch.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:.changeset/pre/strict-void-return-allow-any.md": {
+      "fingerprint": "7e032e7b353937df06333bd63559575802239f83f6a4650e8fec113143dd0409",
+      "snapshot": {
+        ".changeset/pre/strict-void-return-allow-any.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": [
+        "Changed: .changeset/pre/strict-void-return-allow-any.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
+      ]
+    },
+    "source:.changeset/pre/types-global-entry.md": {
+      "fingerprint": "424107faecdd71bae9713261cde814c4c083ca4d6f80ffdea77e078b739f0754",
+      "snapshot": {
+        ".changeset/pre/types-global-entry.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/types-global-entry.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
+    },
+    "source:.changeset/pre/utils-tree-to-rows-refactor.md": {
+      "fingerprint": "9e3b03ab5584fc045c0add33f7994825d8c95f456ebcf4851facb00385c786ff",
+      "snapshot": {
+        ".changeset/pre/utils-tree-to-rows-refactor.md": null
+      },
+      "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
+      "outcome": "no-change",
+      "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
+      "evidence": ["Changed: .changeset/pre/utils-tree-to-rows-refactor.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     }
   }
 }
