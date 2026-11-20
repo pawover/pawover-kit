@@ -28,8 +28,8 @@ flowchart TD
 
     %% ============ CI workflow 与 Release workflow（并行） ============
     subgraph CI["CI workflow"]
-        ci_run["Checkout（depth0）→ 物化 main 引用 → pnpm install → pnpm test:ci<br/>（类型检查 + 测试 + 构建 + smoke + check:pack）"]
-        ci_guard{"verify-release-plan（仅 push 事件）"}
+        ci_run["Checkout（depth0）→ 物化 main 引用 → pnpm install → pnpm test:ci<br/>（check:changesets → check:skills → 类型检查 + 测试 + 构建 + smoke + check:pack）"]
+        ci_guard{"verify-release-plan（push 与 pull_request 事件）"}
         ci_run --> ci_guard
         ci_guard -->|"根目录有 changeset"| ci_status{"changeset status"}
         ci_status -->|"通过"| ci_pass["✅ CI 绿（check-run: ci / success）"]
@@ -48,7 +48,7 @@ flowchart TD
         sel_mode -->|"有非空 changeset"| mode_version["mode = version"]
         sel_mode -->|"无 changeset 但 publish-plan 非空"| mode_publish["mode = publish<br/>（上传 plan artifact）"]
         sel_mode -->|"都无"| mode_none["mode = none（全 skipped）"]
-        gate_job["② gate job：轮询当前 commit 的 ci check-run<br/>（10s × 180 次）"]
+        gate_job["② gate job：轮询当前 commit 的 workflow runs 与 check-runs<br/>（参数化超时与 check-run 名，默认 1800s；识别 action_required / startup_failure / 排队停滞）"]
         gate_job -->|"success 放行"| gate_pass["gate 放行"]
         gate_job -->|"失败 / 超时"| gate_fail["❌ Release 失败（CI 红绝不发布）"]
         gate_fail -->|"修 CI 后重新 push"| dev_push
@@ -66,12 +66,13 @@ flowchart TD
         ver_c --> ver_c2["→ scripts/bumpRoot.ts：根包 0.9.0 → 0.9.1-alpha.0<br/>（硬校验子包变 ⇒ 根包变）"]
         ver_c2 --> ver_c3["→ scripts/verifyRelease.ts（子包发布 ⇒ 根包必发）"]
         ver_c3 --> ver_c4["→ pnpm install（锁文件更新）"]
-        ver_c4 --> ver_d["d. changesets/action/version：推送 changeset-release/feature 分支<br/>+ 创建/更新 PR「Version Packages (alpha) - 2026-08-13」<br/>（base = 推送分支，pre 模式自动追加 alpha 后缀）"]
+        ver_c4 --> ver_c5["→ scripts/recordVersionReview.ts（env INTENT_REVIEW_BASE 非空时）<br/>以 github.sha 为视角记录审查结论，记录结果随 action 提交进入版本 PR"]
+        ver_c5 --> ver_d["d. changesets/action/version：推送 changeset-release/feature 分支<br/>+ 创建/更新 PR「Version Packages (alpha) - 2026-08-13」<br/>（base = 推送分支，pre 模式自动追加 alpha 后缀；使用 App installation token 创建 PR）"]
         ver_d --> pr_node["Version Packages（alpha）PR<br/>changeset-release/feature → feature"]
         pr_node --> pr_ci["PR 的 CI（pull_request 事件）"]
-        pr_ci -->|"action_required"| pr_approve["👆 人工 Approve<br/>（GitHub 对 bot 创建 PR 的首次贡献者审批，每次 version PR 一次）"]
+        pr_ci -->|"action_required（App token 不可用时）"| pr_approve["👆 人工 Approve<br/>（github.token 创建的 PR 其 workflow run 停在 action_required，<br/>具体审批行为取决于仓库 Actions 设置）"]
         pr_approve -->|"Approve 后 CI 重跑"| pr_ci
-        pr_ci -->|"CI 绿"| ver_e["e. version job 等 CI 绿 → gh pr merge --squash<br/>仅 feature 方向自动合并（分支自动删除）<br/>main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）"]
+        pr_ci -->|"CI 绿"| ver_e["e. version job 等 CI 绿 → gh pr merge --squash<br/>仅 feature 方向自动合并（分支自动删除；合并用 github.token，避免合并 push 二次触发 release）<br/>main 方向的 version PR 永不自动合并（人工合并，避免自动发正式版）"]
         ver_e --> dispatch["gh workflow run 显式触发发布（dispatch）<br/>GITHUB_TOKEN 触发的合并 push 不产生 workflow run<br/>dispatch 是例外；dispatch run 的 gate 直接放行"]
         dispatch --> mode_publish
         mode_publish --> pack_job["④ pack job：pnpm build + changesets/action/pack<br/>（按 publish-plan 打包）"]
@@ -94,9 +95,10 @@ flowchart TD
         rm5 -->|"已发布 → 报错停止（防静默失败）"| rm_bump["先基线同步（merge main 取 main 侧）再重跑"]
         rm_bump -->|"同步后重跑"| rm1
         rm5 -->|"均未发布"| rm6["⑥ 切 release-main 分支并提交「剔除归档 + 剥离版本」<br/>（feature 保持 alpha 状态，PR 被关闭不锁死 feature）"]
-        rm6 --> rm7["⑦ 清理旧 release-main（本地 + 远端）→ 推新分支"]
-        rm7 --> rm8["⑧ 创建 PR：release-main → main<br/>标题：chore: 发布合并 feature（X.Y.Z）<br/>不启用 auto-merge"]
-        rm8 --> human["🔴 人工确认节点（正式版发布的唯一入口）：<br/>审查版本号 / CHANGELOG 条目 / diff → 手动 Merge"]
+        rm6 --> rm7["⑦ 以 origin/main 视角记录机械改动的 intent 审查结论并提交<br/>白名单外改动阻断并给出人工命令"]
+        rm7 --> rm8["⑧ 清理旧 release-main（本地 + 远端）→ 推新分支"]
+        rm8 --> rm9["⑨ 创建 PR：release-main → main<br/>标题：chore: 发布合并 feature（X.Y.Z）<br/>不启用 auto-merge"]
+        rm9 --> human["🔴 人工确认节点（正式版发布的唯一入口）：<br/>审查版本号 / CHANGELOG 条目 / diff → 手动 Merge"]
         human --> main_push["main push → CI（守卫放行：main 相对自身 diff 为空）→ CI 绿"]
         main_push --> main_pub["Release：select-mode（无 changeset → publish-plan 非空）<br/>→ gate → pack → publish<br/>（main 无 pre.json → dist-tag = latest）"]
         main_pub --> main_subs["发布 0.0.2 / 0.1.1 / 0.9.1 到 latest + 打 git tag"]
@@ -147,9 +149,12 @@ flowchart TD
 
 | 守卫 | 位置 | 作用 |
 | --- | --- | --- |
-| `verifyReleasePlan.ts` | CI push 事件 | 无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截 |
+| `checkChangesets.ts` | CI 的 `test:ci` 第一步 | 拦截 frontmatter 引用根包 `@pawover/kit` 的 changeset（根包不在 workspace 包列表，会使 `changeset status` / `version` 直接抛错） |
+| `verifyReleasePlan.ts` | CI 的 push 与 pull_request 事件 | 无子包源码变更（bump/剥离/脚本/CI 配置）直接放行；changeset 已被 version 通道消费的 bump 提交放行；源码变更的子包须已有匹配 git tag（已发布豁免），否则拦截。changeset status 失败区分内容错误（阻断）与环境问题（跳过） |
 | `verifyRelease.ts` | ci:version 内（bump-root 之后） | 子包发布 ⇒ 根包必发 |
 | `bumpRoot.ts` | ci:version 内 | 根包版本按子包同步 + 硬校验 |
+| `recordVersionReview.ts` | ci:version 末尾（env 门控） | 版本 PR 的 intent 审查结论自动记录，记录结果随 action 提交进入版本 PR |
+| `releaseMerge.ts` / `syncMain.ts` | 本地发版脚本 | 以 `--base origin/main` 视角记录审查结论，白名单外改动阻断并给出人工命令 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |
 | `release:merge` 防撞车 | 发布合并脚本 | 剥离后版本已发布 → 停止 |
 | `sync-baseline` | 发布后（main 通道） | main 稳定版版本号回推 feature（合并取 main 侧 + 守卫跳过） |
@@ -176,7 +181,7 @@ flowchart TD
 | --- | --- | --- |
 | Release run 失败 | CI 红被 gate 拦截（符合设计） | 修 CI，重新 push |
 | Release run 失败：CI failed (cancelled) | 同 ref 连续 push，旧 CI 被 concurrency 取消（属正常，以最新 push 的 run 为准） | 无需处理，看最新 run |
-| version PR 的 CI 显示 action_required | GitHub 对 bot（github-actions[bot]）创建的 PR 的首次贡献者审批（与 workflow 文件是否一致无关，每次 version PR 都会出现） | Actions 页 Approve（每次 version PR 一次，10 秒） |
+| version PR 的 CI 显示 action_required | `github.token`（`github-actions[bot]`）创建的 PR 其 workflow run 停在 `action_required` 等待人工批准（具体审批行为取决于仓库 Actions 设置）；或 App token 不可用回退到 `github.token` | Actions 页批准该 PR 的 workflow run；或配置 `secrets.RELEASE_APP_ID` / `secrets.RELEASE_APP_PRIVATE_KEY` 让 App 创建 PR（App token 创建的 PR 不出现该状态） |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 源码变更未写 changeset 且版本未发布（无 tag） | 补 changeset 重新 push（应急手动发布见下） |
 | release:merge 报版本撞车 | feature 落后 main（基线未同步，自动回推被守卫跳过时） | 手动基线同步：`git merge origin/main` 取 main 侧，再重跑 |

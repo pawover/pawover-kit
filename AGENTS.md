@@ -8,7 +8,7 @@ Use the current request and repository evidence. For initial skills, propose a u
 Before handing off a skill batch or library change, run `pnpm exec intent maintainer review --json`. Follow the maintainer procedure to update affected guidance, run task checks, and record completed review outcomes. Report an evidence-backed no-op or missing evidence explicitly.
 Create and incrementally maintain domain_map.yaml, skill_spec.md, and skill_tree.yaml in the established artifact location for every skill batch. Preserve prior tasks, maintainer decisions, and remaining work.
 Keep maintainer decisions and changes in the repository; do not require the user to repeat the procedure in later sessions.
-Use intent maintainer setup to initialize missing records, maintainer add to register skills, maintainer status to identify work, and maintainer sync to update generated metadata. Finish with intent maintainer check. `pnpm check:skills` runs the same gate as the first step of `pnpm test:ci`, so a locally green run also passes CI.
+Use intent maintainer setup to initialize missing records, maintainer add to register skills, maintainer status to identify work, and maintainer sync to update generated metadata. Finish with intent maintainer check. `pnpm check:skills` runs the same gate as the second step of `pnpm test:ci`（第一步为 `check:changesets` 校验 changeset frontmatter）, so a locally green run also passes CI.
 <!-- intent-maintainer:end -->
 
 # pawover-kit
@@ -23,7 +23,7 @@ pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布�
 | `pnpm test:types`                        | `tsc -p test/tsconfig.json --noEmit` — 仅类型检查测试文件                                                                      |
 | `pnpm test:coverage`                     | 全量运行 + v8 覆盖率（阈值见 vitest.config.ts）                                                                                |
 | `pnpm test:global-types`                 | `node test/scripts/globalTypes.ts` — 全局类型入口消费校验（tsconfig types，需先 build）                                        |
-| `pnpm test:ci`                           | `check:skills && test:types && check:types:packages && test && build && test:smoke && test:global-types && check:pack` (串行失败则停止；skills 门禁前置) |
+| `pnpm test:ci`                           | `check:changesets && check:skills && test:types && check:types:packages && test && build && test:smoke && test:global-types && check:pack` (串行失败则停止；changeset frontmatter → skills 门禁前置) |
 | `pnpm build`                             | `turbo build` — tsdown (build:source) → metadata (build:metadata) → build                                                      |
 | `pnpm check`                             | 并行运行 `check:types & check:eslint & check:format`（用 `&` 不是 `&&`）                                                       |
 | `pnpm check:types`                       | `tsc --noEmit` + `check:types:packages`（根 tsconfig 聚合检查：packages src + tsdown 配置 + scripts + 根配置文件；含各包项目） |
@@ -32,7 +32,8 @@ pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布�
 | `pnpm check:format`                      | prettier（仅 HTML/JSON）带缓存                                                                                                 |
 | `pnpm check:skills`                      | `intent maintainer check` — 校验 intent skill 与源改动审查账本（需已记录 review 结论）                                         |
 | `pnpm changeset`                         | 交互式生成 changeset 变更说明（`.changeset/*.md`，随 PR 提交）                                                                 |
-| `pnpm ci:version`                        | 消费 changeset：`changeset version && pnpm install`（CI 用）                                                                   |
+| `pnpm ci:version`                        | 消费 changeset 并记录版本 PR 审查结论：`changeset version && bumpRoot && verifyRelease && pnpm install && recordVersionReview`（CI 用） |
+| `pnpm check:changesets`                  | `node scripts/checkChangesets.ts` — 拦截 frontmatter 引用根包 `@pawover/kit` 的 changeset（根包不在 workspace 包列表，会使 `changeset status` / `version` 直接抛错） |
 | `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）                                                                   |
 | `pnpm sync:main`                         | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发发布通道）                                                     |
 
