@@ -1729,14 +1729,14 @@
       "evidence": ["Changed: scripts/syncMain.ts at 02fe965"]
     },
     "source:.changeset/README.md": {
-      "fingerprint": "e74f7c8cb1f387a7ca3066b010feb50d86cbf438c0cbdc89f8ca3b23ba6d4b52",
+      "fingerprint": "a26ecb5e2831417971d50c6c30d58075fabf5c6c4114c447fa3611eb1e065bdc",
       "snapshot": {
-        ".changeset/README.md": "262871b20fabb929a81467f33cc79f49864c9d0521d8307e0e4d5fee9f9fb54f"
+        ".changeset/README.md": "dab741880d40a002e07d3b72348ec3e653e536c16c371c15fff2d4580618eb72"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
       "outcome": "no-change",
-      "reason": "T5 第 2 轮事实错误修正：release-app.md 修正私钥轮换步骤（生成新 key 不使旧 key 失效，需在 Key pairs 页面手动删除）、安装目标（个人账号 pawover，target_type=User）、权限名（Contents/Pull requests）、action_required 表述（移除未经证实的量化）；.changeset/README.md 同步修正 action_required 两处描述。未改变任何 skill 的对外行为。",
-      "evidence": ["Documentation wording fixes at T5 round 2"]
+      "reason": "T8 文档同步：App 凭据迁移到 client-id（RELEASE_APP_CLIENT_ID 优先，RELEASE_APP_ID 兼容保留）；新增 workflow_dispatch 通道语义说明（人工担责发布，不加确认）。未改变任何 skill 的对外行为。",
+      "evidence": ["T8 documentation updates"]
     },
     "source:.github/workflows/ci.yml": {
       "fingerprint": "112b4dd03bd328b7dbd953c3edf346ad910bb9a73152fab62c39a3203f0e7091",
@@ -1749,14 +1749,14 @@
       "evidence": ["Changed: .github/workflows/ci.yml at 02fe965"]
     },
     "source:.github/workflows/release.yml": {
-      "fingerprint": "d53a772a2dd653dcf4334d6d24f9dbc306de97927ce8782e1d626467174f0249",
+      "fingerprint": "08b693e3170d114a2de51b6c5dd63a20b463bdcde93ceb93cbbd3777a857800e",
       "snapshot": {
-        ".github/workflows/release.yml": "765abe84d25cc3c57327a5b028a5dea76678e4c38890c7bc81de8c39c7ef543e"
+        ".github/workflows/release.yml": "6067aaf6581c72cb63f889a59c8b36a7f9823f48bcb5b111a8477324ef7eb69f"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：新增 App token 生成步骤、Resolve version PR token 步骤（回退链 App → PAT → github.token）、version job 注入 INTENT_REVIEW_BASE env、合并步骤使用 github.token 并增加 CI_WAIT_TIMEOUT_SECONDS 配置。未改变任何 skill 的对外行为。",
-      "evidence": ["Changed: .github/workflows/release.yml at 02fe965"]
+      "reason": "T8 文档同步：App 凭据迁移到 client-id（RELEASE_APP_CLIENT_ID 优先，RELEASE_APP_ID 兼容保留）；新增 workflow_dispatch 通道语义说明（人工担责发布，不加确认）。未改变任何 skill 的对外行为。",
+      "evidence": ["T8 documentation updates"]
     },
     "source:docs/agents/ci-review.md": {
       "fingerprint": "36913945eae6358251cea18362a2d19d22accc783008fde659810acfbcbec25b",
@@ -1779,14 +1779,14 @@
       "evidence": ["Documentation wording fixes at T5 round 3"]
     },
     "source:docs/agents/release-app.md": {
-      "fingerprint": "a2e402b5d3f568d5558818e3be978a685c66ee40e2d2dd7f72fa0c9223dcbe96",
+      "fingerprint": "be704029c07048060b20688db3c7c3aef921eabbce96b555623e5457f01fcd89",
       "snapshot": {
-        "docs/agents/release-app.md": "820dd866ff18154c38d35ac26d16bb5820330274d321bc81f3f7d3fcb0ee8ef5"
+        "docs/agents/release-app.md": "60ecd979d39e888e672dd1ac577abdf1136b223c4fc76797eb091737771c7628"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
       "outcome": "no-change",
-      "reason": "T5 第 3 轮事实修正：release-app.md 修正步骤名（Merge version PR and dispatch → Wait for version PR CI, merge and trigger publish）；intent-baseline-flow.md 修正常量名（AUTO_RECORD_PATHS → RELEASE_METADATA_PATHS）并将第七节四个待确认问题标记为已确认（方案 A）。未改变任何 skill 的对外行为。",
-      "evidence": ["Documentation wording fixes at T5 round 3"]
+      "reason": "T8 第 2 轮修正：release-app.md warning 文案补充（或 RELEASE_APP_ID），与 release.yml 实际告警一致。未改变任何 skill 的对外行为。",
+      "evidence": ["T8 round 2 wording fix"]
     },
     "source:scripts/checkChangesets.ts": {
       "fingerprint": "9a5109e295e3217ef06cea482485c3f9a9923670b1ee7995eee2ca07c80e87e0",

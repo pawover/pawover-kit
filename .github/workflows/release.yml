@@ -85,7 +85,7 @@ jobs:
       checks: read
       actions: write
     env:
-      HAS_RELEASE_APP_TOKEN: ${{ secrets.RELEASE_APP_ID != '' && secrets.RELEASE_APP_PRIVATE_KEY != '' }}
+      HAS_RELEASE_APP_TOKEN: ${{ (secrets.RELEASE_APP_CLIENT_ID != '' || secrets.RELEASE_APP_ID != '') && secrets.RELEASE_APP_PRIVATE_KEY != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -129,7 +129,9 @@ jobs:
         continue-on-error: true
         uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.RELEASE_APP_ID }}
+          client-id: ${{ secrets.RELEASE_APP_CLIENT_ID }}
+          # client-id 为空时回退 legacy app-id：存量环境可能只配了 RELEASE_APP_ID
+          app-id: ${{ secrets.RELEASE_APP_CLIENT_ID == '' && secrets.RELEASE_APP_ID || '' }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
@@ -148,7 +150,7 @@ jobs:
             echo "::warning::release App token 不可用，version PR 回退 secrets.RELEASE_PR_TOKEN 创建。"
           else
             token="${{ github.token }}"
-            echo "::warning::未配置 RELEASE_APP_ID/RELEASE_APP_PRIVATE_KEY 与 RELEASE_PR_TOKEN：version PR 退回 github.token 创建，其 workflow run 会停在待人工批准状态（action_required），feature 通道的自动合并将失败。"
+            echo "::warning::未配置 RELEASE_APP_CLIENT_ID（或 RELEASE_APP_ID）/RELEASE_APP_PRIVATE_KEY 与 RELEASE_PR_TOKEN：version PR 退回 github.token 创建，其 workflow run 会停在待人工批准状态（action_required），feature 通道的自动合并将失败。"
           fi
           echo "::add-mask::$token"
           echo "token=$token" >> "$GITHUB_OUTPUT"

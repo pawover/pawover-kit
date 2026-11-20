@@ -181,7 +181,7 @@ flowchart TD
 | --- | --- | --- |
 | Release run 失败 | CI 红被 gate 拦截（符合设计） | 修 CI，重新 push |
 | Release run 失败：CI failed (cancelled) | 同 ref 连续 push，旧 CI 被 concurrency 取消（属正常，以最新 push 的 run 为准） | 无需处理，看最新 run |
-| version PR 的 CI 显示 action_required | `github.token`（`github-actions[bot]`）创建的 PR 其 workflow run 停在 `action_required` 等待人工批准（具体审批行为取决于仓库 Actions 设置）；或 App token 不可用回退到 `github.token` | Actions 页批准该 PR 的 workflow run；或配置 `secrets.RELEASE_APP_ID` / `secrets.RELEASE_APP_PRIVATE_KEY` 让 App 创建 PR（App token 创建的 PR 不出现该状态） |
+| version PR 的 CI 显示 action_required | `github.token`（`github-actions[bot]`）创建的 PR 其 workflow run 停在 `action_required` 等待人工批准（具体审批行为取决于仓库 Actions 设置）；或 App token 不可用回退到 `github.token` | Actions 页批准该 PR 的 workflow run；或配置 `secrets.RELEASE_APP_CLIENT_ID` / `secrets.RELEASE_APP_PRIVATE_KEY` 让 App 创建 PR（App token 创建的 PR 不出现该状态；`RELEASE_APP_ID` 兼容保留） |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 源码变更未写 changeset 且版本未发布（无 tag） | 补 changeset 重新 push（应急手动发布见下） |
 | release:merge 报版本撞车 | feature 落后 main（基线未同步，自动回推被守卫跳过时） | 手动基线同步：`git merge origin/main` 取 main 侧，再重跑 |
@@ -194,6 +194,8 @@ pnpm pre:enter-alpha && pnpm build && pnpm changeset publish && git push --tags
 # 根包单独发：
 pnpm publish --no-git-checks --access public
 ```
+
+**`workflow_dispatch` 通道**：`gh workflow run release.yml --ref feature` 可跳过 CI gate 直接发布，语义为「人工担责发布」。此通道是 version job 自动链路的必需例外，不增加 `confirm` 输入或 environment 保护。
 
 ## 七、运营速查
 
