@@ -127,29 +127,29 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "12649a65fb625bb34db61e8372a166f20f54787e7acf9281bb0292005e25dd51",
+      "fingerprint": "35cbb96ac1014c83ed67c2e5ceff9bf5a14df4bab9ee200dea05988b28de843d",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "e8e423dbd67f0948c1a7a7f4031a6b1a16856e9df9dfad44b58e231d7e6ffefd",
+        "package.json": "03faef492e8fba9595894297043fc0307affbcde0d2e7d830902f07891da45f6",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "d14a1331e8ed40ffe8ef7e679391b4f33478a5d6",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:changesets 脚本条目并将 pnpm check:changesets 前置到 test:ci；ci:version 追加 recordVersionReview 步骤。exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
-      "evidence": ["Changed: package.json at 02fe965"]
+      "reason": "main 同步：剔除 .changeset/pre 归档并将版本号还原为 origin/main 侧，仅同步元数据变更，无源码实现、skill 内容、exports 或 planning 记录变动。",
+      "evidence": ["Changed: package.json at d14a1331e8ed40ffe8ef7e679391b4f33478a5d6"]
     },
     "planning:_artifacts": {
-      "fingerprint": "2eec34c85caa4cdaeaa7f1f67ff09915ddc73707522da874d7634f767ec7ce98",
+      "fingerprint": "80807fce0a5497a145e4ca4b558a0e1e48026e78d5394e8b603d1e2bd6c297d5",
       "snapshot": {
         "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
         "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
         "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "e8e423dbd67f0948c1a7a7f4031a6b1a16856e9df9dfad44b58e231d7e6ffefd",
+        "package.json": "03faef492e8fba9595894297043fc0307affbcde0d2e7d830902f07891da45f6",
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
         "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
@@ -212,10 +212,10 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "d14a1331e8ed40ffe8ef7e679391b4f33478a5d6",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:changesets 脚本条目并将 pnpm check:changesets 前置到 test:ci；ci:version 追加 recordVersionReview 步骤。exports/files/version/dependencies 与 entry、site 文档均未变动，domain_map/skill_spec/skill_tree 记录的包选择、子路径与 peer 依赖语义不变。",
-      "evidence": ["Changed: package.json at 02fe965"]
+      "reason": "main 同步：剔除 .changeset/pre 归档并将版本号还原为 origin/main 侧，仅同步元数据变更，无源码实现、skill 内容、exports 或 planning 记录变动。",
+      "evidence": ["Changed: package.json at d14a1331e8ed40ffe8ef7e679391b4f33478a5d6"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
