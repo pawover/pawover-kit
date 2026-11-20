@@ -30,8 +30,8 @@ async function main () {
 
   await writeJson("entry/metadata.json", utilsExports);
   await writeJson("entry/hooks-metadata.json", { alova: hooksAlovaExports, react: hooksReactExports });
-  console.log("✔ entry/metadata.json generated");
-  console.log("✔ entry/hooks-metadata.json generated");
+  console.log("✔ entry/metadata.json 已生成");
+  console.log("✔ entry/hooks-metadata.json 已生成");
 }
 
 main();

@@ -1,28 +1,28 @@
 /**
- * 发布后基线同步脚本（main 发布成功 → 稳定版版本号回推 feature）。
+ * 发布后把稳定版版本号同步回 feature 的脚本（main 正式版发布成功后运行）。
  *
- * 背景：main 正式版通道发布后，feature 的版本基线仍停留在上次 alpha
- * （如 0.9.5-alpha.0），下一轮 alpha bump 会产出 0.9.5-alpha.1，剥离后
- * 撞已发布的 0.9.5 → release:merge 防撞车拦截、正式版发不出。基线同步
- * 把 feature 的 6 个 package.json 版本抬到 main 的稳定值，后续 alpha
+ * 背景：main 正式版发布后，feature 的版本号仍停在上一轮 alpha
+ * （如 0.9.5-alpha.0）。下一轮 alpha 递增会产出 0.9.5-alpha.1，还原成正式版后
+ * 与已发布的 0.9.5 重复，正式版合并会因版本已存在被拦下、发不出去。本脚本
+ * 把 feature 的 6 个 package.json 版本号抬到 main 的稳定版值，后续 alpha
  * 才能从 0.9.6-alpha.0 起正确递增。
  *
  * 设计要点：
  *  - 用真实 merge（`git merge origin/main -X theirs`）而非直接改写版本：
- *    冲突时取 main 侧，顺带带回 main 的 .changeset/pre 归档剔除；
- *  - 守卫 1：feature 有待消费 changeset 时跳过（version PR 流程优先，
- *    避免与 changeset-release 分支打架）；
- *  - 守卫 2：main 相对合并基的改动必须仅限版本文件 + pre 归档，
- *    否则说明 main 含 feature 没有的源码变更（异常），跳过并提示手动合并；
+ *    冲突时取 main 侧，同时带入 main 删除 .changeset/pre/ 归档的改动；
+ *  - 前置检查 1：feature 有待消费 changeset 时跳过（版本 PR 流程优先，
+ *    避免与 changeset-release 分支冲突）；
+ *  - 前置检查 2：main 相对合并基的改动必须仅限版本文件 + 预发布归档，
+ *    否则说明 main 上有 feature 没有的源码改动（异常），跳过并提示手动合并；
  *  - 合并后校验：相对 origin/feature 的差异仍仅限版本文件，否则回滚报错；
- *  - 推送失败不阻断（警告 + 退出 0）：发布已完成，同步是善后动作。
+ *  - 推送失败不阻断（警告 + 退出 0）：发布已完成，同步只是收尾动作。
  *
  * 用法：
  *   node scripts/syncBaseline.ts            # 完整执行（合并 + 推送）
  *   node scripts/syncBaseline.ts --no-push  # 仅合并，不推送（本地演练）
  *
  * 退出码：
- *   0 同步完成 / 无需同步 / 守卫跳过（原因已打印）
+ *   0 同步完成 / 无需同步 / 前置检查跳过（原因已打印）
  *   1 环境异常（非 feature 分支 / 工作区不干净 / 合并异常）
  */
 
@@ -65,7 +65,7 @@ function hasMergeInProgress () {
   }
 }
 
-/** 允许随同步进入 feature 的路径：版本文件 + pre 模式归档。 */
+/** 允许随同步进入 feature 的路径：版本文件 + 预发布归档。 */
 function isAllowed (file: string) {
   return VERSION_FILES.has(file) || file.startsWith(".changeset/pre/");
 }
@@ -102,11 +102,11 @@ async function main () {
     throw new Error("检测到未完成的合并，请先 git merge --continue 或 git merge --abort 后重跑");
   }
 
-  console.log("① 拉取远端 refs");
+  console.log("① 获取远端最新分支");
   run("git fetch origin feature main");
 
   if (pendingChangesets().length > 0) {
-    warn(`feature 存在待消费 changeset（${pendingChangesets().join(", ")}），跳过基线同步（version PR 流程优先）`);
+    warn(`feature 存在待消费 changeset（${pendingChangesets().join(", ")}），跳过稳定版版本号同步（版本 PR 流程优先）`);
 
     return;
   }
@@ -120,7 +120,7 @@ async function main () {
   if (unexpected.length > 0) {
     warn(
       `main 相对合并基含 feature 没有的变更（${unexpected.join(", ")}），`
-      + `跳过自动基线同步，请手动 git merge origin/${MAIN_BRANCH} 后重跑`,
+      + `跳过自动同步，请手动 git merge origin/${MAIN_BRANCH} 后重跑`,
     );
 
     return;
@@ -128,7 +128,7 @@ async function main () {
 
   console.log("② 合并 origin/main（冲突取 main 侧稳定版本）");
   if (isAncestor(`origin/${MAIN_BRANCH}`, "HEAD")) {
-    console.log("   ✔ 基线已是最新，无需同步");
+    console.log("   ✔ feature 已包含 main 的稳定版，无需同步");
 
     return;
   }
@@ -148,7 +148,7 @@ async function main () {
     );
   }
 
-  console.log("③ 校验合并结果（相对 origin/feature 应仅版本文件 + pre 归档）");
+  console.log("③ 校验合并结果（相对 origin/feature 只应有版本文件和预发布归档改动）");
   const mergedChanged = run(`git diff --name-only origin/${SYNC_BRANCH} HEAD`)
     .split("\n")
     .map((f) => f.trim())
@@ -173,11 +173,11 @@ async function main () {
   console.log(`④ 推送 origin/${SYNC_BRANCH}`);
   try {
     git("push", "origin", SYNC_BRANCH);
-    console.log("   ✔ 基线同步完成（main 稳定版本已回推 feature）");
+    console.log("   ✔ 同步完成（main 的稳定版版本号已同步回 feature）");
   } catch (err) {
     warn(
       `推送失败：${String((err as any).stderr ?? (err as any).message).trim().slice(0, 200)}。`
-      + `请手动运行 git push origin ${SYNC_BRANCH}（或按文档手动基线同步）`,
+      + `请手动运行 git push origin ${SYNC_BRANCH}（或按文档手动同步版本号）`,
     );
   }
 }

@@ -21,10 +21,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Materialize base branch for changesets
+      - name: Prepare main branch reference
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           if git show-ref --verify --quiet refs/remotes/origin/main; then
             git update-ref refs/heads/main refs/remotes/origin/main
+          elif [ -n "$BASE_SHA" ]; then
+            git update-ref refs/heads/main "$BASE_SHA"
           fi
 
       - name: Setup pnpm
@@ -47,11 +51,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Test, build and check packages
+      - name: Run tests, build, and package checks
         run: pnpm test:ci
         env:
           HUSKY: "0"
 
-      - name: Verify release plan (changesets cover unreleased package changes)
-        if: github.event_name == 'push'
+      - name: Check package changes have changesets
         run: node scripts/verifyReleasePlan.ts

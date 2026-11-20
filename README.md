@@ -114,8 +114,8 @@ pnpm install
 
 由 Changesets v3 + GitHub Actions 驱动的**双通道发布模型**（完整细节见 [.changeset/README.md](./.changeset/README.md)）：
 
-- **feature = alpha 预发布通道**：push feature 全自动——CI 守卫（`verifyReleasePlan.ts`）→ select-mode → version PR → version job 等 CI 绿后合并 → dispatch 触发 publish，发布 `alpha` dist-tag
-- **main = 正式版通道**：只通过**发布合并**收代码——`pnpm release:merge`（同步校验 → 剥离 prerelease → 防撞车校验 → 建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest` → CI 自动把稳定版版本号回推 feature（基线同步，下一轮 alpha 从新稳定版之上递增）
+- **feature = alpha 预发布通道**：push feature 全自动——CI 前置检查（`verifyReleasePlan.ts`）→ select-mode（决定发布动作）→ version PR → version job 等 CI 绿后合并 → dispatch 触发 publish，发布 `alpha` dist-tag
+- **main = 正式版通道**：只通过**正式版合并**收代码——`pnpm release:merge`（同步校验 → 剥离 prerelease → 检查版本是否已发布 → 建 release-main PR）→ **人工合并 PR**（正式版发布的人工确认节点）→ 发布 `latest` → CI 自动把稳定版版本号同步回 feature（稳定版基线同步，下一轮 alpha 从新稳定版之上递增）
 - **核心设计**：alpha → 正式版之间必须经过人工确认节点，任何自动化都不会越过它
 
 常用命令：
@@ -126,10 +126,10 @@ pnpm install
 | 发布 alpha（自动） | `git push origin feature` |
 | 发起正式版发布（人工闸门） | `pnpm release:merge` → 人工合并 PR |
 | 非发布内容同步到 main | `pnpm sync:main` → 人工合并 PR（版本保持 main 侧，不触发发布） |
-| 基线同步 | 自动（main 发布后 CI 回推）；手动兜底：feature 上 `git merge origin/main`（取 main 侧版本） |
+| 稳定版基线同步 | 自动（main 发布后 CI 同步）；手动方式：feature 上 `git merge origin/main`（取 main 侧版本） |
 | 应急手动发布 | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |
 
-> Trusted Publishing / OIDC：全程无需 npm token；分支保护、守卫明细、FAQ 见 `.changeset/README.md`。
+> Trusted Publishing / OIDC：全程无需 npm token；分支保护、检查明细、FAQ 见 `.changeset/README.md`。
 
 ## 测试
 

@@ -7,7 +7,7 @@
  * 机制联动发布。本脚本读取子包 version 后的新版本，按子包中的最高 bump
  * 类型（patch / minor / major）同步根包版本；pre 计数（如 alpha.1）取自
  * 根包自身并单调 +1（与 changesets 对子包的实测行为一致），
- * 并硬校验「子包版本变化 ⇒ 根包必变」，失败时退出码为 1。
+ * 并强制校验「子包版本变化 ⇒ 根包必变」，不一致时以退出码 1 结束。
  *
  * 用法（在 ci:version 中，changeset version 之后）：
  *   node scripts/bumpRoot.ts
@@ -76,12 +76,12 @@ function bumpType (oldVersion: string, newVersion: string): "major" | "minor" | 
  * - 同一 pre 系列内：major / minor 升对应主数字位，patch 保持主数字；
  *   pre 计数在根包自身计数上单调 +1（与 changesets 对子包的行为一致）
  * - 非 pre 系列：patch / minor / major 升对应主数字位，pre 计数从 0 起
- * - `preTag` 为 null（正式通道）：剥离 prerelease 后缀（旧版本含后缀时），
+ * - `preTag` 为 null（正式版发布）：剥离 prerelease 后缀（旧版本含后缀时），
  *   否则按类型递增主版本
  *
  * @param oldVersion 根包当前版本（git HEAD）
  * @param type 子包中的最高 bump 类型
- * @param preTag 预发布标签（如 `alpha`）；非 pre 通道为 null
+ * @param preTag 预发布标签（如 `alpha`）；正式版发布时为 null
  * @returns 根包同步后的新版本
  */
 function bumpVersion (oldVersion: string, type: string, preTag: string | null) {
@@ -168,7 +168,7 @@ if (rootPackage.version !== expected) {
   console.log(`✔ 根包版本已同步：${rootOld} -> ${rootPackage.version}`);
 } else {
   console.error("❌ 根包版本同步失败：");
-  console.error(`   子包已发布（${changedType}${preTag
+  console.error(`   子包版本已变化（${changedType}${preTag
     ? ` / ${preTag}`
     : ""}），`);
   console.error(`   但根包 ${ROOT_PACKAGE} 版本仍为 ${rootPackage.version}（期望 ${expected}）。`);

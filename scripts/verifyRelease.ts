@@ -1,6 +1,6 @@
 /**
  * 发布顺序复核脚本：
- * 在 version 通道（changesets/action/version 的 version-script 执行后）运行，
+ * 在版本发布流程（changesets/action/version 的 version-script 执行后）运行，
  * 复核「子包版本变化 ⇒ 根包必变」规则，防止 ci:version 被改坏后根包漏发。
  *
  * changesets 的包列表不包含根包（getPackages 将根包单独放在 rootPackage），
