@@ -1,10 +1,14 @@
 /**
  * 发布计划守卫（tag 感知版）：
- * 在 CI push 时运行，校验「子包有源码变更 ⇒ 必须有待消费 changeset」，
+ * 在 CI 的 push 与 pull_request 事件上运行，校验「子包有源码变更 ⇒ 必须有待消费 changeset」，
  * 并对以下情况豁免：
  *  - 存在匹配 git tag（当前版本已发布）；
  *  - 变更仅涉及版本文件（version 通道的 bump 提交 / release:merge 的剥离提交，
  *    属发布流程自身产物，不要求 changeset）。
+ *
+ * changeset status 失败必须区分类型：changeset 内容错误（例如 frontmatter 引用了
+ * 不在 workspace 包列表中的根包）直接阻断；命令缺失、网络、权限等环境类失败打印
+ * warning 后跳过该项校验；无法归类时同样阻断，避免真实错误被降级为放行。
  *
  * 场景：
  *  - 有待消费 changeset → `changeset status` 通过即放行；
@@ -13,12 +17,12 @@
  *  - 源码变更 + 存在匹配 tag（已发布）→ 放行（alpha 发布完成后的后续开发）；
  *  - 源码变更 + 无 tag → 拦截（开发改动没有 changeset）。
  *
- * 用法（在 ci.yml 的 push 事件步骤中）：
+ * 用法（在 ci.yml 的 verify release plan 步骤中）：
  *   node scripts/verifyReleasePlan.ts
  *
  * 退出码：
  *   0 计划合法（存在待消费 changeset，或仅版本文件变更，或变更子包均已发布）
- *   1 存在子包源码变更但没有 changeset，且当前版本未发布
+ *   1 存在子包源码变更但没有 changeset 且当前版本未发布，或 changeset 内容无效
  */
 
 import { execSync } from "node:child_process";
@@ -47,13 +51,97 @@ function pendingChangesets () {
   return readdirSync(".changeset").filter((file) => file.endsWith(".md") && file !== "README.md");
 }
 
-if (pendingChangesets().length > 0) {
+const STATUS_COMMAND = "pnpm changeset status --output=.changeset/status.json";
+
+const CONTENT_FAILURE_PATTERNS = [
+  /not in the workspace/i,
+  /invalid changeset/i,
+  /unable to parse/i,
+];
+
+const ENVIRONMENT_FAILURE_PATTERNS = [
+  /command not found/i,
+  /is not recognized as an internal or external command/i,
+  /cannot find module/i,
+  /enotfound|eai_again|econnrefused|econnreset|etimedout|getaddrinfo|socket hang up/i,
+  /\beacces\b|\beperm\b|\benospc\b/i,
+];
+
+interface StatusFailure {
+  kind: "content" | "environment" | "unknown";
+  detail: string;
+}
+
+function readErrorField (error: unknown, field: "code" | "stdout" | "stderr"): string {
+  if (typeof error !== "object" || error === null) {
+    return "";
+  }
+  const value: unknown = Reflect.get(error, field);
+
+  return typeof value === "string"
+    ? value
+    : "";
+}
+
+function runChangesetStatus (): StatusFailure | null {
   try {
-    execSync("pnpm changeset status --output=.changeset/status.json", { stdio: "inherit" });
+    process.stdout.write(execSync(STATUS_COMMAND, { encoding: "utf8" }));
+
+    return null;
+  } catch (error) {
+    const message = error instanceof Error
+      ? error.message
+      : "";
+    const detail = [
+      readErrorField(error, "stderr"),
+      readErrorField(error, "stdout"),
+      message,
+    ]
+      .join("\n")
+      .trim();
+
+    if (CONTENT_FAILURE_PATTERNS.some((pattern) => pattern.test(detail))) {
+      return { kind: "content", detail };
+    }
+    if (
+      readErrorField(error, "code") === "ENOENT"
+      || ENVIRONMENT_FAILURE_PATTERNS.some((pattern) => pattern.test(detail))
+    ) {
+      return { kind: "environment", detail };
+    }
+
+    return { kind: "unknown", detail };
+  }
+}
+
+function printFailureDetail (detail: string) {
+  for (const line of detail.split(/\r?\n/)) {
+    if (line.trim() !== "") {
+      console.error(`   ${line}`);
+    }
+  }
+}
+
+if (pendingChangesets().length > 0) {
+  const failure = runChangesetStatus();
+  if (failure === null) {
     console.log("✔ 发布计划校验通过（存在待消费 changeset）");
     process.exit(0);
-  } catch {
-    // 根目录有 changeset 但 status 失败，走已发布版本豁免逻辑
+  }
+
+  if (failure.kind === "environment") {
+    console.warn("⚠ changeset status 因环境类问题未能执行，已跳过「changeset 合法性」校验：");
+    printFailureDetail(failure.detail);
+    console.warn("   后续仅按 tag / 版本文件规则判断，changeset 内容不会被验证。");
+  } else {
+    console.error("❌ 发布计划校验失败：changeset status 无法生成发布计划。");
+    if (failure.kind === "content") {
+      console.error("   原因：changeset 内容无效，常见为 frontmatter 引用了不在 workspace 包列表中的根包。");
+    } else {
+      console.error("   原因：未识别的失败，按阻断处理；如确认为环境问题，请人工确认后重试。");
+    }
+    printFailureDetail(failure.detail);
+    process.exit(1);
   }
 } else {
   console.log("✔ 无待消费 changeset（忽略 .changeset/pre/ 归档），走豁免逻辑");

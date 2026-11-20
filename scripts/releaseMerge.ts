@@ -12,7 +12,7 @@
  *  5. 防撞车校验：剥离后的版本若已发布到 npm 则报错停止（防静默失败）；
  *  6. 切到 release-main 分支并提交「剔除归档 + 剥离版本」变更（feature 保持 alpha 状态，
  *     发布合并 PR 被关闭时不会锁死 feature）；
- *  7. 记录机械改动的 intent 审查结论（no-change）并提交；
+ *  7. 以 origin/main 视角记录机械改动的 intent 审查结论（no-change）并提交；
  *  8. 清理远端旧 release-main 分支（跳过 pre-push 校验）并推送新的 release-main；
  *  9. 自动创建 PR（release-main → main，已存在 open PR 时跳过），输出 PR 链接；
  *  10. 不启用 auto-merge —— 人工合并 PR 是正式版发布的人工确认节点；
@@ -29,7 +29,7 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { recordReleaseReviewOutcomes } from "./intentReview.ts";
+import { recordReviewOutcomes } from "./intentReview.ts";
 import { PACKAGE_FILES } from "./packages.ts";
 
 const HEAD_BRANCH = "release-main";
@@ -236,8 +236,8 @@ async function main () {
     console.log("   ✔ 无变更可提交");
   }
 
-  console.log("⑤ 记录发布准备机械改动的 intent 审查结论");
-  if (recordReleaseReviewOutcomes(RELEASE_REVIEW_REASON)) {
+  console.log("⑤ 以 origin/main 视角记录发布准备机械改动的 intent 审查结论");
+  if (recordReviewOutcomes({ base: "origin/main", reason: RELEASE_REVIEW_REASON })) {
     run("git add .intent/review-state.json");
     run("git commit -m \"chore(release): 记录发布合并准备的审查结论\"");
     console.log("   ✔ 审查结论已提交到 release-main");

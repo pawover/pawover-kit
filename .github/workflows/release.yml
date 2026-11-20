@@ -53,6 +53,7 @@ jobs:
     permissions:
       contents: read
       checks: read
+      actions: read
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -81,7 +82,10 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      checks: read
       actions: write
+    env:
+      HAS_RELEASE_APP_TOKEN: ${{ secrets.RELEASE_APP_ID != '' && secrets.RELEASE_APP_PRIVATE_KEY != '' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -119,6 +123,36 @@ jobs:
             pnpm pre:exit
           fi
 
+      - name: Create release App token
+        id: app-token
+        if: env.HAS_RELEASE_APP_TOKEN == 'true'
+        continue-on-error: true
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Resolve version PR token
+        id: pr-token
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          PAT_TOKEN: ${{ secrets.RELEASE_PR_TOKEN }}
+        run: |
+          if [ -n "$APP_TOKEN" ]; then
+            token="$APP_TOKEN"
+            echo "using GitHub App installation token for version PR"
+          elif [ -n "$PAT_TOKEN" ]; then
+            token="$PAT_TOKEN"
+            echo "::warning::release App token 不可用，version PR 回退 secrets.RELEASE_PR_TOKEN 创建。"
+          else
+            token="${{ github.token }}"
+            echo "::warning::未配置 RELEASE_APP_ID/RELEASE_APP_PRIVATE_KEY 与 RELEASE_PR_TOKEN：version PR 退回 github.token 创建，其 workflow run 会停在待人工批准状态（action_required），feature 通道的自动合并将失败。"
+          fi
+          echo "::add-mask::$token"
+          echo "token=$token" >> "$GITHUB_OUTPUT"
+
       - name: Compute version PR title
         id: title
         run: |
@@ -127,7 +161,13 @@ jobs:
       - name: Version packages and create/update pull request
         id: version
         uses: changesets/action/version@v2.1.2
+        env:
+          # 版本改动此刻仍是工作区变更，触发 sha 即 version PR 的 base tip
+          INTENT_REVIEW_BASE: ${{ github.sha }}
         with:
+          # 用 App installation token 创建 PR：github.token 创建的 PR 其 run 停在
+          # action_required，下面的 CI 等待永远等不到结果。
+          github-token: ${{ steps.pr-token.outputs.token }}
           script: pnpm ci:version
           commit-message: "chore: version packages"
           pr-title: ${{ steps.title.outputs.title }}
@@ -138,12 +178,13 @@ jobs:
         # 永不自动合并——由人工合并，合并 push 自然触发 publish 通道
         if: steps.version.outputs.pr-number != '' && github.ref_name == 'feature'
         env:
+          # 合并与 dispatch 必须用 github.token：用 App/PAT 合并产生的 push 会再触发
+          # 一次 release.yml 的 push 通道，与随后的 dispatch 双跑。
           GH_TOKEN: ${{ github.token }}
+          CI_WAIT_TIMEOUT_SECONDS: 2400
         run: |
           pr="${{ steps.version.outputs.pr-number }}"
-          sha=$(curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/${{ github.repository }}/pulls/$pr" \
-            | jq -r .head.sha)
+          sha=$(gh pr view "$pr" --repo "${{ github.repository }}" --json headRefOid -q .headRefOid)
           echo "waiting for CI on PR #$pr ($sha)"
           bash scripts/wait-ci-green.sh "$sha"
           # 合并（GITHUB_TOKEN 触发的合并 push 不产生 workflow run，

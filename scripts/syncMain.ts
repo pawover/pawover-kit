@@ -15,7 +15,7 @@
  *  3. 剔除 `.changeset/pre/` 归档；
  *  4. 还原 PACKAGE_FILES 版本号为 origin/main 侧（feature 的 alpha 版本不进入 main）；
  *  5. 切到 sync-main 分支并提交同步变更（feature 保持原状）；
- *  6. 记录机械改动的 intent 审查结论（no-change）并提交；
+ *  6. 以 origin/main 视角记录机械改动的 intent 审查结论（no-change）并提交；
  *  7. 清理远端旧 sync-main（跳过 pre-push 校验）并推送；
  *  8. 自动创建 PR（sync-main → main，已存在 open PR 时跳过），输出 PR 链接；
  *  9. 不启用 auto-merge —— 人工合并 PR；
@@ -32,7 +32,7 @@
 import { execSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { recordReleaseReviewOutcomes } from "./intentReview.ts";
+import { recordReviewOutcomes } from "./intentReview.ts";
 import { PACKAGE_FILES } from "./packages.ts";
 
 const HEAD_BRANCH = "sync-main";
@@ -218,8 +218,8 @@ async function main () {
     console.log("   ✔ 无变更可提交（feature 与 main 内容一致）");
   }
 
-  console.log("⑤ 记录同步机械改动的 intent 审查结论");
-  if (recordReleaseReviewOutcomes(SYNC_REVIEW_REASON)) {
+  console.log("⑤ 以 origin/main 视角记录同步机械改动的 intent 审查结论");
+  if (recordReviewOutcomes({ base: "origin/main", reason: SYNC_REVIEW_REASON })) {
     run("git add .intent/review-state.json");
     run("git commit -m \"chore(release): 记录 main 同步的审查结论\"");
     console.log("   ✔ 审查结论已提交到 sync-main");

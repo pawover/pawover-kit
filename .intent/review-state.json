@@ -127,29 +127,29 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "99eda108d38eabdeb4eeda60c9608490c60552d5bf58cdb8e94008f6439bed0d",
+      "fingerprint": "12649a65fb625bb34db61e8372a166f20f54787e7acf9281bb0292005e25dd51",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
+        "package.json": "e8e423dbd67f0948c1a7a7f4031a6b1a16856e9df9dfad44b58e231d7e6ffefd",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
-      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
+      "reason": "package.json 仅新增 check:changesets 脚本条目并将 pnpm check:changesets 前置到 test:ci；ci:version 追加 recordVersionReview 步骤。exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
+      "evidence": ["Changed: package.json at 02fe965"]
     },
     "planning:_artifacts": {
-      "fingerprint": "9ea7f232cd26c956f1fe439bdc4e37b9c69dc4dd5ea50318ca69da2abee12d57",
+      "fingerprint": "2eec34c85caa4cdaeaa7f1f67ff09915ddc73707522da874d7634f767ec7ce98",
       "snapshot": {
         "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
         "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
         "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
-        "package.json": "c09f1f83037fed64087cd9ff5ce3d534bd835a388f4f4eea601f5931dd337292",
+        "package.json": "e8e423dbd67f0948c1a7a7f4031a6b1a16856e9df9dfad44b58e231d7e6ffefd",
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
         "packages/eslint-rules/src/config.ts": "18ffcedf629e4e1c9b8508a267cf33579b213cb25ec4557f8bb7e7417c7d237d",
@@ -212,10 +212,10 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
       },
-      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
-      "reason": "package.json 仅新增 check:skills 脚本条目并将 pnpm check:skills 前置到 test:ci；exports/files/version/dependencies 与 entry、site 文档均未变动，skills/kit 记录的包选择、子路径与 peer 依赖语义不变，domain_map/skill_spec/skill_tree 亦无需调整。",
-      "evidence": ["Changed: package.json at b71114087da22b4709a457ebfa33205e2d03673d"]
+      "reason": "package.json 仅新增 check:changesets 脚本条目并将 pnpm check:changesets 前置到 test:ci；ci:version 追加 recordVersionReview 步骤。exports/files/version/dependencies 与 entry、site 文档均未变动，domain_map/skill_spec/skill_tree 记录的包选择、子路径与 peer 依赖语义不变。",
+      "evidence": ["Changed: package.json at 02fe965"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -1699,34 +1699,144 @@
       ]
     },
     "source:scripts/intentReview.ts": {
-      "fingerprint": "6d567bb1cd3a8a28144be0d5fa8765aec53ea021a614908bc40cc0adf3bc898c",
+      "fingerprint": "38c9dba179cbe22a2acbe8597e39604dc8938a4b9dd22e9aba0d1aab200de18e",
       "snapshot": {
-        "scripts/intentReview.ts": "7402c4f7f92433759b4c6dbdd2d04ddadc962be357b63499dd604986aa1c73f7"
+        "scripts/intentReview.ts": "3a81eb9d243281d9f851884380008cd8eb8e25456a264bf679b052c87229b063"
       },
-      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
-      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
-      "evidence": ["Changed: scripts/intentReview.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
+      "reason": "CI/发布链路修复：升级 scripts/intentReview.ts 支持 base 参数、白名单过滤、注解报告生成与记录（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/intentReview.ts at 02fe965"]
     },
     "source:scripts/releaseMerge.ts": {
-      "fingerprint": "d2a2def45d2fd64136de5c46beffb0a657f2b4fba5aae91b20db1418e16d5750",
+      "fingerprint": "0a09e9de3a99431baae3d0d1ae103937c324197663c4da55d7ba99cb2405d5ed",
       "snapshot": {
-        "scripts/releaseMerge.ts": "cc72db472aee75f99fce23a2ee48a023457f6afc7b3ed121148f1b549066f96b"
+        "scripts/releaseMerge.ts": "823df3c211d4966552f9db1db69f7136ef62ac620b286d3d74a22f0cfe941d08"
       },
-      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
-      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
-      "evidence": ["Changed: scripts/releaseMerge.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
+      "reason": "CI/发布链路修复：升级 scripts/releaseMerge.ts 以 --base origin/main 视角记录审查结论（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/releaseMerge.ts at 02fe965"]
     },
     "source:scripts/syncMain.ts": {
-      "fingerprint": "a3de2b99326e8063882a70d365227a7da46faad79d34744616cf465d3071a3fe",
+      "fingerprint": "5918df800d8a3d024c38370a5c400a0e4474220780c98690915a52100cbc1663",
       "snapshot": {
-        "scripts/syncMain.ts": "ddadd4ca8374cc2aa3c99c003bf6485c16e77cc5c84241a8cb0ebd2fa9b00985"
+        "scripts/syncMain.ts": "23097d99c219d330ca181b8676a1780d0ee9adab156d90247dc517305ff0a8a5"
       },
-      "head": "6c0812d65f668fa01e4c0d71d4a993665cd7e506",
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
-      "reason": "发布/同步脚本修复：删除远端分支改用 --no-verify（删除分支不推送提交），并在提交机械改动后自动记录 intent 审查结论（白名单仅根 package.json 与 .changeset/pre）。属于仓库内部工具链，不改变任何包导出、运行时行为或 skill 指引。",
-      "evidence": ["Changed: scripts/syncMain.ts at 6c0812d65f668fa01e4c0d71d4a993665cd7e506"]
+      "reason": "CI/发布链路修复：升级 scripts/syncMain.ts 以 --base origin/main 视角记录审查结论（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/syncMain.ts at 02fe965"]
+    },
+    "source:.changeset/README.md": {
+      "fingerprint": "e74f7c8cb1f387a7ca3066b010feb50d86cbf438c0cbdc89f8ca3b23ba6d4b52",
+      "snapshot": {
+        ".changeset/README.md": "262871b20fabb929a81467f33cc79f49864c9d0521d8307e0e4d5fee9f9fb54f"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "T5 第 2 轮事实错误修正：release-app.md 修正私钥轮换步骤（生成新 key 不使旧 key 失效，需在 Key pairs 页面手动删除）、安装目标（个人账号 pawover，target_type=User）、权限名（Contents/Pull requests）、action_required 表述（移除未经证实的量化）；.changeset/README.md 同步修正 action_required 两处描述。未改变任何 skill 的对外行为。",
+      "evidence": ["Documentation wording fixes at T5 round 2"]
+    },
+    "source:.github/workflows/ci.yml": {
+      "fingerprint": "112b4dd03bd328b7dbd953c3edf346ad910bb9a73152fab62c39a3203f0e7091",
+      "snapshot": {
+        ".github/workflows/ci.yml": "c57bda3a1bf049f43458391a1954705e5596cb9cb16173427cb51a359bb74268"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：verify-release-plan 步骤移除 if: push 限制（PR 与 push 均运行）；物化 main 引用步骤增加 BASE_SHA 回退。未改变任何 skill 的对外行为。",
+      "evidence": ["Changed: .github/workflows/ci.yml at 02fe965"]
+    },
+    "source:.github/workflows/release.yml": {
+      "fingerprint": "d53a772a2dd653dcf4334d6d24f9dbc306de97927ce8782e1d626467174f0249",
+      "snapshot": {
+        ".github/workflows/release.yml": "765abe84d25cc3c57327a5b028a5dea76678e4c38890c7bc81de8c39c7ef543e"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：新增 App token 生成步骤、Resolve version PR token 步骤（回退链 App → PAT → github.token）、version job 注入 INTENT_REVIEW_BASE env、合并步骤使用 github.token 并增加 CI_WAIT_TIMEOUT_SECONDS 配置。未改变任何 skill 的对外行为。",
+      "evidence": ["Changed: .github/workflows/release.yml at 02fe965"]
+    },
+    "source:docs/agents/ci-review.md": {
+      "fingerprint": "36913945eae6358251cea18362a2d19d22accc783008fde659810acfbcbec25b",
+      "snapshot": {
+        "docs/agents/ci-review.md": "30019419ca0f4c8ce8504e01397161a6cd40f44e64b07eba3d5eba74ef83e9c2"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复与文档同步：在 T1-A/T1-B/T1-C/T1-D 缺陷条目后添加已修复指针，指向任务流 T2/T3/T4 的实施文档与脚本。不改结论。",
+      "evidence": ["Changed: docs/agents/ci-review.md at 02fe965"]
+    },
+    "source:docs/agents/intent-baseline-flow.md": {
+      "fingerprint": "b408b255620e50154da33426537d978a75990805512763393cbf98f89ee84949",
+      "snapshot": {
+        "docs/agents/intent-baseline-flow.md": "f53396101cc0cf8fe34b70583cac83dc868dbfa074af9840d7e90dd5c1d861ab"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "T5 第 3 轮事实修正：release-app.md 修正步骤名（Merge version PR and dispatch → Wait for version PR CI, merge and trigger publish）；intent-baseline-flow.md 修正常量名（AUTO_RECORD_PATHS → RELEASE_METADATA_PATHS）并将第七节四个待确认问题标记为已确认（方案 A）。未改变任何 skill 的对外行为。",
+      "evidence": ["Documentation wording fixes at T5 round 3"]
+    },
+    "source:docs/agents/release-app.md": {
+      "fingerprint": "a2e402b5d3f568d5558818e3be978a685c66ee40e2d2dd7f72fa0c9223dcbe96",
+      "snapshot": {
+        "docs/agents/release-app.md": "820dd866ff18154c38d35ac26d16bb5820330274d321bc81f3f7d3fcb0ee8ef5"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "T5 第 3 轮事实修正：release-app.md 修正步骤名（Merge version PR and dispatch → Wait for version PR CI, merge and trigger publish）；intent-baseline-flow.md 修正常量名（AUTO_RECORD_PATHS → RELEASE_METADATA_PATHS）并将第七节四个待确认问题标记为已确认（方案 A）。未改变任何 skill 的对外行为。",
+      "evidence": ["Documentation wording fixes at T5 round 3"]
+    },
+    "source:scripts/checkChangesets.ts": {
+      "fingerprint": "9a5109e295e3217ef06cea482485c3f9a9923670b1ee7995eee2ca07c80e87e0",
+      "snapshot": {
+        "scripts/checkChangesets.ts": "aa8f779a27dcc500ce0f867eec135e98ca28956ac7f55a95d88255a6d8df3435"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：新增 scripts/checkChangesets.ts 拦截 frontmatter 引用根包 @pawover/kit 的 changeset（根包不在 workspace 包列表，会使 changeset status / version 直接抛错）。属于发布守卫脚本，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/checkChangesets.ts at 02fe965"]
+    },
+    "source:scripts/recordVersionReview.ts": {
+      "fingerprint": "8773b054769be512b840a975fb1c19f52c1ff872b7c094403e4c400d74ea848c",
+      "snapshot": {
+        "scripts/recordVersionReview.ts": "5b8bd1b699f7b56c1e7b8bd613b232ad7e9bc9d37bc4cf997a7179c1559cb669"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：新增 scripts/recordVersionReview.ts 作为版本 PR 的 intent 审查结论记录入口（env INTENT_REVIEW_BASE 门控）。属于发版脚本，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/recordVersionReview.ts at 02fe965"]
+    },
+    "source:scripts/verifyReleasePlan.ts": {
+      "fingerprint": "8e3946e539bde499cdd5f53221bf98254198f61ba16dc3061a344bfe46954a3b",
+      "snapshot": {
+        "scripts/verifyReleasePlan.ts": "aa52ee0dcbc9097eb57da21ebbeadea07a21eee5ad251d65b56fde5276769315"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：升级 scripts/verifyReleasePlan.ts 区分 changeset status 失败类型（内容错误阻断、环境失败跳过），支持 PR 与 push 事件。属于发布守卫脚本，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/verifyReleasePlan.ts at 02fe965"]
+    },
+    "source:scripts/wait-ci-green.sh": {
+      "fingerprint": "fa855ace957fdb1fff48cd71ff922b6c3b4b26b97306b4a9612802f343fc5a1b",
+      "snapshot": {
+        "scripts/wait-ci-green.sh": "9ceb98e94bd3068f5a4e6f8d11755f50952602aea10ff64c003033c8e8d098b3"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：重写 scripts/wait-ci-green.sh 支持参数化超时与 check-run 名、识别 action_required / startup_failure / 排队停滞、分页支持、限流诊断。属于发布脚本，非 skill 或 planning 内容。",
+      "evidence": ["Changed: scripts/wait-ci-green.sh at 02fe965"]
+    },
+    "source:test/unit/utils/scripts/intentReview.test.ts": {
+      "fingerprint": "eeef2ab0d1578848e146a0e02338d0863bae8c25c8e000bd39dd3bbe44de017f",
+      "snapshot": {
+        "test/unit/utils/scripts/intentReview.test.ts": "9f9f2c5f444ae3824c5209f4189079687092638abe2b9d7a090040cd6143f8ef"
+      },
+      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "outcome": "no-change",
+      "reason": "CI/发布链路修复：新增 scripts/intentReview.ts 的单测（白名单过滤、注解构造）。属于测试代码，非 skill 或 planning 内容。",
+      "evidence": ["Changed: test/unit/utils/scripts/intentReview.test.ts at 02fe965"]
     }
   }
 }
