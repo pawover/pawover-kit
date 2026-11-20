@@ -7,7 +7,7 @@
  *  - SUB_PACKAGE_DIRS：`packages/<目录>` 数组；
  *  - SUB_PACKAGE_NAMES：包名数组；
  *  - PACKAGE_FILES：含根包在内的 package.json 相对路径数组；
- *  - VERSION_FILES：版本通道产物的完整文件集合（package.json + CHANGELOG.md）。
+ *  - VERSION_FILES：版本发布流程产物的完整文件集合（package.json + CHANGELOG.md）。
  */
 
 export const SUB_PACKAGES = [

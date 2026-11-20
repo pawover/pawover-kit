@@ -1,7 +1,7 @@
 /**
  * 发布类 PR 共享的 intent 审查结论记录。
  *
- * 版本 PR 与本地 release:merge / sync:main 的机械改动都会成为待审条目：版本号
+ * 版本 PR 与本地 release:merge / sync:main 的版本改动都会成为待审条目：版本号
  * bump 命中 skill / planning 快照，归档与已消费的 changeset 属于未映射变更。
  * PR 侧 `intent maintainer check --base <PR base sha>` 以净差视角校验，这些条目
  * 若未记录会让 Check Skills 必然失败，因此需在分支内容定格时以 `--base` 视角
@@ -15,7 +15,7 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-/** 发版元数据白名单：版本通道的 package.json、子包 CHANGELOG 与 changeset 归档 */
+/** 发版元数据白名单：版本发布流程的 package.json、子包 CHANGELOG 与 changeset 归档 */
 export const RELEASE_METADATA_PATHS = [
   /^package\.json$/,
   /^packages\/[^/]+\/package\.json$/,
@@ -195,7 +195,7 @@ function recordAnnotatedReport (report: AnnotatedReviewReport): void {
 }
 
 /**
- * 记录发版机械改动的 intent 审查结论。
+ * 记录发版版本改动的 intent 审查结论。
  *
  * 待审项必须全部落在白名单内；否则说明存在尚未人工审查的改动，此时抛错中止并
  * 给出人工记录命令。

@@ -3,10 +3,10 @@
  *
  * changesets 的 workspace 包列表不含根包（getPackages 把根包单独放在
  * rootPackage），根包一旦出现在 changeset frontmatter，`changeset status` 与
- * `changeset version` 都会直接抛错，发布通道必炸。根包版本由
+ * `changeset version` 都会直接抛错、阻断发布。根包版本由
  * scripts/bumpRoot.ts 在 version 之后同步，不应通过 changeset 声明。
  *
- * 只扫描 .changeset 根目录的 *.md：pre/ 是 version 通道的归档产物、不再被
+ * 只扫描 .changeset 根目录的 *.md：pre/ 是版本发布流程的归档产物、不再被
  * 消费，其中可能保留历史 changeset，不能据此阻断；README.md 为说明文档。
  *
  * 用法（在 pnpm test:ci 早期执行）：

@@ -35,7 +35,7 @@ pnpm 单体仓库 (pnpm 12 / Node ≥24.22.2)。Turborepo 构建。5 个发布�
 | `pnpm ci:version`                        | 消费 changeset 并记录版本 PR 审查结论：`changeset version && bumpRoot && verifyRelease && pnpm install && recordVersionReview`（CI 用） |
 | `pnpm check:changesets`                  | `node scripts/checkChangesets.ts` — 拦截 frontmatter 引用根包 `@pawover/kit` 的 changeset（根包不在 workspace 包列表，会使 `changeset status` / `version` 直接抛错） |
 | `pnpm pre:enter-alpha` / `pnpm pre:exit` | 进出 alpha pre 模式（`pnpm changeset pre enter/exit alpha`）                                                                   |
-| `pnpm sync:main`                         | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发发布通道）                                                     |
+| `pnpm sync:main`                         | 非发布内容同步到 main：建 sync-main PR（版本保持 main 侧，不触发正式版发布）                                                     |
 
 ## 发布
 

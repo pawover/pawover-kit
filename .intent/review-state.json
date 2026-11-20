@@ -1699,64 +1699,68 @@
       ]
     },
     "source:scripts/intentReview.ts": {
-      "fingerprint": "38c9dba179cbe22a2acbe8597e39604dc8938a4b9dd22e9aba0d1aab200de18e",
+      "fingerprint": "19f7ae5f78ba42fff63a74c2d271f385deca256f237dc2701e5eee7dd43fd5e8",
       "snapshot": {
-        "scripts/intentReview.ts": "3a81eb9d243281d9f851884380008cd8eb8e25456a264bf679b052c87229b063"
+        "scripts/intentReview.ts": "aa4a8032a999435805b0b925c4c0947cb1555a9d70a8853362b7a66ce3f344a6"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：升级 scripts/intentReview.ts 支持 base 参数、白名单过滤、注解报告生成与记录（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/intentReview.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/intentReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/releaseMerge.ts": {
-      "fingerprint": "0a09e9de3a99431baae3d0d1ae103937c324197663c4da55d7ba99cb2405d5ed",
+      "fingerprint": "3d8cf94eb9e85c62b5125d39923dcc6a9672118b10eaf5b066667850c0e7e5d1",
       "snapshot": {
-        "scripts/releaseMerge.ts": "823df3c211d4966552f9db1db69f7136ef62ac620b286d3d74a22f0cfe941d08"
+        "scripts/releaseMerge.ts": "a5c84a9dbceae3c48eec4fac5d71e730599bd0abfb1d100f69ba6e8837563ddf"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：升级 scripts/releaseMerge.ts 以 --base origin/main 视角记录审查结论（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/releaseMerge.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/releaseMerge.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncMain.ts": {
-      "fingerprint": "5918df800d8a3d024c38370a5c400a0e4474220780c98690915a52100cbc1663",
+      "fingerprint": "db9065b6532a139fb0f1a3150fb5781008fd4803cd32bc7d3899cfa4e2022f35",
       "snapshot": {
-        "scripts/syncMain.ts": "23097d99c219d330ca181b8676a1780d0ee9adab156d90247dc517305ff0a8a5"
+        "scripts/syncMain.ts": "206429d5cf4fde0a33c8519b3918a4e77980eba8c1b3aa2ca55a8d56f3cc1e3c"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：升级 scripts/syncMain.ts 以 --base origin/main 视角记录审查结论（recordReviewOutcomes 替代 recordReleaseReviewOutcomes）。属于发版脚本内部实现，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/syncMain.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/syncMain.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:.changeset/README.md": {
-      "fingerprint": "a26ecb5e2831417971d50c6c30d58075fabf5c6c4114c447fa3611eb1e065bdc",
+      "fingerprint": "4e1ab1cc73d431ecadb63020533ec368d6edb615d616aa1b767a76e5f7f4580f",
       "snapshot": {
-        ".changeset/README.md": "dab741880d40a002e07d3b72348ec3e653e536c16c371c15fff2d4580618eb72"
+        ".changeset/README.md": "930d144999846c5dce1cb41248bf99b87d3c80580294ce7d4f3e397eb42bcf30"
       },
-      "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "T8 文档同步：App 凭据迁移到 client-id（RELEASE_APP_CLIENT_ID 优先，RELEASE_APP_ID 兼容保留）；新增 workflow_dispatch 通道语义说明（人工担责发布，不加确认）。未改变任何 skill 的对外行为。",
-      "evidence": ["T8 documentation updates"]
+      "reason": "T12 文档同步：更新 mermaid 流程图中的 job 名与 step 名以匹配 T11 的新命名（Decide release action、Wait for CI、Build and pack、Publish packages、Sync stable versions to feature）；清理行话（tag 豁免检查→无需 changeset 跳过校验；兜底走 tag 豁免→无需 changeset 跳过校验）；更新脚本输出示例（① 合并 main 分支、② 清理预发布归档、③ 检查本次版本是否已发布、④ 在 release-main 提交正式版合并准备、⑤ 记录本次版本改动的审查结论、⑥ 重建并推送 release-main、⑦ 创建正式版发布 PR 等待人工合并、⑧ 清理本地分支并切回 feature）。这些是发布流程文档的术语规范化与流程描述更新，不涉及 skill 内容、源码实现或 planning 记录。",
+      "evidence": [
+        ".changeset/README.md mermaid 流程图中的 job 名与 step 名更新",
+        "脚本输出示例从编号式改为直白中文描述",
+        "清理行话：tag 豁免检查→无需 changeset 跳过校验"
+      ]
     },
     "source:.github/workflows/ci.yml": {
-      "fingerprint": "112b4dd03bd328b7dbd953c3edf346ad910bb9a73152fab62c39a3203f0e7091",
+      "fingerprint": "be72d9560bb0ae4a1829e850d5cf6b68556eedb3525ff239965ea73372c66306",
       "snapshot": {
-        ".github/workflows/ci.yml": "c57bda3a1bf049f43458391a1954705e5596cb9cb16173427cb51a359bb74268"
+        ".github/workflows/ci.yml": "99e9a14a3dac359006c2c7003659dd710e3aed63a2fe197fcb6e87b67a9c6d4d"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：verify-release-plan 步骤移除 if: push 限制（PR 与 push 均运行）；物化 main 引用步骤增加 BASE_SHA 回退。未改变任何 skill 的对外行为。",
-      "evidence": ["Changed: .github/workflows/ci.yml at 02fe965"]
+      "reason": "T11 workflow 改动：job 名、step 名、终端输出英文文案更新（由 T11 实施，T12 文档同步配套）。不涉及 skill 内容。",
+      "evidence": ["T11 实施 workflow 改动，T12 文档同步配套"]
     },
     "source:.github/workflows/release.yml": {
-      "fingerprint": "08b693e3170d114a2de51b6c5dd63a20b463bdcde93ceb93cbbd3777a857800e",
+      "fingerprint": "122031733d55295b16a8ae2ce92df533a02a91e86770366cc9c292b090967ba3",
       "snapshot": {
-        ".github/workflows/release.yml": "6067aaf6581c72cb63f889a59c8b36a7f9823f48bcb5b111a8477324ef7eb69f"
+        ".github/workflows/release.yml": "dd82f5e4bb39107186f21b029c7654235732c409a8fa0a96878407c80552c62e"
       },
-      "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "T8 文档同步：App 凭据迁移到 client-id（RELEASE_APP_CLIENT_ID 优先，RELEASE_APP_ID 兼容保留）；新增 workflow_dispatch 通道语义说明（人工担责发布，不加确认）。未改变任何 skill 的对外行为。",
-      "evidence": ["T8 documentation updates"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: .github/workflows/release.yml at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:docs/agents/ci-review.md": {
       "fingerprint": "36913945eae6358251cea18362a2d19d22accc783008fde659810acfbcbec25b",
@@ -1789,44 +1793,44 @@
       "evidence": ["T8 round 2 wording fix"]
     },
     "source:scripts/checkChangesets.ts": {
-      "fingerprint": "9a5109e295e3217ef06cea482485c3f9a9923670b1ee7995eee2ca07c80e87e0",
+      "fingerprint": "18e39fc396456f12bf6839d67c45f5884c45ffa9153f88f6d62fe918e041df96",
       "snapshot": {
-        "scripts/checkChangesets.ts": "aa8f779a27dcc500ce0f867eec135e98ca28956ac7f55a95d88255a6d8df3435"
+        "scripts/checkChangesets.ts": "ef495404e71650e3d7647d943c61847b42bc39ed6a892a937133f1cb160c36d7"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：新增 scripts/checkChangesets.ts 拦截 frontmatter 引用根包 @pawover/kit 的 changeset（根包不在 workspace 包列表，会使 changeset status / version 直接抛错）。属于发布守卫脚本，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/checkChangesets.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/checkChangesets.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/recordVersionReview.ts": {
-      "fingerprint": "8773b054769be512b840a975fb1c19f52c1ff872b7c094403e4c400d74ea848c",
+      "fingerprint": "f3879555fe508f875afd9336c50365c802db85d8475e707243aad40bb10ee69e",
       "snapshot": {
-        "scripts/recordVersionReview.ts": "5b8bd1b699f7b56c1e7b8bd613b232ad7e9bc9d37bc4cf997a7179c1559cb669"
+        "scripts/recordVersionReview.ts": "a81b0a8884b9490bda87f8003df368ef17af02fc87c62bd50e973c362155c4c4"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：新增 scripts/recordVersionReview.ts 作为版本 PR 的 intent 审查结论记录入口（env INTENT_REVIEW_BASE 门控）。属于发版脚本，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/recordVersionReview.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/recordVersionReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/verifyReleasePlan.ts": {
-      "fingerprint": "8e3946e539bde499cdd5f53221bf98254198f61ba16dc3061a344bfe46954a3b",
+      "fingerprint": "e648c0d733446861d2a2d30beffcdfd27a128f17e736ee96e51e968fa335371a",
       "snapshot": {
-        "scripts/verifyReleasePlan.ts": "aa52ee0dcbc9097eb57da21ebbeadea07a21eee5ad251d65b56fde5276769315"
+        "scripts/verifyReleasePlan.ts": "8635c72c99e021133b1a1e25875859bfcc2d5077b1fc51d0a820ccc998392a07"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：升级 scripts/verifyReleasePlan.ts 区分 changeset status 失败类型（内容错误阻断、环境失败跳过），支持 PR 与 push 事件。属于发布守卫脚本，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/verifyReleasePlan.ts at 02fe965"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/verifyReleasePlan.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/wait-ci-green.sh": {
-      "fingerprint": "fa855ace957fdb1fff48cd71ff922b6c3b4b26b97306b4a9612802f343fc5a1b",
+      "fingerprint": "c326eb9afcd316ad57d8c7a052c412412a17e0e8cb6798220c068ce012e528ad",
       "snapshot": {
-        "scripts/wait-ci-green.sh": "9ceb98e94bd3068f5a4e6f8d11755f50952602aea10ff64c003033c8e8d098b3"
+        "scripts/wait-ci-green.sh": "7360789e25a5435af2662b0c57edf24451efc72b8fb0779aae7f0d1df0d867df"
       },
-      "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "CI/发布链路修复：重写 scripts/wait-ci-green.sh 支持参数化超时与 check-run 名、识别 action_required / startup_failure / 排队停滞、分页支持、限流诊断。属于发布脚本，非 skill 或 planning 内容。",
-      "evidence": ["Changed: scripts/wait-ci-green.sh at 02fe965"]
+      "reason": "T11 脚本改动：终端输出中文文案更新（由 T11 实施，T12 文档同步配套）。不涉及 skill 内容。",
+      "evidence": ["T11 实施脚本改动，T12 文档同步配套"]
     },
     "source:test/unit/utils/scripts/intentReview.test.ts": {
       "fingerprint": "eeef2ab0d1578848e146a0e02338d0863bae8c25c8e000bd39dd3bbe44de017f",
@@ -2085,24 +2089,24 @@
       "evidence": ["Changed: prettier.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:scripts/bumpRoot.ts": {
-      "fingerprint": "e007d89e6ce032c150ed820f830591c6a7642899ed77ae5d0300d272adcb1669",
+      "fingerprint": "dbb37a6f3c371d27ce276e6d15553a8b220d5f7a0aa0bb5c20984de27a0a50da",
       "snapshot": {
-        "scripts/bumpRoot.ts": "0b78a942904b108b78739fe4eda1da57ac14aaebe4ceb5a7bf74fcf3ff4d50c5"
+        "scripts/bumpRoot.ts": "528a1a4330b4a4ce5f569d05814030d667ccec095e8fc0cfb06904704ad2ca03"
       },
-      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": ["Changed: scripts/bumpRoot.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/bumpRoot.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/checkPack.ts": {
-      "fingerprint": "6ea9f9f65d57753b67fba893aaed9c71148c8b26093a728a3e637a94f13522b5",
+      "fingerprint": "b473dac8452a678e42d1c633456e826e81580ea5fbaa738ce2f42c4e0d5117d0",
       "snapshot": {
-        "scripts/checkPack.ts": "545382357d2103696c83ec7ffd9d728104fb448ef5c6eaf23aad60d1a3887933"
+        "scripts/checkPack.ts": "861dc22f5fddcb723cf643367dca0859ac588abc511ba19038a975cbb3790d7d"
       },
-      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": ["Changed: scripts/checkPack.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/checkPack.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/checkPackageTypes.ts": {
       "fingerprint": "9d76d548d1c64cb1416431a7735ecf4ddb83ef875f8fe837fdfe7f26daf09a1c",
@@ -2115,24 +2119,24 @@
       "evidence": ["Changed: scripts/checkPackageTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:scripts/packages.ts": {
-      "fingerprint": "21189f368821299697562864a2202fd8a9bf7d19363bcdb74189990931d6527d",
+      "fingerprint": "8453faaa703ebc8e9fdf87d09b97c323a25f5e0ff005ba639be160579cc48534",
       "snapshot": {
-        "scripts/packages.ts": "4d235947f8050c6427f782ccbecd74ee1539cde5b9fde798aec3bc4f92c692dd"
+        "scripts/packages.ts": "7c887c3b6a34a9352c14d9081bc481f9494af35bc859212cfd8b29185382e614"
       },
-      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": ["Changed: scripts/packages.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/packages.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncBaseline.ts": {
-      "fingerprint": "f6d28e8e893b8039cd9a4519cbd096de948a26c27cc7a9e310122c0760dba647",
+      "fingerprint": "64c053194010517c00c01c3dc6d78ccc2c964396778654c4e6136fc7c235e686",
       "snapshot": {
-        "scripts/syncBaseline.ts": "022dd6ab340a641a509364056f95dbfa42727ac15e4fc19ca9da1b64bb9c463d"
+        "scripts/syncBaseline.ts": "6e2a63a45e529c3f4a2b9f0ac342c8741b68696a0a438a4757f48e7c08cabfee"
       },
-      "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
-      "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": ["Changed: scripts/syncBaseline.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/syncBaseline.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:site/api/eslint-rules.md": {
       "fingerprint": "5727e50171735f7c9330f7c5362b2b73d8afc9ca85b200d8b613ac845b63e792",
@@ -2185,6 +2189,46 @@
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
       "evidence": ["Changed: vitest.config.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
+    },
+    "source:README.md": {
+      "fingerprint": "e4a553d950b70a0b13955bbca5fc6394dbb31183d44199b00b836cb77ab05e42",
+      "snapshot": {
+        "README.md": "14a4473b48643680e504d31c6a4aeb001847fb5587731c586413b4d3744b5b38"
+      },
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
+      "outcome": "no-change",
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: README.md at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+    },
+    "source:site/guide/contributing.md": {
+      "fingerprint": "61d20505d97d5fbd71a0ddeb45a4a076128fa1a86e3b3cc461495ff618384ba1",
+      "snapshot": {
+        "site/guide/contributing.md": "c170041aaa31149107976b4fffbdb42cbb185caf7b6f1f59f17661df018ef106"
+      },
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
+      "outcome": "no-change",
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: site/guide/contributing.md at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+    },
+    "source:scripts/syncEntry.ts": {
+      "fingerprint": "94fd54a4d4a894aa7fa4550ea092a3cfc7fbf9ad224e7145c4d9ac1b723bac5b",
+      "snapshot": {
+        "scripts/syncEntry.ts": "25bc0a9d20f7eac0539e46d41f09e5c19d00b5d6232cde134e62133bfc36d704"
+      },
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
+      "outcome": "no-change",
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/syncEntry.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+    },
+    "source:scripts/verifyRelease.ts": {
+      "fingerprint": "41e1cf3c250e6142ba60c60dafc3ee24683f5c8d433e2c4cfd61ca4b31f7a5d8",
+      "snapshot": {
+        "scripts/verifyRelease.ts": "84d222cdebdf9bfb6ddf714f09744ede27c89c33fdb8c70c1116eda685cb8e5e"
+      },
+      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
+      "outcome": "no-change",
+      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
+      "evidence": ["Changed: scripts/verifyRelease.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     }
   }
 }

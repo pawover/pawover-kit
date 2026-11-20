@@ -1,9 +1,9 @@
 /**
- * 发布计划守卫（tag 感知版）：
+ * 发布计划前置检查（感知 git tag）：
  * 在 CI 的 push 与 pull_request 事件上运行，校验「子包有源码变更 ⇒ 必须有待消费 changeset」，
- * 并对以下情况豁免：
+ * 并对以下情况跳过校验：
  *  - 存在匹配 git tag（当前版本已发布）；
- *  - 变更仅涉及版本文件（version 通道的 bump 提交 / release:merge 的剥离提交，
+ *  - 变更仅涉及版本文件（版本号递增提交 / release:merge 的剥离提交，
  *    属发布流程自身产物，不要求 changeset）。
  *
  * changeset status 失败必须区分类型：changeset 内容错误（例如 frontmatter 引用了
@@ -41,7 +41,7 @@ function mergeBase () {
 /**
  * 根目录待消费 changeset（排除 pre/ 归档与说明文件）。
  * v3.0.0 的 pre 模式 version 会把消费的 changeset 移动到 .changeset/pre/，
- * 这些归档不应被当作待消费 changeset，否则 status 会被归档撑起、守卫失效。
+ * 这些归档不应被当作待消费 changeset，否则 status 结果会被归档撑起、前置检查失效。
  */
 function pendingChangesets () {
   if (!existsSync(".changeset")) {
@@ -144,7 +144,7 @@ if (pendingChangesets().length > 0) {
     process.exit(1);
   }
 } else {
-  console.log("✔ 无待消费 changeset（忽略 .changeset/pre/ 归档），走豁免逻辑");
+  console.log("✔ 无需 changeset，跳过校验（无待消费 changeset，已忽略 .changeset/pre/ 归档）");
 }
 
 const base = mergeBase();
@@ -159,10 +159,10 @@ const changedSubs = SUB_PACKAGES.filter(([dir]) => {
   );
 });
 
-// version 通道产物指纹：changeset 已被消费（新增 .changeset/pre/ 归档
-// 或删除 .changeset/*.md）或 .changeset 目录有删除。bump 提交（含此前
-// 已配 changeset 的源码变更）是 version 通道的合法产物，必须放行——
-// 否则 bump 提交合并后 CI 被拦红、publish 永远无法触发（死锁）。
+// 版本发布流程产物指纹：changeset 已被消费（新增 .changeset/pre/ 归档
+// 或删除 .changeset/*.md）或 .changeset 目录有删除。版本号递增提交（含此前
+// 已配 changeset 的源码变更）是版本发布流程的合法产物，必须放行——
+// 否则递增提交合并后 CI 被拦红、publish 永远无法触发（死锁）。
 const changedStatuses = execSync(`git diff --name-status ${base} HEAD`, { encoding: "utf8" })
   .split("\n")
   .filter(Boolean);
@@ -176,15 +176,15 @@ const changesetConsumed = changedStatuses.some((line) => {
 });
 
 // 无子包源码变更 → 放行。覆盖三类提交：
-//  - version 通道的 bump 提交（仅 package.json / CHANGELOG / .changeset）；
+//  - 版本发布流程的版本号递增提交（仅 package.json / CHANGELOG / .changeset）；
 //  - release:merge 的剥离提交（版本文件 + .changeset/pre 删除）；
 //  - 根目录 / scripts / CI 配置等非子包改动（不触发子包发版，无需 changeset）。
-// changeset 已被消费（version 通道产物）→ 源码变更随 bump 一起放行。
+// changeset 已被消费（版本发布流程产物）→ 源码变更随版本号递增一起放行。
 if (changedSubs.length === 0 || changesetConsumed) {
   console.log(
     changedSubs.length === 0
       ? "✔ 发布计划校验通过（无子包源码变更，直接放行）"
-      : "✔ 发布计划校验通过（changeset 已被 version 通道消费，bump 提交放行）",
+      : "✔ 发布计划校验通过（changeset 已被版本发布流程消费，版本号递增提交放行）",
   );
   process.exit(0);
 }

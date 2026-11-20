@@ -173,7 +173,7 @@ while :; do
   done
 
   if [ "$all_success" = "true" ]; then
-    echo "✔ CI passed ($sha): $parts"
+    echo "✔ CI 已通过（$sha）：$parts"
     exit 0
   fi
 

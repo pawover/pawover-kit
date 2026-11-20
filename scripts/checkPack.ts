@@ -78,7 +78,7 @@ try {
   const tarballs = readdirSync(packDir).filter((f) => f.endsWith(".tgz"));
   const expected = 1 + SUB_PACKAGE_DIRS.length;
   if (tarballs.length !== expected) {
-    console.error(`[check-pack] expected ${expected} tarballs, got ${tarballs.length}`);
+    console.error(`[check-pack] 预期生成 ${expected} 个 tarball，实际 ${tarballs.length} 个`);
     process.exit(1);
   }
   for (const tarball of tarballs) {

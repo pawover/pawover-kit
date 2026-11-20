@@ -1,7 +1,7 @@
 /**
  * 版本 PR 的 intent 审查结论记录入口。
  *
- * 仅由 CI 版本通道调用：changesets/action 在版本改动仍是工作区未提交变更时执行
+ * 仅由 CI 版本发布流程调用：changesets/action 在版本改动仍是工作区未提交变更时执行
  * `pnpm ci:version`，此时以 `INTENT_REVIEW_BASE`（version PR 的 base tip）为视角
  * 记录结论，记录结果随 action 的提交一并进入版本 PR。本地与未注入该变量时完全跳过。
  */
