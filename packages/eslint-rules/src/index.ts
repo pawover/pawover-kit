@@ -1,7 +1,22 @@
 import pawover from "./config.ts";
 import { GLOB_EXCLUDE } from "./globExclude.ts";
+import { GLOB_JSX, GLOB_SOURCE, GLOB_TYPESCRIPT, GLOB_VUE } from "./globs.ts";
 
-export type { PawoverOptions } from "./config.ts";
+export type {
+  ConfigLayer,
+  ConfigNames,
+  PawoverOptions,
+  PawoverUserConfig,
+  ReactOptions,
+  RuleMap,
+  RulesOverrideOptions,
+  StylisticOptions,
+  StylisticQuotes,
+  TypeScriptOptions,
+  VueNamingCasing,
+  VueOptions,
+} from "./config.ts";
+export type { ReactCompilerPreset } from "./reactCompiler.ts";
 
 /**
  * 规则严重级别（数字形式）
@@ -57,4 +72,4 @@ export type RuleConfig<RuleOptions extends unknown[] = unknown[]> = Severity | [
 
 export default pawover;
 
-export { GLOB_EXCLUDE };
+export { GLOB_EXCLUDE, GLOB_JSX, GLOB_SOURCE, GLOB_TYPESCRIPT, GLOB_VUE };

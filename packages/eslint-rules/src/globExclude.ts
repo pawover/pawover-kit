@@ -2,7 +2,7 @@
  * 全局忽略目录列表
  *
  * 在 ESLint 配置中直接忽略的目录与文件 glob 集合，包含依赖、构建产物、锁文件、编辑器目录、缓存等。
- * 预设工厂（`src/config.ts`）将其作为返回数组的首项。
+ * 预设工厂（`src/config.ts`）将其作为 `pawover/ignores` 配置层的 `ignores` 值。
  *
  * @example
  * ```ts

@@ -8,7 +8,7 @@
 
 > **ThemeEnumValue** = `ValueOf`\<*typeof* [`THEME`](../classes/ThemeUtil.md#theme)\>
 
-Defined in: [theme/index.type.ts:12](https://github.com/pawover/pawover-kit/blob/14c8a7a3c20959e35dd29ccf637538d86744f7d3/packages/utils/src/theme/index.type.ts#L12)
+Defined in: [theme/index.type.ts:12](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/utils/src/theme/index.type.ts#L12)
 
 固定主题类型（仅亮色/暗色），对应 `ThemeUtil.THEME`
 

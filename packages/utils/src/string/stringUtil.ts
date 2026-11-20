@@ -62,7 +62,9 @@ export class StringUtil {
 
     const result = String(candidate);
 
-    return trim ? result.trim() : result;
+    return trim
+      ? result.trim()
+      : result;
   }
 
   /**
@@ -111,7 +113,9 @@ export class StringUtil {
       return s;
     });
 
-    const sign = signCount % 2 === 1 ? "-" : "";
+    const sign = signCount % 2 === 1
+      ? "-"
+      : "";
 
     if (firstIndex === -1) {
       return sign + "0";
@@ -472,7 +476,9 @@ export class StringUtil {
     regex.lastIndex = 0;
 
     // 非全局正则会导致 exec 原地打转，强制补上 `g` 标志
-    const executor: RegExp = regex.global ? regex : new RegExp(regex.source, `${regex.flags}g`);
+    const executor: RegExp = regex.global
+      ? regex
+      : new RegExp(regex.source, `${regex.flags}g`);
 
     let result = "";
     let from = 0;
@@ -482,7 +488,9 @@ export class StringUtil {
       // 获取模板对象中对应的值
       const replacement = template[match[1]!];
       // 如果值为 null 或 undefined，则保留原始的占位符
-      const valueToInsert = replacement === null || replacement === undefined ? match[0] : replacement;
+      const valueToInsert = replacement === null || replacement === undefined
+        ? match[0]
+        : replacement;
 
       result += input.slice(from, match.index) + valueToInsert;
       from = executor.lastIndex;

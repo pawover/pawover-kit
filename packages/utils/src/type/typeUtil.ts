@@ -139,7 +139,9 @@ export class TypeUtil {
   static isInteger (value: unknown, checkSafe = true): value is number {
     const check = Number.isInteger(value);
 
-    return checkSafe ? check && Number.isSafeInteger(value) : check;
+    return checkSafe
+      ? check && Number.isSafeInteger(value)
+      : check;
   }
 
   /**
@@ -393,7 +395,9 @@ export class TypeUtil {
   static isPlainObject (value: unknown, prototypeCheck = true): value is Record<PropertyKey, unknown> {
     const check = TypeUtil.getPrototypeString(value) === TypeUtil.PROTOTYPE_TAGS_ENUM.OBJECT;
 
-    return prototypeCheck ? check && Object.getPrototypeOf(value) === Object.prototype : check;
+    return prototypeCheck
+      ? check && Object.getPrototypeOf(value) === Object.prototype
+      : check;
   }
 
   /**

@@ -11,14 +11,19 @@ const rules = {
    * @descEN Enforce consistent spacing and line break styles inside brackets (arrays, objects, function arguments)
    * @see https://eslint.style/rules/list-style
    */
-  "stylistic/list-style": [2, {
-    empty: "never",
-    singleLine: { spacing: "never", maxItems: Number.POSITIVE_INFINITY },
-    multiLine: { minItems: 0 },
-    overrides: {
-      "{}": { singleLine: { spacing: "always" } },
+  "stylistic/list-style": [
+    2,
+    {
+      empty: "never",
+      singleLine: { spacing: "never", maxItems: Number.POSITIVE_INFINITY },
+      multiLine: { minItems: 0 },
+      overrides: {
+        "{}": {
+          singleLine: { spacing: "always" },
+        },
+      },
     },
-  }],
+  ],
   /**
    * @desc 要求箭头函数参数使用圆括号
    * @descEN Require parentheses around arrow function arguments
@@ -198,13 +203,19 @@ const rules = {
    * @descEN Require one JSX element per line
    * @see https://eslint.style/rules/jsx-one-expression-per-line
    */
-  "stylistic/jsx-one-expression-per-line": [2, { allow: "single-child" }],
+  "stylistic/jsx-one-expression-per-line": [
+    2,
+    { allow: "single-child" },
+  ],
   /**
    * @desc 强制用户自定义 JSX 组件使用 PascalCase
    * @descEN Enforce PascalCase for user-defined JSX components
    * @see https://eslint.style/rules/jsx-pascal-case
    */
-  "stylistic/jsx-pascal-case": [2, { allowNamespace: true, allowAllCaps: true }],
+  "stylistic/jsx-pascal-case": [
+    2,
+    { allowNamespace: true, allowAllCaps: true },
+  ],
   /**
    * @desc 强制 JSX 属性中一致使用双引号或单引号
    * @descEN Enforce the consistent use of either double or single quotes in JSX attributes
@@ -234,13 +245,28 @@ const rules = {
    * @descEN Enforce whitespace in and around the JSX opening and closing brackets
    * @see https://eslint.style/rules/jsx-tag-spacing
    */
-  "stylistic/jsx-tag-spacing": [2, { beforeClosing: "never" }],
+  "stylistic/jsx-tag-spacing": [
+    2,
+    { beforeClosing: "never" },
+  ],
   /**
    * @desc 禁止多行 JSX 缺少括号
    * @descEN Disallow missing parentheses around multiline JSX
    * @see https://eslint.style/rules/jsx-wrap-multilines
    */
-  "stylistic/jsx-wrap-multilines": [2, { declaration: "parens-new-line", assignment: "parens-new-line", return: "parens-new-line", arrow: "parens-new-line", condition: "parens-new-line", logical: "parens-new-line", prop: "ignore", propertyValue: "parens-new-line" }],
+  "stylistic/jsx-wrap-multilines": [
+    2,
+    {
+      declaration: "parens-new-line",
+      assignment: "parens-new-line",
+      return: "parens-new-line",
+      arrow: "parens-new-line",
+      condition: "parens-new-line",
+      logical: "parens-new-line",
+      prop: "ignore",
+      propertyValue: "parens-new-line",
+    },
+  ],
   /**
    * @desc 强制对象字面量属性键值间间距
    * @descEN Enforce consistent spacing between keys and values in object literal properties
@@ -360,13 +386,21 @@ const rules = {
    * @descEN Disallow multiple spaces
    * @see https://eslint.style/rules/no-multi-spaces
    */
-  "stylistic/no-multi-spaces": [2, { exceptions: { Property: false, ImportAttribute: false } }],
+  "stylistic/no-multi-spaces": [
+    2,
+    {
+      exceptions: { Property: false, ImportAttribute: false },
+    },
+  ],
   /**
    * @desc 禁止多个空行
    * @descEN Disallow multiple empty lines
    * @see https://eslint.style/rules/no-multiple-empty-lines
    */
-  "stylistic/no-multiple-empty-lines": [2, { max: 2, maxEOF: 1, maxBOF: 0 }],
+  "stylistic/no-multiple-empty-lines": [
+    2,
+    { max: 2, maxEOF: 1, maxBOF: 0 },
+  ],
   /**
    * @desc 禁止使用制表符
    * @descEN Disallow all tabs
@@ -474,7 +508,10 @@ const rules = {
    * @descEN Enforce consistent spacing before function parenthesis
    * @see https://eslint.style/rules/space-before-function-paren
    */
-  "stylistic/space-before-function-paren": [2, { anonymous: "always", named: "always", asyncArrow: "always", catch: "always" }],
+  "stylistic/space-before-function-paren": [
+    2,
+    { anonymous: "always", named: "always", asyncArrow: "always", catch: "always" },
+  ],
   /**
    * @desc 强制括号内间距一致
    * @descEN Enforce consistent spacing inside parentheses

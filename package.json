@@ -6,7 +6,7 @@
     "url": "https://github.com/pawover"
   },
   "description": "一个基于 TypeScript 的开发工具包",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "type": "module",
   "packageManager": "pnpm@12.16.1",
   "engines": {
@@ -20,7 +20,8 @@
   },
   "keywords": [
     "pawover",
-    "pawover-kit"
+    "pawover-kit",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/pawover/pawover-kit#readme",
   "repository": {
@@ -32,7 +33,8 @@
   "module": "./entry/index.js",
   "types": "./entry/index.d.ts",
   "files": [
-    "entry"
+    "entry",
+    "skills/kit"
   ],
   "exports": {
     ".": {
@@ -176,7 +178,7 @@
     "test:types": "tsc -p test/tsconfig.json --noEmit",
     "test:smoke": "node test/scripts/smoke.ts",
     "test:global-types": "node test/scripts/globalTypes.ts",
-    "test:ci": "pnpm test:types && pnpm check:types:packages && pnpm test && pnpm build && pnpm test:smoke && pnpm test:global-types && pnpm check:pack",
+    "test:ci": "pnpm check:skills && pnpm test:types && pnpm check:types:packages && pnpm test && pnpm build && pnpm test:smoke && pnpm test:global-types && pnpm check:pack",
     "postbuild": "node scripts/syncEntry.ts",
     "build": "turbo build",
     "build:analyze": "cross-env VISUALIZER=1 turbo build",
@@ -200,6 +202,7 @@
     "check:types:packages": "node scripts/checkPackageTypes.ts",
     "check:eslint": "eslint --fix \"**/*.{js,cjs,mjs,ts,cts,mts,jsx,tsx,vue}\" --cache-location=.cache/eslint.cache.json --cache",
     "check:format": "prettier --write \"**/*.{html,json,jsonc}\" --cache-location=.cache/prettier.cache.json --cache",
+    "check:skills": "intent maintainer check",
     "check:pack": "cross-env HUSKY=0 node scripts/checkPack.ts",
     "clean": "pnpm clean:cache & pnpm clean:lib & pnpm clean:output",
     "clean:turbo": "rimraf -g **/.turbo",
@@ -224,6 +227,7 @@
     "@commitlint/config-conventional": "^21.2.4",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@pawover/kit-internal": "workspace:*",
+    "@tanstack/intent": "^0.5.6",
     "@testing-library/react": "^16.3.3",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^26.6.6",

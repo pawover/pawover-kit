@@ -1,6 +1,8 @@
 # ESLint 配置实战
 
-`@pawover/kit-eslint-rules` 是**自包含**的 flat config 预设：全部上游插件已作为包依赖精确锁定并自动注册，只需安装本包，无需手动安装或注册插件。
+`@pawover/kit-eslint-rules` 是**自包含**的 flat config 预设：全部上游插件已作为包依赖精确锁定并自动注册，同时依赖同仓库的 `@pawover/kit-utils` 作为装配期共享工具；只需安装本包，无需手动安装或注册插件。
+
+预设工厂返回 [`eslint-flat-config-utils`](https://github.com/antfu/eslint-flat-config-utils) 的 `FlatConfigComposer`（继承 Promise），可以直接作为 `eslint.config.js` 的默认导出，也可以继续链式组合。
 
 ## 最小配置
 
@@ -11,17 +13,17 @@ import pawover from "@pawover/kit-eslint-rules";
 export default pawover();
 ```
 
-默认返回两层：全局忽略（`GLOB_EXCLUDE`）与 `javascript` 规则层。其余规则组通过选项显式开启：
+默认返回三层：全局忽略（`GLOB_EXCLUDE`）、`javascript` parser 层与 `javascript` 规则层。其余规则组通过选项显式开启：
 
-| 选项          | 启用内容                                                         | 适用文件                                     |
-| :------------ | :--------------------------------------------------------------- | :------------------------------------------- |
-| `typescript`  | `typescript` 规则组 + TypeScript parser（默认 `projectService`） | `**/*.{ts,tsx}`（开启 `vue` 时并入 `*.vue`） |
-| `stylistic`   | `stylistic` 规则组                                               | 全部源文件                                   |
-| `antfu`       | `antfu` 规则组                                                   | 全部源文件                                   |
-| `imports`     | `imports` 规则组（eslint-plugin-import-lite）                    | 全部源文件                                   |
-| `importsSort` | `importsSort` 规则组（eslint-plugin-simple-import-sort）         | 全部源文件                                   |
-| `react`       | `react` + `react-hooks` 两个插件与规则组                         | `**/*.{js,cjs,mjs,jsx,ts,tsx}`               |
-| `vue`         | `vue` 规则组 + vue-eslint-parser                                 | `**/*.vue`                                   |
+| 选项          | 启用内容                                                               | 适用文件                                     |
+| :------------ | :--------------------------------------------------------------------- | :------------------------------------------- |
+| `typescript`  | `typescript` 规则组 + TypeScript parser（默认 `projectService`）       | `**/*.{ts,tsx}`（开启 `vue` 时并入 `*.vue`） |
+| `stylistic`   | `stylistic` 规则组                                                     | 全部源文件                                   |
+| `antfu`       | `antfu` 规则组                                                         | 全部源文件                                   |
+| `imports`     | `imports` 规则组（eslint-plugin-import-lite）                          | 全部源文件                                   |
+| `importsSort` | `importsSort` 规则组（eslint-plugin-simple-import-sort）               | 全部源文件                                   |
+| `react`       | `react` + `react-hooks` 两个插件与规则组（默认开启 Compiler 规则切换） | `**/*.{js,cjs,mjs,jsx,ts,tsx}`               |
+| `vue`         | `vue` 规则组 + vue-eslint-parser                                       | `**/*.vue`                                   |
 
 ## TypeScript 项目
 
@@ -30,12 +32,13 @@ export default pawover();
 import pawover from "@pawover/kit-eslint-rules";
 
 export default pawover({
-  typescript: true,
-  parserOptions: { tsconfigRootDir: import.meta.dirname },
+  typescript: {
+    parserOptions: { tsconfigRootDir: import.meta.dirname },
+  },
 });
 ```
 
-`parserOptions` 会透传给 TypeScript parser，与默认值浅合并（默认 `{ projectService: true }`，同名键以传入值为准）。
+`typescript.parserOptions` 会透传给 TypeScript parser，与默认值浅合并（默认 `{ projectService: true }`，同名键以传入值为准）。
 
 ## React 项目
 
@@ -49,7 +52,18 @@ export default pawover({
 });
 ```
 
-`react` 组包含依赖类型信息的规则（如 `no-implicit-key`）：与 `typescript` 一同开启时这些规则作用于 `ts/tsx/jsx` 文件——`.jsx` 的类型可用性交由项目 tsconfig 的 `include`/`allowJs` 决定（未被项目覆盖的 `.jsx` 会按「不在项目内」报错）；未开启 `typescript` 时（纯 JS React 项目）工厂自动关闭它们——且以无操作实现注册，后置覆盖强制开启也不会报错，react 组其余规则照常可用。
+`react` 组包含依赖类型信息的规则（如 `no-implicit-key`）：与 `typescript` 一同开启时这些规则作用于 `typescript.filesTypeAware` 限定的文件（默认 `ts/tsx`）并额外并入 `*.jsx`——`.jsx` 的类型可用性交由项目 tsconfig 的 `include`/`allowJs` 决定（未被项目覆盖的 `.jsx` 会按「不在项目内」报错）；未开启 `typescript` 时（纯 JS React 项目）工厂自动关闭它们——且以无操作实现注册，后置覆盖强制开启也不会报错，react 组其余规则照常可用。
+
+`react` 组默认开启 React Compiler 规则切换（`react.compiler: true`）：10 条与 `@eslint-react` 重叠的 Compiler 规则改用 `eslint-plugin-react-hooks` 官方实现，并关闭 `@eslint-react` 等价规则，避免重复诊断；同时关闭 `react/no-unstable-context-value`（React Compiler 会自动记忆化 Context value）；这 10 条规则的严重级别与官方 `recommended` 预设一致（如 `react-hooks/unsupported-syntax` 为 `warn`）。需要回退到 `@eslint-react` 实现时传 `compiler: false`，此时只回退这 10 条重叠规则（含 `react-hooks/globals`），官方独有的 `config` / `gating` / `incompatible-library` / `preserve-manual-memoization` 仍由 `react-hooks` 提供；`compiler: "latest"` 额外启用实验规则 `react-hooks/void-use-memo`：
+
+```ts
+export default pawover({
+  typescript: true,
+  react: { compiler: "latest" },
+});
+```
+
+`react.overrides` 始终最后合并，可用于逐条覆盖切换后的级别（例如把 `react-hooks/unsupported-syntax` 提升为 `error`）。
 
 ## Vue 项目
 
@@ -59,18 +73,156 @@ export default pawover({ typescript: true, vue: true });
 
 单文件组件内 `<script lang="ts">` 自动交由 TypeScript parser 解析。
 
-## 自定义覆盖
+## 换行规则与 Prettier 对齐
 
-预设返回标准 flat config 数组，直接在其后追加配置层即可：
+`antfu` 组启用 `antfu/reasonable-newline`，发布包默认行宽阈值为 120，与常规 `printWidth` 对齐：
 
 ```ts
-import pawover from "@pawover/kit-eslint-rules";
-
-export default [
-  ...pawover({ typescript: true }),
-  { rules: { "ts/no-explicit-any": 0 } },
-];
+export default pawover({ antfu: true });
 ```
+
+更宽的行宽属于消费端个性化配置。例如本仓库在根 `eslint.config.js` 中把 `*.type.ts` / `*.test.ts` 提高到 240，与 `prettier.config.js` 的 overrides 对齐：
+
+```ts
+export default pawover({ antfu: true }).append({
+  files: ["**/*.type.ts", "**/*.test.ts"],
+  rules: {
+    "antfu/reasonable-newline": [
+      2,
+      {
+        minObjectProperties: 4,
+        objectLineLength: 240,
+        minArrayItems: 4,
+        arrayLineLength: 240,
+      },
+    ],
+  },
+});
+```
+
+超过阈值或包含复杂子项（调用、函数、嵌套对象/数组）的对象/数组会强制拆行；复杂三元表达式会在 `?` / `:` 前换行。复杂子项检查比 Prettier 更严格，属于该规则的既有设计。
+
+## 自定义覆盖
+
+### 按规则组覆盖（推荐）
+
+每个规则组都接受 `{ overrides }`，覆盖在预设内部合并，自动获得正确的文件范围与插件：
+
+```ts
+export default pawover({
+  typescript: {
+    overrides: {
+      "ts/consistent-type-definitions": ["error", "interface"],
+    },
+  },
+  react: {
+    overrides: {
+      "react/no-implicit-key": "warn",
+    },
+  },
+});
+```
+
+### 风格快捷开关
+
+`stylistic` 组提供 `quotes` / `semi` 两个常用风格快捷项，`vue` 组提供 `naming` / `templateNaming` / `attributeNaming` / `eventNaming` 命名快捷项——它们在装配阶段被编译为对应的规则覆写，省去手写规则元组：
+
+```ts
+export default pawover({
+  stylistic: { quotes: "single", semi: false },
+  vue: { naming: "kebab-case" },
+});
+```
+
+- `stylistic.quotes` 同时切换 `stylistic/quotes` 与 `stylistic/jsx-quotes`（`"single"` → `prefer-single`，`"double"` → `prefer-double`），不注入 `allowTemplateLiterals`。
+- `stylistic.semi: false` 除关闭 `stylistic/semi` 外，还会联动 `stylistic/member-delimiter-style`（多行 `delimiter: "none"` + `requireLast: false`、单行 `delimiter: "comma"`）。
+- `vue.naming` 一次设定模板标签 / 属性 / 事件三条规则；`templateNaming` / `attributeNaming` / `eventNaming` 可单独覆盖某一项。
+
+优先级（高到低）：`overrides` > 单项 > 总开关 > 预设默认值。显式不联动：`stylistic/semi-spacing`、`semi-style`、`no-extra-semi`、`quote-props`、`vue/html-quotes`（HTML 属性引号恒为 double）。
+
+快捷项也可与 `{ overrides }` 共存——同一规则在两边都出现时，`overrides` 优先：
+
+```ts
+export default pawover({
+  stylistic: {
+    quotes: "single",
+    overrides: { "stylistic/quotes": 0 }, // 最终关闭 stylistic/quotes
+  },
+  vue: {
+    naming: "kebab-case",
+    templateNaming: "PascalCase", // 单项优先于 naming
+  },
+});
+```
+
+类型感知规则使用 `overridesTypeAware`，它只作用于 `filesTypeAware` 限定的文件（默认 `GLOB_TYPESCRIPT`）；react 的 type-aware 层会在该范围上额外并入 `GLOB_JSX`：
+
+```ts
+import pawover, { GLOB_TYPESCRIPT } from "@pawover/kit-eslint-rules";
+
+export default pawover({
+  typescript: {
+    filesTypeAware: GLOB_TYPESCRIPT,
+    overridesTypeAware: {
+      "ts/no-unsafe-assignment": "warn",
+    },
+  },
+});
+```
+
+### 追加配置层
+
+工厂第二个参数起是任意 flat config（单个对象、数组、composer 或 Promise）：
+
+```ts
+export default pawover({ typescript: true }, { rules: { "no-console": "error" } });
+```
+
+### 按层名称覆盖
+
+每层配置都有唯一 `name`（`pawover/<规则组>/<setup|parser|rules|type-aware>`，组名使用 kebab-case，如 `importsSort` → `imports-sort`；全局忽略层为 `pawover/ignores`），可用 composer 的 `override` 精确定位：
+
+```ts
+export default pawover({ typescript: true }).override("pawover/typescript/rules", {
+  rules: {
+    "ts/consistent-type-definitions": ["error", "interface"],
+  },
+});
+```
+
+### 插件注册机制
+
+各规则组拆成两类层：
+
+- `setup` 层：只注册插件，不带 `files`，对所有文件生效；
+- `rules` / `parser` / `type-aware` 层：只放规则、parser 或文件范围。
+
+因此后置配置可以直接使用预设已注册的插件规则，不需要重复挂载插件。如果需要注册**预设之外**的插件（例如 `eslint-plugin-react-refresh`），在自己的配置层中挂载即可。Compiler 相关规则已由 `react-hooks` 提供，这里用非 Compiler 插件示例，避免重复诊断：
+
+> 工厂不接受 `ignores` / `renamePlugins` 选项：全局忽略通过追加配置层或 `override("pawover/ignores", ...)` 自定义，插件重命名使用 composer 的 `.renamePlugins()`。
+
+```ts
+import reactRefresh from "eslint-plugin-react-refresh";
+
+export default pawover(
+  { typescript: true, react: true },
+  {
+    files: ["**/*.tsx"],
+    plugins: { "react-refresh": reactRefresh },
+    rules: { "react-refresh/only-export-components": "warn" },
+  },
+);
+```
+
+## GLOB 常量
+
+命名导出供手工组装配置或后置覆盖使用：
+
+```ts
+import { GLOB_EXCLUDE, GLOB_JSX, GLOB_SOURCE, GLOB_TYPESCRIPT, GLOB_VUE } from "@pawover/kit-eslint-rules";
+```
+
+`GLOB_EXCLUDE` 覆盖依赖目录、构建产物、锁文件、编辑器目录、缓存、自动生成文件等（`node_modules`、`dist`、`pnpm-lock.yaml`、`.changeset`、`.vitepress/cache`、`auto-imports.d.ts`…）。
 
 ## 严重级别类型
 
@@ -84,10 +236,6 @@ const severity: Severity = "warn"; // 两者皆可
 const config: RuleConfig<[boolean]> = [2, { allowProperties: true }];
 const plain: RuleConfig = "off";
 ```
-
-## GLOB_EXCLUDE 都忽略了什么
-
-依赖目录、构建产物、锁文件、编辑器目录、缓存、自动生成文件等（`node_modules`、`dist`、`pnpm-lock.yaml`、`.changeset`、`.vitepress/cache`、`auto-imports.d.ts`…）。命名导出 `GLOB_EXCLUDE` 可用于手工组装配置。
 
 ## 在 monorepo 中复用
 

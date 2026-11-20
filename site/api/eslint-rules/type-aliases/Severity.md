@@ -8,7 +8,7 @@
 
 > **Severity** = [`SeverityName`](SeverityName.md) \| [`SeverityLevel`](SeverityLevel.md)
 
-Defined in: [index.ts:41](https://github.com/pawover/pawover-kit/blob/85a3a9b16d60837c188ee91ecdd23fad35562864/packages/eslint-rules/src/index.ts#L41)
+Defined in: [index.ts:56](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/eslint-rules/src/index.ts#L56)
 
 规则严重级别
 

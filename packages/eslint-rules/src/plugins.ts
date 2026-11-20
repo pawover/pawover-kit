@@ -69,7 +69,17 @@ const reactWithoutTypeChecked = {
       reactTypeCheckedNames.flatMap((name) => {
         const rule = reactRules[name];
 
-        return rule ? [[name, { ...rule, create: () => ({}) }] as const] : [];
+        return rule
+          ? [
+            [
+              name,
+              {
+                ...rule,
+                create: () => ({}),
+              },
+            ] as const,
+          ]
+          : [];
       }),
     ),
   },

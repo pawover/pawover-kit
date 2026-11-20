@@ -30,7 +30,7 @@ import type { PlainObject } from "@pawover/kit-types";
 | `@pawover/kit/utils/vite` | `ViteUtil`（别名 `@pawover/kit/vite`） |
 | `@pawover/kit/hooks/react` | React Hooks（`useMount`、`useResponsive`…） |
 | `@pawover/kit/hooks/alova` | Alova Hooks（`useAlovaRequest`、`useAlovaPagination`…） |
-| `@pawover/kit/eslint-rules` | ESLint flat config 预设（默认导出工厂 `pawover(options?)`） |
+| `@pawover/kit/eslint-rules` | ESLint flat config 预设（默认导出工厂 `pawover(options?, ...userConfigs)`，返回 `FlatConfigComposer`） |
 | `@pawover/kit/zod` | Zod v4 Schema（30 个） |
 
 > [!WARNING]

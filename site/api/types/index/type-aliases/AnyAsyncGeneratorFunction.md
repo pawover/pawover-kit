@@ -8,7 +8,7 @@
 
 > **AnyAsyncGeneratorFunction**\<`P`, `T`, `R`, `N`\> = (...`args`) => `AsyncGenerator`\<`T`, `R`, `N`\>
 
-Defined in: [base.ts:175](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/base.ts#L175)
+Defined in: [base.ts:175](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/base.ts#L175)
 
 描述异步生成器函数类型
 

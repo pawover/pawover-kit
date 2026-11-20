@@ -46,7 +46,9 @@ export class FunctionUtil {
           return [parsedError as U, undefined];
         }
 
-        const defaultError = err ? err : new Error("defaultError");
+        const defaultError = err
+          ? err
+          : new Error("defaultError");
 
         return [defaultError as U, undefined];
       });

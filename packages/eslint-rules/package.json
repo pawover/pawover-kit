@@ -6,11 +6,12 @@
     "url": "https://github.com/pawover"
   },
   "description": "Self-contained ESLint flat config preset: javascript, typescript, react, vue, stylistic, antfu and import rules, with pinned bundled plugins",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "keywords": [
     "pawover",
-    "pawover-kit-eslint-rules"
+    "pawover-kit-eslint-rules",
+    "tanstack-intent"
   ],
   "homepage": "https://github.com/pawover/pawover-kit/packages/eslint-rules#readme",
   "repository": {
@@ -25,7 +26,8 @@
   "module": "./src/index.ts",
   "types": "./src/index.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills/eslint-preset"
   ],
   "exports": {
     ".": {
@@ -66,15 +68,17 @@
     "check:pack": "pnpm dlx @arethetypeswrong/cli --pack . --profile node16"
   },
   "dependencies": {
-    "@eslint-react/eslint-plugin": "5.28.8",
-    "@stylistic/eslint-plugin": "6.0.0-beta.6",
+    "@eslint-react/eslint-plugin": "5.30.3",
+    "@pawover/kit-utils": "workspace:*",
+    "@stylistic/eslint-plugin": "6.0.1",
+    "eslint-flat-config-utils": "3.2.0",
     "eslint-plugin-antfu": "3.3.1",
     "eslint-plugin-import-lite": "0.6.0",
     "eslint-plugin-react-hooks": "7.1.1",
     "eslint-plugin-simple-import-sort": "14.0.0",
-    "eslint-plugin-vue": "10.12.0",
-    "typescript-eslint": "8.72.1",
-    "vue-eslint-parser": "10.4.1"
+    "eslint-plugin-vue": "10.12.1",
+    "typescript-eslint": "8.73.0",
+    "vue-eslint-parser": "10.4.2"
   },
   "devDependencies": {
     "@pawover/kit-internal": "workspace:*"

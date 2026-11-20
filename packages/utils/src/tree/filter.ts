@@ -40,7 +40,9 @@ function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T,
 
 // 广度优先遍历
 function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFilterCallback<T>, options: TreeFilterInnerOption<T, CK>): T | undefined {
-  const queue: Queue<T, CK>[] = [{ queueRow: row, queueOptions: options }];
+  const queue: Queue<T, CK>[] = [
+    { queueRow: row, queueOptions: options },
+  ];
   const resultCache = new WeakMap<T, boolean>();
   const newNodeCache = new WeakMap<T, T>();
   const childrenKeyCache = new WeakMap<T, CK>();
@@ -54,7 +56,10 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
     const { childrenKey, children } = getChildren(queueRow, queueOptions);
 
     if (TypeUtil.isArray(children)) {
-      const subQueueItems = children.map((child) => ({ queueRow: child, queueOptions: nextLevelOptions(queueRow, queueOptions) }));
+      const subQueueItems = children.map((child) => ({
+        queueRow: child,
+        queueOptions: nextLevelOptions(queueRow, queueOptions),
+      }));
       queue.push(...subQueueItems);
     }
 

@@ -744,7 +744,9 @@ export class I18nUtil {
   static toFullLocale (locale: string | null | undefined, fallback?: string | undefined): string | null | undefined;
   static toFullLocale (locale: string | null | undefined, fallback?: string | undefined): string | null | undefined {
     if (!TypeUtil.isString(locale, true)) {
-      return fallback !== undefined ? fallback : locale;
+      return fallback !== undefined
+        ? fallback
+        : locale;
     }
 
     if (locale.includes("-")) {
@@ -753,7 +755,9 @@ export class I18nUtil {
 
     const full = I18nUtil.BASE_TO_FULL[locale.toLowerCase()];
 
-    return full ?? (fallback !== undefined ? fallback : locale);
+    return full ?? (fallback !== undefined
+      ? fallback
+      : locale);
   }
 
   /**
@@ -790,10 +794,14 @@ export class I18nUtil {
   static toLocaleDisplayName (input: string | null | undefined, options?: ToLocaleDisplayNameOptions): string | null | undefined;
   static toLocaleDisplayName (input: string | null | undefined, options?: ToLocaleDisplayNameOptions): string | null | undefined {
     if (!TypeUtil.isString(input, true)) {
-      return options?.fallback !== undefined ? options.fallback : input;
+      return options?.fallback !== undefined
+        ? options.fallback
+        : input;
     }
 
-    const type = options?.type ?? (/^[A-Z]{2}$/.test(input) ? "region" : "language");
+    const type = options?.type ?? (/^[A-Z]{2}$/.test(input)
+      ? "region"
+      : "language");
 
     let name: string | undefined;
     try {
@@ -802,7 +810,9 @@ export class I18nUtil {
       name = undefined;
     }
 
-    return name ?? (options?.fallback !== undefined ? options.fallback : input);
+    return name ?? (options?.fallback !== undefined
+      ? options.fallback
+      : input);
   }
 
   /**
@@ -841,7 +851,9 @@ export class I18nUtil {
   static toBaseLanguage (locale: string | null | undefined, fallback?: string | undefined): string | null | undefined;
   static toBaseLanguage (locale: string | null | undefined, fallback?: string | undefined): string | null | undefined {
     if (!TypeUtil.isString(locale, true)) {
-      return fallback !== undefined ? fallback : locale;
+      return fallback !== undefined
+        ? fallback
+        : locale;
     }
 
     const [base] = StringUtil.split(locale, "-");

@@ -263,7 +263,9 @@ export class ObjectUtil {
     function crushReducer (crushed: Crush<T>, value: unknown, path: string) {
       if (TypeUtil.isPlainObject(value) || TypeUtil.isArray(value)) {
         for (const [prop, propValue] of Object.entries(value)) {
-          crushReducer(crushed, propValue, path ? `${path}.${prop}` : prop);
+          crushReducer(crushed, propValue, path
+            ? `${path}.${prop}`
+            : prop);
         }
       } else {
         crushed[path as keyof Crush<T>] = value as Crush<T>[keyof Crush<T>];

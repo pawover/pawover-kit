@@ -57,7 +57,7 @@ const rules = {
    * @descEN Validates against usage of libraries which are incompatible with memoization
    * @see https://react.dev/reference/eslint-plugin-react-hooks/lints/incompatible-library
    */
-  "react-hooks/incompatible-library": 2,
+  "react-hooks/incompatible-library": 1,
   /**
    * @desc 验证现有手动的记忆化被编译器保留
    * @descEN Validates that existing manual memoization is preserved by the compiler
@@ -106,6 +106,12 @@ const rules = {
    * @see https://react.dev/reference/eslint-plugin-react-hooks/lints/use-memo
    */
   "react-hooks/use-memo": 0,
+  /**
+   * @desc 验证 useMemo 始终返回值且结果被组件或 Hook 使用
+   * @descEN Validates that useMemos always return a value and that the result of the useMemo is used by the component/hook
+   * @see https://react.dev/reference/eslint-plugin-react-hooks/lints/void-use-memo
+   */
+  "react-hooks/void-use-memo": 0,
 };
 
 export { rules };

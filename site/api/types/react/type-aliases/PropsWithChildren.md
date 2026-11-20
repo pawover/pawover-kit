@@ -8,17 +8,11 @@
 
 > **PropsWithChildren**\<`P`\> = `Readonly`\<`P`\> & `object`
 
-Defined in: [react.ts:39](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/react.ts#L39)
+Defined in: [react.ts:39](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/react.ts#L39)
 
 含 children 的只读 Props 类型
 
 在只读 Props 基础上增加可选的 `children` 属性。
-
-## Type Declaration
-
-### children?
-
-> `readonly` `optional` **children?**: `ReactNode`
 
 ## Type Parameters
 
@@ -27,6 +21,12 @@ Defined in: [react.ts:39](https://github.com/pawover/pawover-kit/blob/8bbcd05722
 `P` = `unknown`
 
 属性集合
+
+## Type Declaration
+
+### children?
+
+> `readonly` `optional` **children?**: `ReactNode`
 
 ## Example
 

@@ -71,7 +71,10 @@ export interface ResponsiveHookOptions {
  */
 export function useResponsive (options?: ResponsiveHookOptions | undefined) {
   const { breakPointTokens = {} } = options || {};
-  const tokens = useMemo<BreakPointTokens>(() => ({ ...BREAK_POINT_TOKEN, ...breakPointTokens }), [breakPointTokens]);
+  const tokens = useMemo<BreakPointTokens>(() => ({
+    ...BREAK_POINT_TOKEN,
+    ...breakPointTokens,
+  }), [breakPointTokens]);
   const signature = useMemo(() => JSON.stringify(tokens), [tokens]);
   const [responsive, setResponsive] = useState<ResponsiveValues>(() => calculateResponsive(tokens));
   const current = ObjectUtil.keys(DEFAULT_VALUES).find((key) => responsive[key] === true) || "xs";
@@ -80,7 +83,11 @@ export function useResponsive (options?: ResponsiveHookOptions | undefined) {
     let entry = ENTRY_MAP.get(signature);
 
     if (!entry) {
-      entry = { tokens, values: calculateResponsive(tokens), subscribers: new Set() };
+      entry = {
+        tokens,
+        values: calculateResponsive(tokens),
+        subscribers: new Set(),
+      };
       ENTRY_MAP.set(signature, entry);
     }
 

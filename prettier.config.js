@@ -4,8 +4,17 @@ export default {
   singleAttributePerLine: true,
   quoteProps: "consistent",
   overrides: [
-    { files: ["*.html"], options: { singleAttributePerLine: false } },
-    { files: ["*.json", "*.jsonc"], options: { trailingComma: "none" } },
-    { files: ["*.type.ts", "*.test.ts"], options: { printWidth: 240 } },
+    {
+      files: ["*.html"],
+      options: { singleAttributePerLine: false },
+    },
+    {
+      files: ["*.json", "*.jsonc"],
+      options: { trailingComma: "none" },
+    },
+    {
+      files: ["*.type.ts", "*.test.ts"],
+      options: { printWidth: 240 },
+    },
   ],
 };

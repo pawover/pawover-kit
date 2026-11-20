@@ -3,26 +3,76 @@ import { resolve } from "node:path";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+  ],
   resolve: {
     dedupe: ["alova"],
     alias: [
-      { find: "@pawover/kit/utils/math", replacement: resolve("packages/utils/src/math/index.ts") },
-      { find: "@pawover/kit/utils/vite", replacement: resolve("packages/utils/src/vite/index.ts") },
-      { find: "@pawover/kit/utils", replacement: resolve("packages/utils/src/index.ts") },
-      { find: "@pawover/kit/hooks/react", replacement: resolve("packages/hooks/src/react/index.ts") },
-      { find: "@pawover/kit/hooks/alova", replacement: resolve("packages/hooks/src/alova/index.ts") },
-      { find: "@pawover/kit/eslint-rules", replacement: resolve("packages/eslint-rules/src/index.ts") },
-      { find: "@pawover/kit/types", replacement: resolve("packages/types/src/index.ts") },
-      { find: "@pawover/kit/zod", replacement: resolve("packages/zod/src/index.ts") },
-      { find: "@pawover/kit-utils/math", replacement: resolve("packages/utils/src/math/index.ts") },
-      { find: "@pawover/kit-utils/vite", replacement: resolve("packages/utils/src/vite/index.ts") },
-      { find: "@pawover/kit-utils", replacement: resolve("packages/utils/src/index.ts") },
-      { find: "@pawover/kit-hooks/react", replacement: resolve("packages/hooks/src/react/index.ts") },
-      { find: "@pawover/kit-hooks/alova", replacement: resolve("packages/hooks/src/alova/index.ts") },
-      { find: "@pawover/kit-types", replacement: resolve("packages/types/src/index.ts") },
-      { find: "@pawover/kit-zod", replacement: resolve("packages/zod/src/index.ts") },
-      { find: "@pawover/kit-eslint-rules", replacement: resolve("packages/eslint-rules/src/index.ts") },
+      {
+        find: "@pawover/kit/utils/math",
+        replacement: resolve("packages/utils/src/math/index.ts"),
+      },
+      {
+        find: "@pawover/kit/utils/vite",
+        replacement: resolve("packages/utils/src/vite/index.ts"),
+      },
+      {
+        find: "@pawover/kit/utils",
+        replacement: resolve("packages/utils/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit/hooks/react",
+        replacement: resolve("packages/hooks/src/react/index.ts"),
+      },
+      {
+        find: "@pawover/kit/hooks/alova",
+        replacement: resolve("packages/hooks/src/alova/index.ts"),
+      },
+      {
+        find: "@pawover/kit/eslint-rules",
+        replacement: resolve("packages/eslint-rules/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit/types",
+        replacement: resolve("packages/types/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit/zod",
+        replacement: resolve("packages/zod/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit-utils/math",
+        replacement: resolve("packages/utils/src/math/index.ts"),
+      },
+      {
+        find: "@pawover/kit-utils/vite",
+        replacement: resolve("packages/utils/src/vite/index.ts"),
+      },
+      {
+        find: "@pawover/kit-utils",
+        replacement: resolve("packages/utils/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit-hooks/react",
+        replacement: resolve("packages/hooks/src/react/index.ts"),
+      },
+      {
+        find: "@pawover/kit-hooks/alova",
+        replacement: resolve("packages/hooks/src/alova/index.ts"),
+      },
+      {
+        find: "@pawover/kit-types",
+        replacement: resolve("packages/types/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit-zod",
+        replacement: resolve("packages/zod/src/index.ts"),
+      },
+      {
+        find: "@pawover/kit-eslint-rules",
+        replacement: resolve("packages/eslint-rules/src/index.ts"),
+      },
     ],
   },
   test: {

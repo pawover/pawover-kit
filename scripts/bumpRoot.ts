@@ -46,7 +46,9 @@ function getPreCount (version: string): number | null {
   }
   const count = Number(pre.split(".")[1]);
 
-  return Number.isNaN(count) ? null : count;
+  return Number.isNaN(count)
+    ? null
+    : count;
 }
 
 function bumpType (oldVersion: string, newVersion: string): "major" | "minor" | "patch" | "none" {
@@ -86,7 +88,9 @@ function bumpVersion (oldVersion: string, type: string, preTag: string | null) {
   let [major, minor, patch] = parseTriple(oldVersion);
   const oldPre = oldVersion.split("-")[1] ?? null;
   const oldCount = getPreCount(oldVersion);
-  const oldTag = oldPre ? (oldPre.split(".")[0] ?? null) : null;
+  const oldTag = oldPre
+    ? (oldPre.split(".")[0] ?? null)
+    : null;
 
   if (preTag === null) {
     if (oldPre !== null) {
@@ -117,7 +121,9 @@ function bumpVersion (oldVersion: string, type: string, preTag: string | null) {
   } else if (!inSameSeries) {
     patch += 1;
   }
-  const count = inSameSeries ? (oldCount ?? 0) + 1 : 0;
+  const count = inSameSeries
+    ? (oldCount ?? 0) + 1
+    : 0;
 
   return `${major}.${minor}.${patch}-${preTag}.${count}`;
 }
@@ -155,12 +161,16 @@ const expected = bumpVersion(rootOld, changedType, preTag);
 if (rootPackage.version !== expected) {
   rootPackage.version = expected;
   writeFileSync("package.json", `${JSON.stringify(rootPackage, null, 2)}\n`);
-  console.log(`✔ 根包版本已同步：${rootOld} -> ${expected}（子包最高 ${changedType}${preTag ? ` / ${preTag}` : ""}）`);
+  console.log(`✔ 根包版本已同步：${rootOld} -> ${expected}（子包最高 ${changedType}${preTag
+    ? ` / ${preTag}`
+    : ""}）`);
 } else if (rootPackage.version !== rootOld) {
   console.log(`✔ 根包版本已同步：${rootOld} -> ${rootPackage.version}`);
 } else {
   console.error("❌ 根包版本同步失败：");
-  console.error(`   子包已发布（${changedType}${preTag ? ` / ${preTag}` : ""}），`);
+  console.error(`   子包已发布（${changedType}${preTag
+    ? ` / ${preTag}`
+    : ""}），`);
   console.error(`   但根包 ${ROOT_PACKAGE} 版本仍为 ${rootPackage.version}（期望 ${expected}）。`);
   console.error("   请检查 scripts/bumpRoot.ts 或发布流程配置。");
   process.exit(1);

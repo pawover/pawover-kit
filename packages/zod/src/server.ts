@@ -1,5 +1,8 @@
 import { z } from "zod";
 
-export const id = z.union([z.string().min(1), z.number()]);
+export const id = z.union([
+  z.string().min(1),
+  z.number(),
+]);
 
 export const idAllowEmpty = id.nullish();

@@ -15,7 +15,11 @@ export function getFinalChildrenKey<T, CK extends string> (tree: T, meta: BaseCa
 
 /** 计算进入子层时的下一层 options（parents 追加当前节点、depth + 1） */
 export function nextLevelOptions<T, CK extends string> (row: T, options: BaseInnerOptions<T, CK>): BaseInnerOptions<T, CK> {
-  return { ...options, parents: [...options.parents, row], depth: options.depth + 1 };
+  return {
+    ...options,
+    parents: [...options.parents, row],
+    depth: options.depth + 1,
+  };
 }
 
 /** 解析当前节点的 children 键与子节点数组（无子节点时 children 为 undefined） */

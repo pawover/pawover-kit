@@ -9,20 +9,20 @@ pawover-kit 是一个 pnpm 单体仓库（monorepo），由 5 个独立可发布
 - **纯类型工具** `@pawover/kit-types`：无运行时代码，提供 `AnyObject`、`TreeLike`、`AnyFunction` 族、`AdvancedRecord`、`ApiNameCheck` 等常用类型
 - **静态工具类** `@pawover/kit-utils`：数组、字符串、对象、树、货币、日期、数学等 15 个工具类、144 个静态方法
 - **React / Alova Hooks** `@pawover/kit-hooks`：`useMount`、`useUnmount`、`useLatest`、`useResponsive`、`useTitle` 与 Alova 请求系列 Hooks
-- **ESLint flat config 预设** `@pawover/kit-eslint-rules`：自包含（上游插件随包精确锁定并自动注册），9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）按开关启用
+- **ESLint flat config 预设** `@pawover/kit-eslint-rules`：自包含（上游插件随包精确锁定并自动注册，同时依赖同仓库 `@pawover/kit-utils` 作为装配期共享工具），9 大规则组（javascript / typescript / react / reactHooks / vue / stylistic / antfu / imports / importsSort）按开关启用，`stylistic` / `vue` 组额外提供风格与命名快捷开关
 - **Zod v4 Schema** `@pawover/kit-zod`：id、string、number、boolean、bigint 等 30 个常用校验器
 - 附带完整类型声明；除 eslint-rules（单 ESM，CJS 经 `require(esm)` 可达）外的包均为 ESM / CJS 双格式产物
 - `exports` 仅指向 `dist` 产物，任意工具链（node / vite / vitest / webpack 等）均可正常解析
 
 ## 包结构
 
-| 包 | 说明 | 导入路径 |
-| :--- | :--- | :--- |
-| `@pawover/kit-types` | 纯类型工具包（无运行时代码） | `@pawover/kit/types`，react 相关类型见 `@pawover/kit/types/react` |
-| `@pawover/kit-utils` | 静态工具类 | `@pawover/kit/utils`（另有 `./math`、`./vite` 子路径） |
-| `@pawover/kit-hooks` | React + Alova Hooks | `@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova` |
-| `@pawover/kit-eslint-rules` | ESLint 规则集 | `@pawover/kit/eslint-rules` |
-| `@pawover/kit-zod` | Zod v4 Schema | `@pawover/kit/zod` |
+| 包                          | 说明                         | 导入路径                                                          |
+| :-------------------------- | :--------------------------- | :---------------------------------------------------------------- |
+| `@pawover/kit-types`        | 纯类型工具包（无运行时代码） | `@pawover/kit/types`，react 相关类型见 `@pawover/kit/types/react` |
+| `@pawover/kit-utils`        | 静态工具类                   | `@pawover/kit/utils`（另有 `./math`、`./vite` 子路径）            |
+| `@pawover/kit-hooks`        | React + Alova Hooks          | `@pawover/kit/hooks/react`、`@pawover/kit/hooks/alova`            |
+| `@pawover/kit-eslint-rules` | ESLint 规则集                | `@pawover/kit/eslint-rules`                                       |
+| `@pawover/kit-zod`          | Zod v4 Schema                | `@pawover/kit/zod`                                                |
 
 > [!NOTE]
 > `@pawover/kit-hooks` 的根导出为空，请始终从 `@pawover/kit/hooks/react` 或 `@pawover/kit/hooks/alova` 子路径导入。

@@ -34,7 +34,11 @@ const SYNC_BRANCH = "feature";
 const MAIN_BRANCH = "main";
 
 function run (cmd: string, options = {}) {
-  return execSync(cmd, { encoding: "utf8", stdio: ["pipe", "pipe", "pipe"], ...options });
+  return execSync(cmd, {
+    encoding: "utf8",
+    stdio: ["pipe", "pipe", "pipe"],
+    ...options,
+  });
 }
 
 function git (...args: string[]) {

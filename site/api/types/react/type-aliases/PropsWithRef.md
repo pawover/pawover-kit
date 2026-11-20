@@ -8,17 +8,11 @@
 
 > **PropsWithRef**\<`P`, `R`\> = `Readonly`\<`P`\> & `object`
 
-Defined in: [react.ts:60](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/react.ts#L60)
+Defined in: [react.ts:60](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/react.ts#L60)
 
 含 ref 的只读 Props 类型
 
 在只读 Props 基础上增加可选的 `ref` 属性。
-
-## Type Declaration
-
-### ref?
-
-> `readonly` `optional` **ref?**: `RefObject`\<`R`\>
 
 ## Type Parameters
 
@@ -33,6 +27,12 @@ Defined in: [react.ts:60](https://github.com/pawover/pawover-kit/blob/8bbcd05722
 `R` = `unknown`
 
 ref 指向的 DOM 元素类型
+
+## Type Declaration
+
+### ref?
+
+> `readonly` `optional` **ref?**: `RefObject`\<`R`\>
 
 ## Example
 

@@ -8,7 +8,7 @@
 
 > **Nullish** = `null` \| `undefined`
 
-Defined in: [base.ts:26](https://github.com/pawover/pawover-kit/blob/8bbcd05722997f38c09e1ba2d94b79973ae2f68b/packages/types/src/base.ts#L26)
+Defined in: [base.ts:26](https://github.com/pawover/pawover-kit/blob/c993ccd3f70eda776a13d0570a89ef052016849b/packages/types/src/base.ts#L26)
 
 空值类型
 
