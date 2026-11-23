@@ -127,7 +127,8 @@ non-obvious failure modes that are not visible from the type signatures alone.
 - Maintainer decision: `MathUtil.round` is not part of this batch, so G11
   rounding stays with the CRM consumer and the skill documents no rounding
   helper.
-- Version claims: root `1.4.0-alpha.4`; `utils` `1.1.0-alpha.0`.
+- Version claims: root `1.4.0`; `utils` `1.1.0` (stable baseline restored before
+  the `1.4.1-alpha.0` republish).
 - Checks: unit and type tests plus `pnpm check:skills`; see the T1 phase 1
   delivery record for exact results.
 

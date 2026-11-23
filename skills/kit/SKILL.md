@@ -12,7 +12,7 @@ metadata:
     peer dependencies, and avoid runtime import failures.
   type: lifecycle
   library: "@pawover/kit"
-  library_version: "1.3.0-alpha.1"
+  library_version: "1.4.0"
 sources:
   - package.json
   - entry/index.d.ts
