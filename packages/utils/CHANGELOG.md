@@ -1,5 +1,11 @@
 # @pawover/kit-utils
 
+## 1.1.1-alpha.0
+
+### Patch Changes
+
+- 2ef9715: 同步稳定版版本基线后重新发布金额、百分比与容量格式化能力。
+
 ## 1.1.0-alpha.1
 
 ### Minor Changes
