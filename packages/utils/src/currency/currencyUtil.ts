@@ -512,6 +512,7 @@ export class CurrencyUtil {
    * @param options.locale 数字格式的 locale，默认 `"en-US"`
    * @param options.fractionDigits 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
    * @param options.showSign 是否输出正负号，默认 `false`
+   * @param options.useGrouping 是否使用千分位分组，默认 `true`
    * @param options.emptyText 空值占位文本，默认 `""`
    * @returns 格式化后的百分数字符串
    *
@@ -522,12 +523,14 @@ export class CurrencyUtil {
    * CurrencyUtil.percentFormat(0.25); // "25.0%"
    * CurrencyUtil.percentFormat(0.2567, { fractionDigits: 0 }); // "26%"
    * CurrencyUtil.percentFormat(-0.05, { showSign: true }); // "-5.0%"
+   * CurrencyUtil.percentFormat(12.3456, { fractionDigits: 1 }); // "1,234.6%"
+   * CurrencyUtil.percentFormat(12.3456, { fractionDigits: 1, useGrouping: false }); // "1234.6%"
    * CurrencyUtil.percentFormat(0.25, { locale: "de-DE" }); // "25,0\u00A0%"（空格为 U+00A0）
    * CurrencyUtil.percentFormat(null); // ""
    * ```
    */
   static percentFormat (value: number | null | undefined, options: PercentFormatOptions = {}): string {
-    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = false, emptyText = "" } = options;
+    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = false, useGrouping = true, emptyText = "" } = options;
 
     if (!TypeUtil.isFiniteNumber(value)) {
       return emptyText;
@@ -540,6 +543,7 @@ export class CurrencyUtil {
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
       signDisplay: showSign ? "always" : "auto",
+      useGrouping,
     }, value);
   }
 
@@ -556,6 +560,7 @@ export class CurrencyUtil {
    * @param options.fractionDigits 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
    * @param options.showSign 是否给正数加 `+`，默认 `true`
    * @param options.zeroSign 是否给 `0` 加 `+`，默认 `false`
+   * @param options.useGrouping 是否使用千分位分组，默认 `true`
    * @param options.emptyText 空值占位文本，默认 `""`
    * @returns 格式化后的百分比文案
    *
@@ -565,6 +570,8 @@ export class CurrencyUtil {
    *
    * CurrencyUtil.percentText(25); // "+25.0%"
    * CurrencyUtil.percentText(-12.34); // "-12.3%"
+   * CurrencyUtil.percentText(12345.6); // "+12,345.6%"
+   * CurrencyUtil.percentText(12345.6, { useGrouping: false }); // "+12345.6%"
    * CurrencyUtil.percentText(0); // "0.0%"
    * CurrencyUtil.percentText(0, { zeroSign: true }); // "+0.0%"
    * CurrencyUtil.percentText(0.04); // "+0.0%"
@@ -573,7 +580,7 @@ export class CurrencyUtil {
    * ```
    */
   static percentText (value: number | null | undefined, options: PercentTextOptions = {}): string {
-    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = true, zeroSign = false, emptyText = "" } = options;
+    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = true, zeroSign = false, useGrouping = true, emptyText = "" } = options;
 
     if (!TypeUtil.isFiniteNumber(value)) {
       return emptyText;
@@ -584,6 +591,7 @@ export class CurrencyUtil {
       style: "percent",
       minimumFractionDigits: digits,
       maximumFractionDigits: digits,
+      useGrouping,
     }, value / 100);
     const { minusSign } = splitMinusSign(text);
     const isSigned = showSign && !minusSign && (value > 0 || (value === 0 && zeroSign));
@@ -596,7 +604,9 @@ export class CurrencyUtil {
   /**
    * 将任意数值转换为精确的十进制值
    * - 基于 `mathjs` 的 `bignumber` 处理，避免浮点数精度问题
+   * - 支持科学计数法数值与纯数值字符串；含货币符号、千分位的脏文本仍先抽数
    * - 当值为 `null` 或 `undefined` 时返回 `null`
+   * - `stringMode` 为 `false` 时负零归一为 `0`
    *
    * @param mathJsInstance `mathjs` 实例
    * @param value 待转换的数值
@@ -615,9 +625,12 @@ export class CurrencyUtil {
    * CurrencyUtil.toRealValue(math, "0.1"); // "0.1"
    * CurrencyUtil.toRealValue(math, 0.1 + 0.2, 2); // "0.30"
    * CurrencyUtil.toRealValue(math, "0.1", undefined, true); // "0.1"
+   * CurrencyUtil.toRealValue(math, 1e21, 2); // "1000000000000000000000.00"
    *
    * // 重载 2: stringMode = false → number
    * CurrencyUtil.toRealValue(math, "0.1", undefined, false); // 0.1
+   * CurrencyUtil.toRealValue(math, 1e-7, 2, false); // 0
+   * CurrencyUtil.toRealValue(math, -3e-7, 2, false); // 0
    *
    * // 重载 3: stringMode 为 boolean（未收窄）→ number | string
    * const getMode = (): boolean => false;
@@ -641,8 +654,16 @@ export class CurrencyUtil {
 
     const precisionValue = MathUtil.toDecimal(mathJsInstance, value, precision);
 
-    return stringMode === false
-      ? Number(precisionValue)
-      : precisionValue;
+    if (stringMode === false) {
+      const numberValue = Number(precisionValue);
+
+      if (Object.is(numberValue, -0)) {
+        return 0;
+      }
+
+      return numberValue;
+    }
+
+    return precisionValue;
   }
 }

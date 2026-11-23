@@ -13,6 +13,8 @@ function normalizePrecision (value: number | undefined, fallback: number): numbe
   return Math.min(Math.max(Math.trunc(value), 0), MAX_PRECISION);
 }
 
+const NUMERIC_STRING_REGEX = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/;
+
 /**
  * 数学工具类
  * - 基于 [`mathjs`](https://mathjs.org)
@@ -20,6 +22,9 @@ function normalizePrecision (value: number | undefined, fallback: number): numbe
 export class MathUtil {
   /**
    * 将任意类型的值转换为 `math.bignumber`
+   * - 数字与纯数值字符串直接交给 `bignumber`，避免科学计数法被 `StringUtil.toNumber` 剥掉量级
+   * - 字符串先去掉首尾空白再匹配，带空白的科学计数法同样保真
+   * - 含货币符号、千分位等脏文本仍先经 `StringUtil.toNumber` 抽数
    *
    * @param mathJsInstance mathJs 实例
    * @param value 任意类型的值
@@ -30,6 +35,9 @@ export class MathUtil {
    * import { create, all } from "mathjs";
    * const math = create(all);
    * MathUtil.toBignumber(math, "0.1");
+   * MathUtil.toBignumber(math, "1e-7");
+   * MathUtil.toBignumber(math, " 1e-7 ");
+   * MathUtil.toBignumber(math, "$1,234.56");
    * ```
    */
   static toBignumber (mathJsInstance: MathJsInstance, value: unknown, fallback?: BigNumber | undefined): BigNumber {
@@ -40,6 +48,18 @@ export class MathUtil {
     }
 
     try {
+      if (typeof value === "number") {
+        return mathJsInstance.bignumber(value);
+      }
+
+      if (TypeUtil.isString(value)) {
+        const trimmed = value.trim();
+
+        if (NUMERIC_STRING_REGEX.test(trimmed)) {
+          return mathJsInstance.bignumber(trimmed);
+        }
+      }
+
       return mathJsInstance.bignumber(StringUtil.toNumber(`${value}`));
     } catch (error) {
       return errorValue;

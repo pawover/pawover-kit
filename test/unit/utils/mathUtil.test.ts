@@ -52,6 +52,35 @@ describe("MathUtil", () => {
       const result = MathUtil.toBignumber(math, "false");
       expect(result.toString()).toBe("0");
     });
+
+    it("should keep the magnitude of scientific notation numbers", () => {
+      expect(MathUtil.toBignumber(math, 1e-7).toString()).toBe("1e-7");
+      expect(MathUtil.toBignumber(math, 1e21).toString()).toBe("1e+21");
+      expect(MathUtil.toBignumber(math, 5.551115123125783e-17).toString()).toBe("5.551115123125783e-17");
+    });
+
+    it("should keep the magnitude of scientific notation strings", () => {
+      expect(MathUtil.toBignumber(math, "1e-7").toString()).toBe("1e-7");
+      expect(MathUtil.toBignumber(math, "-3e-7").toString()).toBe("-3e-7");
+      expect(MathUtil.toBignumber(math, "1.234e21").toString()).toBe("1.234e+21");
+    });
+
+    it("should accept decimal shorthand forms", () => {
+      expect(MathUtil.toBignumber(math, "1.").toString()).toBe("1");
+      expect(MathUtil.toBignumber(math, "+1e-7").toString()).toBe("1e-7");
+      expect(MathUtil.toBignumber(math, ".5").toString()).toBe("0.5");
+    });
+
+    it("should trim surrounding whitespace before matching", () => {
+      expect(MathUtil.toBignumber(math, " 1e-7").toString()).toBe("1e-7");
+      expect(MathUtil.toBignumber(math, "1e-7 ").toString()).toBe("1e-7");
+      expect(MathUtil.toBignumber(math, "1e-7\n").toString()).toBe("1e-7");
+    });
+
+    it("should still extract numbers from dirty text", () => {
+      expect(MathUtil.toBignumber(math, "$1,234.56").toString()).toBe("1234.56");
+      expect(MathUtil.toBignumber(math, "abc-123").toString()).toBe("-123");
+    });
   });
 
   describe("toDecimal", () => {
@@ -68,6 +97,26 @@ describe("MathUtil", () => {
     it("should handle integer input", () => {
       const result = MathUtil.toDecimal(math, 42, 2);
       expect(result).toBe("42.00");
+    });
+
+    it("should round scientific notation numbers to the requested precision", () => {
+      expect(MathUtil.toDecimal(math, 1e-7, 2)).toBe("0.00");
+      expect(MathUtil.toDecimal(math, -3e-7, 2)).toBe("-0.00");
+      expect(MathUtil.toDecimal(math, 1e21, 2)).toBe("1000000000000000000000.00");
+    });
+
+    it("should round scientific notation strings to the requested precision", () => {
+      expect(MathUtil.toDecimal(math, "1e-7", 2)).toBe("0.00");
+      expect(MathUtil.toDecimal(math, "1.234e21", 2)).toBe("1234000000000000000000.00");
+    });
+
+    it("should trim surrounding whitespace in numeric strings", () => {
+      expect(MathUtil.toDecimal(math, " 1e-7", 2)).toBe("0.00");
+      expect(MathUtil.toDecimal(math, "1e-7\n", 2)).toBe("0.00");
+    });
+
+    it("should still format numbers extracted from dirty text", () => {
+      expect(MathUtil.toDecimal(math, "$1,234.5678", 2)).toBe("1234.57");
     });
   });
 

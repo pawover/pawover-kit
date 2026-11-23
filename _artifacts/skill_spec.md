@@ -173,6 +173,22 @@ non-obvious failure modes that are not visible from the type signatures alone.
 - Checks: `pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed`;
   `pnpm check:skills` after recording.
 
+### 2026-11-23 — utils fixes (scientific notation, percent grouping)
+
+- Scope: `MathUtil.toBignumber` keeps scientific-notation values exact (numbers
+  and numeric strings go straight to `bignumber`; dirty text such as
+  `$1,234.56` still goes through `StringUtil.toNumber`), and `percentFormat` /
+  `percentText` accept `useGrouping` (default `true`).
+- Guidance: `references/specialized.md` documents both behaviors with examples
+  (`toBignumber(math, "1e-7")` stays `1e-7`;
+  `percentFormat(..., { useGrouping: false })` drops separators).
+- Source evidence: `packages/utils/src/math/mathUtil.ts`,
+  `packages/utils/src/currency/currencyUtil.ts`,
+  `packages/utils/src/currency/index.type.ts`,
+  `test/unit/utils/{mathUtil,currencyUtil}.test.ts`.
+- Checks: `pnpm vitest run` on the two unit files — 131 passed;
+  `pnpm check:skills` after recording.
+
 ### Existing executable evidence
 
 The skills reuse the repository's existing tests rather than duplicating them:

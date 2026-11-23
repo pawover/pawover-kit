@@ -78,20 +78,20 @@
       ]
     },
     "skill:packages/utils/skills/utils/SKILL.md": {
-      "fingerprint": "181f0723d7f0bfd1b5de88f01dd7310845ccdf4445172c877d1c2c09adabd0f8",
+      "fingerprint": "bbe4dfc28efb284c0a242b0e117e46a7ff55be9738f8499c36b91dd1c4b0259b",
       "snapshot": {
         "packages/utils/skills/utils/SKILL.md": "0ba60312056c7a786e647441d4f403128d296e1510c6b374f9a3a8faa3c1b753",
         "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
-        "packages/utils/skills/utils/references/specialized.md": "6995a486775ceedd246f9a254d0127df7f63f96f6522333be1f074fb8736f45d",
+        "packages/utils/skills/utils/references/specialized.md": "8efc735d890e1253b62ec940dad54c9bffb674228b973f7cb8d210ef79e62894",
         "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
         "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
-        "packages/utils/src/currency/currencyUtil.ts": "5500822f667000ad8ff9e409cdacca1c73b1b760cb2c61094b7d8905b15c940d",
+        "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
         "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
-        "packages/utils/src/math/mathUtil.ts": "b1290c3c35bc5e74eca2a47105ea07aec611f0d7245b0c2eac5ab81262b68669",
+        "packages/utils/src/math/mathUtil.ts": "deda21808bcaba4a9a34a32897e600feee812fab75c84dc66cbb82974c36e37d",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
         "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
@@ -102,10 +102,15 @@
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf"
       },
-      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
-      "outcome": "no-change",
-      "reason": "JSDoc-only edit: percentText's comment dropped the comparison with percentFormat; no behavior, signature, default or documented contract changed, so the utils skill and planning records remain accurate.",
-      "evidence": ["Changed: packages/utils/src/currency/currencyUtil.ts at 03d2633f00010910a3e50a543c8112dceebc9abe"]
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
+      "outcome": "updated",
+      "reason": "specialized.md now states that toBignumber sends numbers and numeric strings (including scientific notation) straight to bignumber while dirty text is cleaned first, and that both percent formatters accept useGrouping: false. Both examples match the unit assertions.",
+      "evidence": [
+        "packages/utils/skills/utils/references/specialized.md CurrencyUtil and MathUtil sections",
+        "packages/utils/src/math/mathUtil.ts numeric-string fast path",
+        "packages/utils/src/currency/currencyUtil.ts useGrouping wiring",
+        "pnpm vitest run test/unit/utils/{mathUtil,currencyUtil}.test.ts — 131 passed"
+      ]
     },
     "skill:packages/zod/skills/zod-schemas/SKILL.md": {
       "fingerprint": "8cc36f370f54d736f3566e96ce90c28d0d58e5c1c5031e5a07f90d033597a185",
@@ -138,10 +143,10 @@
       "evidence": ["Changed: package.json at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
     },
     "planning:_artifacts": {
-      "fingerprint": "76158b3d6f05416d0841bc56b8669128eab3676f0eb5c204e5e9ff187f9566ca",
+      "fingerprint": "1755fdd58016ea01230fd529a1701c00486a036f0d2a7d37c362764672529254",
       "snapshot": {
         "_artifacts/domain_map.yaml": "4ca122ded436ba5d2f470db1cd03b99998c99510b298ede32ad523a3058e0e65",
-        "_artifacts/skill_spec.md": "e6bce5747f8b23a7b18c31003576234c0dbef58bf81b28ea71682e5ecd4b8d80",
+        "_artifacts/skill_spec.md": "1a7e9d2ebcaf9438ff51813cedff9c57d744be75d8ac8b05c5b45f22b63c60fb",
         "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
@@ -181,16 +186,16 @@
         "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d",
         "packages/utils/skills/utils/SKILL.md": "0ba60312056c7a786e647441d4f403128d296e1510c6b374f9a3a8faa3c1b753",
         "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
-        "packages/utils/skills/utils/references/specialized.md": "6995a486775ceedd246f9a254d0127df7f63f96f6522333be1f074fb8736f45d",
+        "packages/utils/skills/utils/references/specialized.md": "8efc735d890e1253b62ec940dad54c9bffb674228b973f7cb8d210ef79e62894",
         "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
         "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
-        "packages/utils/src/currency/currencyUtil.ts": "5500822f667000ad8ff9e409cdacca1c73b1b760cb2c61094b7d8905b15c940d",
+        "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
         "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
-        "packages/utils/src/math/mathUtil.ts": "b1290c3c35bc5e74eca2a47105ea07aec611f0d7245b0c2eac5ab81262b68669",
+        "packages/utils/src/math/mathUtil.ts": "deda21808bcaba4a9a34a32897e600feee812fab75c84dc66cbb82974c36e37d",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
         "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
@@ -208,10 +213,14 @@
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
         "skills/kit/SKILL.md": "1f0542084fae027e955961ce31770ad545c04e6cf616a130d22f4d7e27d1956d"
       },
-      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
-      "outcome": "no-change",
-      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": ["Changed: package.json at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
+      "outcome": "updated",
+      "reason": "skill_spec gains a fixes entry recording the scientific-notation correction and the percent useGrouping option with source and check evidence. domain_map coverage and failure modes stay accurate: the locale/grouping distinction is unchanged, and toBignumber's precision is now a documented guarantee rather than a gap.",
+      "evidence": [
+        "_artifacts/skill_spec.md fixes entry",
+        "_artifacts/domain_map.yaml utils covers unchanged and still accurate",
+        "_artifacts/skill_tree.yaml utils sources unchanged"
+      ]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -2254,43 +2263,43 @@
       "evidence": [".scratch/g11-decision.md is an untracked scratch file"]
     },
     "source:packages/utils/src/currency/index.type.ts": {
-      "fingerprint": "2235ebd54b1fb51d695fe16bd438dbe3d19d54be9f309fddb7d91befd6cde621",
+      "fingerprint": "e0fc5f4e6467e7809d03fa16eaedea4c47e9ce136985c13fb2b18492cf2df485",
       "snapshot": {
-        "packages/utils/src/currency/index.type.ts": "08e144d40ae92a11d6c4dbf29fdc9788156d7fee5cd78045f7fcb75fedfc5e04"
+        "packages/utils/src/currency/index.type.ts": "0ba01f06caff4389baba76844a9cb4bff775819379d17ed316d4e8a083ab7db2"
       },
-      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "updated",
-      "reason": "MoneyFormatOptions gains signDisplay/minusSign and PercentTextOptions is added; both are documented in specialized.md.",
+      "reason": "PercentFormatOptions and PercentTextOptions gain useGrouping (default true), documented in specialized.md.",
       "evidence": ["packages/utils/src/currency/index.type.ts"]
     },
     "source:test/types/utils/utilsApi.test.type.ts": {
-      "fingerprint": "1dbb59a31700f9951982dbe52facf886bdd0eb2e824617a6f192b38bfb450286",
+      "fingerprint": "26d8cd1d7f10c68354cee28c960f38e3af7be4a2faa577157e769b0877aabad6",
       "snapshot": {
-        "test/types/utils/utilsApi.test.type.ts": "2d110ecd6a52038d0a171daccb0e63593d25cbe5a2144c7d0262e2802a3a0577"
+        "test/types/utils/utilsApi.test.type.ts": "5ca4b6cd6577ea7cd84a9331bf633ee9980dea5be028a99773e58dcec141e987"
       },
-      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "no-change",
-      "reason": "Type assertions lock the new option shapes and the percentText signature already described in the guidance.",
+      "reason": "Type assertions cover the new option; they lock the documented signature without changing guidance.",
       "evidence": ["test/types/utils/utilsApi.test.type.ts"]
     },
     "source:test/unit/utils/currencyUtil.test.ts": {
-      "fingerprint": "f3ce64e7d4fe5fb7d78fc45b96f175c7d11b8b3ede71ebe065d3146760a0a949",
+      "fingerprint": "c289c2d0439bf63708b3d2f45c6dc9f558320f00e967c84656eed72c64eb8a94",
       "snapshot": {
-        "test/unit/utils/currencyUtil.test.ts": "ceb6785d48781335cb6db48f3b2208338fa45fe4eea5c6851864f7dfed375bc4"
+        "test/unit/utils/currencyUtil.test.ts": "19495d81fc8de83d8bc9dbdcecb258d0a52b9e187ef61cf0cd0210e9f9a41a36"
       },
-      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "no-change",
-      "reason": "Unit tests assert the documented examples (percentText 25/-12.34/0.04, signed-delta moneyFormat) and the numberFormat-based replacements.",
+      "reason": "Tests assert the documented useGrouping examples (1234.6% and +12345.6%).",
       "evidence": ["pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed"]
     },
     "source:test/unit/utils/mathUtil.test.ts": {
-      "fingerprint": "0ff4c301c6b9549d9f622386854d66c3c5d781912ee7794810040a0ea52a7cbe",
+      "fingerprint": "52be37fe020fb9a4945263dcf1b9d871de291e9f36f6af02fb872304eb8421e9",
       "snapshot": {
-        "test/unit/utils/mathUtil.test.ts": "439457d760c6df92d56790e6580f457f30d054c012c839e1ed5b3e762b9ffd04"
+        "test/unit/utils/mathUtil.test.ts": "ca5c388ba2b43ab7f6a8ef21ac054bda28cfc03858e11730b2824434fbbf5c63"
       },
-      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "no-change",
-      "reason": "Tests cover toPercent/fromPercent precision and nullish behavior, matching the documented contract.",
+      "reason": "Tests assert exact scientific-notation conversion for numbers and numeric strings, matching the documented behavior.",
       "evidence": ["pnpm vitest run test/unit/utils/mathUtil.test.ts — passed"]
     },
     "source:test/unit/utils/typeUtil.test.ts": {
@@ -2366,6 +2375,16 @@
       "outcome": "no-change",
       "reason": "New unit coverage for status parsing, version patching, archive cleanup and guard paths; it locks script behavior rather than documenting user-facing guidance.",
       "evidence": ["pnpm vitest run test/unit/utils/scripts/syncBaseline.test.ts — 17 passed"]
+    },
+    "source:.changeset/fix-scientific-notation-and-percent-grouping.md": {
+      "fingerprint": "d90a524a4f1fb23eee010a12f9d0264119ae3bae704e4053ec5ce84f392694d9",
+      "snapshot": {
+        ".changeset/fix-scientific-notation-and-percent-grouping.md": "1067d851fefca6c8f479c5237a665999e48e798f57b829944d79924c16400ee9"
+      },
+      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
+      "outcome": "no-change",
+      "reason": "Patch release metadata describing the two fixes; the guidance documents the same behavior, so no statement is invalidated.",
+      "evidence": [".changeset/fix-scientific-notation-and-percent-grouping.md"]
     }
   }
 }

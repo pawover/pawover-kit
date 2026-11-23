@@ -116,6 +116,8 @@ export interface PercentFormatOptions {
   fractionDigits?: number;
   /** 是否输出正负号，默认 `false`；`true` 时按 locale 的正负号输出（含 `0`） */
   showSign?: boolean;
+  /** 是否使用千分位分组，默认 `true` */
+  useGrouping?: boolean;
   /** 空值占位文本，默认 `""` */
   emptyText?: string;
 }
@@ -132,6 +134,8 @@ export interface PercentTextOptions {
   showSign?: boolean;
   /** 是否给 `0` 加 `+`，默认 `false` */
   zeroSign?: boolean;
+  /** 是否使用千分位分组，默认 `true` */
+  useGrouping?: boolean;
   /** 空值占位文本，默认 `""` */
   emptyText?: string;
 }

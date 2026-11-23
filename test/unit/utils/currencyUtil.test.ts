@@ -242,6 +242,41 @@ describe("CurrencyUtil", () => {
       const result = CurrencyUtil.toRealValue(math, "123.456", 2, false);
       expect(typeof result).toBe("number");
     });
+
+    it("should round scientific notation numbers to zero", () => {
+      expect(CurrencyUtil.toRealValue(math, 1e-7, 2, false)).toBe(0);
+      expect(CurrencyUtil.toRealValue(math, -3e-7, 2, false)).toBe(0);
+      expect(CurrencyUtil.toRealValue(math, 1.5e-7, 2, false)).toBe(0);
+      expect(CurrencyUtil.toRealValue(math, 9.99e-7, 2, false)).toBe(0);
+      expect(CurrencyUtil.toRealValue(math, 5.551115123125783e-17, 2, false)).toBe(0);
+    });
+
+    it("should keep the magnitude of large scientific notation numbers", () => {
+      expect(CurrencyUtil.toRealValue(math, 1e21, 2, false)).toBe(1e21);
+      expect(CurrencyUtil.toRealValue(math, 2e21, 2, false)).toBe(2e21);
+      expect(CurrencyUtil.toRealValue(math, 1.234e21, 2, false)).toBe(1.234e21);
+    });
+
+    it("should keep normal magnitudes unchanged", () => {
+      expect(CurrencyUtil.toRealValue(math, 1234.5678, 2, false)).toBe(1234.57);
+    });
+
+    it("should round scientific notation in string mode", () => {
+      expect(CurrencyUtil.toRealValue(math, 1e-7, 2)).toBe("0.00");
+      expect(CurrencyUtil.toRealValue(math, -3e-7, 2)).toBe("-0.00");
+      expect(CurrencyUtil.toRealValue(math, "5.551115123125783e-17", 2)).toBe("0.00");
+      expect(CurrencyUtil.toRealValue(math, 1e21, 2)).toBe("1000000000000000000000.00");
+    });
+
+    it("should trim surrounding whitespace in numeric strings", () => {
+      expect(CurrencyUtil.toRealValue(math, " 1e-7", 2)).toBe("0.00");
+      expect(CurrencyUtil.toRealValue(math, "1e-7 ", 2, false)).toBe(0);
+      expect(CurrencyUtil.toRealValue(math, "1e-7\n", 2, false)).toBe(0);
+    });
+
+    it("should still extract numbers from dirty text", () => {
+      expect(CurrencyUtil.toRealValue(math, "$1,234.5678", 2, false)).toBe(1234.57);
+    });
   });
 
   describe("resolveSymbol", () => {
@@ -542,6 +577,11 @@ describe("CurrencyUtil", () => {
       expect(CurrencyUtil.percentFormat(0.2567, { fractionDigits: Number.NaN })).toBe("25.7%");
     });
 
+    it("should group digits by default and allow disabling grouping", () => {
+      expect(CurrencyUtil.percentFormat(12.3456, { fractionDigits: 1 })).toBe("1,234.6%");
+      expect(CurrencyUtil.percentFormat(12.3456, { fractionDigits: 1, useGrouping: false })).toBe("1234.6%");
+    });
+
     it("should show locale sign when enabled", () => {
       expect(CurrencyUtil.percentFormat(0.25, { locale: "de-DE", showSign: true })).toBe("+25,0\u00A0%");
     });
@@ -595,6 +635,11 @@ describe("CurrencyUtil", () => {
 
     it("should respect fraction digits", () => {
       expect(CurrencyUtil.percentText(12.345, { fractionDigits: 0 })).toBe("+12%");
+    });
+
+    it("should group digits by default and allow disabling grouping", () => {
+      expect(CurrencyUtil.percentText(12345.6)).toBe("+12,345.6%");
+      expect(CurrencyUtil.percentText(12345.6, { useGrouping: false })).toBe("+12345.6%");
     });
 
     it("should format percent with the given locale", () => {

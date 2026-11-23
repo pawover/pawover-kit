@@ -66,9 +66,11 @@ CurrencyUtil.integerFormat(-2.5); // "-2"
 
 CurrencyUtil.percentFormat(0.25); // "25.0%"
 CurrencyUtil.percentFormat(0.25, { locale: "de-DE" }); // "25,0\u00A0%"
+CurrencyUtil.percentFormat(12.3456, { fractionDigits: 1, useGrouping: false }); // "1234.6%"
 
 CurrencyUtil.percentText(25); // "+25.0%"
 CurrencyUtil.percentText(-12.34); // "-12.3%"
+CurrencyUtil.percentText(12345.6, { useGrouping: false }); // "+12345.6%"
 ```
 
 `locale` changes grouping and fraction separators only; the currency symbol
@@ -86,7 +88,8 @@ Negative zero formats as zero (`integerFormat(-0.5)` → `"0"`).
 sign and spacing follow the locale; `showSign: true` adds the locale sign,
 including for `0`. `percentText` takes a percent value instead, defaults to
 showing `+` for positives, and keeps the sign of values that round to `0.0`
-(`0.04` → `"+0.0%"`).
+(`0.04` → `"+0.0%"`). Both percent formatters accept `useGrouping: false` to
+drop thousands separators.
 `moneyFormat` signs through `signDisplay`: `"auto"` (default) only signs
 negatives, `"always"` signs positives and `0`, and `"exceptZero"` signs
 positives only. `minusSign` overrides the locale's native minus character.
@@ -225,10 +228,13 @@ ThemeUtil.THEME_MODE.DARK; // "dark"
 
 `MathUtil` is exposed from `@pawover/kit-utils/math` because `mathjs` is an
 optional peer. It wraps `mathjs` `bignumber` conversion, decimal formatting, and
-expression evaluation. `evaluate` accepts trusted expressions only; do not pass
-untrusted user input to it. `toPercent` / `fromPercent` need no `mathjs`: they
-convert between decimal and percent with a fixed precision, and return `null`
-for `null`, `undefined`, `NaN`, and `±Infinity`.
+expression evaluation. Numbers and numeric strings (including scientific
+notation such as `1e-7`) go straight to `bignumber`; only dirty text like
+`$1,234.56` is cleaned through `StringUtil.toNumber` first. `evaluate` accepts
+trusted expressions only; do not pass untrusted user input to it.
+`toPercent` / `fromPercent` need no `mathjs`: they convert between decimal and
+percent with a fixed precision, and return `null` for `null`, `undefined`, `NaN`,
+and `±Infinity`.
 
 ```ts
 import { create, all } from "mathjs";

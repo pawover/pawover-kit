@@ -181,6 +181,12 @@ const invalidPercentFormatNull: null = CurrencyUtil.percentFormat(null);
 // @ts-expect-error — percentFormat 的 locale 不接受 number
 CurrencyUtil.percentFormat(0.25, { locale: 1 });
 
+// @ts-expect-error — percentFormat 的 useGrouping 不接受 number
+CurrencyUtil.percentFormat(0.25, { useGrouping: 1 });
+
+// @ts-expect-error — percentText 的 useGrouping 不接受 number
+CurrencyUtil.percentText(25, { useGrouping: 1 });
+
 // @ts-expect-error — integerFormat 的 locale 不接受 number
 CurrencyUtil.integerFormat(1, { locale: 1 });
 
