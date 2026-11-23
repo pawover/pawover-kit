@@ -1,5 +1,0 @@
----
-"@pawover/kit-utils": minor
----
-
-新增 `CurrencyUtil.numberFormat` / `CurrencyUtil.moneyFormat` / `CurrencyUtil.resolveSymbol` / `CurrencyUtil.integerFormat` / `CurrencyUtil.percentFormat` / `CurrencyUtil.percentText` 六个静态方法，以及 `MathUtil.toPercent` / `MathUtil.fromPercent` 两个换算方法。格式化方法支持 `locale`（默认 `"en-US"`）与可配置 `emptyText`（默认 `""`），`null` / `undefined` / `NaN` / `±Infinity` 返回占位文本；小数位入参超出 `0`–`20` 时收敛，不再透传给 `Intl` 抛错；负零按 `0` 输出。`percentFormat` 基于 `Intl` 百分数格式，`integerFormat` 先按 `Math.round` 取整。紧凑数字与去尾零统一用 `numberFormat` 的 `minimumFractionDigits: 0` + `maximumFractionDigits: 2` 表达，去尾零不分组时再加 `useGrouping: false`。`moneyFormat` 新增 `signDisplay` 与 `minusSign`，带符号差额用 `signDisplay: "always"` + `minusSign: "−"` + `signPlacement: "beforeSymbol"` + `spacing: "none"` 表达；`percentText` 接收百分数并默认输出正号。`resolveSymbol` 支持可选 `locale` 参数，按调用方给定的地区取符号（如 `resolveSymbol("LKR", "si-LK")`），省略时保持原有默认行为。`toPercent` / `fromPercent` 按固定精度完成百分数与小数互转，精度收敛到 `0`–`20`，空值返回 `null`。新增 `TypeUtil.isFiniteNumber` 守卫，排除 `null` / `undefined` / `NaN` / `±Infinity`。
