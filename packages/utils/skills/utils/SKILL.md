@@ -237,6 +237,8 @@ parent removes its whole subtree. `find` and `forEach` use the original nodes.
 `TypeUtil` guards narrow values and encode the project's nullish conventions.
 The optional second argument changes the meaning: `isString(value, true)` rejects
 empty and whitespace-only strings, and `isNumber` rejects `NaN` by default.
+`isFiniteNumber` rejects `null`, `undefined`, `NaN`, and `±Infinity`, so it is
+the guard to use before numeric formatting or arithmetic.
 
 ```ts
 import { TypeUtil } from "@pawover/kit-utils";
@@ -245,6 +247,8 @@ TypeUtil.isString("abc"); // true
 TypeUtil.isString("   ", true); // false
 TypeUtil.isNumber(NaN); // false
 TypeUtil.isNumber(NaN, false); // true
+TypeUtil.isFiniteNumber(1); // true
+TypeUtil.isFiniteNumber(Infinity); // false
 TypeUtil.isPlainObject({}); // true
 TypeUtil.isPlainObject(Object.create(null)); // false
 TypeUtil.isPlainObject(Object.create(null), false); // true

@@ -2,6 +2,17 @@ import type { BigNumber, MathExpression, MathJsInstance, Matrix } from "mathjs";
 import { StringUtil } from "../string";
 import { TypeUtil } from "../type";
 
+/** 与 `Intl.NumberFormat` 的小数位上限保持一致；与 `currencyUtil.ts` 的 `MAX_FRACTION_DIGITS` 同值，改动需同步 */
+const MAX_PRECISION = 20;
+
+function normalizePrecision (value: number | undefined, fallback: number): number {
+  if (value === undefined || Number.isNaN(value)) {
+    return fallback;
+  }
+
+  return Math.min(Math.max(Math.trunc(value), 0), MAX_PRECISION);
+}
+
 /**
  * 数学工具类
  * - 基于 [`mathjs`](https://mathjs.org)
@@ -81,5 +92,53 @@ export class MathUtil {
     const evaluateValue = `${mathJsInstance.evaluate(expr, scope || {})}`;
 
     return mathJsInstance.format(MathUtil.toBignumber(mathJsInstance, evaluateValue), { notation: "fixed" });
+  }
+
+  /**
+   * 将小数转换为百分数
+   * - 计算 `Number((value * 100).toFixed(precision))`，消除浮点尾巴
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `null`
+   *
+   * @param value 待换算的小数
+   * @param precision 结果小数位数，默认 `4`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @returns 百分数；空值返回 `null`
+   * @example
+   * ```ts
+   * MathUtil.toPercent(0.25); // 25
+   * MathUtil.toPercent(0.123456); // 12.3456
+   * MathUtil.toPercent(0.12345678, 6); // 12.345678
+   * MathUtil.toPercent(null); // null
+   * ```
+   */
+  static toPercent (value: number | null | undefined, precision = 4): number | null {
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return null;
+    }
+
+    return Number((value * 100).toFixed(normalizePrecision(precision, 4)));
+  }
+
+  /**
+   * 将百分数转换为小数
+   * - 计算 `Number((value / 100).toFixed(precision))`，消除浮点尾巴
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `null`
+   *
+   * @param value 待换算的百分数
+   * @param precision 结果小数位数，默认 `6`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @returns 小数；空值返回 `null`
+   * @example
+   * ```ts
+   * MathUtil.fromPercent(25); // 0.25
+   * MathUtil.fromPercent(33.3333); // 0.333333
+   * MathUtil.fromPercent(33.3333333, 4); // 0.3333
+   * MathUtil.fromPercent(null); // null
+   * ```
+   */
+  static fromPercent (value: number | null | undefined, precision = 6): number | null {
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return null;
+    }
+
+    return Number((value / 100).toFixed(normalizePrecision(precision, 6)));
   }
 }

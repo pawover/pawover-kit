@@ -37,6 +37,65 @@ CurrencyUtil.toRealValue(math, "0.1", undefined, false); // 0.1
 removes it, and `undefined` keeps the native `Intl` symbol. `toRealValue`
 returns `null` for `null` / `undefined` input.
 
+`numberFormat`, `moneyFormat`, `resolveSymbol`, `integerFormat`, `percentFormat`,
+and `percentText` are `Intl`-based and need no `mathjs`. The formatters default
+to `locale: "en-US"` and `emptyText: ""`, and return `emptyText` for `null`,
+`undefined`, `NaN`, and `±Infinity`.
+
+```ts
+import { CurrencyUtil } from "@pawover/kit-utils";
+
+CurrencyUtil.numberFormat(1234.5); // "1,234.50"
+CurrencyUtil.numberFormat(1234.5, { locale: "de-DE", useGrouping: false }); // "1234,50"
+CurrencyUtil.numberFormat(null, { emptyText: "—" }); // "—"
+CurrencyUtil.numberFormat(400, { minimumFractionDigits: 0, maximumFractionDigits: 2 }); // "400"
+CurrencyUtil.numberFormat(1234.5, { minimumFractionDigits: 0, maximumFractionDigits: 2, useGrouping: false }); // "1234.5"
+
+CurrencyUtil.resolveSymbol("CNY"); // "¥"
+CurrencyUtil.resolveSymbol("LKR", "si-LK"); // "රු."
+CurrencyUtil.resolveSymbol("XYZ"); // null
+
+CurrencyUtil.moneyFormat(1234.5); // "$ 1,234.50"
+CurrencyUtil.moneyFormat(-1234.5, { signPlacement: "beforeSymbol" }); // "-$ 1,234.50"
+CurrencyUtil.moneyFormat(1234.5, { currency: "CNY", spacing: "none" }); // "¥1,234.50"
+CurrencyUtil.moneyFormat(1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "+$1,234.50"
+CurrencyUtil.moneyFormat(-1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "−$1,234.50"
+
+CurrencyUtil.integerFormat(2.5); // "3"
+CurrencyUtil.integerFormat(-2.5); // "-2"
+
+CurrencyUtil.percentFormat(0.25); // "25.0%"
+CurrencyUtil.percentFormat(0.25, { locale: "de-DE" }); // "25,0\u00A0%"
+
+CurrencyUtil.percentText(25); // "+25.0%"
+CurrencyUtil.percentText(-12.34); // "-12.3%"
+```
+
+`locale` changes grouping and fraction separators only; the currency symbol
+still comes from `currency` or the explicit `symbol`. `resolveSymbol(currency,
+locale?)` reads the symbol from the given locale; without it, codes in
+`CURRENCY_ENUM` use their mapped locale and the rest use `en-US`.
+`resolveSymbol` returns `null` for unknown ISO 4217 codes, while `moneyFormat`
+falls back to the uppercased code. `numberFormat` covers compact and
+trailing-zero output through fraction options: compact is
+`{ minimumFractionDigits: 0, maximumFractionDigits: 2 }`, and dropping the
+grouping additionally sets `useGrouping: false`.
+`integerFormat` rounds with `Math.round` (`.5` toward `+∞`) before grouping.
+Negative zero formats as zero (`integerFormat(-0.5)` → `"0"`).
+`percentFormat` takes a decimal and uses `Intl` percent style, so the percent
+sign and spacing follow the locale; `showSign: true` adds the locale sign,
+including for `0`. `percentText` takes a percent value instead, defaults to
+showing `+` for positives, and keeps the sign of values that round to `0.0`
+(`0.04` → `"+0.0%"`).
+`moneyFormat` signs through `signDisplay`: `"auto"` (default) only signs
+negatives, `"always"` signs positives and `0`, and `"exceptZero"` signs
+positives only. `minusSign` overrides the locale's native minus character.
+The signed-delta shape is `signDisplay: "always"`, `minusSign: "−"`,
+`signPlacement: "beforeSymbol"`, and `spacing: "none"`.
+`fractionDigits` and `maximumFractionDigits` clamp to `0`–`20`, and `NaN` falls
+back to the default. With `signPlacement: "beforeSymbol"` the formatter keeps
+the locale's native minus character (for example `sv-SE` yields `−`, not `-`).
+
 ## `DateTimeUtil`
 
 `DateTimeUtil` exposes duration constants, format templates, and local time-zone
@@ -167,7 +226,9 @@ ThemeUtil.THEME_MODE.DARK; // "dark"
 `MathUtil` is exposed from `@pawover/kit-utils/math` because `mathjs` is an
 optional peer. It wraps `mathjs` `bignumber` conversion, decimal formatting, and
 expression evaluation. `evaluate` accepts trusted expressions only; do not pass
-untrusted user input to it.
+untrusted user input to it. `toPercent` / `fromPercent` need no `mathjs`: they
+convert between decimal and percent with a fixed precision, and return `null`
+for `null`, `undefined`, `NaN`, and `±Infinity`.
 
 ```ts
 import { create, all } from "mathjs";
@@ -179,6 +240,10 @@ MathUtil.toBignumber(math, "0.1");
 MathUtil.toDecimal(math, 0.12345, 2); // "0.12"
 MathUtil.toDecimal(math, 0.12345, 2, false); // BigNumber(0.12345)
 MathUtil.toEvaluate(math, "a + b", { a: math.bignumber(1), b: math.bignumber(2) }); // "3"
+
+MathUtil.toPercent(0.25); // 25
+MathUtil.fromPercent(25); // 0.25
+MathUtil.toPercent(null); // null
 ```
 
 ## `ViteUtil` (subpath)

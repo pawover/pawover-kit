@@ -108,6 +108,70 @@ non-obvious failure modes that are not visible from the type signatures alone.
     unverified; the structural validation and existing unit/type tests are the
     current evidence.
 
+### 2026-11-23 — `CurrencyUtil` formatting helpers (T1 phase 1)
+
+- Scope: `CurrencyUtil` gains `numberFormat`, `moneyFormat`, `resolveSymbol`,
+  and `compactNumberFormat`; no other class or package changed.
+- Guidance: `packages/utils/skills/utils/references/specialized.md` now covers
+  the four methods, the `locale` / `emptyText` options (including
+  `resolveSymbol(currency, locale?)` and the `CURRENCY_ENUM` / `en-US`
+  fallback), the `Intl`-only
+  dependency, `moneyFormat`'s `signPlacement` minus-sign behavior, and the
+  `compactNumberFormat` naming caveat (fraction trimming, not compact notation).
+  `_artifacts/domain_map.yaml` records the new coverage and two user-facing
+  failure modes (locale does not localize the symbol; compact naming).
+- Source evidence: `packages/utils/src/currency/currencyUtil.ts`,
+  `packages/utils/src/currency/index.type.ts`,
+  `test/unit/utils/currencyUtil.test.ts`,
+  `test/types/utils/utilsApi.test.type.ts`.
+- Maintainer decision: `MathUtil.round` is not part of this batch, so G11
+  rounding stays with the CRM consumer and the skill documents no rounding
+  helper.
+- Version claims: root `1.4.0-alpha.4`; `utils` `1.1.0-alpha.0`.
+- Checks: unit and type tests plus `pnpm check:skills`; see the T1 phase 1
+  delivery record for exact results.
+
+### 2026-11-23 — `CurrencyUtil` phase 2 (integer, percent, trailing-zero, percent conversion)
+
+- Scope: `CurrencyUtil.integerFormat` / `percentFormat` / `trailingZeroTrim`,
+  `MathUtil.toPercent` / `fromPercent`, and `TypeUtil.isFiniteNumber`; the
+  phase-1 formatters and `resolveSymbol(currency, locale?)` are unchanged.
+  `trailingZeroTrim` was later folded into `numberFormat` in phase 3.
+- Guidance: `references/specialized.md` documents the phase-2 helpers and the
+  percent conversions (fixed precision, `0`–`20` clamp, nullish → `null`),
+  `integerFormat`'s `Math.round` semantics with negative zero formatted as
+  zero, and `percentFormat`'s locale-driven sign and spacing. `SKILL.md` adds
+  `TypeUtil.isFiniteNumber` as the guard before numeric formatting or
+  arithmetic.
+- Source evidence: `packages/utils/src/currency/currencyUtil.ts`,
+  `packages/utils/src/math/mathUtil.ts`,
+  `packages/utils/src/type/typeUtil.ts`,
+  `test/unit/utils/{currencyUtil,mathUtil,typeUtil}.test.ts`.
+- Shared constant: `MAX_FRACTION_DIGITS` (`currencyUtil.ts`) and
+  `MAX_PRECISION` (`mathUtil.ts`) both clamp to `20`; their comments
+  cross-reference each other to prevent drift.
+- Checks: `pnpm vitest run` on the three unit files — 324 passed; `pnpm
+  check:skills` after recording.
+
+### 2026-11-23 — `CurrencyUtil` phase 3 (merged helpers, `percentText`, `moneyFormat` signs)
+
+- Scope: `compactNumberFormat` and `trailingZeroTrim` were folded into
+  `numberFormat` fraction options and removed as separate entries; `percentText`
+  added; `moneyFormat` gains `signDisplay` and `minusSign` (G9). Six public
+  format entries remain: `numberFormat`, `moneyFormat`, `resolveSymbol`,
+  `integerFormat`, `percentFormat`, `percentText`.
+- Guidance: `references/specialized.md` lists the six entries, gives the
+  `numberFormat` equivalents for compact and trailing-zero output,
+  `percentText`'s positive-by-default and zero-sign behavior, and the
+  signed-delta shape (`signDisplay: "always"`, `minusSign: "−"`,
+  `signPlacement: "beforeSymbol"`, `spacing: "none"`).
+- Source evidence: `packages/utils/src/currency/currencyUtil.ts`,
+  `packages/utils/src/currency/index.type.ts`,
+  `test/unit/utils/currencyUtil.test.ts`,
+  `test/types/utils/utilsApi.test.type.ts`.
+- Checks: `pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed`;
+  `pnpm check:skills` after recording.
+
 ### Existing executable evidence
 
 The skills reuse the repository's existing tests rather than duplicating them:

@@ -1,5 +1,6 @@
 import { CurrencyUtil, I18nUtil, StringUtil, TypeUtil } from "@pawover/kit/utils";
 import type { CountryCode } from "@pawover/kit/utils";
+import { MathUtil } from "@pawover/kit/utils/math";
 import { all, create } from "mathjs";
 
 const math = create(all);
@@ -16,6 +17,9 @@ const invalidNum: number = TypeUtil.isNumber(42);
 
 // @ts-expect-error — isInteger returns boolean, not number
 const invalidInt: number = TypeUtil.isInteger(42);
+
+// @ts-expect-error — isFiniteNumber returns boolean, not number
+const invalidFiniteNumber: number = TypeUtil.isFiniteNumber(1);
 
 // CurrencyUtil.toRealValue — omitted stringMode must return string
 // @ts-expect-error — omitted stringMode returns string, not number
@@ -146,3 +150,53 @@ function assertSplitWide (input: string): void {
 
 // @ts-expect-error — split(null, "-") must return string[], not collapse to ["x"]
 const invalidSplitNull: ["x"] = StringUtil.split(null, "-");
+
+// CurrencyUtil 格式化方法 — 空值入参返回 string，不得带 null
+// @ts-expect-error — numberFormat(null) 返回 string，不是 null
+const invalidNumberFormatNull: null = CurrencyUtil.numberFormat(null);
+
+// @ts-expect-error — moneyFormat(undefined) 返回 string，不是 null
+const invalidMoneyFormatNull: null = CurrencyUtil.moneyFormat(undefined);
+
+// @ts-expect-error — resolveSymbol 返回 string | null，未知代码不得收窄为 string
+const invalidResolveSymbol: string = CurrencyUtil.resolveSymbol("XYZ");
+
+// @ts-expect-error — resolveSymbol 的 locale 不接受 number
+CurrencyUtil.resolveSymbol("USD", 1);
+
+// CurrencyUtil 格式化方法 — locale 为 Intl.LocalesArgument，不得收窄为枚举 locale
+// @ts-expect-error — numberFormat 的 locale 不接受 number
+CurrencyUtil.numberFormat(1, { locale: 1 });
+
+// @ts-expect-error — moneyFormat 的 locale 不接受 boolean
+CurrencyUtil.moneyFormat(1, { locale: true });
+
+// CurrencyUtil 第 2 期格式化方法 — 空值返回 string
+// @ts-expect-error — integerFormat(null) 返回 string，不是 null
+const invalidIntegerFormatNull: null = CurrencyUtil.integerFormat(null);
+
+// @ts-expect-error — percentFormat(null) 返回 string，不是 null
+const invalidPercentFormatNull: null = CurrencyUtil.percentFormat(null);
+
+// @ts-expect-error — percentFormat 的 locale 不接受 number
+CurrencyUtil.percentFormat(0.25, { locale: 1 });
+
+// @ts-expect-error — integerFormat 的 locale 不接受 number
+CurrencyUtil.integerFormat(1, { locale: 1 });
+
+// CurrencyUtil 带符号格式化方法 — 空值返回 string
+// @ts-expect-error — percentText(null) 返回 string，不是 null
+const invalidPercentTextNull: null = CurrencyUtil.percentText(null);
+
+// @ts-expect-error — moneyFormat 的 signDisplay 只接受 "auto" | "always" | "exceptZero"
+CurrencyUtil.moneyFormat(1, { signDisplay: "never" });
+
+// @ts-expect-error — moneyFormat 的 minusSign 只接受 "-" 或 U+2212
+CurrencyUtil.moneyFormat(1, { minusSign: "_" });
+
+// MathUtil 换算方法 — 空值返回 null，结果类型为 number | null
+// @ts-expect-error — toPercent 返回 number | null，不是 number
+const invalidToPercent: number = MathUtil.toPercent(0.25);
+
+// @ts-expect-error — fromPercent 返回 number | null，不是 number
+const invalidFromPercent: number = MathUtil.fromPercent(25);

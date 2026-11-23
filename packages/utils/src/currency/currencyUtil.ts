@@ -1,18 +1,82 @@
 import type { MathJsInstance } from "mathjs";
 import { MathUtil } from "../math";
 import { TypeUtil } from "../type";
-import type { FormatterOptions } from "./index.type";
+import type { CurrencyCode, FormatterOptions, IntegerFormatOptions, MoneyFormatOptions, NumberFormatOptions, PercentFormatOptions, PercentTextOptions } from "./index.type";
 
 /** `toRealValue` 返回值映射：可空 `value` 的返回追加 `| null`（内部类型，不导出） */
 type ToRealValueResult<T extends string | number | null | undefined, R> = T extends string | number ? R : R | null;
 
-/** Bidi 控制字符正则：`Intl.NumberFormat` 在 RTL locale（如 `ar-SA`、`he-IL`）下会注入不可见的 U+200E/U+200F/U+202A–U+202E/U+2066–U+2069 标记 */
-const BIDI_CONTROL_CHARS_REGEX = /[\u200E\u200F\u202A-\u202E\u2066-\u2069]/g;
+/** Bidi 控制字符正则：`Intl.NumberFormat` 在 RTL locale（如 `ar-SA`、`he-IL`）下会注入不可见的 U+061C、U+200E/U+200F、U+202A–U+202E、U+2066–U+2069 标记 */
+const BIDI_CONTROL_CHARS_REGEX = /[\u061C\u200E\u200F\u202A-\u202E\u2066-\u2069]/g;
+
+const DEFAULT_LOCALE = "en-US";
+
+/** U+2212 为部分 locale（如 `sv-SE`、`fi-FI`）的负号 */
+const MINUS_SIGNS = ["-", "\u2212"];
+
+/** `Intl.NumberFormat` 允许的小数位上限；与 `mathUtil.ts` 的 `MAX_PRECISION` 同值，改动需同步 */
+const MAX_FRACTION_DIGITS = 20;
+
+/** `Intl.supportedValuesOf` 缺失的运行时（旧浏览器）按 `CURRENCY_ENUM` 收窄已知代码，避免模块加载期抛错 */
+let knownCurrencyCodes: ReadonlySet<string> | undefined;
+
+function getKnownCurrencyCodes (): ReadonlySet<string> {
+  knownCurrencyCodes ??= new Set(
+    typeof Intl.supportedValuesOf === "function"
+      ? Intl.supportedValuesOf("currency")
+      : Object.keys(CurrencyUtil.CURRENCY_ENUM),
+  );
+
+  return knownCurrencyCodes;
+}
+
+function isCurrencyCode (value: string): value is CurrencyCode {
+  return Object.hasOwn(CurrencyUtil.CURRENCY_ENUM, value);
+}
+
+function normalizeFractionDigits (value: number | undefined, fallback: number): number {
+  if (value === undefined || Number.isNaN(value)) {
+    return fallback;
+  }
+
+  return Math.min(Math.max(Math.trunc(value), 0), MAX_FRACTION_DIGITS);
+}
+
+function splitMinusSign (numberText: string): { minusSign: string; unsignedText: string } {
+  const head = numberText.charAt(0);
+
+  if (MINUS_SIGNS.includes(head)) {
+    return {
+      minusSign: head,
+      unsignedText: numberText.slice(1),
+    };
+  }
+
+  const tail = numberText.charAt(numberText.length - 1);
+
+  if (MINUS_SIGNS.includes(tail)) {
+    return {
+      minusSign: tail,
+      unsignedText: numberText.slice(0, -1),
+    };
+  }
+
+  return { minusSign: "", unsignedText: numberText };
+}
+
+function formatNumber (locale: Intl.LocalesArgument, options: Intl.NumberFormatOptions, value: number): string {
+  const normalizedValue = Object.is(value, -0)
+    ? 0
+    : value;
+
+  return new Intl.NumberFormat(locale, options).format(normalizedValue).replace(BIDI_CONTROL_CHARS_REGEX, "");
+}
 
 /**
  * 货币工具类
  * - 基于 [`Intl.NumberFormat`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) 进行本地化格式化
  * - 支持精确小数位处理（依赖 `mathjs`）
+ * - `numberFormat` / `moneyFormat` / `percentFormat` / `integerFormat` / `resolveSymbol` / `percentText` 的空值契约：`null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`（默认 `""`）
  */
 export class CurrencyUtil {
   /**
@@ -228,6 +292,305 @@ export class CurrencyUtil {
     return isSignAtEnd
       ? `${numberText} ${sign}`
       : `${sign} ${numberText}`;
+  }
+
+  /**
+   * 将 ISO 4217 货币代码解析为货币符号
+   * - 符号取自 `Intl.NumberFormat` 的 `currency` 段
+   * - 省略 `locale` 时，`CURRENCY_ENUM` 收录的代码按其 locale 取符号，其余按 `en-US`
+   * - 非 ISO 4217 代码返回 `null`
+   *
+   * @param currency ISO 4217 货币代码，大小写不敏感
+   * @param locale 取符号所用 locale，省略时按 `currency` 的默认 locale
+   * @returns 货币符号，未知代码返回 `null`
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * // 省略 locale: 按 CURRENCY_ENUM 或 en-US
+   * CurrencyUtil.resolveSymbol("USD"); // "$"
+   * CurrencyUtil.resolveSymbol("CNY"); // "¥"
+   * CurrencyUtil.resolveSymbol("LKR"); // "LKR"
+   *
+   * // 指定 locale: 同一货币在不同地区的符号由调用方决定
+   * CurrencyUtil.resolveSymbol("LKR", "si-LK"); // "රු."
+   * CurrencyUtil.resolveSymbol("LKR", "ta-LK"); // "Rs."
+   *
+   * CurrencyUtil.resolveSymbol("XYZ"); // null
+   * ```
+   */
+  static resolveSymbol (currency: string, locale?: Intl.LocalesArgument): string | null {
+    const currencyCode = currency.toUpperCase();
+
+    if (!getKnownCurrencyCodes().has(currencyCode)) {
+      return null;
+    }
+
+    const symbolLocale = locale ?? (isCurrencyCode(currencyCode)
+      ? CurrencyUtil.CURRENCY_ENUM[currencyCode]
+      : DEFAULT_LOCALE);
+    const parts = new Intl.NumberFormat(symbolLocale, { style: "currency", currency: currencyCode }).formatToParts(0);
+    const symbol = parts.find(({ type }) => type === "currency")?.value;
+
+    if (!symbol) {
+      return null;
+    }
+
+    return symbol.replace(BIDI_CONTROL_CHARS_REGEX, "");
+  }
+
+  /**
+   * 纯数字格式化
+   * - 千分位分组 + 固定小数位，默认 `en-US` 口径（可经 `locale` 覆盖），不输出货币符号
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
+   *
+   * @param value 待格式化的数值
+   * @param options 格式化选项
+   * @param options.locale 数字分组与小数位的 locale，默认 `"en-US"`
+   * @param options.minimumFractionDigits 最小小数位数，默认 `2`；超过 `maximumFractionDigits` 时按后者收敛，负数取 `0`，`NaN` 回退默认值
+   * @param options.maximumFractionDigits 最大小数位数，默认 `2`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @param options.useGrouping 是否使用千分位分组，默认 `true`
+   * @param options.emptyText 空值占位文本，默认 `""`
+   * @returns 格式化后的数字字符串
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * CurrencyUtil.numberFormat(1234.5); // "1,234.50"
+   * CurrencyUtil.numberFormat(0); // "0.00"
+   * CurrencyUtil.numberFormat(-1234.5); // "-1,234.50"
+   * CurrencyUtil.numberFormat(1234.5, { minimumFractionDigits: 0, maximumFractionDigits: 2 }); // "1,234.5"
+   * CurrencyUtil.numberFormat(1234.5, { useGrouping: false }); // "1234.50"
+   * CurrencyUtil.numberFormat(1234.5, { locale: "de-DE" }); // "1.234,50"
+   * CurrencyUtil.numberFormat(1234.5, { maximumFractionDigits: -1 }); // "1,235"
+   * CurrencyUtil.numberFormat(null); // ""
+   * CurrencyUtil.numberFormat(Number.NaN, { emptyText: "—" }); // "—"
+   * ```
+   */
+  static numberFormat (value: number | null | undefined, options: NumberFormatOptions = {}): string {
+    const { locale = DEFAULT_LOCALE, minimumFractionDigits, maximumFractionDigits, useGrouping = true, emptyText = "" } = options;
+
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return emptyText;
+    }
+
+    const maximumDigits = normalizeFractionDigits(maximumFractionDigits, 2);
+
+    return formatNumber(locale, {
+      minimumFractionDigits: Math.min(normalizeFractionDigits(minimumFractionDigits, 2), maximumDigits),
+      maximumFractionDigits: maximumDigits,
+      useGrouping,
+    }, value);
+  }
+
+  /**
+   * 货币符号 + 金额格式化
+   * - 默认符号与金额间留一个空格、负号位于符号之后（`"$ -1,234.50"`）
+   * - `symbol` 省略时经 `resolveSymbol` 从 `currency` 推导，未知代码回退输出代码本身
+   * - 正负号由 `signDisplay` 控制：`"auto"` 仅负数带号，`"always"` 正数与 `0` 带 `+`，`"exceptZero"` 仅正数带 `+`
+   * - `minusSign` 省略时使用 locale 原生负号
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
+   *
+   * @param value 待格式化的数值
+   * @param options 格式化选项
+   * @param options.locale 数字分组与小数位的 locale，默认 `"en-US"`；货币符号仍由 `currency` 决定
+   * @param options.currency ISO 4217 货币代码，大小写不敏感，默认 `"USD"`
+   * @param options.symbol 货币符号，省略时由 `currency` 推导；空字符串输出纯数字
+   * @param options.spacing 符号与金额的间距，默认 `"space"`
+   * @param options.signPlacement 符号位置，默认 `"afterSymbol"`；`"beforeSymbol"` 将正负号移到货币符号之前
+   * @param options.signDisplay 正负号显示策略，默认 `"auto"`
+   * @param options.minusSign 负号字符，默认使用 locale 原生负号
+   * @param options.fractionDigits 小数位数，默认 `2`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @param options.emptyText 空值占位文本，默认 `""`
+   * @returns 格式化后的金额字符串
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * CurrencyUtil.moneyFormat(1234.5); // "$ 1,234.50"
+   * CurrencyUtil.moneyFormat(-1234.5); // "$ -1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { spacing: "none" }); // "$1,234.50"
+   * CurrencyUtil.moneyFormat(-1234.5, { signPlacement: "beforeSymbol" }); // "-$ 1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { locale: "de-DE" }); // "$ 1.234,50"
+   * CurrencyUtil.moneyFormat(1234.5, { currency: "cny" }); // "¥ 1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { symbol: "HK$" }); // "HK$ 1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { symbol: "" }); // "1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { signDisplay: "always" }); // "$ +1,234.50"
+   * CurrencyUtil.moneyFormat(0, { signDisplay: "exceptZero" }); // "$ 0.00"
+   * CurrencyUtil.moneyFormat(-1234.5, { signDisplay: "always", signPlacement: "beforeSymbol" }); // "-$ 1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "+$1,234.50"
+   * CurrencyUtil.moneyFormat(-1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "−$1,234.50"
+   * CurrencyUtil.moneyFormat(null); // ""
+   * CurrencyUtil.moneyFormat(null, { emptyText: "—" }); // "—"
+   * ```
+   */
+  static moneyFormat (value: number | null | undefined, options: MoneyFormatOptions = {}): string {
+    const { locale = DEFAULT_LOCALE, currency = "USD", symbol, spacing = "space", signPlacement = "afterSymbol", signDisplay = "auto", minusSign, fractionDigits, emptyText = "" } = options;
+
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return emptyText;
+    }
+
+    const digits = normalizeFractionDigits(fractionDigits, 2);
+    const numberText = CurrencyUtil.numberFormat(value, { locale, minimumFractionDigits: digits, maximumFractionDigits: digits });
+    const currencyCode = currency.toUpperCase();
+    const symbolText = symbol ?? CurrencyUtil.resolveSymbol(currencyCode) ?? currencyCode;
+
+    if (!symbolText) {
+      return numberText;
+    }
+
+    const { minusSign: localeMinusSign, unsignedText } = splitMinusSign(numberText);
+    const showsPlusSign = signDisplay === "always" || (signDisplay === "exceptZero" && value > 0);
+    let signText = "";
+
+    if (value < 0) {
+      signText = minusSign ?? localeMinusSign;
+    } else if (showsPlusSign) {
+      signText = "+";
+    }
+
+    const gap = spacing === "none"
+      ? ""
+      : " ";
+
+    return signPlacement === "beforeSymbol"
+      ? `${signText}${symbolText}${gap}${unsignedText}`
+      : `${symbolText}${gap}${signText}${unsignedText}`;
+  }
+
+  /**
+   * 整数格式化
+   * - 先按 `Math.round` 取整（`.5` 向正无穷，如 `2.5 → 3`、`-2.5 → -2`），再按 `locale` 分组
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
+   *
+   * @param value 待格式化的数值
+   * @param options 格式化选项
+   * @param options.locale 数字分组与小数位的 locale，默认 `"en-US"`
+   * @param options.useGrouping 是否使用千分位分组，默认 `true`
+   * @param options.emptyText 空值占位文本，默认 `""`
+   * @returns 格式化后的整数字符串
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * CurrencyUtil.integerFormat(1234.5678); // "1,235"
+   * CurrencyUtil.integerFormat(2.5); // "3"
+   * CurrencyUtil.integerFormat(-2.5); // "-2"
+   * CurrencyUtil.integerFormat(1234.5678, { locale: "de-DE" }); // "1.235"
+   * CurrencyUtil.integerFormat(null); // ""
+   * CurrencyUtil.integerFormat(null, { emptyText: "—" }); // "—"
+   * ```
+   */
+  static integerFormat (value: number | null | undefined, options: IntegerFormatOptions = {}): string {
+    const { locale = DEFAULT_LOCALE, useGrouping = true, emptyText = "" } = options;
+
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return emptyText;
+    }
+
+    return CurrencyUtil.numberFormat(Math.round(value), {
+      locale,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+      useGrouping,
+    });
+  }
+
+  /**
+   * 百分比格式化
+   * - 入参为小数，按 `locale` 的百分数格式输出（`0.25 → "25.0%"`、`de-DE → "25,0 %"`）
+   * - `showSign` 为 `true` 时按 locale 输出正负号，`0` 亦带 `+`
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
+   *
+   * @param value 待格式化的数值
+   * @param options 格式化选项
+   * @param options.locale 数字格式的 locale，默认 `"en-US"`
+   * @param options.fractionDigits 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @param options.showSign 是否输出正负号，默认 `false`
+   * @param options.emptyText 空值占位文本，默认 `""`
+   * @returns 格式化后的百分数字符串
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * CurrencyUtil.percentFormat(0.25); // "25.0%"
+   * CurrencyUtil.percentFormat(0.2567, { fractionDigits: 0 }); // "26%"
+   * CurrencyUtil.percentFormat(-0.05, { showSign: true }); // "-5.0%"
+   * CurrencyUtil.percentFormat(0.25, { locale: "de-DE" }); // "25,0\u00A0%"（空格为 U+00A0）
+   * CurrencyUtil.percentFormat(null); // ""
+   * ```
+   */
+  static percentFormat (value: number | null | undefined, options: PercentFormatOptions = {}): string {
+    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = false, emptyText = "" } = options;
+
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return emptyText;
+    }
+
+    const digits = normalizeFractionDigits(fractionDigits, 1);
+
+    return formatNumber(locale, {
+      style: "percent",
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+      signDisplay: showSign ? "always" : "auto",
+    }, value);
+  }
+
+  /**
+   * 百分比文案格式化
+   * - 入参为百分数（`25 → "+25.0%"`）
+   * - 默认正数加 `+`、负数用 locale 负号、`0` 不加号；`zeroSign: true` 时 `0` 也加 `+`
+   * - 四舍五入后落为 `0.0` 的非零值保留原值符号（`0.04 → "+0.0%"`）
+   * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
+   *
+   * @param value 待格式化的百分数
+   * @param options 格式化选项
+   * @param options.locale 数字格式的 locale，默认 `"en-US"`
+   * @param options.fractionDigits 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值
+   * @param options.showSign 是否给正数加 `+`，默认 `true`
+   * @param options.zeroSign 是否给 `0` 加 `+`，默认 `false`
+   * @param options.emptyText 空值占位文本，默认 `""`
+   * @returns 格式化后的百分比文案
+   *
+   * @example
+   * ```ts
+   * import { CurrencyUtil } from "@pawover/kit/utils";
+   *
+   * CurrencyUtil.percentText(25); // "+25.0%"
+   * CurrencyUtil.percentText(-12.34); // "-12.3%"
+   * CurrencyUtil.percentText(0); // "0.0%"
+   * CurrencyUtil.percentText(0, { zeroSign: true }); // "+0.0%"
+   * CurrencyUtil.percentText(0.04); // "+0.0%"
+   * CurrencyUtil.percentText(0.04, { showSign: false }); // "0.0%"
+   * CurrencyUtil.percentText(null); // ""
+   * ```
+   */
+  static percentText (value: number | null | undefined, options: PercentTextOptions = {}): string {
+    const { locale = DEFAULT_LOCALE, fractionDigits, showSign = true, zeroSign = false, emptyText = "" } = options;
+
+    if (!TypeUtil.isFiniteNumber(value)) {
+      return emptyText;
+    }
+
+    const digits = normalizeFractionDigits(fractionDigits, 1);
+    const text = formatNumber(locale, {
+      style: "percent",
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
+    }, value / 100);
+    const { minusSign } = splitMinusSign(text);
+    const isSigned = showSign && !minusSign && (value > 0 || (value === 0 && zeroSign));
+
+    return isSigned
+      ? `+${text}`
+      : text;
   }
 
   /**
