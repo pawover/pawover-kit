@@ -2305,6 +2305,16 @@
       "outcome": "no-change",
       "reason": "Tests cover isFiniteNumber, which SKILL.md documents as the guard before numeric formatting.",
       "evidence": ["pnpm vitest run test/unit/utils/typeUtil.test.ts — passed"]
+    },
+    "source:.changeset/update-vue-define-macros-order.md": {
+      "fingerprint": "449e5f2bb159401efcc70de51c8ae6de308aa20feb950ee4a152d7b720b6de3e",
+      "snapshot": {
+        ".changeset/update-vue-define-macros-order.md": "7e1a47d2dc8296027de74f61cc7eb0d4c6d3cb4834743051d50312c5bb3805fc"
+      },
+      "head": "08dc351366f954851d758604fb342c90567f981b",
+      "outcome": "no-change",
+      "reason": "vue/define-macros-order default order and defineExposeLast changed in core.vue.ts (commit 08dc351). The eslint-preset skill intentionally documents configuration mechanics, layers and overrides rather than per-rule defaults; no skill statement names this rule, so no guidance is invalidated. The changeset is release metadata.",
+      "evidence": ["Changed: .changeset/update-vue-define-macros-order.md at 08dc351366f954851d758604fb342c90567f981b"]
     }
   }
 }

@@ -821,8 +821,8 @@ const rules = {
   "vue/define-macros-order": [
     2,
     {
-      order: ["defineOptions", "defineProps", "defineSlots", "defineEmits"],
-      defineExposeLast: false,
+      order: ["defineOptions", "defineProps", "defineModel", "defineEmits", "defineSlots"],
+      defineExposeLast: true,
     },
   ],
   /**
