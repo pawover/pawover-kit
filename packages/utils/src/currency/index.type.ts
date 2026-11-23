@@ -53,3 +53,85 @@ export interface FormatterOptions {
   /** `Intl.NumberFormat` 格式化选项（如 `style`、`currency`、`minimumFractionDigits` 等） */
   currencyFormatOptions: Intl.NumberFormatOptions;
 }
+
+/**
+ * `CurrencyUtil.numberFormat` 的格式化选项
+ */
+export interface NumberFormatOptions {
+  /** 数字分组与小数位的 locale，默认 `"en-US"` */
+  locale?: Intl.LocalesArgument;
+  /** 最小小数位数，默认 `2`；超过 `maximumFractionDigits` 时按后者收敛，负数取 `0`，`NaN` 回退默认值 */
+  minimumFractionDigits?: number;
+  /** 最大小数位数，默认 `2`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值 */
+  maximumFractionDigits?: number;
+  /** 是否使用千分位分组，默认 `true` */
+  useGrouping?: boolean;
+  /** 空值占位文本，默认 `""` */
+  emptyText?: string;
+}
+
+/**
+ * `CurrencyUtil.moneyFormat` 的格式化选项
+ */
+export interface MoneyFormatOptions {
+  /** 数字分组与小数位的 locale，默认 `"en-US"`；货币符号仍由 `currency` 决定 */
+  locale?: Intl.LocalesArgument;
+  /** ISO 4217 货币代码，大小写不敏感，默认 `"USD"` */
+  currency?: string;
+  /** 货币符号；省略时由 `resolveSymbol` 从 `currency` 推导，未知代码回退为代码本身；空字符串输出纯数字 */
+  symbol?: string;
+  /** 符号与金额的间距，默认 `"space"` */
+  spacing?: "none" | "space";
+  /** 符号位置，默认 `"afterSymbol"`（`"$ -1,234.50"`），`"beforeSymbol"` 产出 `"-$ 1,234.50"` */
+  signPlacement?: "beforeSymbol" | "afterSymbol";
+  /** 正负号显示策略，默认 `"auto"`：`"always"` 正数与 `0` 带 `+`，`"exceptZero"` 仅正数带 `+` */
+  signDisplay?: "auto" | "always" | "exceptZero";
+  /** 负号字符，默认使用 locale 原生负号 */
+  minusSign?: "-" | "−";
+  /** 小数位数，默认 `2`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值 */
+  fractionDigits?: number;
+  /** 空值占位文本，默认 `""` */
+  emptyText?: string;
+}
+
+/**
+ * `CurrencyUtil.integerFormat` 的格式化选项
+ */
+export interface IntegerFormatOptions {
+  /** 数字分组与小数位的 locale，默认 `"en-US"` */
+  locale?: Intl.LocalesArgument;
+  /** 是否使用千分位分组，默认 `true` */
+  useGrouping?: boolean;
+  /** 空值占位文本，默认 `""` */
+  emptyText?: string;
+}
+
+/**
+ * `CurrencyUtil.percentFormat` 的格式化选项
+ */
+export interface PercentFormatOptions {
+  /** 数字格式的 locale，默认 `"en-US"` */
+  locale?: Intl.LocalesArgument;
+  /** 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值 */
+  fractionDigits?: number;
+  /** 是否输出正负号，默认 `false`；`true` 时按 locale 的正负号输出（含 `0`） */
+  showSign?: boolean;
+  /** 空值占位文本，默认 `""` */
+  emptyText?: string;
+}
+
+/**
+ * `CurrencyUtil.percentText` 的格式化选项
+ */
+export interface PercentTextOptions {
+  /** 数字格式的 locale，默认 `"en-US"` */
+  locale?: Intl.LocalesArgument;
+  /** 百分数小数位数，默认 `1`；负数取 `0`，超过 `20` 取 `20`，`NaN` 回退默认值 */
+  fractionDigits?: number;
+  /** 是否给正数加 `+`，默认 `true` */
+  showSign?: boolean;
+  /** 是否给 `0` 加 `+`，默认 `false` */
+  zeroSign?: boolean;
+  /** 空值占位文本，默认 `""` */
+  emptyText?: string;
+}

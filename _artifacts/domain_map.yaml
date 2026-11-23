@@ -172,6 +172,7 @@ skills:
       - "ValidateUtil"
       - "NumberUtil"
       - "CurrencyUtil"
+      - "CurrencyUtil formatting helpers (numberFormat / moneyFormat / resolveSymbol / integerFormat / percentFormat / percentText), moneyFormat signDisplay/minusSign, MathUtil.toPercent / fromPercent, TypeUtil.isFiniteNumber"
       - "DateTimeUtil"
       - "EnvUtil"
       - "FunctionUtil"
@@ -252,6 +253,26 @@ skills:
         priority: HIGH
         status: active
         skills: [utils, kit]
+      - mistake: "Expect locale to localize the currency symbol in moneyFormat"
+        mechanism: "locale changes grouping and fraction separators only; the symbol still comes from currency or symbol."
+        wrong_pattern: |
+          CurrencyUtil.moneyFormat(1234.5, { locale: "de-DE" }); // expects "1.234,50 €"
+        correct_pattern: |
+          CurrencyUtil.moneyFormat(1234.5, { locale: "de-DE", currency: "EUR" }); // "€ 1.234,50"
+        source: "packages/utils/src/currency/currencyUtil.ts"
+        priority: MEDIUM
+        status: active
+        skills: [utils]
+      - mistake: "Treat compactNumberFormat as Intl compact notation"
+        mechanism: "It only trims fraction digits; integers lose decimals and 1234567 stays grouped rather than becoming 1.2M."
+        wrong_pattern: |
+          CurrencyUtil.compactNumberFormat(1234567); // expects "1.2M"
+        correct_pattern: |
+          new Intl.NumberFormat("en-US", { notation: "compact" }).format(1234567); // "1.2M"
+        source: "packages/utils/src/currency/currencyUtil.ts"
+        priority: MEDIUM
+        status: active
+        skills: [utils]
 
   - name: "React lifecycle and responsive hooks"
     slug: react-hooks

@@ -3,7 +3,7 @@
   "baseline": "948686cbd56793d76e9585d18b4c63fe33073070",
   "items": {
     "skill:packages/eslint-rules/skills/eslint-preset/SKILL.md": {
-      "fingerprint": "a9adefd9b3ff280da0051c9a058c9219d9a2746b7e0097378f48831c364cc4bf",
+      "fingerprint": "b8cdeb0ee9b188939969c5f03ce9afd1b472a5ad45c3c8f9ad1306fedd100614",
       "snapshot": {
         "packages/eslint-rules/skills/eslint-preset/SKILL.md": "bfbd5781f94ef3de3afded601d9d4831b9f006843f4ce8745793a736106f44b5",
         "packages/eslint-rules/skills/eslint-preset/references/options.md": "ff9cfa4be8a2af15fc8b71c4b7d5e7c7d231c624b975d7a7b1d05f9251efbd02",
@@ -12,20 +12,16 @@
         "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
         "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
         "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
-        "packages/eslint-rules/src/core.vue.ts": "652a26a82b16189c34df4d76cabdd132d4045314262d614c3db10b37e4617d5b",
+        "packages/eslint-rules/src/core.vue.ts": "19ba0efe8ddbd49aac3fedc59ec22d4c6caaf3366106352dd87931684d2d3cde",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
         "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
         "packages/eslint-rules/src/reactCompiler.ts": "92461558842e11be529aa21d1f8d279b02ffd3b0eebbcf385eee4a320113461a"
       },
-      "head": "641da3c675de7fe88c224f95639755d1a10ae506",
-      "outcome": "no-change",
-      "reason": "src/core.vue.ts changed only per-rule defaults: six @stylistic-deprecated bridge rules set to 0, prefer-use-template-ref/require-explicit-slots lowered to warn, require-typed-ref turned off, and operator-linebreak switched from after to before. The skill documents the configuration surface (groups, generated layer names, override precedence, vue processor/extraFileExtensions, style shortcuts) and never names these rules or their severities; references/options.md has no rule-level severity claims either. No documented statement became wrong.",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/core.vue.ts at 641da3c",
-        "grep of SKILL.md and references/options.md: no mention of operator-linebreak, prefer-use-template-ref, require-explicit-slots, require-typed-ref, or the six bridge rules",
-        "test/unit/eslint-rules/eslintRules.test.ts:673-707 asserts the 0 defaults and the new severities/overrides"
-      ]
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "out-of-scope",
+      "reason": "Only change is packages/eslint-rules/src/core.vue.ts, an unrelated uncommitted edit by another contributor. This task does not review or document it; the eslint-preset guidance is untouched.",
+      "evidence": ["packages/eslint-rules/src/core.vue.ts left untouched by this task"]
     },
     "skill:packages/hooks/skills/alova-hooks/SKILL.md": {
       "fingerprint": "ff7645a03bf0d29411a86227036fcd924e24a42be0dc8db68b1d2d9a7cad1d0f",
@@ -82,34 +78,34 @@
       ]
     },
     "skill:packages/utils/skills/utils/SKILL.md": {
-      "fingerprint": "8ed78041145c04a2b6b2703d25654195293fa43a65506605c50bdfba5e3279a1",
+      "fingerprint": "181f0723d7f0bfd1b5de88f01dd7310845ccdf4445172c877d1c2c09adabd0f8",
       "snapshot": {
-        "packages/utils/skills/utils/SKILL.md": "70da409b194034e7547d93b8523180baacad2d66ee4a029d8bc8f8d324b682b5",
+        "packages/utils/skills/utils/SKILL.md": "0ba60312056c7a786e647441d4f403128d296e1510c6b374f9a3a8faa3c1b753",
         "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
-        "packages/utils/skills/utils/references/specialized.md": "4021309ea6c140410abbb04d3b2af3ce8a0b76e044e12cc85b74e1eb5db4737f",
+        "packages/utils/skills/utils/references/specialized.md": "6995a486775ceedd246f9a254d0127df7f63f96f6522333be1f074fb8736f45d",
         "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
         "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
-        "packages/utils/src/currency/currencyUtil.ts": "2523f7e65bcdd8b4d7c276dd1edfafed34d7fe4c5da63b319e3fabcf9caaf529",
+        "packages/utils/src/currency/currencyUtil.ts": "5500822f667000ad8ff9e409cdacca1c73b1b760cb2c61094b7d8905b15c940d",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
         "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
-        "packages/utils/src/math/mathUtil.ts": "123cce8b32e44fb2db315c61ddb482d11509473d3a14072bbaf21738441181db",
+        "packages/utils/src/math/mathUtil.ts": "b1290c3c35bc5e74eca2a47105ea07aec611f0d7245b0c2eac5ab81262b68669",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
         "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
         "packages/utils/src/tree/treeUtil.ts": "06b57cdd125f6bc8f0efbf7167babc2ee35c35862bb3be7ec65d5565a2ab8b41",
-        "packages/utils/src/type/typeUtil.ts": "add05dfb3d5d0251306466ff0f0b12ab66849f254602eb699d3e67d7053f34eb",
+        "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf"
       },
-      "head": "948686cbd56793d76e9585d18b4c63fe33073070",
-      "outcome": "updated",
-      "reason": "Clarified tree-filter descendant semantics and corrected the Zod AllowEmpty failure-mode example; both changes are source-backed documentation corrections.",
-      "evidence": ["Changed: packages/utils/skills/utils/SKILL.md at 948686cbd56793d76e9585d18b4c63fe33073070"]
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "no-change",
+      "reason": "JSDoc-only edit: percentText's comment dropped the comparison with percentFormat; no behavior, signature, default or documented contract changed, so the utils skill and planning records remain accurate.",
+      "evidence": ["Changed: packages/utils/src/currency/currencyUtil.ts at 03d2633f00010910a3e50a543c8112dceebc9abe"]
     },
     "skill:packages/zod/skills/zod-schemas/SKILL.md": {
       "fingerprint": "8cc36f370f54d736f3566e96ce90c28d0d58e5c1c5031e5a07f90d033597a185",
@@ -127,25 +123,25 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "35cbb96ac1014c83ed67c2e5ceff9bf5a14df4bab9ee200dea05988b28de843d",
+      "fingerprint": "e901c82155fb8c4a2df1793dacb336b173669fa21d9e8c66ac910710337ce178",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
         "package.json": "03faef492e8fba9595894297043fc0307affbcde0d2e7d830902f07891da45f6",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
-        "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
+        "skills/kit/SKILL.md": "1f0542084fae027e955961ce31770ad545c04e6cf616a130d22f4d7e27d1956d"
       },
-      "head": "59fe053c8d863a84475edbcfd10668e5366e3210",
+      "head": "a3060981c9a9178a455fb9fa8c00fb49043c16b4",
       "outcome": "no-change",
       "reason": "main 同步：剔除 .changeset/pre 归档并将版本号还原为 origin/main 侧，仅同步元数据变更，无源码实现、skill 内容、exports 或 planning 记录变动。",
-      "evidence": ["Changed: package.json at 59fe053c8d863a84475edbcfd10668e5366e3210"]
+      "evidence": ["Changed: package.json at a3060981c9a9178a455fb9fa8c00fb49043c16b4"]
     },
     "planning:_artifacts": {
-      "fingerprint": "80807fce0a5497a145e4ca4b558a0e1e48026e78d5394e8b603d1e2bd6c297d5",
+      "fingerprint": "c0f427112095dbf09d32dce737568af0ebade4a978b9733697bffc1aeb81b2c0",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "54474653cb9ec3a04045482001bfb96f98135f2b9933fbb27d3874eeb46f4d7f",
-        "_artifacts/skill_spec.md": "73ebd6fe6f72cc82c15a0fc6bcad97044f87d6448bfd0732ca2e1a6c94fbd3db",
+        "_artifacts/domain_map.yaml": "4ca122ded436ba5d2f470db1cd03b99998c99510b298ede32ad523a3058e0e65",
+        "_artifacts/skill_spec.md": "e6bce5747f8b23a7b18c31003576234c0dbef58bf81b28ea71682e5ecd4b8d80",
         "_artifacts/skill_tree.yaml": "204814e5d6454934aabb9f6cf5b3f35ac9e4cbbb35d3226241cc6af5e836e579",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
@@ -157,7 +153,7 @@
         "packages/eslint-rules/src/core.react.ts": "2b9cf7c1c8bec0befd530dad2b082d0042f56453e9ce61961ff679d56a5f7666",
         "packages/eslint-rules/src/core.stylistic.ts": "4efe4a8576d0b37f2e7276dbe4fb6e1920f891f6e370f89ab0c9a664f9632026",
         "packages/eslint-rules/src/core.typescript.ts": "f8a757a8e9191ae9466673f06d72f1729619061b984f4a0be78d4cf64743cb1e",
-        "packages/eslint-rules/src/core.vue.ts": "652a26a82b16189c34df4d76cabdd132d4045314262d614c3db10b37e4617d5b",
+        "packages/eslint-rules/src/core.vue.ts": "19ba0efe8ddbd49aac3fedc59ec22d4c6caaf3366106352dd87931684d2d3cde",
         "packages/eslint-rules/src/globExclude.ts": "eb3f70c085e2ca04c89eabf5bfb3395fb098c07602de9d0edebaeba1ba4da92e",
         "packages/eslint-rules/src/globs.ts": "29738d6a5b3e58d1dc6b689d70608f312bc9cab2f1f65f837c01acc61e1fb5ac",
         "packages/eslint-rules/src/index.ts": "856e5680836f469aead5410094746eea2e5369f42176603d3026f955cc5c446b",
@@ -183,25 +179,25 @@
         "packages/types/src/index.ts": "095bb65ae649db21da5773c8cdb1cb1c9538ea9460013e78fafabd721b6f6acd",
         "packages/types/src/react-global.d.ts": "8eb42020b7caf561d703b98e4485e928c1b9d35b1bc822da199e7393322a0343",
         "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d",
-        "packages/utils/skills/utils/SKILL.md": "70da409b194034e7547d93b8523180baacad2d66ee4a029d8bc8f8d324b682b5",
+        "packages/utils/skills/utils/SKILL.md": "0ba60312056c7a786e647441d4f403128d296e1510c6b374f9a3a8faa3c1b753",
         "packages/utils/skills/utils/references/array-object-string.md": "1ff87085ad2902fddd9baa88e563654287c493e6708cadc14b840fccc79cc674",
-        "packages/utils/skills/utils/references/specialized.md": "4021309ea6c140410abbb04d3b2af3ce8a0b76e044e12cc85b74e1eb5db4737f",
+        "packages/utils/skills/utils/references/specialized.md": "6995a486775ceedd246f9a254d0127df7f63f96f6522333be1f074fb8736f45d",
         "packages/utils/skills/utils/references/tree.md": "5ce10ce055e8e66fdf7e2fac23368777503ccbe52ffea4e0f531f092feb070ca",
         "packages/utils/src/array/arrayUtil.ts": "6d51f23f49393c1edc86f2d36b0b786de72fb25f6ebd712f77636b260b50433c",
-        "packages/utils/src/currency/currencyUtil.ts": "2523f7e65bcdd8b4d7c276dd1edfafed34d7fe4c5da63b319e3fabcf9caaf529",
+        "packages/utils/src/currency/currencyUtil.ts": "5500822f667000ad8ff9e409cdacca1c73b1b760cb2c61094b7d8905b15c940d",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
         "packages/utils/src/i18n/i18nUtil.ts": "0eb51c87d024c4b3f4f041fb2924e165eb4be6e557b230e107163fb93b307f2b",
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
-        "packages/utils/src/math/mathUtil.ts": "123cce8b32e44fb2db315c61ddb482d11509473d3a14072bbaf21738441181db",
+        "packages/utils/src/math/mathUtil.ts": "b1290c3c35bc5e74eca2a47105ea07aec611f0d7245b0c2eac5ab81262b68669",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
         "packages/utils/src/number/numberUtil.ts": "7c6be55776fb56919fc88493bdde5126676b932cbabdd3bf8a099cefed74a6ca",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
         "packages/utils/src/tree/treeUtil.ts": "06b57cdd125f6bc8f0efbf7167babc2ee35c35862bb3be7ec65d5565a2ab8b41",
-        "packages/utils/src/type/typeUtil.ts": "add05dfb3d5d0251306466ff0f0b12ab66849f254602eb699d3e67d7053f34eb",
+        "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf",
         "packages/zod/skills/zod-schemas/SKILL.md": "38d5130a2b050feddbdbb44b2296ba7d0cc03bf4c3c8fa66158d44b60ccaefe0",
@@ -210,12 +206,12 @@
         "packages/zod/src/type.ts": "76d3f131bcf6c472babdf8ce1b63910c1aa563f7ed1f681c039f1c373ac538a5",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "079bd11f521026f9448e2894c883a4c9d99743ef929979c9f4f3a2163be153ea",
-        "skills/kit/SKILL.md": "6308cd585bfc590abf2d97b0858af996ef0e591a168dd896323c8812f9fed079"
+        "skills/kit/SKILL.md": "1f0542084fae027e955961ce31770ad545c04e6cf616a130d22f4d7e27d1956d"
       },
-      "head": "59fe053c8d863a84475edbcfd10668e5366e3210",
+      "head": "a3060981c9a9178a455fb9fa8c00fb49043c16b4",
       "outcome": "no-change",
       "reason": "main 同步：剔除 .changeset/pre 归档并将版本号还原为 origin/main 侧，仅同步元数据变更，无源码实现、skill 内容、exports 或 planning 记录变动。",
-      "evidence": ["Changed: package.json at 59fe053c8d863a84475edbcfd10668e5366e3210"]
+      "evidence": ["Changed: package.json at a3060981c9a9178a455fb9fa8c00fb49043c16b4"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -248,27 +244,24 @@
       "evidence": [".changeset/shiny-vans-wave.md is release metadata"]
     },
     "source:packages/eslint-rules/CHANGELOG.md": {
-      "fingerprint": "07a9d1eac10c0e3b29cfd0e36c1a5e7df9b6b6c23da704be3930e0217a1f4f0d",
+      "fingerprint": "164a628248bc5a93b0721e47790a19e1f6be15daad66807423ae1db4252f8cac",
       "snapshot": {
-        "packages/eslint-rules/CHANGELOG.md": "6288f5e71fd76d0a251b2aeae2b025517be7c47ede379746a837aaa08ad90b6f"
+        "packages/eslint-rules/CHANGELOG.md": "7d430668299fea54e96237aeaeb8465528f7407f1a9f564f1ed0f83ce9ce96c4"
       },
-      "head": "b71114087da22b4709a457ebfa33205e2d03673d",
+      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
       "outcome": "no-change",
-      "reason": "Generated 0.2.0-alpha.4 section restating the two vue fixes (98ecea7, 641da3c). The changelog is derived release text; durable decisions live in packages/eslint-rules/CONTEXT.md and the skill does not quote changelog entries.",
-      "evidence": [
-        "packages/eslint-rules/CHANGELOG.md 0.2.0-alpha.4 section quotes the same changeset bodies",
-        "no skill or reference derives statements from the changelog"
-      ]
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: packages/eslint-rules/CHANGELOG.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
     },
     "source:packages/hooks/CHANGELOG.md": {
-      "fingerprint": "c9d9efe825fc2fd970c7ecce92b895a3f9119a8694a32d3b238ddd9ec9e57f52",
+      "fingerprint": "2c00f177c232a4a53abd57f171d4560b3760afbe899b2585c654e79cb821b1ae",
       "snapshot": {
-        "packages/hooks/CHANGELOG.md": "1aa65bcd22f9f0d0978bb0ef29151505c8a4faa84214b19b3fb85e0cc2138cb3"
+        "packages/hooks/CHANGELOG.md": "a0f0beb120c05ece2bbfcb531034ad839816e264f9d7de2071a167a6491b493e"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
       "outcome": "no-change",
-      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": ["Changed: packages/hooks/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: packages/hooks/CHANGELOG.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
     },
     "source:packages/types/CHANGELOG.md": {
       "fingerprint": "b07a8fced50c636d66e6a5f162fd3fd784ec45b763e407f0c872bb41b4649898",
@@ -281,14 +274,14 @@
       "evidence": ["Changed: packages/types/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:packages/utils/CHANGELOG.md": {
-      "fingerprint": "ed4c4224f6cc744260f218ec9e067b5f00d94173860574ded0121be1a9d17ec2",
+      "fingerprint": "960e90303a3f8d7ddf733f695c749800e1eacccf7b6bee5f164d2d604d2219ab",
       "snapshot": {
-        "packages/utils/CHANGELOG.md": "2a49e08a7f95d207d92dbde1f1cc8b3b3d0726960c9061d683e9cb5948fec256"
+        "packages/utils/CHANGELOG.md": "70d1833943159374c82cff5370da334d2857a6039eec46ff5ead99a521fd6866"
       },
-      "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
+      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
       "outcome": "no-change",
-      "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": ["Changed: packages/utils/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: packages/utils/CHANGELOG.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
     },
     "source:packages/zod/CHANGELOG.md": {
       "fingerprint": "9ed0cb5a4b5e24ebd48307d02a45721f45eecad09ef15e2557692430f6c3396c",
@@ -1729,17 +1722,17 @@
       "evidence": ["Changed: scripts/syncMain.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:.changeset/README.md": {
-      "fingerprint": "4e1ab1cc73d431ecadb63020533ec368d6edb615d616aa1b767a76e5f7f4580f",
+      "fingerprint": "7cf9d01b0cb9a2295d4c71fa27037f50c29028ca209eb11107856f977e7aeb72",
       "snapshot": {
-        ".changeset/README.md": "930d144999846c5dce1cb41248bf99b87d3c80580294ce7d4f3e397eb42bcf30"
+        ".changeset/README.md": "fcb52a41d988dbc7ab6428035c79406494b982ca9517458ab13fdf1a1fe2a199"
       },
-      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
-      "outcome": "no-change",
-      "reason": "T12 文档同步：更新 mermaid 流程图中的 job 名与 step 名以匹配 T11 的新命名（Decide release action、Wait for CI、Build and pack、Publish packages、Sync stable versions to feature）；清理行话（tag 豁免检查→无需 changeset 跳过校验；兜底走 tag 豁免→无需 changeset 跳过校验）；更新脚本输出示例（① 合并 main 分支、② 清理预发布归档、③ 检查本次版本是否已发布、④ 在 release-main 提交正式版合并准备、⑤ 记录本次版本改动的审查结论、⑥ 重建并推送 release-main、⑦ 创建正式版发布 PR 等待人工合并、⑧ 清理本地分支并切回 feature）。这些是发布流程文档的术语规范化与流程描述更新，不涉及 skill 内容、源码实现或 planning 记录。",
+      "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
+      "outcome": "updated",
+      "reason": "Release docs now describe scheme A for syncBaseline: only the PACKAGE_FILES version fields are patched and .changeset/pre/ is removed; the whole-branch merge, the main-source-diff guard and the manual 'git merge origin/main' fallback are gone. The mermaid stage 4, guard table, troubleshooting row and quick-reference row all match scripts/syncBaseline.ts.",
       "evidence": [
-        ".changeset/README.md mermaid 流程图中的 job 名与 step 名更新",
-        "脚本输出示例从编号式改为直白中文描述",
-        "清理行话：tag 豁免检查→无需 changeset 跳过校验"
+        ".changeset/README.md stage 4, guard table, troubleshooting and quick reference",
+        "scripts/syncBaseline.ts header design notes",
+        "pnpm vitest run test/unit/utils/scripts/syncBaseline.test.ts — 17 passed"
       ]
     },
     "source:.github/workflows/ci.yml": {
@@ -2129,14 +2122,14 @@
       "evidence": ["Changed: scripts/packages.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncBaseline.ts": {
-      "fingerprint": "64c053194010517c00c01c3dc6d78ccc2c964396778654c4e6136fc7c235e686",
+      "fingerprint": "da133754c795db251c8c86b2533724fe508b3d54df18772a4dd3308bf9289b20",
       "snapshot": {
-        "scripts/syncBaseline.ts": "6e2a63a45e529c3f4a2b9f0ac342c8741b68696a0a438a4757f48e7c08cabfee"
+        "scripts/syncBaseline.ts": "e5c95d91d440fc2c588204ba2fae5b78328052b0647f8481110eb705ad2bd9cc"
       },
-      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
+      "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
       "outcome": "no-change",
-      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": ["Changed: scripts/syncBaseline.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+      "reason": "Script behavior changed to patch only version fields and delete the prerelease archive without merging main. No skill maps this script or describes its internals, so no guidance statement is invalidated; the release docs were updated separately.",
+      "evidence": ["scripts/syncBaseline.ts header design notes", "no skill source lists scripts/syncBaseline.ts"]
     },
     "source:site/api/eslint-rules.md": {
       "fingerprint": "5727e50171735f7c9330f7c5362b2b73d8afc9ca85b200d8b613ac845b63e792",
@@ -2191,14 +2184,14 @@
       "evidence": ["Changed: vitest.config.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:README.md": {
-      "fingerprint": "e4a553d950b70a0b13955bbca5fc6394dbb31183d44199b00b836cb77ab05e42",
+      "fingerprint": "c6859f381d5b4b4ca12d3d1eb7a52e6e4e01999f41eb38cf6d6bb25affcc97f5",
       "snapshot": {
-        "README.md": "14a4473b48643680e504d31c6a4aeb001847fb5587731c586413b4d3744b5b38"
+        "README.md": "fdde444285ed1dbe07456140c4197ddd0b2ff6f7d9176824e019d87a44f9aacc"
       },
-      "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
-      "outcome": "no-change",
-      "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": ["Changed: README.md at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+      "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
+      "outcome": "updated",
+      "reason": "The stable-baseline row now points to re-running scripts/syncBaseline.ts (version-only patch plus .changeset/pre/ removal) instead of merging origin/main, matching the implemented script.",
+      "evidence": ["README.md command table stable-baseline row"]
     },
     "source:site/guide/contributing.md": {
       "fingerprint": "61d20505d97d5fbd71a0ddeb45a4a076128fa1a86e3b3cc461495ff618384ba1",
@@ -2229,6 +2222,150 @@
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
       "evidence": ["Changed: scripts/verifyRelease.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
+    },
+    "source:.changeset/add-currency-format-helpers.md": {
+      "fingerprint": "411fa81c817af302e6d73b33605b5a8a2ad4c19c0a5e12e5d2dd088fd5e30ae1",
+      "snapshot": {
+        ".changeset/add-currency-format-helpers.md": null
+      },
+      "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: .changeset/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
+    },
+    "source:.scratch/currency-requirement-analysis.md": {
+      "fingerprint": "84ca687746899c98a88bbf9adfe5ae2b06d636cb469d44c785d788e825b55b77",
+      "snapshot": {
+        ".scratch/currency-requirement-analysis.md": "abbcf56bc9292425087535857221f1eac9fe5c6cf361a57c4fec59995bc89275"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "out-of-scope",
+      "reason": "Temporary planning record kept outside tracked source; it is not library guidance and its conclusions are superseded by the delivered API.",
+      "evidence": [".scratch/currency-requirement-analysis.md is an untracked scratch file"]
+    },
+    "source:.scratch/g11-decision.md": {
+      "fingerprint": "f9bd37fdcb03f55530f994d7d0602893440cf81f7b34bba1d7b3018d8377a1e3",
+      "snapshot": {
+        ".scratch/g11-decision.md": "9cb84f6a5af6cc0857e5d779708ebd8109f32a91eafcc027993ea5a73d3a4c6f"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "out-of-scope",
+      "reason": "Temporary CRM-facing decision note in an untracked scratch directory; not part of the skill or library contract.",
+      "evidence": [".scratch/g11-decision.md is an untracked scratch file"]
+    },
+    "source:packages/utils/src/currency/index.type.ts": {
+      "fingerprint": "2235ebd54b1fb51d695fe16bd438dbe3d19d54be9f309fddb7d91befd6cde621",
+      "snapshot": {
+        "packages/utils/src/currency/index.type.ts": "08e144d40ae92a11d6c4dbf29fdc9788156d7fee5cd78045f7fcb75fedfc5e04"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "updated",
+      "reason": "MoneyFormatOptions gains signDisplay/minusSign and PercentTextOptions is added; both are documented in specialized.md.",
+      "evidence": ["packages/utils/src/currency/index.type.ts"]
+    },
+    "source:test/types/utils/utilsApi.test.type.ts": {
+      "fingerprint": "1dbb59a31700f9951982dbe52facf886bdd0eb2e824617a6f192b38bfb450286",
+      "snapshot": {
+        "test/types/utils/utilsApi.test.type.ts": "2d110ecd6a52038d0a171daccb0e63593d25cbe5a2144c7d0262e2802a3a0577"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "no-change",
+      "reason": "Type assertions lock the new option shapes and the percentText signature already described in the guidance.",
+      "evidence": ["test/types/utils/utilsApi.test.type.ts"]
+    },
+    "source:test/unit/utils/currencyUtil.test.ts": {
+      "fingerprint": "f3ce64e7d4fe5fb7d78fc45b96f175c7d11b8b3ede71ebe065d3146760a0a949",
+      "snapshot": {
+        "test/unit/utils/currencyUtil.test.ts": "ceb6785d48781335cb6db48f3b2208338fa45fe4eea5c6851864f7dfed375bc4"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "no-change",
+      "reason": "Unit tests assert the documented examples (percentText 25/-12.34/0.04, signed-delta moneyFormat) and the numberFormat-based replacements.",
+      "evidence": ["pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed"]
+    },
+    "source:test/unit/utils/mathUtil.test.ts": {
+      "fingerprint": "0ff4c301c6b9549d9f622386854d66c3c5d781912ee7794810040a0ea52a7cbe",
+      "snapshot": {
+        "test/unit/utils/mathUtil.test.ts": "439457d760c6df92d56790e6580f457f30d054c012c839e1ed5b3e762b9ffd04"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "no-change",
+      "reason": "Tests cover toPercent/fromPercent precision and nullish behavior, matching the documented contract.",
+      "evidence": ["pnpm vitest run test/unit/utils/mathUtil.test.ts — passed"]
+    },
+    "source:test/unit/utils/typeUtil.test.ts": {
+      "fingerprint": "56164d2d798f4819fccef5a8523a08f7e9e73a189d13fcab9b7f1b741e2ed046",
+      "snapshot": {
+        "test/unit/utils/typeUtil.test.ts": "095920fc82e0425c49cb2b7a8b6153ccb4fb0b81177bab0305dddaa226614ff8"
+      },
+      "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
+      "outcome": "no-change",
+      "reason": "Tests cover isFiniteNumber, which SKILL.md documents as the guard before numeric formatting.",
+      "evidence": ["pnpm vitest run test/unit/utils/typeUtil.test.ts — passed"]
+    },
+    "source:.changeset/update-vue-define-macros-order.md": {
+      "fingerprint": "5e859220a7a4edc8f62dc74298dfec96864bca88556c6fd2b638a71f27878a5e",
+      "snapshot": {
+        ".changeset/update-vue-define-macros-order.md": null
+      },
+      "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: .changeset/update-vue-define-macros-order.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
+    },
+    "source:.changeset/pre/add-currency-format-helpers.md": {
+      "fingerprint": "bd77ecdb729ec14d84180a071b2ade98eaacb830abb360a235ddeb9764c7770d",
+      "snapshot": {
+        ".changeset/pre/add-currency-format-helpers.md": "5fe49fb2609d416f8d25c7ece499a01a2e52ae8ed2836090391b8dd1b4806143"
+      },
+      "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: .changeset/pre/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
+    },
+    "source:.changeset/pre/update-vue-define-macros-order.md": {
+      "fingerprint": "dcdce998ccded9e00dc66aa8f4c9a386ebfe8942d9cebcedd355c7dbefbf54d7",
+      "snapshot": {
+        ".changeset/pre/update-vue-define-macros-order.md": "7e1a47d2dc8296027de74f61cc7eb0d4c6d3cb4834743051d50312c5bb3805fc"
+      },
+      "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": [
+        "Changed: .changeset/pre/update-vue-define-macros-order.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"
+      ]
+    },
+    "source:.changeset/republish-currency-formatting.md": {
+      "fingerprint": "b9ce37aa471be448aa64313e17f54d09664c6db796cf59363f68249bc963323b",
+      "snapshot": {
+        ".changeset/republish-currency-formatting.md": null
+      },
+      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": ["Changed: .changeset/republish-currency-formatting.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
+    },
+    "source:.changeset/pre/republish-currency-formatting.md": {
+      "fingerprint": "eb8a84262e734704ffbba860c004a0e2b13a5a22656d80efbd741c1e511aa1ac",
+      "snapshot": {
+        ".changeset/pre/republish-currency-formatting.md": "e164f0565769a116bc2f79d9dde32c06d3524809ea9483770b286ec7daf9086f"
+      },
+      "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
+      "outcome": "no-change",
+      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
+      "evidence": [
+        "Changed: .changeset/pre/republish-currency-formatting.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"
+      ]
+    },
+    "source:test/unit/utils/scripts/syncBaseline.test.ts": {
+      "fingerprint": "f3fa05383b249b8a06aeda6ccbd61c75d43f65b1b4cdefb1d65851727b720807",
+      "snapshot": {
+        "test/unit/utils/scripts/syncBaseline.test.ts": "62c4b7c83e274b3109eb14bdaf89afd219de3c1682e96db231667afd13d0dab5"
+      },
+      "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
+      "outcome": "no-change",
+      "reason": "New unit coverage for status parsing, version patching, archive cleanup and guard paths; it locks script behavior rather than documenting user-facing guidance.",
+      "evidence": ["pnpm vitest run test/unit/utils/scripts/syncBaseline.test.ts — 17 passed"]
     }
   }
 }

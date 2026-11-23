@@ -1,5 +1,23 @@
 # @pawover/kit-eslint-rules
 
+## 0.2.1-alpha.0
+
+### Patch Changes
+
+- Updated dependencies [2ef9715]
+  - @pawover/kit-utils@1.1.1-alpha.0
+
+## 0.2.0-alpha.5
+
+### Minor Changes
+
+- 536dba0: 调整 `vue/define-macros-order` 默认顺序为 `defineOptions` → `defineProps` → `defineModel` → `defineEmits` → `defineSlots`，并开启 `defineExposeLast`。
+
+### Patch Changes
+
+- Updated dependencies [d442165]
+  - @pawover/kit-utils@1.1.0-alpha.1
+
 ## 0.2.0-alpha.4
 
 ### Patch Changes

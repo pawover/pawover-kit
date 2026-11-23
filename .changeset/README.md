@@ -91,7 +91,7 @@ flowchart TD
         rm2 -->|"有冲突"| rm_conf["脚本退出：版本号冲突一律保留 feature 侧（alpha 领先）<br/>→ git add + git merge --continue → 重跑同一命令续跑（幂等）"]
         rm_conf -->|"重跑"| rm1
         rm3 --> rm4["③ 检查本次版本是否已发布（npm view 检查 6 包剥离后版本）"]
-        rm4 -->|"已发布 → 报错停止（防静默失败）"| rm_bump["先稳定版基线回推（merge main 取 main 侧）再重跑"]
+        rm4 -->|"已发布 → 报错停止（防静默失败）"| rm_bump["先稳定版基线回推（只同步 package.json 的 version 字段）再重跑"]
         rm_bump -->|"同步后重跑"| rm1
         rm4 -->|"均未发布"| rm5["④ 在 release-main 提交正式版合并准备<br/>（feature 保持 alpha 状态，PR 被关闭不锁死 feature）"]
         rm5 --> rm6["⑤ 记录本次版本改动的审查结论并提交<br/>白名单外改动阻断并给出人工命令"]
@@ -112,10 +112,10 @@ flowchart TD
 
     %% ============ 阶段四 · 稳定版基线回推（自动） ============
     subgraph S4["阶段四 · 稳定版基线回推（自动）"]
-        sync["Sync stable versions to feature（仅 main）<br/>checkout feature → 合并 origin/main（-X theirs 取 main 侧版本）<br/>守卫：待消费 changeset 跳过 / main 含源码差异跳过 → push"]
+        sync["Sync stable versions to feature（仅 main）<br/>checkout feature → 只 patch 各 package.json 的 version 字段 + 删除 .changeset/pre/<br/>守卫：待消费 changeset 跳过 → push"]
         sync --> sync2["下一轮 alpha 从 0.9.5 之上递增（0.9.6-alpha.0）<br/>保持「feature 领先 main」"]
         sync2 --> dev_code
-        sync -.->|"同步被守卫跳过或失败时（日志告警）"| sync_note["按文档手动稳定版基线回推：<br/>git merge origin/main（取 main 侧）→ push"]
+        sync -.->|"同步被守卫跳过或失败时（日志告警）"| sync_note["按文档手动稳定版基线回推：<br/>重跑 node scripts/syncBaseline.ts（只同步版本文件，无需 merge）→ push"]
     end
 
     class dev_push,pr_approve,rm,human,sync manual
@@ -157,7 +157,7 @@ flowchart TD
 | `releaseMerge.ts` / `syncMain.ts` | 本地发版脚本 | 以 `--base origin/main` 视角记录审查结论，白名单外改动阻断并给出人工命令 |
 | 根包发布幂等 | publish job | 已发布版本跳过（`npm view` 检查） |
 | `release:merge` 防撞车 | 正式版合并脚本 | 剥离后版本已发布 → 停止 |
-| `sync-baseline` | 发布后（main 通道） | main 稳定版版本号回推 feature（合并取 main 侧 + 守卫跳过） |
+| `sync-baseline` | 发布后（main 通道） | main 稳定版版本号回推 feature（只 patch `package.json` 的 `version` 字段 + 删除 `.changeset/pre/`；待消费 changeset 时跳过） |
 
 ## 四、分支保护
 
@@ -184,7 +184,7 @@ flowchart TD
 | version PR 的 CI 显示 action_required | `github.token`（`github-actions[bot]`）创建的 PR 其 workflow run 停在 `action_required` 等待人工批准（具体审批行为取决于仓库 Actions 设置）；或 App token 不可用回退到 `github.token` | Actions 页批准该 PR 的 workflow run；或配置 `secrets.RELEASE_APP_CLIENT_ID` / `secrets.RELEASE_APP_PRIVATE_KEY` 让 App 创建 PR（App token 创建的 PR 不出现该状态；`RELEASE_APP_ID` 兼容保留） |
 | 出现空 version PR（无文件改动） | select-mode 把 `.changeset/pre/` 归档当 changeset（已修复：select-mode 先 pre enter） | 直接关闭空 PR |
 | CI 红：verify-release-plan 拦截 | 源码变更未写 changeset 且版本未发布（无 tag） | 补 changeset 重新 push（应急手动发布见下） |
-| release:merge 报版本撞车 | feature 落后 main（基线未同步，自动回推被守卫跳过时） | 手动稳定版基线回推：`git merge origin/main` 取 main 侧，再重跑 |
+| release:merge 报版本撞车 | feature 落后 main（基线未同步，自动回推被守卫跳过时） | 手动稳定版基线回推：重跑 `node scripts/syncBaseline.ts`（只同步版本文件），再重跑 |
 | 正式版发布 PR 合并后没发版 | 剥离后版本已存在（幂等跳过） | 检查版本号与 npm 记录 |
 
 **应急手动发布**（alpha 发布环节异常中断时，等价 CI publish 通道）：
@@ -205,5 +205,5 @@ pnpm publish --no-git-checks --access public
 | 发布 alpha（自动） | `git push origin feature` |
 | 发布正式版（人工闸门） | `pnpm release:merge` → 人工合并 PR |
 | 非发布内容同步到 main | `pnpm sync:main` → 人工合并 PR（版本保持 main 侧，不触发发布） |
-| 稳定版基线回推 | 自动（main 发布后 CI 回推）；手动兜底：`git merge origin/main`（feature 上，取 main 侧） |
+| 稳定版基线回推 | 自动（main 发布后 CI 回推）；手动兜底：feature 上重跑 `node scripts/syncBaseline.ts`（只 patch `package.json` 的 `version` 字段，无需 merge） |
 | 手动预发布（应急） | `pnpm pre:enter-alpha && pnpm build && pnpm changeset publish` |

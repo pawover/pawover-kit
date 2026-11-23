@@ -87,4 +87,57 @@ describe("MathUtil", () => {
       expect(result).toMatch(/^0\.33/);
     });
   });
+
+  describe("toPercent", () => {
+    it("should convert a decimal to percent with four fraction digits by default", () => {
+      expect(MathUtil.toPercent(0.25)).toBe(25);
+      expect(MathUtil.toPercent(0.123456)).toBe(12.3456);
+      expect(MathUtil.toPercent(0.1 + 0.2)).toBe(30);
+    });
+
+    it("should respect precision", () => {
+      expect(MathUtil.toPercent(0.12345678, 6)).toBe(12.345678);
+      expect(MathUtil.toPercent(0.256, 0)).toBe(26);
+    });
+
+    it("should clamp invalid precision instead of throwing", () => {
+      expect(MathUtil.toPercent(0.25, -1)).toBe(25);
+      expect(MathUtil.toPercent(0.25, Number.NaN)).toBe(25);
+      expect(MathUtil.toPercent(0.25, 25)).toBe(25);
+    });
+
+    it("should return null for empty values", () => {
+      expect(MathUtil.toPercent(null)).toBeNull();
+      expect(MathUtil.toPercent(undefined)).toBeNull();
+      expect(MathUtil.toPercent(Number.NaN)).toBeNull();
+      expect(MathUtil.toPercent(Number.POSITIVE_INFINITY)).toBeNull();
+      expect(MathUtil.toPercent(Number.NEGATIVE_INFINITY)).toBeNull();
+    });
+  });
+
+  describe("fromPercent", () => {
+    it("should convert percent to decimal with six fraction digits by default", () => {
+      expect(MathUtil.fromPercent(25)).toBe(0.25);
+      expect(MathUtil.fromPercent(33.3333)).toBe(0.333333);
+    });
+
+    it("should respect precision", () => {
+      expect(MathUtil.fromPercent(33.3333333, 4)).toBe(0.3333);
+      expect(MathUtil.fromPercent(100, 0)).toBe(1);
+    });
+
+    it("should clamp invalid precision instead of throwing", () => {
+      expect(MathUtil.fromPercent(25, -1)).toBe(0);
+      expect(MathUtil.fromPercent(25, Number.NaN)).toBe(0.25);
+      expect(MathUtil.fromPercent(25, 25)).toBe(0.25);
+    });
+
+    it("should return null for empty values", () => {
+      expect(MathUtil.fromPercent(null)).toBeNull();
+      expect(MathUtil.fromPercent(undefined)).toBeNull();
+      expect(MathUtil.fromPercent(Number.NaN)).toBeNull();
+      expect(MathUtil.fromPercent(Number.POSITIVE_INFINITY)).toBeNull();
+      expect(MathUtil.fromPercent(Number.NEGATIVE_INFINITY)).toBeNull();
+    });
+  });
 });

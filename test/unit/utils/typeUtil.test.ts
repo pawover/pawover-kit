@@ -918,4 +918,23 @@ describe("TypeUtil", () => {
       expect(TypeUtil.isFalsyLike(0n)).toBe(true);
     });
   });
+
+  describe("isFiniteNumber", () => {
+    it("should return true for finite numbers", () => {
+      expect(TypeUtil.isFiniteNumber(1)).toBe(true);
+      expect(TypeUtil.isFiniteNumber(0)).toBe(true);
+      expect(TypeUtil.isFiniteNumber(-1.5)).toBe(true);
+    });
+
+    it("should return false for NaN and infinities", () => {
+      expect(TypeUtil.isFiniteNumber(Number.NaN)).toBe(false);
+      expect(TypeUtil.isFiniteNumber(Number.POSITIVE_INFINITY)).toBe(false);
+      expect(TypeUtil.isFiniteNumber(Number.NEGATIVE_INFINITY)).toBe(false);
+    });
+
+    it("should return false for null and undefined", () => {
+      expect(TypeUtil.isFiniteNumber(null)).toBe(false);
+      expect(TypeUtil.isFiniteNumber(undefined)).toBe(false);
+    });
+  });
 });

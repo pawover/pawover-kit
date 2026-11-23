@@ -125,6 +125,24 @@ export class TypeUtil {
   }
 
   /**
+   * 检查 value 是否为有限数字
+   * - 排除 `null`、`undefined`、`NaN` 与 `±Infinity`
+   *
+   * @param value 待检查值
+   * @returns 是否为有限数字
+   * @example
+   * ```ts
+   * TypeUtil.isFiniteNumber(1); // true
+   * TypeUtil.isFiniteNumber(Number.NaN); // false
+   * TypeUtil.isFiniteNumber(Infinity); // false
+   * TypeUtil.isFiniteNumber(null); // false
+   * ```
+   */
+  static isFiniteNumber (value: number | null | undefined): value is number {
+    return typeof value === "number" && Number.isFinite(value);
+  }
+
+  /**
    * 检查 value 是否为整数
    *
    * @param value 待检查值
