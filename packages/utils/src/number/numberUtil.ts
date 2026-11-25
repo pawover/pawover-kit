@@ -43,6 +43,7 @@ export class NumberUtil {
   /**
    * 数字区间夹取函数
    * - 入参校验与 `within` 保持一致：`value` 必须为有限数，`interval` 必须为两个有限数字组成的二元组
+   * - 恒为闭区间；`within` 的开闭由 `includeLeft` / `includeRight` 控制，两者用途不同
    *
    * @param value 待夹取数字
    * @param interval 由两个有限数字组成的元组 [lower, upper]，要求 `lower <= upper`

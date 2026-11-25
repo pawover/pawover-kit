@@ -188,12 +188,12 @@ export class TreeUtil {
    * TreeUtil.forEach(tree, (node) => enabledIds.push(node.id), { prune: (node) => node.disabled }); // enabledIds: [1, 2]
    * ```
    */
-  static forEach<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
+  static forEach<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | readonly T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
     const { childrenKey = "children", strategy = "pre", getChildrenKey, prune } = options;
     const traversalMethod = treeForEachStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey, prune };
 
-    if (TypeUtil.isArray(tree)) {
+    if (isTreeList(tree)) {
       for (const row of tree) {
         traversalMethod<T, CK>(row, callback, innerOptions);
       }
@@ -218,12 +218,12 @@ export class TreeUtil {
    * TreeUtil.find(tree, (node) => node.id === 3, { prune: (node) => node.disabled }); // undefined，停用节点的子树不参与查找
    * ```
    */
-  static find<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
+  static find<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | readonly T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
     const { childrenKey = "children", strategy = "pre", getChildrenKey, prune } = options;
     const traversalMethod = treeFindStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey, prune };
 
-    if (TypeUtil.isArray(tree)) {
+    if (isTreeList(tree)) {
       for (const row of tree) {
         const result = traversalMethod<T, CK>(row, callback, innerOptions);
         if (result) {
@@ -257,14 +257,14 @@ export class TreeUtil {
    * TreeUtil.filter(tree[0], (node) => node.visible); // { id: 1, visible: true, children: [] }
    * ```
    */
-  static filter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
+  static filter<T extends AnyObject, CK extends string = ChildrenKey> (tree: readonly T[], callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T[];
   static filter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T, callback: TreeFilterCallback<T>, options?: TreeFilterOptions<T, CK>): T;
-  static filter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeFilterCallback<T>, options: TreeFilterOptions<T, CK> = {}): T | T[] {
+  static filter<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | readonly T[], callback: TreeFilterCallback<T>, options: TreeFilterOptions<T, CK> = {}): T | T[] {
     const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
     const traversalMethod = treeFilterStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
 
-    return TypeUtil.isArray(tree)
+    return isTreeList(tree)
       ? tree.map((row) => traversalMethod(row, callback, innerOptions)).filter((t) => !!t)
       : traversalMethod(tree, callback, innerOptions) || [];
   }
@@ -290,17 +290,21 @@ export class TreeUtil {
    * // { id: 1, val: 20, children: [{ id: 2, val: 40 }] }
    * ```
    */
-  static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];
+  static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: readonly T[], callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>[];
   static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T, callback: TreeMapCallback<R, T>, options?: TreeMapOptions<T, CK>): TreeLike<R, CK>;
-  static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeMapCallback<R, T>, options: TreeMapOptions<T, CK> = {}): TreeLike<R, CK> | TreeLike<R, CK>[] {
+  static map<R extends AnyObject, T extends AnyObject, CK extends string = ChildrenKey> (tree: T | readonly T[], callback: TreeMapCallback<R, T>, options: TreeMapOptions<T, CK> = {}): TreeLike<R, CK> | TreeLike<R, CK>[] {
     const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
     const traversalMethod = treeMapStrategies[strategy];
     const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
 
-    return TypeUtil.isArray(tree)
+    return isTreeList(tree)
       ? tree.map((row) => traversalMethod<R, T, CK>(row, callback, innerOptions))
       : traversalMethod<R, T, CK>(tree, callback, innerOptions);
   }
+}
+
+function isTreeList<T> (tree: T | readonly T[]): tree is readonly T[] {
+  return TypeUtil.isArray(tree);
 }
 
 function isRootRow (id: PropertyKey, parentId: PropertyKey, rootParentId: PropertyKey | undefined): boolean {

@@ -200,6 +200,25 @@ describe("ArrayUtil", () => {
     it("should return empty array when no items match filter", () => {
       expect(ArrayUtil.pick([1, 3], (n) => n > 10)).toEqual([]);
     });
+
+    it("should keep the original index for a type-predicate filter and its mapper", () => {
+      const entries = [
+        { kind: "cat" as const, meows: true },
+        { kind: "dog" as const, barks: true },
+        { kind: "cat" as const, meows: false },
+      ];
+      const isCat = (row: (typeof entries)[number]): row is { kind: "cat"; meows: boolean } => row.kind === "cat";
+      const indexes: number[] = [];
+      const meows = ArrayUtil.pick(entries, isCat, (row, index) => {
+        indexes.push(index);
+
+        return row.meows;
+      });
+
+      expect(ArrayUtil.pick(entries, isCat)).toEqual([{ kind: "cat", meows: true }, { kind: "cat", meows: false }]);
+      expect(meows).toEqual([true, false]);
+      expect(indexes).toEqual([0, 2]);
+    });
   });
 
   describe("replace", () => {

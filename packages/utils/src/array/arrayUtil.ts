@@ -309,6 +309,7 @@ export class ArrayUtil {
   /**
    * 数组选择
    * - 一次性应用 `filter` 和 `map` 操作
+   * - `filter` 为类型谓词时，返回类型与 `mapper` 入参收窄为谓词目标类型
    *
    * @param initialList 初始数组
    * @param filter filter 函数
@@ -317,14 +318,25 @@ export class ArrayUtil {
    * @example
    * ```ts
    * const list = [1, 2, 3, 4];
+   * const animals = [{ kind: "cat" as const, meows: true }, { kind: "dog" as const, barks: true }];
    *
-   * // 重载 1: 仅过滤
+   * // 重载 1: 类型谓词，无 mapper，返回收窄后的类型
+   * ArrayUtil.pick(animals, (row): row is { kind: "cat"; meows: boolean } => row.kind === "cat");
+   * // [{ kind: "cat", meows: true }]
+   *
+   * // 重载 2: 类型谓词 + mapper，mapper 入参为收窄后的类型
+   * ArrayUtil.pick(animals, (row): row is { kind: "cat"; meows: boolean } => row.kind === "cat", (row) => row.meows);
+   * // [true]
+   *
+   * // 重载 3: 普通条件，无 mapper
    * ArrayUtil.pick(list, (n) => n % 2 === 0); // [2, 4]
    *
-   * // 重载 2: 过滤 + 映射
+   * // 重载 4: 普通条件 + mapper
    * ArrayUtil.pick(list, (n) => n % 2 === 0, (n) => n * 2); // [4, 8]
    * ```
    */
+  static pick<const T, S extends T> (initialList: readonly T[], filter: (row: T, index: number) => row is S): S[];
+  static pick<const T, S extends T, K> (initialList: readonly T[], filter: (row: T, index: number) => row is S, mapper: (row: S, index: number) => K): K[];
   static pick<const T> (initialList: readonly T[], filter: (row: T, index: number) => boolean): T[];
   static pick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper: (row: T, index: number) => K): K[];
   static pick<const T, K = T> (initialList: readonly T[], filter: (row: T, index: number) => boolean, mapper?: ((row: T, index: number) => K) | undefined) {

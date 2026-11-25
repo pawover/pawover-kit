@@ -37,10 +37,11 @@ CurrencyUtil.toRealValue(math, "0.1", undefined, false); // 0.1
 removes it, and `undefined` keeps the native `Intl` symbol. `toRealValue`
 returns `null` for `null` / `undefined` input.
 
-`numberFormat`, `moneyFormat`, `resolveSymbol`, `integerFormat`, `percentFormat`,
-and `percentText` are `Intl`-based and need no `mathjs`. The formatters default
-to `locale: "en-US"` and `emptyText: ""`, and return `emptyText` for `null`,
-`undefined`, `NaN`, and `±Infinity`.
+`numberFormat`, `moneyFormat`, `integerFormat`, `percentFormat`, and
+`percentText` are `Intl`-based and need no `mathjs`. The formatters default to
+`locale: "en-US"` and `emptyText: ""`, and return `emptyText` for `null`,
+`undefined`, `NaN`, and `±Infinity`. `resolveSymbol` is also `Intl`-based but
+takes a currency code string and has no `emptyText` contract.
 
 ```ts
 import { CurrencyUtil } from "@pawover/kit-utils";
@@ -52,12 +53,14 @@ CurrencyUtil.numberFormat(400, { minimumFractionDigits: 0, maximumFractionDigits
 CurrencyUtil.numberFormat(1234.5, { minimumFractionDigits: 0, maximumFractionDigits: 2, useGrouping: false }); // "1234.5"
 
 CurrencyUtil.resolveSymbol("CNY"); // "¥"
-CurrencyUtil.resolveSymbol("LKR", "si-LK"); // "රු."
+CurrencyUtil.resolveSymbol("LKR", { locale: "si-LK" }); // "රු."
+CurrencyUtil.resolveSymbol("AUD", { locale: "en-US" }); // "A$"
 CurrencyUtil.resolveSymbol("XYZ"); // null
 
 CurrencyUtil.moneyFormat(1234.5); // "$ 1,234.50"
 CurrencyUtil.moneyFormat(-1234.5, { signPlacement: "beforeSymbol" }); // "-$ 1,234.50"
 CurrencyUtil.moneyFormat(1234.5, { currency: "CNY", spacing: "none" }); // "¥1,234.50"
+CurrencyUtil.moneyFormat(1234.5, { currency: "AUD", symbol: "A$" }); // "A$ 1,234.50"
 CurrencyUtil.moneyFormat(1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "+$1,234.50"
 CurrencyUtil.moneyFormat(-1234.5, { signDisplay: "always", minusSign: "−", signPlacement: "beforeSymbol", spacing: "none" }); // "−$1,234.50"
 
@@ -75,10 +78,15 @@ CurrencyUtil.percentText(12345.6, { useGrouping: false }); // "+12345.6%"
 
 `locale` changes grouping and fraction separators only; the currency symbol
 still comes from `currency` or the explicit `symbol`. `resolveSymbol(currency,
-locale?)` reads the symbol from the given locale; without it, codes in
-`CURRENCY_ENUM` use their mapped locale and the rest use `en-US`.
-`resolveSymbol` returns `null` for unknown ISO 4217 codes, while `moneyFormat`
-falls back to the uppercased code. `numberFormat` covers compact and
+{ locale? })` reads the symbol from the given locale; without it, codes in
+`CURRENCY_ENUM` use their mapped locale and the rest use `en-US`. It returns
+`null` for unknown ISO 4217 codes, accepts only the options object, and throws
+at runtime when a legacy positional locale is passed. `moneyFormat` falls back
+to the uppercased code when the symbol is unknown. Several currencies share the
+same symbol in their own locale: AUD, CAD, SGD, and NZD all resolve to `"$"`
+under `en-AU`, `en-CA`, `en-SG`, and `en-NZ`. `moneyFormat`'s `locale` never
+changes the symbol, so pass an explicit `symbol` such as `"A$"` when the amount
+must stay distinguishable. `numberFormat` covers compact and
 trailing-zero output through fraction options: compact is
 `{ minimumFractionDigits: 0, maximumFractionDigits: 2 }`, and dropping the
 grouping additionally sets `useGrouping: false`.
@@ -284,7 +292,7 @@ behavior belongs with the class references linked below.
 
 | Helper | Behavior |
 | --- | --- |
-| `NumberUtil.clamp(value, [lower, upper])` | Bounds a number to a closed interval; validates its arguments like `within` (finite value, tuple of two finite numbers) and throws when `lower > upper`. |
+| `NumberUtil.clamp(value, [lower, upper])` | Bounds a number to a closed interval; validates its arguments like `within` (finite value, tuple of two finite numbers) and throws when `lower > upper`. The interval is always closed; `within` lets `includeLeft` / `includeRight` choose open or closed bounds. |
 | `ArrayUtil.uniqueBy(list, keyFn)` | Keeps the first item per `keyFn` result, preserves order, and accepts `readonly` input; `keyFn` receives the original input index. |
 | `TreeUtil.find` / `TreeUtil.forEach` option `prune(row, meta)` | Returning `true` skips that node's subtree; the node itself is still visited, and `find` can still match it. Keep it pure; its evaluation point depends on `strategy`. |
 | `TreeUtil.rowsToTree` option `orphan: "promote" \| "drop"` | `"promote"` (default) turns missing-parent rows into roots; `"drop"` discards them with their subtrees. Neither mode emits a parent cycle. |

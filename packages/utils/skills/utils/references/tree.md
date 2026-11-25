@@ -94,7 +94,8 @@ subtree, while the node itself is still visited (and still matchable by `find`).
 Keep `prune` pure: `pre` evaluates it after the node callback, while `post` and
 `breadth` evaluate it when the node is entered, so a stateful predicate makes
 results traversal-order dependent. None of them read `parentId`; traversal
-follows the children key only.
+follows the children key only. The `tree` argument may be a `readonly` array for
+`forEach`, `find`, `filter`, and `map`.
 
 | Method | Return | Reference behavior |
 | --- | --- | --- |

@@ -175,6 +175,8 @@ skills:
       - "CurrencyUtil"
       - "CurrencyUtil formatting helpers (numberFormat / moneyFormat / resolveSymbol / integerFormat / percentFormat / percentText), moneyFormat signDisplay/minusSign, MathUtil.toPercent / fromPercent, TypeUtil.isFiniteNumber"
       - "NumberUtil.clamp, ArrayUtil.uniqueBy, TreeUtil prune option, TreeUtil.rowsToTree orphan option, TreeUtil.rowsToTree rootParentId option"
+      - "ArrayUtil.pick type-predicate overloads; readonly tree input for forEach / find / filter / map"
+      - "CurrencyUtil.resolveSymbol object-only options (positional locale removed)"
       - "DateTimeUtil"
       - "EnvUtil"
       - "FunctionUtil"

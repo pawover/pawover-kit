@@ -255,3 +255,41 @@ The skills reuse the repository's existing tests rather than duplicating them:
   `test/unit/utils/treeUtil.test.ts`, `test/types/utils/utilsApi.test.type.ts`.
 - Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`,
   `pnpm test:coverage`; `pnpm check:skills` after recording.
+
+### 2026-11-25 — `pick` predicate overloads, readonly tree inputs, symbol notes
+
+- Scope: `ArrayUtil.pick` accepts a type-predicate `filter`, returning `S[]`
+  or narrowing the `mapper` input to `S`; `TreeUtil.forEach` / `find` /
+  `filter` / `map` accept `readonly` node arrays; the docs warn that AUD / CAD /
+  SGD / NZD share `$` in their own locales and that `clamp` is always closed
+  while `within` takes `includeLeft` / `includeRight`.
+- Guidance: `references/array-object-string.md` (pick row and predicate example),
+  `references/tree.md` (readonly input), `references/specialized.md` (currency
+  symbol note, clamp row), plus JSDoc on `resolveSymbol` / `moneyFormat` /
+  `clamp`.
+- Source evidence: `packages/utils/src/array/arrayUtil.ts`,
+  `packages/utils/src/tree/treeUtil.ts`,
+  `packages/utils/src/currency/currencyUtil.ts`,
+  `packages/utils/src/number/numberUtil.ts`,
+  `test/types/utils/utilsApi.test.type.ts`.
+- Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`,
+  `pnpm test:coverage`; `pnpm check:skills` after recording.
+
+### 2026-11-25 — `resolveSymbol` object-only options
+
+- Scope: `CurrencyUtil.resolveSymbol(currency, options?)` accepts only the object
+  form `{ locale }`; the positional `locale` was removed as a breaking change
+  and a runtime guard now rejects the legacy positional shapes (`string`,
+  `string[]`, `Intl.Locale`) with a migration hint. The symbol lookup behavior is
+  unchanged, and `moneyFormat`'s `locale` still affects number grouping only
+  while its symbol comes from `currency` (`CURRENCY_ENUM` locale) or an explicit
+  `symbol`.
+- Guidance: `references/specialized.md` shows the object form, states that
+  distinguishing AUD/CAD/SGD/NZD requires an explicit `symbol` for
+  `moneyFormat`, and keeps `resolveSymbol` out of the `emptyText` formatter list;
+  JSDoc documents the single object signature.
+- Source evidence: `packages/utils/src/currency/{currencyUtil,index.type}.ts`,
+  `test/unit/utils/currencyUtil.test.ts`,
+  `test/types/utils/utilsApi.test.type.ts`.
+- Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`;
+  `pnpm check:skills` after recording.

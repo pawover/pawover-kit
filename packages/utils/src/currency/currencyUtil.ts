@@ -1,7 +1,7 @@
 import type { MathJsInstance } from "mathjs";
 import { MathUtil } from "../math";
 import { TypeUtil } from "../type";
-import type { CurrencyCode, FormatterOptions, IntegerFormatOptions, MoneyFormatOptions, NumberFormatOptions, PercentFormatOptions, PercentTextOptions } from "./index.type";
+import type { CurrencyCode, FormatterOptions, IntegerFormatOptions, MoneyFormatOptions, NumberFormatOptions, PercentFormatOptions, PercentTextOptions, ResolveSymbolOptions } from "./index.type";
 
 /** `toRealValue` 返回值映射：可空 `value` 的返回追加 `| null`（内部类型，不导出） */
 type ToRealValueResult<T extends string | number | null | undefined, R> = T extends string | number ? R : R | null;
@@ -76,7 +76,7 @@ function formatNumber (locale: Intl.LocalesArgument, options: Intl.NumberFormatO
  * 货币工具类
  * - 基于 [`Intl.NumberFormat`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) 进行本地化格式化
  * - 支持精确小数位处理（依赖 `mathjs`）
- * - `numberFormat` / `moneyFormat` / `percentFormat` / `integerFormat` / `resolveSymbol` / `percentText` 的空值契约：`null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`（默认 `""`）
+ * - `numberFormat` / `moneyFormat` / `percentFormat` / `integerFormat` / `percentText` 的空值契约：`null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`（默认 `""`）
  */
 export class CurrencyUtil {
   /**
@@ -299,10 +299,14 @@ export class CurrencyUtil {
    * - 符号取自 `Intl.NumberFormat` 的 `currency` 段
    * - 省略 `locale` 时，`CURRENCY_ENUM` 收录的代码按其 locale 取符号，其余按 `en-US`
    * - 非 ISO 4217 代码返回 `null`
+   * - 同一币种在不同 locale 下符号可能不同（如 `AUD` 在 `en-AU` 下为 `$`、在 `en-US` 下为 `A$`）
+   * - 仅接受对象选项 `{ locale }`；旧的位置参数 `string` / `string[]` / `Intl.Locale` 在运行期抛错
    *
    * @param currency ISO 4217 货币代码，大小写不敏感
-   * @param locale 取符号所用 locale，省略时按 `currency` 的默认 locale
+   * @param options 选项对象
+   * @param options.locale 取符号所用 locale，省略时按 `currency` 的默认 locale
    * @returns 货币符号，未知代码返回 `null`
+   * @throws {Error} 第二参数不是对象时抛出
    *
    * @example
    * ```ts
@@ -314,13 +318,20 @@ export class CurrencyUtil {
    * CurrencyUtil.resolveSymbol("LKR"); // "LKR"
    *
    * // 指定 locale: 同一货币在不同地区的符号由调用方决定
-   * CurrencyUtil.resolveSymbol("LKR", "si-LK"); // "රු."
-   * CurrencyUtil.resolveSymbol("LKR", "ta-LK"); // "Rs."
+   * CurrencyUtil.resolveSymbol("LKR", { locale: "si-LK" }); // "රු."
+   * CurrencyUtil.resolveSymbol("LKR", { locale: "ta-LK" }); // "Rs."
+   *
+   * // 同一货币不同 locale 的符号差异
+   * CurrencyUtil.resolveSymbol("AUD", { locale: "en-AU" }); // "$"
+   * CurrencyUtil.resolveSymbol("AUD", { locale: "en-US" }); // "A$"
    *
    * CurrencyUtil.resolveSymbol("XYZ"); // null
    * ```
    */
-  static resolveSymbol (currency: string, locale?: Intl.LocalesArgument): string | null {
+  static resolveSymbol (currency: string, options?: ResolveSymbolOptions): string | null {
+    assertResolveSymbolOptions(options);
+
+    const locale = options?.locale;
     const currencyCode = currency.toUpperCase();
 
     if (!getKnownCurrencyCodes().has(currencyCode)) {
@@ -388,16 +399,17 @@ export class CurrencyUtil {
   /**
    * 货币符号 + 金额格式化
    * - 默认符号与金额间留一个空格、负号位于符号之后（`"$ -1,234.50"`）
-   * - `symbol` 省略时经 `resolveSymbol` 从 `currency` 推导，未知代码回退输出代码本身
+   * - `symbol` 省略时经 `resolveSymbol` 从 `currency` 推导（按其 `CURRENCY_ENUM` 的 locale），未知代码回退输出代码本身
+   * - `locale` 只影响数字分组与小数位，不参与符号推导；AUD / USD 等同为 `$` 的币种需传 `symbol` 区分
    * - 正负号由 `signDisplay` 控制：`"auto"` 仅负数带号，`"always"` 正数与 `0` 带 `+`，`"exceptZero"` 仅正数带 `+`
    * - `minusSign` 省略时使用 locale 原生负号
    * - `null` / `undefined` / `NaN` / `±Infinity` 返回 `emptyText`
    *
    * @param value 待格式化的数值
    * @param options 格式化选项
-   * @param options.locale 数字分组与小数位的 locale，默认 `"en-US"`；货币符号仍由 `currency` 决定
+   * @param options.locale 数字分组与小数位的 locale，默认 `"en-US"`；不影响货币符号
    * @param options.currency ISO 4217 货币代码，大小写不敏感，默认 `"USD"`
-   * @param options.symbol 货币符号，省略时由 `currency` 推导；空字符串输出纯数字
+   * @param options.symbol 货币符号，省略时由 `currency` 推导；空字符串输出纯数字；同符号币种（AUD / CAD / SGD / NZD 等）需传显式符号区分
    * @param options.spacing 符号与金额的间距，默认 `"space"`
    * @param options.signPlacement 符号位置，默认 `"afterSymbol"`；`"beforeSymbol"` 将正负号移到货币符号之前
    * @param options.signDisplay 正负号显示策略，默认 `"auto"`
@@ -416,6 +428,8 @@ export class CurrencyUtil {
    * CurrencyUtil.moneyFormat(-1234.5, { signPlacement: "beforeSymbol" }); // "-$ 1,234.50"
    * CurrencyUtil.moneyFormat(1234.5, { locale: "de-DE" }); // "$ 1.234,50"
    * CurrencyUtil.moneyFormat(1234.5, { currency: "cny" }); // "¥ 1,234.50"
+   * CurrencyUtil.moneyFormat(1234.5, { currency: "AUD" }); // "$ 1,234.50" — locale 不改变符号
+   * CurrencyUtil.moneyFormat(1234.5, { currency: "AUD", symbol: "A$" }); // "A$ 1,234.50"
    * CurrencyUtil.moneyFormat(1234.5, { symbol: "HK$" }); // "HK$ 1,234.50"
    * CurrencyUtil.moneyFormat(1234.5, { symbol: "" }); // "1,234.50"
    * CurrencyUtil.moneyFormat(1234.5, { signDisplay: "always" }); // "$ +1,234.50"
@@ -665,5 +679,15 @@ export class CurrencyUtil {
     }
 
     return precisionValue;
+  }
+}
+
+function assertResolveSymbolOptions (options: unknown): void {
+  const isLegacyLocale = typeof options === "string"
+    || TypeUtil.isArray(options)
+    || (typeof Intl.Locale === "function" && typeof options === "object" && options !== null && options instanceof Intl.Locale);
+
+  if (isLegacyLocale) {
+    throw new Error("function [resolveSymbol] only accepts an options object; use { locale } instead of a positional locale.");
   }
 }

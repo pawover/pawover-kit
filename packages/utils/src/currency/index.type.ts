@@ -55,6 +55,14 @@ export interface FormatterOptions {
 }
 
 /**
+ * `CurrencyUtil.resolveSymbol` 的选项
+ */
+export interface ResolveSymbolOptions {
+  /** 取符号所用 locale，省略时按 `currency` 的默认 locale */
+  locale?: Intl.LocalesArgument;
+}
+
+/**
  * `CurrencyUtil.numberFormat` 的格式化选项
  */
 export interface NumberFormatOptions {

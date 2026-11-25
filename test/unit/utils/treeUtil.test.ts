@@ -778,4 +778,21 @@ describe("TreeUtil", () => {
       expect(TreeUtil.map(tree, (node) => ({ ...node }))[0]!.id).toBe(1);
     });
   });
+
+  describe("readonly input", () => {
+    it("should traverse a frozen array with every tree method without mutation", () => {
+      const tree: readonly { id: number; children: { id: number }[] }[] = Object.freeze([
+        { id: 1, children: [{ id: 2 }] },
+      ]);
+      const ids: number[] = [];
+
+      TreeUtil.forEach(tree, (node) => ids.push(node.id));
+
+      expect(ids).toEqual([1, 2]);
+      expect(TreeUtil.find(tree, (node) => node.id === 2)!.id).toBe(2);
+      expect(TreeUtil.filter(tree, (node) => node.id !== 2)).toHaveLength(1);
+      expect(TreeUtil.map(tree, (node) => ({ ...node, id: node.id * 10 }))[0]!.id).toBe(10);
+      expect(tree[0]!.id).toBe(1);
+    });
+  });
 });

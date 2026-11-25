@@ -54,7 +54,7 @@ ArrayUtil.merge(source, update, (x) => x.id);
 
 | Method | Behavior |
 | --- | --- |
-| `pick(list, filter, mapper?)` | One pass of filter and optional map. |
+| `pick(list, filter, mapper?)` | One pass of filter and optional map. A type-predicate `filter` (`(row) => row is S`) narrows the result to `S[]` and the optional `mapper` input to `S`. |
 | `replace(list, newItem, match)` | Replaces the first match; otherwise returns a copy. |
 | `replaceMove(list, newItem, match, position?)` | Removes the first match and reinserts `newItem`. `position` accepts `"start"`, `"end"`, or an index. Negative / non-integer indexes fall back to append. |
 | `split(list, size)` | Splits into chunks; invalid size returns `[]`. |
@@ -63,6 +63,12 @@ ArrayUtil.merge(source, update, (x) => x.id);
 
 ```ts
 import { ArrayUtil } from "@pawover/kit-utils";
+
+const entries = [{ kind: "cat" as const, meows: true }, { kind: "dog" as const, barks: true }];
+ArrayUtil.pick(entries, (row): row is { kind: "cat"; meows: boolean } => row.kind === "cat");
+// [{ kind: "cat", meows: true }]
+ArrayUtil.pick(entries, (row): row is { kind: "cat"; meows: boolean } => row.kind === "cat", (row) => row.meows);
+// [true]
 
 ArrayUtil.pick([1, 2, 3, 4], (n) => n % 2 === 0); // [2, 4]
 ArrayUtil.pick([1, 2, 3, 4], (n) => n % 2 === 0, (n) => n * 2); // [4, 8]

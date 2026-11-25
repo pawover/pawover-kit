@@ -77,14 +77,14 @@
       ]
     },
     "skill:packages/utils/skills/utils/SKILL.md": {
-      "fingerprint": "52cb93c13644e4d9ae84ffc9df4de7e00ed8d12ca229f1bdec0d8fee9a29cc8f",
+      "fingerprint": "ace39d63c7610fb8b632cedabb78fde8b9142535615a4e278f86e98f906cbdf8",
       "snapshot": {
         "packages/utils/skills/utils/SKILL.md": "ccb5b3cdd12aeec801ff0526c2769495ee953c42d93e35d9995c116ef31b3dd7",
-        "packages/utils/skills/utils/references/array-object-string.md": "c1d2aaca5efd9d35536102fdb6db69b4c92d7bc698ad9ffccd6393340c956846",
-        "packages/utils/skills/utils/references/specialized.md": "60faa35976cef8b875ebf2d23bf9dd353cc84b42d70e06ea9ebd0d50f0c8bed5",
-        "packages/utils/skills/utils/references/tree.md": "47a4ef8c4aa3d84f46bf424334cf0efb3604aaef073d426f952130d48f819935",
-        "packages/utils/src/array/arrayUtil.ts": "d3e0e4235226d05fae1f57d8123a4313ad138cadb58cf0b5ac612b85bad0aa56",
-        "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
+        "packages/utils/skills/utils/references/array-object-string.md": "dd0f7cdc7219aa2807fd588c161dc6f636b08c85663f0e8082f1d9ac178a8654",
+        "packages/utils/skills/utils/references/specialized.md": "9055e2fa37d976f5edf644982bd73b975f591a66fa38ce49fb2938a3bf92a7b9",
+        "packages/utils/skills/utils/references/tree.md": "b32dd052826820ddb80dabd916f0095c757f817c93ea4d356865a6f9894c8f32",
+        "packages/utils/src/array/arrayUtil.ts": "475b85944493787c340cb7c362a466309518749dee605ab826ecfe591062af84",
+        "packages/utils/src/currency/currencyUtil.ts": "dfa3c1588fae99bcb9657ca46e3d531d282ef11ad4ebc6f9eef3ec274598885d",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
@@ -92,22 +92,19 @@
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
         "packages/utils/src/math/mathUtil.ts": "deda21808bcaba4a9a34a32897e600feee812fab75c84dc66cbb82974c36e37d",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
-        "packages/utils/src/number/numberUtil.ts": "e7b0a61cab90e5da3e52c794490834331db11ca8cf1452bea0da0fc1dffe2a16",
+        "packages/utils/src/number/numberUtil.ts": "731f4d95a8f8444254340baa5879c445a84412a90b7ba48099444e8c0548f8f6",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
-        "packages/utils/src/tree/treeUtil.ts": "83b680fc90b70e33940bf0783f9901d29391c3594003176040745f4e7293bb96",
+        "packages/utils/src/tree/treeUtil.ts": "21798f517cad33b1049b4b1c69c491399bcfe2de987abda2fb4b4b93afe34e57",
         "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf"
       },
-      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "updated",
-      "reason": "Corrected the root rules: without rootParentId, nullish/self-referencing parents are roots and promote also raises missing-parent rows; documented that a sentinel equal to a real id keeps those rows as roots.",
-      "evidence": [
-        "pnpm test:types, pnpm check:types:packages, pnpm test (35 files / 1115 tests), pnpm test:coverage all passed",
-        "intent maintainer check: examples compile"
-      ]
+      "reason": "specialized.md no longer lists resolveSymbol among the emptyText formatters; it now states resolveSymbol takes a currency code and has no emptyText contract.",
+      "evidence": ["intent maintainer check: examples compile", "docs-only change; no code or test impact"]
     },
     "skill:packages/zod/skills/zod-schemas/SKILL.md": {
       "fingerprint": "8cc36f370f54d736f3566e96ce90c28d0d58e5c1c5031e5a07f90d033597a185",
@@ -125,25 +122,25 @@
       ]
     },
     "skill:skills/kit/SKILL.md": {
-      "fingerprint": "1b8e557c0d5cb4b5d7d9d5e1646222c56cdc4759351e291583a549b838c33cc7",
+      "fingerprint": "bac7606d17e2695cf38f9454681680870837c696aea33872187e3b8c3c68bbc0",
       "snapshot": {
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
         "package.json": "10b98e83431f8f3676fd2c438c4312e6c31c0c761d560480ff29b0ca3fe4132a",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "b602a655c99affcd239443ef1bddf462630fd6d0a05a2a1f57b4c9554ff7e435",
-        "skills/kit/SKILL.md": "66241a878bd1aa614bc56a9b528240d774c6adc81ee9c2024989b7ff415f274e"
+        "skills/kit/SKILL.md": "36a8af5a863ea15f42b0de249c594a0e4f1e34cac08a8ea6e1e7ac0e35efd664"
       },
-      "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
-      "outcome": "no-change",
-      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": ["Changed: package.json at 66f758779bf58bd094fb96b0c1e35a014cdfc736"]
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
+      "outcome": "updated",
+      "reason": "Install example now pairs the framework with alova per project type (react alova / vue alova) instead of installing them in separate steps.",
+      "evidence": ["skills/kit/SKILL.md:56-70"]
     },
     "planning:_artifacts": {
-      "fingerprint": "59a225a8a54612941f519f26c35f1813eab79594f92708aa5a8822ea9682b289",
+      "fingerprint": "1159b778052745c60c7483296c498756ac74170187581a6b15901c2a85e0e5cd",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "e2515eb66c396803deb22b6dae3a58202e3af5b90cf302d40d5566153fd4e7c1",
-        "_artifacts/skill_spec.md": "500e338293a0882c4139e66e282b3a2c30e72e90bb54e4b562c7c7d99e27ce58",
+        "_artifacts/domain_map.yaml": "637a1c38d2a25d2fb17f7069f0ecf86d12575847b63d2347316dcd736f03bd5e",
+        "_artifacts/skill_spec.md": "28be9390e5841d76416be1bdfb155a2f77c8f89903ae8fe1c92489ab0c8fcdea",
         "_artifacts/skill_tree.yaml": "a5fe5f242193fce6bfe388024b9256022376dca0075bab69e27c8cf99a215ffc",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
@@ -182,11 +179,11 @@
         "packages/types/src/react-global.d.ts": "8eb42020b7caf561d703b98e4485e928c1b9d35b1bc822da199e7393322a0343",
         "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d",
         "packages/utils/skills/utils/SKILL.md": "ccb5b3cdd12aeec801ff0526c2769495ee953c42d93e35d9995c116ef31b3dd7",
-        "packages/utils/skills/utils/references/array-object-string.md": "c1d2aaca5efd9d35536102fdb6db69b4c92d7bc698ad9ffccd6393340c956846",
-        "packages/utils/skills/utils/references/specialized.md": "60faa35976cef8b875ebf2d23bf9dd353cc84b42d70e06ea9ebd0d50f0c8bed5",
-        "packages/utils/skills/utils/references/tree.md": "47a4ef8c4aa3d84f46bf424334cf0efb3604aaef073d426f952130d48f819935",
-        "packages/utils/src/array/arrayUtil.ts": "d3e0e4235226d05fae1f57d8123a4313ad138cadb58cf0b5ac612b85bad0aa56",
-        "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
+        "packages/utils/skills/utils/references/array-object-string.md": "dd0f7cdc7219aa2807fd588c161dc6f636b08c85663f0e8082f1d9ac178a8654",
+        "packages/utils/skills/utils/references/specialized.md": "9055e2fa37d976f5edf644982bd73b975f591a66fa38ce49fb2938a3bf92a7b9",
+        "packages/utils/skills/utils/references/tree.md": "b32dd052826820ddb80dabd916f0095c757f817c93ea4d356865a6f9894c8f32",
+        "packages/utils/src/array/arrayUtil.ts": "475b85944493787c340cb7c362a466309518749dee605ab826ecfe591062af84",
+        "packages/utils/src/currency/currencyUtil.ts": "dfa3c1588fae99bcb9657ca46e3d531d282ef11ad4ebc6f9eef3ec274598885d",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
         "packages/utils/src/env/envUtil.ts": "0fb0b7daa821d4e41c55ee04bdf59624fec291e45a322da287db65bbc3b4242d",
         "packages/utils/src/function/functionUtil.ts": "db02ff82dde16c794882661798a221cbbe7d40ecc363fa0c0cf0a084ef38a5de",
@@ -194,11 +191,11 @@
         "packages/utils/src/index.ts": "e8a53823442f10d08157fbade8c75e8fd4fa2d4ff9b03470f5d34b3316173f2e",
         "packages/utils/src/math/mathUtil.ts": "deda21808bcaba4a9a34a32897e600feee812fab75c84dc66cbb82974c36e37d",
         "packages/utils/src/mime/mimeUtil.ts": "1ef24061e78355b324ec592096da4d27346ac455dcabbdf85eeec6465f5b819a",
-        "packages/utils/src/number/numberUtil.ts": "e7b0a61cab90e5da3e52c794490834331db11ca8cf1452bea0da0fc1dffe2a16",
+        "packages/utils/src/number/numberUtil.ts": "731f4d95a8f8444254340baa5879c445a84412a90b7ba48099444e8c0548f8f6",
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
-        "packages/utils/src/tree/treeUtil.ts": "83b680fc90b70e33940bf0783f9901d29391c3594003176040745f4e7293bb96",
+        "packages/utils/src/tree/treeUtil.ts": "21798f517cad33b1049b4b1c69c491399bcfe2de987abda2fb4b4b93afe34e57",
         "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf",
@@ -208,12 +205,12 @@
         "packages/zod/src/type.ts": "76d3f131bcf6c472babdf8ce1b63910c1aa563f7ed1f681c039f1c373ac538a5",
         "site/guide/import-paths.md": "4328a8580b56abcedf33e0ee66c76a7c746ca84e6e49fde19984999fc60ac0c2",
         "site/guide/installation.md": "b602a655c99affcd239443ef1bddf462630fd6d0a05a2a1f57b4c9554ff7e435",
-        "skills/kit/SKILL.md": "66241a878bd1aa614bc56a9b528240d774c6adc81ee9c2024989b7ff415f274e"
+        "skills/kit/SKILL.md": "36a8af5a863ea15f42b0de249c594a0e4f1e34cac08a8ea6e1e7ac0e35efd664"
       },
-      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "updated",
-      "reason": "skill_spec.md rootParentId entry now states the corrected root rules, the PropertyKey type, and the sentinel/id collision behavior.",
-      "evidence": ["_artifacts/skill_spec.md rootParentId entry"]
+      "reason": "skill_spec.md resolveSymbol guidance records the emptyText clarification.",
+      "evidence": ["_artifacts/skill_spec.md resolveSymbol entry"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -2256,34 +2253,34 @@
       "evidence": [".scratch/g11-decision.md is an untracked scratch file"]
     },
     "source:packages/utils/src/currency/index.type.ts": {
-      "fingerprint": "e0fc5f4e6467e7809d03fa16eaedea4c47e9ce136985c13fb2b18492cf2df485",
+      "fingerprint": "e13bfc4ec6d1d2636892fe6c6d37b001b15cd3577120f9abe2be6c6fa6d61436",
       "snapshot": {
-        "packages/utils/src/currency/index.type.ts": "0ba01f06caff4389baba76844a9cb4bff775819379d17ed316d4e8a083ab7db2"
+        "packages/utils/src/currency/index.type.ts": "63c917dccb9faffb32256c70016b6d235a3b744a8e11f344c5b89f65bdcc910f"
       },
-      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
-      "outcome": "updated",
-      "reason": "PercentFormatOptions and PercentTextOptions gain useGrouping (default true), documented in specialized.md.",
-      "evidence": ["packages/utils/src/currency/index.type.ts"]
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
+      "outcome": "no-change",
+      "reason": "Type-only ResolveSymbolOptions addition; guidance already documents the object form.",
+      "evidence": ["ResolveSymbolOptions in packages/utils/src/currency/index.type.ts"]
     },
     "source:test/types/utils/utilsApi.test.type.ts": {
-      "fingerprint": "c108cf3f4c84673fd0fbdc0aaf741229c8f80d7d02b08cf48db5a6e3c3b3e35f",
+      "fingerprint": "35fe6def4e26049c85baf3a74a5a566fd0bb9a84f319c79a7070e555d32c2f35",
       "snapshot": {
-        "test/types/utils/utilsApi.test.type.ts": "f3fb8ca7c16c99fcfe945b7370700abe28f8d4b1638c9593a6a90d45e9681ed4"
+        "test/types/utils/utilsApi.test.type.ts": "5423d45bb52389afa3ae147e5d04b62868381ad29a4166b38668ffe75b9e7330"
       },
-      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "no-change",
-      "reason": "Reverse assertions for the PropertyKey narrowing match the documented contract.",
-      "evidence": ["test/types/utils/utilsApi.test.type.ts rootParentId cases"]
+      "reason": "Reverse assertion for Intl.Locale positional input matches the documented guard.",
+      "evidence": ["test/types/utils/utilsApi.test.type.ts Intl.Locale case"]
     },
     "source:test/unit/utils/currencyUtil.test.ts": {
-      "fingerprint": "c289c2d0439bf63708b3d2f45c6dc9f558320f00e967c84656eed72c64eb8a94",
+      "fingerprint": "dd08cc078dc7ba326d636700e464898263e0bcc09c2c3645e37212567344a78d",
       "snapshot": {
-        "test/unit/utils/currencyUtil.test.ts": "19495d81fc8de83d8bc9dbdcecb258d0a52b9e187ef61cf0cd0210e9f9a41a36"
+        "test/unit/utils/currencyUtil.test.ts": "2b190af0c21d59dc84b6077389db1dc76109d18ee1e97e20343ea831202a4d77"
       },
-      "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "no-change",
-      "reason": "Tests assert the documented useGrouping examples (1234.6% and +12345.6%).",
-      "evidence": ["pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed"]
+      "reason": "Guard cases assert the documented runtime failure for string/array/Intl.Locale inputs.",
+      "evidence": ["test/unit/utils/currencyUtil.test.ts positional guard case"]
     },
     "source:test/unit/utils/mathUtil.test.ts": {
       "fingerprint": "52be37fe020fb9a4945263dcf1b9d871de291e9f36f6af02fb872304eb8421e9",
@@ -2404,14 +2401,14 @@
       "evidence": ["RowsToTreeOptions.rootParentId"]
     },
     "source:test/unit/utils/arrayUtil.test.ts": {
-      "fingerprint": "52a23f8457fa8f99cafa1ab2e3d24228bae975e169fa7f04dc12df4be937a067",
+      "fingerprint": "b819992d85f5b0f9c8cb0376cd193a48e256b094bd496fe0e17e64a4bb51507c",
       "snapshot": {
-        "test/unit/utils/arrayUtil.test.ts": "0d7898c971c18e4f5ec54f8db59e3057636317ff8b256dcc632c477eaac5c1e0"
+        "test/unit/utils/arrayUtil.test.ts": "cac504328dcb3aa9025a23a0f11b6e3c49849f27c266598f826fdb7de982c7d7"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "no-change",
-      "reason": "Index-with-duplicates assertion backs the documented keyFn index contract.",
-      "evidence": ["test/unit/utils/arrayUtil.test.ts uniqueBy index case"]
+      "reason": "Existing pick cases already cover the predicate runtime; only unrelated fixture edits appear here.",
+      "evidence": ["test/unit/utils/arrayUtil.test.ts"]
     },
     "source:test/unit/utils/numberUtil.test.ts": {
       "fingerprint": "9e15ff60999f45277a4875144ecbce724638069851bb1bc6a6e0ba4c7662b696",
@@ -2424,14 +2421,14 @@
       "evidence": ["test/unit/utils/numberUtil.test.ts interval bound cases"]
     },
     "source:test/unit/utils/treeUtil.test.ts": {
-      "fingerprint": "64c2e26dc1e9371d22c3ed7d39429d653cb34f9cf7c4de81272feaef2cb58166",
+      "fingerprint": "4db105f256f81b9c0ad7d325ae3742f73cdbf64f2e62a1c5ae5330d31855c5b8",
       "snapshot": {
-        "test/unit/utils/treeUtil.test.ts": "ce1c8bf998fd97cf5c6b2757e71cbfa8812826a5baaa22a72680e9cb43fefdfc"
+        "test/unit/utils/treeUtil.test.ts": "bc8aa31347f60097b880800aec7774d009d35a385116aad7da25da735b66a479"
       },
-      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "no-change",
-      "reason": "Custom parentIdKey plus rootParentId case asserts the documented option combination.",
-      "evidence": ["test/unit/utils/treeUtil.test.ts customized parentIdKey case"]
+      "reason": "Frozen-array runtime case backs the documented readonly input support.",
+      "evidence": ["test/unit/utils/treeUtil.test.ts readonly input case"]
     },
     "source:.changeset/add-clamp-unique-and-tree-options.md": {
       "fingerprint": "e6dfa5b919eb0a885edb04cafa795fa08909444388162777f44aa358e444d02c",
@@ -2456,14 +2453,14 @@
       "evidence": ["site/api/hooks.md:42-43"]
     },
     "source:site/guide/faq.md": {
-      "fingerprint": "8f37caebcd7f44081c18a848bc5e477cabedc2d96d04d0df1ac162c3317f306d",
+      "fingerprint": "f301b232e97832636ac3647a6a29ccce9b27b9aad77ebd77b888fc9499fd6c0b",
       "snapshot": {
-        "site/guide/faq.md": "da9242ba88561f9023674fa450f6d8cdf5f5c710921df55aa91c134db76dc6aa"
+        "site/guide/faq.md": "c066a791220b359945ca6053899321db09c14b9d3bef1f67bab43ecf08476c7f"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
       "outcome": "updated",
-      "reason": "FAQ install snippet now lists alova as the only required peer and explains the statesHook framework package separately.",
-      "evidence": ["site/guide/faq.md:12-22"]
+      "reason": "FAQ install snippet now installs react alova / vue alova together, matching the kit skill example.",
+      "evidence": ["site/guide/faq.md:14-22"]
     },
     "source:.changeset/pre/add-clamp-unique-and-tree-options.md": {
       "fingerprint": "1425d62475c8f6d7ea03baa657db76d4b4d818e6ea84ee94799453c6f7a86026",
@@ -2486,6 +2483,26 @@
       "outcome": "out-of-scope",
       "reason": "Changeset release note, not skill guidance.",
       "evidence": [".changeset/add-root-parent-id.md"]
+    },
+    "source:.changeset/add-pick-predicate-and-readonly-tree.md": {
+      "fingerprint": "f76381d02879edd0838b0605c55243ce30755909cab6ea2ee9d23a39c896ca4b",
+      "snapshot": {
+        ".changeset/add-pick-predicate-and-readonly-tree.md": "8be153b1847486bb4078eebff19132775bd30a53ebd422bf21b58371e02e4e16"
+      },
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
+      "outcome": "out-of-scope",
+      "reason": "Change comes from a separate utils workstream and does not affect the install-example guidance.",
+      "evidence": [".changeset/add-pick-predicate-and-readonly-tree.md"]
+    },
+    "source:.changeset/add-resolve-symbol-options.md": {
+      "fingerprint": "238a9d41da224ae50618c2834dfcd06b9a0d74aeac4acf86ccd83743b395bc4c",
+      "snapshot": {
+        ".changeset/add-resolve-symbol-options.md": "cfc02549f0b87c284020b837e609198e64c58733426279ec242abe547330fc2e"
+      },
+      "head": "4ff4bd16e2f00f0a781561cf4726c62666d4e233",
+      "outcome": "out-of-scope",
+      "reason": "Changeset release note, not skill guidance.",
+      "evidence": [".changeset/add-resolve-symbol-options.md"]
     }
   }
 }

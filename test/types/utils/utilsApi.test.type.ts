@@ -164,6 +164,29 @@ const invalidResolveSymbol: string = CurrencyUtil.resolveSymbol("XYZ");
 // @ts-expect-error — resolveSymbol 的 locale 不接受 number
 CurrencyUtil.resolveSymbol("USD", 1);
 
+// resolveSymbol — 只接受对象选项
+CurrencyUtil.resolveSymbol("AUD", { locale: "en-US" });
+CurrencyUtil.resolveSymbol("AUD", { locale: ["zz-ZZ", "en-US"] });
+CurrencyUtil.resolveSymbol("AUD", {});
+
+// @ts-expect-error — resolveSymbol 已移除位置参数，只接受对象选项
+CurrencyUtil.resolveSymbol("AUD", "en-US");
+
+// @ts-expect-error — 位置形式传 locale 数组同样不再接受
+CurrencyUtil.resolveSymbol("AUD", ["zz-ZZ", "en-US"]);
+
+// @ts-expect-error — Intl.Locale 实例不是选项对象
+CurrencyUtil.resolveSymbol("AUD", new Intl.Locale("en-US"));
+
+// @ts-expect-error — 对象选项的 locale 不接受 number
+CurrencyUtil.resolveSymbol("AUD", { locale: 1 });
+
+// @ts-expect-error — 对象选项没有 local 字段
+CurrencyUtil.resolveSymbol("AUD", { local: "en-US" });
+
+// @ts-expect-error — 对象写法的返回值仍是 string | null
+const invalidResolveSymbolOptions: string = CurrencyUtil.resolveSymbol("XYZ", { locale: "en-US" });
+
 // CurrencyUtil 格式化方法 — locale 为 Intl.LocalesArgument，不得收窄为枚举 locale
 // @ts-expect-error — numberFormat 的 locale 不接受 number
 CurrencyUtil.numberFormat(1, { locale: 1 });
@@ -223,6 +246,47 @@ const invalidUniqueBy: string[] = ArrayUtil.uniqueBy([1, 2], (n) => String(n));
 
 // @ts-expect-error — uniqueBy 必须提供 keyFn
 ArrayUtil.uniqueBy([1, 2]);
+
+// ArrayUtil.pick — 类型谓词重载把结果与 mapper 入参收窄为 S
+interface PickAnimal {
+  kind: "cat" | "dog";
+  name: string;
+}
+
+interface PickCat extends PickAnimal {
+  kind: "cat";
+  meows: boolean;
+}
+
+interface PickDog extends PickAnimal {
+  kind: "dog";
+  barks: boolean;
+}
+
+const pickAnimals: PickAnimal[] = [{ kind: "cat", name: "Ada" }];
+const isPickCat = (row: PickAnimal): row is PickCat => row.kind === "cat";
+const pickCats = ArrayUtil.pick(pickAnimals, isPickCat);
+const pickCatMeows = ArrayUtil.pick(pickAnimals, isPickCat, (row) => row.meows);
+
+// @ts-expect-error — 谓词无 mapper 时返回 PickCat[]，不是 PickDog[]
+const invalidPickResult: PickDog[] = ArrayUtil.pick(pickAnimals, isPickCat);
+
+// @ts-expect-error — 谓词收窄后的 mapper 返回 boolean[]，不是 PickAnimal[]
+const invalidPickMapped: PickAnimal[] = ArrayUtil.pick(pickAnimals, isPickCat, (row) => row.meows);
+
+// @ts-expect-error — 非谓词 filter 时 mapper 入参为 PickAnimal，不接受 PickCat
+ArrayUtil.pick(pickAnimals, (row) => row.kind === "cat", (row: PickCat) => row.name);
+
+// @ts-expect-error — 谓词收窄结果为 PickCat[]，不能 push PickDog
+pickCats.push({ kind: "dog", name: "Rex", barks: true });
+
+// TreeUtil — 遍历与转换方法接受 readonly 数组
+const readonlyTree: readonly { id: number; children: { id: number }[] }[] = [{ id: 1, children: [{ id: 2 }] }];
+
+TreeUtil.forEach(readonlyTree, (node) => node.id);
+TreeUtil.find(readonlyTree, (node) => node.id === 2);
+TreeUtil.filter(readonlyTree, (node) => node.id !== 2);
+TreeUtil.map(readonlyTree, (node) => ({ ...node }));
 
 // TreeUtil prune — 仅 find / forEach 支持，回调必须返回 boolean
 const prunableTree = [{ id: 1, disabled: false, children: [] as { id: number; disabled: boolean; children: unknown[] }[] }];

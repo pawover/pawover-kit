@@ -288,20 +288,39 @@ describe("CurrencyUtil", () => {
 
     it("should return null for unknown currency code", () => {
       expect(CurrencyUtil.resolveSymbol("XYZ")).toBeNull();
-      expect(CurrencyUtil.resolveSymbol("XYZ", "si-LK")).toBeNull();
+      expect(CurrencyUtil.resolveSymbol("XYZ", { locale: "si-LK" })).toBeNull();
     });
 
     it("should use the given locale for the symbol", () => {
-      expect(CurrencyUtil.resolveSymbol("LKR", "si-LK")).toBe("රු.");
-      expect(CurrencyUtil.resolveSymbol("LKR", "ta-LK")).toBe("Rs.");
-      expect(CurrencyUtil.resolveSymbol("lkr", "si-LK")).toBe("රු.");
-      expect(CurrencyUtil.resolveSymbol("LKR", ["zz-ZZ", "si-LK"])).toBe("රු.");
-      expect(CurrencyUtil.resolveSymbol("CNY", "en-US")).toBe("CN¥");
+      expect(CurrencyUtil.resolveSymbol("LKR", { locale: "si-LK" })).toBe("රු.");
+      expect(CurrencyUtil.resolveSymbol("LKR", { locale: "ta-LK" })).toBe("Rs.");
+      expect(CurrencyUtil.resolveSymbol("lkr", { locale: "si-LK" })).toBe("රු.");
+      expect(CurrencyUtil.resolveSymbol("LKR", { locale: ["zz-ZZ", "si-LK"] })).toBe("රු.");
+      expect(CurrencyUtil.resolveSymbol("CNY", { locale: "en-US" })).toBe("CN¥");
     });
 
     it("should keep the default locale when locale is omitted", () => {
       expect(CurrencyUtil.resolveSymbol("USD")).toBe("$");
       expect(CurrencyUtil.resolveSymbol("LKR")).toBe("LKR");
+    });
+
+    it("should accept an options object as the only locale form", () => {
+      expect(CurrencyUtil.resolveSymbol("AUD", { locale: "en-US" })).toBe("A$");
+      expect(CurrencyUtil.resolveSymbol("CNY", {})).toBe(CurrencyUtil.resolveSymbol("CNY"));
+      expect(CurrencyUtil.resolveSymbol("XYZ", { locale: "en-US" })).toBeNull();
+    });
+
+    it("should reject the legacy positional locale form at runtime", () => {
+      const callWithPositional = CurrencyUtil.resolveSymbol as unknown as (currency: string, options?: unknown) => string | null;
+
+      expect(() => callWithPositional("AUD", "en-US")).toThrow("only accepts an options object");
+      expect(() => callWithPositional("AUD", ["en-US"])).toThrow("only accepts an options object");
+      expect(() => callWithPositional("AUD", new Intl.Locale("en-US"))).toThrow("only accepts an options object");
+    });
+
+    it("should read locale from options objects with any prototype", () => {
+      expect(CurrencyUtil.resolveSymbol("AUD", Object.create({ locale: "en-US" }))).toBe("A$");
+      expect(CurrencyUtil.resolveSymbol("AUD", Object.assign(Object.create(null), { locale: "en-US" }))).toBe("A$");
     });
 
     it("should return null for malformed currency code", () => {
@@ -417,6 +436,11 @@ describe("CurrencyUtil", () => {
     it("should resolve symbol from currency code", () => {
       expect(CurrencyUtil.moneyFormat(1234.5, { currency: "CNY" })).toBe("¥ 1,234.50");
       expect(CurrencyUtil.moneyFormat(1234.5, { currency: "EUR" })).toBe("€ 1,234.50");
+    });
+
+    it("should keep locale out of the symbol lookup", () => {
+      expect(CurrencyUtil.moneyFormat(1234.5, { currency: "AUD", locale: "en-US" })).toBe("$ 1,234.50");
+      expect(CurrencyUtil.moneyFormat(1234.5, { currency: "AUD", symbol: "A$" })).toBe("A$ 1,234.50");
     });
 
     it("should accept lowercase currency code", () => {
