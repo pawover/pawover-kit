@@ -22,9 +22,11 @@ sources:
 
 # Use `@pawover/kit-hooks/react`
 
-This entry provides five small React hooks. It has a peer dependency on `react`.
-The package root is empty by design; import from the `/react` or `/alova`
-subpath, never from `@pawover/kit-hooks` or `@pawover/kit/hooks`.
+This entry provides five small React hooks. The `/react` subpath needs the
+optional `react` peer; the sibling `/alova` subpath is framework-agnostic and is
+covered by the `alova-hooks` skill. The package root is empty by design; import
+from the `/react` or `/alova` subpath, never from `@pawover/kit-hooks` or
+`@pawover/kit/hooks`.
 
 ## Setup
 

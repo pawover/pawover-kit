@@ -40,7 +40,7 @@ import {
 三个 Hooks 均扩展 `onBeforeRequest` / `onSuccess` / `onError` / `onComplete` 四个回调。
 
 > [!WARNING]
-> Alova Hooks 需要 `alova` 与 `react` 作为 peer 依赖。
+> Alova Hooks 依赖 `alova`；框架由 `createAlova({ statesHook })` 决定，需安装对应框架包（如 React 的 `react`、Vue 的 `vue`）。
 
 ## 完整参考
 

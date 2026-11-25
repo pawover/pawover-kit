@@ -2426,14 +2426,14 @@
       "evidence": ["test/unit/utils/numberUtil.test.ts interval bound cases"]
     },
     "source:test/unit/utils/treeUtil.test.ts": {
-      "fingerprint": "757d946150a0869b90fb2c423cbfcf4ca93da941f40d9dbad7e47efd3f1296e6",
+      "fingerprint": "2347f63e3347138f0aeeea5465c59b82f178a52727cc94a5973be79a118e0f81",
       "snapshot": {
-        "test/unit/utils/treeUtil.test.ts": "0fab5495f1ca523fa39c08e86b4abe42b08ecf456b0ba52a8fda333658e65d60"
+        "test/unit/utils/treeUtil.test.ts": "ae7b628f702b662b0571f1845e57e88e5c13277cd475c46b05ae9ed001606f0c"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "42960c750c49442a5493dcf8b0085b5ebcb52f16",
       "outcome": "no-change",
-      "reason": "Runtime prune-bypass case asserts the documented ignore behavior.",
-      "evidence": ["test/unit/utils/treeUtil.test.ts treeToRows prune case"]
+      "reason": "Tester added regression coverage for TreeUtil behavior during re-verification; no skill guidance or documented API changed.",
+      "evidence": ["test/unit/utils/treeUtil.test.ts", "packages/utils/skills/utils/SKILL.md unchanged"]
     },
     "source:.changeset/add-clamp-unique-and-tree-options.md": {
       "fingerprint": "fa3707c4806652adca42a99dc84d7cd6118196efb0223388059b810c0bafae5d",

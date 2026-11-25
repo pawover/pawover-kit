@@ -29,14 +29,14 @@ npm install @pawover/kit-zod
 
 | 功能 | 需要的 peer 依赖 | 导入路径 |
 | :--- | :--- | :--- |
-| Alova Hooks（`useAlovaRequest` 等） | `alova` + `react` | `@pawover/kit/hooks/alova` |
+| Alova Hooks（`useAlovaRequest` 等） | `alova` + 所选 `statesHook` 适配器的框架包（`react`、`vue` 等） | `@pawover/kit/hooks/alova` |
 | React Hooks（`useMount` 等） | `react` | `@pawover/kit/hooks/react` |
 | 数学计算（`MathUtil`、`CurrencyUtil.toRealValue`） | `mathjs` | `@pawover/kit/math`、`@pawover/kit/utils` |
 | Vite 代理工具（`ViteUtil.toProxy`） | `vite` | `@pawover/kit/vite` |
 | Zod Schema（`id` 等） | `zod` | `@pawover/kit/zod` |
 
 > [!WARNING]
-> 例如：使用 `@pawover/kit/hooks/alova` 需要同时安装 `alova` 与 `react`，否则对应模块在运行时解析依赖会失败。
+> 例如：使用 `@pawover/kit/hooks/alova` 需安装 `alova`，并按代码中的 `createAlova({ statesHook })` 安装对应框架包（React 项目装 `react`，Vue 项目装 `vue`），否则对应模块在运行时解析依赖会失败。
 
 ## 验证安装
 

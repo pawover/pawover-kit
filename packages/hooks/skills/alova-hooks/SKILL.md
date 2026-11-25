@@ -1,12 +1,14 @@
 ---
 name: alova-hooks
 description: >-
-  Use when wiring Alova requests, pagination, or watcher-driven requests into
-  React with @pawover/kit-hooks/alova, especially when adding onBeforeRequest,
-  onSuccess, onError, or onComplete callbacks.
+  Use when wiring Alova requests, pagination, or watcher-driven requests with
+  @pawover/kit-hooks/alova in a React, Vue, Svelte, or Solid app, especially when
+  adding onBeforeRequest, onSuccess, onError, or onComplete callbacks. The
+  framework is selected by the Alova instance's statesHook, not by this package.
 metadata:
-  purpose: Integrate Alova request, pagination, and watcher hooks with React
-    through @pawover/kit-hooks.
+  purpose: Integrate Alova request, pagination, and watcher hooks through
+    @pawover/kit-hooks; the framework adapter comes from the Alova instance's
+    statesHook.
   type: framework
   framework: Alova
   library: "@pawover/kit-hooks"
@@ -24,19 +26,30 @@ sources:
 
 This entry wraps Alova's `useRequest`, `usePagination`, and `useWatcher`. It adds
 four lifecycle callbacks (`onBeforeRequest`, `onSuccess`, `onError`,
-`onComplete`) and defaults request/pagination to `immediate: true`. The package
-requires `alova` and `react` as peers.
+`onComplete`) and defaults request/pagination to `immediate: true`.
+
+The entry is framework-agnostic: it imports only `alova` and `alova/client`.
+Alova selects the React, Vue, Svelte, or Solid state adapter from the
+`statesHook` passed to `createAlova`, so the framework is a property of the
+Alova instance, not of this package. `react` is an optional peer used only by the
+separate `/react` subpath; it is not required to use this entry from a Vue,
+Svelte, or Solid app.
 
 ## Setup
+
+Create the Alova instance with the `statesHook` that matches the UI framework,
+then pass a method handler to the hook.
 
 ```tsx
 import { createAlova } from "alova";
 import adapterFetch from "alova/fetch";
+import ReactHook from "alova/react";
 import { useAlovaRequest } from "@pawover/kit-hooks/alova";
 
 const alova = createAlova({
   baseURL: "https://api.example.com",
   requestAdapter: adapterFetch(),
+  statesHook: ReactHook,
 });
 
 function UserProfile({ userId }: { userId: string }) {
@@ -60,6 +73,52 @@ function UserProfile({ userId }: { userId: string }) {
 
 With the aggregate package, use `@pawover/kit/hooks/alova` instead. Do not import
 from `@pawover/kit-hooks` or `@pawover/kit/hooks`; the package root is empty.
+
+## Framework adapters
+
+The hooks call Alova's client hooks, which read the adapter from the instance.
+Swap `statesHook` (and install the matching framework package) to reuse the same
+hooks in another framework.
+
+### Vue
+
+```ts
+import { createAlova } from "alova";
+import adapterFetch from "alova/fetch";
+import VueHook from "alova/vue";
+
+const alova = createAlova({
+  baseURL: "https://api.example.com",
+  requestAdapter: adapterFetch(),
+  statesHook: VueHook,
+});
+```
+
+```vue
+<script setup lang="ts">
+import { useAlovaRequest } from "@pawover/kit-hooks/alova";
+
+const { loading, data, send } = useAlovaRequest(
+  () => alova.Get("/users/1"),
+  { immediate: false },
+);
+</script>
+
+<template>
+  <button @click="send()">Load</button>
+  <pre v-if="!loading">{{ data }}</pre>
+</template>
+```
+
+`useAlovaRequest` returns refs for `loading` and `data` under `VueHook`, so read
+them in the template without `.value`. Import the same `alova` instance the app
+created above; the adapter must be the one bound to that instance.
+
+### Svelte and Solid
+
+Import the adapter from `alova/svelte` or `alova/solid` and pass it as
+`statesHook`. The hooks themselves are unchanged; only the returned state shape
+differs per adapter.
 
 ## Core patterns
 
@@ -184,7 +243,8 @@ function Search() {
 
 The watched states array is positional: Alova compares each entry between
 renders. Pass the state values themselves, not a derived object that is recreated
-on every render.
+on every render. Under `VueHook`, pass refs or reactive sources; under
+`ReactHook`, pass the current values.
 
 ## Common mistakes
 
@@ -199,11 +259,19 @@ import { useAlovaRequest } from "@pawover/kit/hooks";
 
 Use `@pawover/kit-hooks/alova` or `@pawover/kit/hooks/alova`.
 
-### Forgetting the `alova` or `react` peer
+### Installing the wrong peer for the chosen framework
 
-The hooks call `alova/client` and React at runtime. Installing
-`@pawover/kit-hooks` alone is not enough; install `alova` and `react` in the
-application.
+The hooks resolve `alova` and `alova/client` at runtime, so `alova` is required.
+The framework package is resolved by the adapter you import into `createAlova`:
+a React app installs `react` together with `ReactHook`, a Vue app installs `vue`
+with `VueHook`. Installing `@pawover/kit-hooks` alone is never enough, and a Vue
+app does not need `react`.
+
+### Omitting `statesHook` from `createAlova`
+
+The hooks rely on Alova's state adapter. When `statesHook` is missing, Alova
+throws at the first hook call. Pass the adapter for the UI framework explicitly
+instead of relying on a default.
 
 ### Expecting `useAlovaWatcher` to fetch immediately
 
@@ -227,7 +295,8 @@ object or a `onPageChange` helper.
 ## Completion
 
 - The hook is imported from `/alova` or `/hooks/alova`.
-- `alova` and `react` are installed in the application.
+- `alova` is installed, and the Alova instance uses the `statesHook` for the UI
+  framework (`ReactHook`, `VueHook`, `SvelteHook`, or `SolidHook`).
 - Request and pagination hooks set `immediate: false` when the request should be
   manual.
 - Watcher hooks pass `immediate: true` when the first render should fetch.

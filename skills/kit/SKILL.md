@@ -48,7 +48,7 @@ feature you use:
 | Feature | Peer dependencies |
 | --- | --- |
 | React hooks | `react` |
-| Alova hooks | `alova` + `react` |
+| Alova hooks | `alova` + the framework package for your `statesHook` (`react`, `vue`, …) |
 | Math utilities (`MathUtil`, `CurrencyUtil.toRealValue`) | `mathjs` |
 | Vite proxy utility (`ViteUtil.toProxy`) | `vite` |
 | Zod schemas | `zod` |
