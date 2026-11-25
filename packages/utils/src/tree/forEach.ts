@@ -6,6 +6,11 @@ import { getChildren, nextLevelOptions } from "./utils";
 // 前置遍历
 function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
   callback(row, options);
+
+  if (options.prune?.(row, options)) {
+    return;
+  }
+
   const { children } = getChildren(row, options);
 
   if (TypeUtil.isArray(children)) {
@@ -17,13 +22,16 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
 
 // 后置遍历
 function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeForeachCallback<T>, options: TreeForeachInnerOption<T, CK>) {
-  const { children } = getChildren(row, options);
+  if (!options.prune?.(row, options)) {
+    const { children } = getChildren(row, options);
 
-  if (TypeUtil.isArray(children)) {
-    for (const child of children) {
-      postImpl(child, callback, nextLevelOptions(row, options));
+    if (TypeUtil.isArray(children)) {
+      for (const child of children) {
+        postImpl(child, callback, nextLevelOptions(row, options));
+      }
     }
   }
+
   callback(row, options);
 }
 
@@ -38,15 +46,19 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
     }
 
     const { queueRow, queueOptions } = queue.shift()!;
-    const { children } = getChildren(queueRow, queueOptions);
 
-    if (TypeUtil.isArray(children)) {
-      const subQueueItems = children.map((child) => ({
-        queueRow: child,
-        queueOptions: nextLevelOptions(queueRow, queueOptions),
-      }));
-      queue.push(...subQueueItems);
+    if (!queueOptions.prune?.(queueRow, queueOptions)) {
+      const { children } = getChildren(queueRow, queueOptions);
+
+      if (TypeUtil.isArray(children)) {
+        const subQueueItems = children.map((child) => ({
+          queueRow: child,
+          queueOptions: nextLevelOptions(queueRow, queueOptions),
+        }));
+        queue.push(...subQueueItems);
+      }
     }
+
     callback(queueRow, queueOptions);
     runQueue();
   };

@@ -1,4 +1,4 @@
-import { CurrencyUtil, I18nUtil, StringUtil, TypeUtil } from "@pawover/kit/utils";
+import { ArrayUtil, CurrencyUtil, I18nUtil, NumberUtil, StringUtil, TreeUtil, TypeUtil } from "@pawover/kit/utils";
 import type { CountryCode } from "@pawover/kit/utils";
 import { MathUtil } from "@pawover/kit/utils/math";
 import { all, create } from "mathjs";
@@ -206,3 +206,45 @@ const invalidToPercent: number = MathUtil.toPercent(0.25);
 
 // @ts-expect-error — fromPercent 返回 number | null，不是 number
 const invalidFromPercent: number = MathUtil.fromPercent(25);
+
+// NumberUtil.clamp — 返回 number，参数为 number 与二元组
+// @ts-expect-error — clamp 返回 number，不是 string
+const invalidClamp: string = NumberUtil.clamp(5, [1, 10]);
+
+// @ts-expect-error — clamp 的 value 只接受 number
+NumberUtil.clamp("5", [1, 10]);
+
+// @ts-expect-error — clamp 的 interval 必须是二元组
+NumberUtil.clamp(5, [1, 10, 20]);
+
+// ArrayUtil.uniqueBy — 返回元素类型数组，keyFn 为必填
+// @ts-expect-error — uniqueBy 返回 T[]，不是 keyFn 的返回类型
+const invalidUniqueBy: string[] = ArrayUtil.uniqueBy([1, 2], (n) => String(n));
+
+// @ts-expect-error — uniqueBy 必须提供 keyFn
+ArrayUtil.uniqueBy([1, 2]);
+
+// TreeUtil prune — 仅 find / forEach 支持，回调必须返回 boolean
+const prunableTree = [{ id: 1, disabled: false, children: [] as { id: number; disabled: boolean; children: unknown[] }[] }];
+
+// @ts-expect-error — prune 必须返回 boolean，不是 id
+TreeUtil.find(prunableTree, () => true, { prune: (node) => node.id });
+
+// @ts-expect-error — prune 的 meta 没有 path 字段
+TreeUtil.forEach(prunableTree, () => undefined, { prune: (_node, meta) => meta.path === undefined });
+
+// @ts-expect-error — filter 不支持 prune
+TreeUtil.filter(prunableTree, () => true, { prune: () => true });
+
+// @ts-expect-error — map 不支持 prune
+TreeUtil.map(prunableTree, (node) => node, { prune: () => true });
+
+// @ts-expect-error — treeToRows 的 options 由 TreeForeachOptions Omit 掉 prune
+TreeUtil.treeToRows(prunableTree, { prune: () => true });
+
+// TreeUtil.rowsToTree orphan — 只接受 promote / drop
+// @ts-expect-error — orphan 不接受 "keep"
+TreeUtil.rowsToTree([{ id: 1 }], { orphan: "keep" });
+
+// @ts-expect-error — orphan 不接受 boolean
+TreeUtil.rowsToTree([{ id: 1 }], { orphan: true });

@@ -19,6 +19,9 @@ export class TreeUtil {
    * - 将平铺的数组转换为树形结构
    * - 返回的树结构与输入行无共享节点（新对象引用），输入行不会被突变
    * - 重复 id 的行只取首次出现；仅叶子/缺失父节点的 id 会作为根节点，且每个根节点只输出一次
+   * - `orphan` 默认为 `"promote"`：缺失父节点的行提升为根节点
+   * - `orphan` 为 `"drop"`：缺失父节点的行连同其子树整体丢弃
+   * - 两种模式都不输出父链成环（无根可达）的行，差异仅在缺失父节点的行是提升为根还是连带子树丢弃
    *
    * @param rows 行数据数组
    * @param options 配置项
@@ -30,6 +33,13 @@ export class TreeUtil {
    *   { id: 2, parentId: 1 },
    * ];
    * TreeUtil.rowsToTree(rows); // [{ id: 1, parentId: null, children: [{ id: 2, parentId: 1, children: [] }] }]
+   *
+   * const orphanRows = [
+   *   { id: 1, parentId: null },
+   *   { id: 2, parentId: 999 },
+   * ];
+   * TreeUtil.rowsToTree(orphanRows, { orphan: "promote" }); // [{ id: 1, ... }, { id: 2, ... }]
+   * TreeUtil.rowsToTree(orphanRows, { orphan: "drop" }); // [{ id: 1, ... }]
    * ```
    */
   static rowsToTree<
@@ -42,7 +52,7 @@ export class TreeUtil {
     rows: T[],
     options?: RowsToTreeOptions<RK, PK, CK> | undefined,
   ): R[] {
-    const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children" } = options || {};
+    const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children", orphan = "promote" } = options || {};
     const result: R[] = [];
     const map = new Map<PropertyKey, T>();
     const processedIds = new Set<PropertyKey>();
@@ -55,6 +65,10 @@ export class TreeUtil {
       }
     }
 
+    const retainedIds = orphan === "drop"
+      ? collectRetainedIds(rows, map, rowKey, parentIdKey)
+      : undefined;
+
     for (const row of rows) {
       const id = row[rowKey];
 
@@ -63,6 +77,11 @@ export class TreeUtil {
       }
 
       processedIds.add(id);
+
+      if (retainedIds && !retainedIds.has(id)) {
+        continue;
+      }
+
       const parentId = row[parentIdKey];
       const node = map.get(id);
 
@@ -70,7 +89,7 @@ export class TreeUtil {
         continue;
       }
 
-      if (TypeUtil.isNullish(parentId) || parentId === id || !map.has(parentId)) {
+      if (isRootRow(id, parentId) || isMissingParent(map, parentId)) {
         result.push(node);
 
         continue;
@@ -111,7 +130,7 @@ export class TreeUtil {
    * - 将树形结构扁平化为数组
    *
    * @param tree 树结构数据 (单个节点或节点数组)
-   * @param options 配置项
+   * @param options 配置项（遍历选项，不含 `prune`）
    * @returns 扁平化后的数组
    * @example
    * ```ts
@@ -127,7 +146,10 @@ export class TreeUtil {
     tree: T | T[],
     options: TreeToRowsOptions<T, CK> = {},
   ): R[] {
-    const { childrenKey = "children" } = options;
+    // 绕过类型传入的 prune 在此剥离，不转发给内部遍历
+    const foreachOptions: TreeForeachOptions<T, CK> = options;
+    const { prune: _prune, ...rest } = foreachOptions;
+    const childrenKey = rest.childrenKey ?? "children";
     const result: R[] = [];
 
     if (!tree) {
@@ -136,7 +158,7 @@ export class TreeUtil {
 
     TreeUtil.forEach(tree, (t) => {
       result.push({ ...t, [childrenKey]: undefined });
-    }, options);
+    }, rest);
 
     return result;
   }
@@ -146,18 +168,21 @@ export class TreeUtil {
    *
    * @param tree 树结构数据
    * @param callback 回调函数
-   * @param options 配置项
+   * @param options 配置项；`prune` 返回 `true` 时跳过该节点的子树（节点本身仍会被访问），求值时机随 `strategy` 不同，需为纯函数
    * @example
    * ```ts
-   * const tree = [{ id: 1, children: [{ id: 2 }] }];
+   * const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3, disabled: false }] }] }];
    * const ids: number[] = [];
-   * TreeUtil.forEach(tree, (node) => ids.push(node.id)); // ids: [1, 2] (pre-order default)
+   * TreeUtil.forEach(tree, (node) => ids.push(node.id)); // ids: [1, 2, 3] (pre-order default)
+   *
+   * const enabledIds: number[] = [];
+   * TreeUtil.forEach(tree, (node) => enabledIds.push(node.id), { prune: (node) => node.disabled }); // enabledIds: [1, 2]
    * ```
    */
   static forEach<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeForeachCallback<T>, options: TreeForeachOptions<T, CK> = {}): void {
-    const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
+    const { childrenKey = "children", strategy = "pre", getChildrenKey, prune } = options;
     const traversalMethod = treeForEachStrategies[strategy];
-    const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
+    const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey, prune };
 
     if (TypeUtil.isArray(tree)) {
       for (const row of tree) {
@@ -174,18 +199,20 @@ export class TreeUtil {
    *
    * @param tree 树结构数据
    * @param callback 回调函数
-   * @param options 配置项
+   * @param options 配置项；`prune` 返回 `true` 时跳过该节点的子树（节点本身仍会被匹配），求值时机随 `strategy` 不同，需为纯函数
    * @returns 找到的节点，未找到则返回 undefined
    * @example
    * ```ts
-   * const tree = [{ id: 1, children: [{ id: 2 }] }];
+   * const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3, disabled: false }] }] }];
    * TreeUtil.find(tree, (node) => node.id === 2); // { id: 2, ... }
+   *
+   * TreeUtil.find(tree, (node) => node.id === 3, { prune: (node) => node.disabled }); // undefined，停用节点的子树不参与查找
    * ```
    */
   static find<T extends AnyObject, CK extends string = ChildrenKey> (tree: T | T[], callback: TreeFindCallback<T>, options: TreeFindOptions<T, CK> = {}): T | undefined {
-    const { childrenKey = "children", strategy = "pre", getChildrenKey } = options;
+    const { childrenKey = "children", strategy = "pre", getChildrenKey, prune } = options;
     const traversalMethod = treeFindStrategies[strategy];
-    const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey };
+    const innerOptions = { childrenKey: childrenKey as CK, depth: 0, parents: [], getChildrenKey, prune };
 
     if (TypeUtil.isArray(tree)) {
       for (const row of tree) {
@@ -265,4 +292,69 @@ export class TreeUtil {
       ? tree.map((row) => traversalMethod<R, T, CK>(row, callback, innerOptions))
       : traversalMethod<R, T, CK>(tree, callback, innerOptions);
   }
+}
+
+function isRootRow (id: PropertyKey, parentId: PropertyKey): boolean {
+  return TypeUtil.isNullish(parentId) || parentId === id;
+}
+
+function isMissingParent<T> (nodeMap: Map<PropertyKey, T>, parentId: PropertyKey): boolean {
+  return !nodeMap.has(parentId);
+}
+
+/**
+ * 收集从根可达的 id 集合
+ * - 根指父 id 为空或自引用的行；缺失父节点与父链成环的行都不可达，其子树随之排除
+ * - 每个唯一 id 至多入栈一次：根集合按首次出现写入，邻接表每个 id 只对应一条父边，故遍历无需再判重
+ */
+function collectRetainedIds<T extends AnyObject, RK extends string, PK extends string> (
+  rows: readonly T[],
+  nodeMap: Map<PropertyKey, T>,
+  rowKey: RK,
+  parentIdKey: PK,
+): Set<PropertyKey> {
+  const childIds = new Map<PropertyKey, PropertyKey[]>();
+  const rootIds: PropertyKey[] = [];
+  const seenIds = new Set<PropertyKey>();
+
+  for (const row of rows) {
+    const id: PropertyKey = row[rowKey];
+
+    if (seenIds.has(id)) {
+      continue;
+    }
+
+    seenIds.add(id);
+    const parentId: PropertyKey = row[parentIdKey];
+
+    if (isRootRow(id, parentId)) {
+      rootIds.push(id);
+
+      continue;
+    }
+
+    if (isMissingParent(nodeMap, parentId)) {
+      continue;
+    }
+
+    const siblings = childIds.get(parentId);
+
+    if (siblings) {
+      siblings.push(id);
+    } else {
+      childIds.set(parentId, [id]);
+    }
+  }
+
+  const retained = new Set<PropertyKey>();
+  const stack = [...rootIds];
+
+  while (stack.length) {
+    const id = stack.pop()!;
+
+    retained.add(id);
+    stack.push(...(childIds.get(id) ?? []));
+  }
+
+  return retained;
 }

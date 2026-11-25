@@ -10,6 +10,10 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
     return row;
   }
 
+  if (options.prune?.(row, options)) {
+    return undefined;
+  }
+
   const { children } = getChildren(row, options);
   if (TypeUtil.isArray(children)) {
     for (const child of children) {
@@ -25,12 +29,14 @@ function preImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, 
 
 // 后置深度优先遍历
 function postImpl<T extends AnyObject, CK extends string = ChildrenKey> (row: T, callback: TreeFindCallback<T>, options: TreeFindInnerOption<T, CK>): T | undefined {
-  const { children } = getChildren(row, options);
-  if (TypeUtil.isArray(children)) {
-    for (const child of children) {
-      const result = postImpl(child, callback, nextLevelOptions(row, options));
-      if (result) {
-        return result;
+  if (!options.prune?.(row, options)) {
+    const { children } = getChildren(row, options);
+    if (TypeUtil.isArray(children)) {
+      for (const child of children) {
+        const result = postImpl(child, callback, nextLevelOptions(row, options));
+        if (result) {
+          return result;
+        }
       }
     }
   }
@@ -53,14 +59,17 @@ function breadthImpl<T extends AnyObject, CK extends string = ChildrenKey> (row:
       return undefined;
     }
     const { queueRow, queueOptions } = queue.shift()!;
-    const { children } = getChildren(queueRow, queueOptions);
 
-    if (TypeUtil.isArray(children)) {
-      const subQueueItems = children.map((child) => ({
-        queueRow: child,
-        queueOptions: nextLevelOptions(queueRow, queueOptions),
-      }));
-      queue.push(...subQueueItems);
+    if (!queueOptions.prune?.(queueRow, queueOptions)) {
+      const { children } = getChildren(queueRow, queueOptions);
+
+      if (TypeUtil.isArray(children)) {
+        const subQueueItems = children.map((child) => ({
+          queueRow: child,
+          queueOptions: nextLevelOptions(queueRow, queueOptions),
+        }));
+        queue.push(...subQueueItems);
+      }
     }
 
     const callbackResult = callback(queueRow, queueOptions);

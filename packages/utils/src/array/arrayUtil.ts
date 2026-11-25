@@ -274,6 +274,39 @@ export class ArrayUtil {
   }
 
   /**
+   * 按标识去重
+   * - 通过 `keyFn` 的返回值判重，保留首次出现的元素与原顺序
+   *
+   * @param initialList 初始数组
+   * @param keyFn 标识函数，`index` 为去重前原数组的下标
+   * @returns 去重后的新数组
+   * @example
+   * ```ts
+   * ArrayUtil.uniqueBy([{ id: 1 }, { id: 2 }, { id: 1 }], (row) => row.id); // [{ id: 1 }, { id: 2 }]
+   * ArrayUtil.uniqueBy([3, 1, 3, 2], (n) => n); // [3, 1, 2]
+   * ```
+   */
+  static uniqueBy<T, K = T> (initialList: readonly T[], keyFn: (row: T, index: number) => K): T[] {
+    if (!TypeUtil.isArray(initialList)) {
+      return [];
+    }
+
+    const keys = new Set<K>();
+
+    return initialList.filter((row, index) => {
+      const key = keyFn(row, index);
+
+      if (keys.has(key)) {
+        return false;
+      }
+
+      keys.add(key);
+
+      return true;
+    });
+  }
+
+  /**
    * 数组选择
    * - 一次性应用 `filter` 和 `map` 操作
    *

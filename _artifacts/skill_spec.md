@@ -37,7 +37,7 @@ non-obvious failure modes that are not visible from the type signatures alone.
 | `types`         | 4     | Runtime import of a type-only package; required `TreeLike` children; global entries imported instead of configured; callback ref with `PropsWithRef`         |
 | `utils`         | 6     | `merge` matcher append assumption; rejected tree parent; `find` mutation; `isChineseID` checksum assumption; `MathUtil` subpath; static class instantiation  |
 | `react-hooks`   | 4     | Async `useMount` cleanup; SSR `useResponsive`; `useLatest` re-render assumption; multiple `useTitle` instances                                               |
-| `alova-hooks`   | 3     | Watcher `immediate`; pagination `onPageChange`; missing `alova`/`react` peers                                                                                |
+| `alova-hooks`   | 3     | Watcher `immediate`; pagination `onPageChange`; missing `alova` peer or `statesHook`                                                                         |
 | `eslint-preset` | 5     | `javascript` switch; factory `ignores`/`renamePlugins`; manual upstream plugins; React type-aware without TypeScript; quick switch precedence vs `overrides` |
 | `zod-schemas`   | 3     | `AllowEmpty` naming; `id` domain; `empty` meaning                                                                                                            |
 
@@ -76,7 +76,8 @@ non-obvious failure modes that are not visible from the type signatures alone.
   `test/types/`.
 - Consequential decisions:
   - Split hooks into `react-hooks` and `alova-hooks` because they have different
-    peers, APIs, and developer tasks.
+    peers, APIs, and developer tasks; `alova-hooks` is framework-agnostic and
+    takes its framework from the Alova instance's `statesHook`.
   - Keep one `utils` skill instead of one per class; the classes are commonly
     used together and share static-class and nullish conventions.
   - Document `createBeforeRequestMiddleware` as internal and direct consumers to
@@ -214,3 +215,27 @@ The skills reuse the repository's existing tests rather than duplicating them:
 - Consider repository distribution (Claude/Cursor plugin or GitHub installer)
   only if the maintainer wants pre-install discovery; the current batch is
   package-only.
+
+### 2026-11-25 — `NumberUtil.clamp`, `ArrayUtil.uniqueBy`, `TreeUtil` prune / orphan
+
+- Scope: `NumberUtil.clamp(value, [lower, upper])` bounds to a closed interval,
+  validates its arguments like `within` (finite value, tuple of two finite
+  numbers), and throws on reversed bounds; `ArrayUtil.uniqueBy(list, keyFn)`
+  keeps the first item per key (`readonly` input, element-typed result, original
+  input index); `TreeUtil.find` / `TreeUtil.forEach` accept `prune(row, meta)` to
+  skip a subtree while still visiting the node, and it must be pure;
+  `TreeUtil.rowsToTree` accepts `orphan` (`"promote"` default, `"drop"` discards
+  missing-parent rows with their subtrees); `TreeUtil.treeToRows` options exclude
+  `prune`, which is also ignored at runtime.
+- Guidance: `references/specialized.md` holds the quick-reference table;
+  `references/array-object-string.md` adds `uniqueBy` to the selection table;
+  `references/tree.md` covers `prune`, `orphan`, and the `treeToRows` option
+  set; `SKILL.md` mentions all three in its core patterns. Neither `orphan` mode
+  emits a parent cycle.
+- Source evidence: `packages/utils/src/number/numberUtil.ts`,
+  `packages/utils/src/array/arrayUtil.ts`,
+  `packages/utils/src/tree/{treeUtil,find,forEach,index.type}.ts`,
+  `test/unit/utils/{numberUtil,arrayUtil,treeUtil}.test.ts`,
+  `test/types/utils/utilsApi.test.type.ts`.
+- Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`,
+  `pnpm test:coverage` after implementation; `pnpm check:skills` after recording.

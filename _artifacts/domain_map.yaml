@@ -77,11 +77,12 @@ skills:
         status: active
         skills: [kit]
       - mistake: "Forget an optional peer dependency"
-        mechanism: "The feature fails when the corresponding module resolves alova, react, mathjs, vite, or zod."
+        mechanism: "The feature fails when the corresponding module resolves alova, the framework package for its statesHook (react, vue, ...), mathjs, vite, or zod."
         wrong_pattern: |
           pnpm add @pawover/kit
         correct_pattern: |
-          pnpm add @pawover/kit alova react
+          pnpm add @pawover/kit alova
+          # hooks/alova also needs the framework package matching createAlova's statesHook
         source: "package.json peerDependencies; site/guide/installation.md"
         priority: HIGH
         status: active
@@ -173,6 +174,7 @@ skills:
       - "NumberUtil"
       - "CurrencyUtil"
       - "CurrencyUtil formatting helpers (numberFormat / moneyFormat / resolveSymbol / integerFormat / percentFormat / percentText), moneyFormat signDisplay/minusSign, MathUtil.toPercent / fromPercent, TypeUtil.isFiniteNumber"
+      - "NumberUtil.clamp, ArrayUtil.uniqueBy, TreeUtil prune option, TreeUtil.rowsToTree orphan option"
       - "DateTimeUtil"
       - "EnvUtil"
       - "FunctionUtil"
@@ -338,7 +340,7 @@ skills:
   - name: "Alova request hooks"
     slug: alova-hooks
     domain: hooks
-    description: "Wrap Alova request, pagination, and watcher hooks with React lifecycle callbacks."
+    description: "Wrap Alova request, pagination, and watcher hooks with lifecycle callbacks; framework-agnostic, driven by the Alova instance's statesHook."
     type: framework
     framework: Alova
     packages:
@@ -350,8 +352,9 @@ skills:
       - "onBeforeRequest / onSuccess / onError / onComplete"
       - "immediate defaults"
       - "pagination update"
+      - "statesHook (ReactHook / VueHook / SvelteHook / SolidHook)"
     tasks:
-      - "Send an Alova request from a React component with lifecycle callbacks"
+      - "Send an Alova request from a React, Vue, Svelte, or Solid component with lifecycle callbacks"
       - "Add pagination state to an Alova method handler"
       - "Re-run a request when watched state changes"
     failure_modes:
@@ -376,13 +379,14 @@ skills:
         priority: HIGH
         status: active
         skills: [alova-hooks]
-      - mistake: "Forget the alova or react peer"
-        mechanism: "The hooks resolve alova/client and React at runtime."
+      - mistake: "Forget the alova peer or the framework adapter for the chosen statesHook"
+        mechanism: "The hooks resolve alova and alova/client at runtime; the framework package is resolved by the adapter imported into createAlova."
         wrong_pattern: |
           pnpm add @pawover/kit-hooks
         correct_pattern: |
-          pnpm add @pawover/kit-hooks alova react
-        source: "packages/hooks/package.json"
+          pnpm add @pawover/kit-hooks alova
+          # then, per framework: react + ReactHook, vue + VueHook, ...
+        source: "packages/hooks/package.json; packages/hooks/src/alova"
         priority: CRITICAL
         status: active
         skills: [alova-hooks, kit]
@@ -543,7 +547,7 @@ cross_references:
     reason: "Hooks are only available from /hooks/react, not the package root."
   - from: kit
     to: alova-hooks
-    reason: "Alova hooks require the alova and react peers."
+    reason: "Alova hooks require the alova peer; the UI framework comes from the Alova instance's statesHook."
   - from: kit
     to: eslint-preset
     reason: "The ESLint preset is a default export from its own subpath."
@@ -555,7 +559,7 @@ cross_references:
     reason: "TreeUtil accepts the TreeLike shapes defined by @pawover/kit-types."
   - from: react-hooks
     to: alova-hooks
-    reason: "Both live in @pawover/kit-hooks and share the React peer, but use different subpaths."
+    reason: "Both live in @pawover/kit-hooks but use different subpaths; only /react needs the react peer."
 
 gaps:
   - skill: utils

@@ -315,6 +315,66 @@ describe("ArrayUtil", () => {
     });
   });
 
+  describe("uniqueBy", () => {
+    it("should keep the first occurrence of each key", () => {
+      const list = [{ id: 1, name: "first" }, { id: 2, name: "second" }, { id: 1, name: "third" }];
+
+      expect(ArrayUtil.uniqueBy(list, (row) => row.id)).toEqual([
+        { id: 1, name: "first" },
+        { id: 2, name: "second" },
+      ]);
+    });
+
+    it("should preserve the original order", () => {
+      expect(ArrayUtil.uniqueBy([3, 1, 3, 2, 1], (n) => n)).toEqual([3, 1, 2]);
+    });
+
+    it("should accept a readonly array", () => {
+      const list: readonly number[] = [1, 1, 2];
+
+      expect(ArrayUtil.uniqueBy(list, (n) => n)).toEqual([1, 2]);
+    });
+
+    it("should pass the index to keyFn", () => {
+      const indexes: number[] = [];
+
+      ArrayUtil.uniqueBy([1, 2, 3], (n, index) => {
+        indexes.push(index);
+
+        return n;
+      });
+
+      expect(indexes).toEqual([0, 1, 2]);
+    });
+
+    it("should pass the original index of duplicate items to keyFn", () => {
+      const indexes: number[] = [];
+
+      ArrayUtil.uniqueBy([1, 1, 2], (n, index) => {
+        indexes.push(index);
+
+        return n;
+      });
+
+      expect(indexes).toEqual([0, 1, 2]);
+    });
+
+    it("should return a new array", () => {
+      const list = [1, 2];
+      const result = ArrayUtil.uniqueBy(list, (n) => n);
+
+      expect(result).not.toBe(list);
+    });
+
+    it("should return an empty array for empty input", () => {
+      expect(ArrayUtil.uniqueBy([], (n) => n)).toEqual([]);
+    });
+
+    it("should return an empty array for non-array input", () => {
+      expect(ArrayUtil.uniqueBy(null as unknown as number[], (n) => n)).toEqual([]);
+    });
+  });
+
   describe("zip / unzip", () => {
     it("should zip two arrays together", () => {
       expect(ArrayUtil.zip([1, 2], ["a", "b"])).toEqual([[1, "a"], [2, "b"]]);

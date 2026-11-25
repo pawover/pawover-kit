@@ -8,7 +8,10 @@ options object to match an existing schema.
 
 `rowsToTree` shallow-copies each row, links children under the parent, and fills
 every node with a `children` array. Duplicate ids use the first row. A row whose
-parent is missing, nullish, or itself becomes a root.
+parent is missing, nullish, or itself becomes a root. Pass `{ orphan: "drop" }`
+to discard rows whose parent is missing, together with their subtrees; nullish
+and self-referencing rows stay roots in both modes. A parent cycle never reaches
+a root, so neither mode emits its rows.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -52,7 +55,8 @@ same check runs for every node before returning.
 ## Flatten a tree
 
 `treeToRows` traverses the tree and returns shallow copies with `children` set to
-`undefined`. It accepts a single node or an array.
+`undefined`. It accepts a single node or an array, plus the traversal options
+except `prune`; a `prune` passed at runtime is ignored.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -64,7 +68,12 @@ const rows = TreeUtil.treeToRows(tree);
 ## Traverse, find, filter, and map
 
 All four operations accept `{ childrenKey, strategy, getChildrenKey }`.
-`strategy` is `"pre"` (default), `"post"`, or `"breadth"`.
+`strategy` is `"pre"` (default), `"post"`, or `"breadth"`. `find` and `forEach`
+additionally accept `prune(row, meta)`: returning `true` skips that node's
+subtree, while the node itself is still visited (and still matchable by `find`).
+Keep `prune` pure: `pre` evaluates it after the node callback, while `post` and
+`breadth` evaluate it when the node is entered, so a stateful predicate makes
+results traversal-order dependent.
 
 | Method | Return | Reference behavior |
 | --- | --- | --- |
@@ -76,7 +85,7 @@ All four operations accept `{ childrenKey, strategy, getChildrenKey }`.
 Callbacks receive `(row, meta)`. `meta.depth` is the depth from the current root;
 `meta.parents` is the ancestor array. The returned `find` result does not carry
 the meta object, so capture ancestors inside the callback when a breadcrumb is
-needed.
+needed. `prune` receives the same meta object.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -92,6 +101,9 @@ TreeUtil.find(tree, (row, meta) => {
 });
 
 // breadcrumb: ["Root", "Child", "Leaf"]
+
+TreeUtil.find(tree, (row) => row.id === 4, { prune: (row) => row.name === "Child" });
+// the matched node is still visited; its descendants are skipped
 ```
 
 `filter` keeps the tree shape. With `pre`, rejecting a node stops descent, so its

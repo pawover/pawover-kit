@@ -59,6 +59,7 @@ ArrayUtil.merge(source, update, (x) => x.id);
 | `replaceMove(list, newItem, match, position?)` | Removes the first match and reinserts `newItem`. `position` accepts `"start"`, `"end"`, or an index. Negative / non-integer indexes fall back to append. |
 | `split(list, size)` | Splits into chunks; invalid size returns `[]`. |
 | `fork(list, match)` | Returns `[matching, nonMatching]`. |
+| `uniqueBy(list, keyFn)` | De-duplicates by `keyFn` result, keeping the first occurrence and the input order. Accepts a `readonly` array and returns a new mutable array of the element type. `keyFn` receives the original input index, including for duplicates. |
 
 ```ts
 import { ArrayUtil } from "@pawover/kit-utils";
@@ -69,6 +70,8 @@ ArrayUtil.replace([1, 2, 3], 4, (n) => n === 2); // [1, 4, 3]
 ArrayUtil.replaceMove([1, 2, 3, 4], 5, (n) => n === 2, 0); // [5, 1, 3, 4]
 ArrayUtil.split([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
 ArrayUtil.fork([1, 2, 3, 4], (n) => n % 2 === 0); // [[2, 4], [1, 3]]
+ArrayUtil.uniqueBy([{ id: 1 }, { id: 2 }, { id: 1 }], (row) => row.id); // [{ id: 1 }, { id: 2 }]
+ArrayUtil.uniqueBy([3, 1, 3, 2], (n) => n); // [3, 1, 2]
 ```
 
 ### Compression and object creation

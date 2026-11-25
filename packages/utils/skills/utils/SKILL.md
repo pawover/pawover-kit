@@ -69,7 +69,8 @@ exceptions are called out below.
 
 `ArrayUtil` covers the common collection operations without importing a
 collection library. `cast` normalizes a value to an array, `pick` combines
-filter and map, and `fork` separates matching and non-matching items.
+filter and map, `fork` separates matching and non-matching items, and
+`uniqueBy` de-duplicates by a key while keeping the first occurrence.
 
 ```ts
 import { ArrayUtil } from "@pawover/kit-utils";
@@ -81,6 +82,7 @@ ArrayUtil.cast(null, false); // [null]
 ArrayUtil.pick([1, 2, 3, 4], (n) => n % 2 === 0, (n) => n * 10); // [20, 40]
 ArrayUtil.fork([1, 2, 3, 4], (n) => n % 2 === 0); // [[2, 4], [1, 3]]
 ArrayUtil.split([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
+ArrayUtil.uniqueBy([{ id: 1 }, { id: 2 }, { id: 1 }], (row) => row.id); // [{ id: 1 }, { id: 2 }]
 ```
 
 `zip` and `unzip` pad to the longest input by default; pass `{ truncate: true }`
@@ -188,7 +190,9 @@ StringUtil.toValues("1,abc,3"); // [1, NaN, 3]
 
 `TreeUtil.rowsToTree` builds a tree from rows with `id` / `parentId` defaults,
 fills every node with a `children` array, and uses the first row for a duplicate
-id. Missing parents and self-referencing rows become roots.
+id. Missing parents and self-referencing rows become roots. Pass
+`{ orphan: "drop" }` to discard rows with a missing parent together with their
+subtrees instead. A parent cycle never reaches a root, so neither mode emits it.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -209,13 +213,19 @@ const tree = TreeUtil.rowsToTree(rows);
 //   { id: 2, parentId: 1, name: "Child", children: [] }
 // ] }]
 
+TreeUtil.rowsToTree(rows, { orphan: "drop" });
+// rows whose parent is missing are dropped together with their subtrees
+
 const flat = TreeUtil.treeToRows(tree);
 // [{ id: 1, ..., children: undefined }, { id: 2, ..., children: undefined }]
 ```
 
 Traversal callbacks receive `(row, meta)`; `meta.depth` is the depth from the
 current root and `meta.parents` is the ancestor chain. `find` returns the
-original node reference, not a copy.
+original node reference, not a copy. `find` and `forEach` accept `prune`:
+returning `true` for a node skips its subtree while the node itself is still
+visited. Keep `prune` pure; its evaluation point depends on `strategy`.
+`treeToRows` accepts the same traversal options without `prune`.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -223,6 +233,8 @@ import { TreeUtil } from "@pawover/kit-utils";
 TreeUtil.forEach(tree, (row, meta) => {
   console.log(meta.depth, row.name);
 });
+
+TreeUtil.forEach(tree, (row) => console.log(row.name), { prune: (_row, meta) => meta.depth >= 1 });
 
 const child = TreeUtil.find(tree, (row) => row.id === 2);
 const visible = TreeUtil.filter(tree, (row) => row.name !== "Child");
@@ -277,7 +289,8 @@ ValidateUtil.isChineseID("110101199003071234"); // true
 does **not** verify the 18th checksum digit, so it is not proof that an ID was
 issued. Use `NumberUtil.within` for numeric ranges; it defaults to a
 left-closed, right-open interval and throws on non-finite input or an invalid
-interval.
+interval. `NumberUtil.clamp` bounds a value to a closed interval and throws when
+the bounds are reversed.
 
 ```ts
 import { NumberUtil } from "@pawover/kit-utils";
@@ -285,6 +298,9 @@ import { NumberUtil } from "@pawover/kit-utils";
 NumberUtil.within(5, [1, 10]); // true
 NumberUtil.within(10, [1, 10]); // false
 NumberUtil.within(10, [1, 10], true, true); // true
+
+NumberUtil.clamp(0, [1, 10]); // 1
+NumberUtil.clamp(11, [1, 10]); // 10
 ```
 
 ### Use the specialized classes only when the task needs them

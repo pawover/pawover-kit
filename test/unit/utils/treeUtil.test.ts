@@ -63,6 +63,132 @@ describe("TreeUtil", () => {
       expect(tree).toHaveLength(1);
     });
 
+    it("should promote rows with missing parents to roots by default", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 999 },
+        { id: 3, parentId: 2 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows);
+      expect(tree).toHaveLength(2);
+      expect(tree[1].id).toBe(2);
+      expect(tree[1].children[0]!.id).toBe(3);
+    });
+
+    it("should drop rows with missing parents when orphan is drop", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 999 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].id).toBe(1);
+    });
+
+    it("should drop the subtree of a dropped orphan", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 999 },
+        { id: 3, parentId: 2 },
+        { id: 4, parentId: 3 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children).toEqual([]);
+    });
+
+    it("should drop orphan rows with custom keys", () => {
+      const rows = [
+        { key: 1, pid: null },
+        { key: 2, pid: 1 },
+        { key: 3, pid: 999 },
+        { key: 4, pid: 3 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { rowKey: "key", parentIdKey: "pid", childrenKey: "kids", orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].kids).toEqual([{ key: 2, pid: 1, kids: [] }]);
+    });
+
+    it("should keep resolved trees intact when orphan is drop", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1 },
+        { id: 3, parentId: 2 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children[0]!.children[0]!.id).toBe(3);
+    });
+
+    it("should keep all children of a retained parent and deduplicate ids when orphan is drop", () => {
+      const rows = [
+        { id: 1, parentId: null, name: "root" },
+        { id: 2, parentId: 1, name: "first" },
+        { id: 3, parentId: 1, name: "second" },
+        { id: 2, parentId: 1, name: "duplicate" },
+        { id: 4, parentId: 2, name: "leaf" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children!.map((child) => child.id)).toEqual([2, 3]);
+      expect(tree[0].children![0]!.name).toBe("first");
+      expect(tree[0].children![0]!.children!.map((child) => child.id)).toEqual([4]);
+    });
+
+    it("should keep nullish and self-referencing roots when orphan is drop", () => {
+      const rows = [
+        { id: 1, parentId: undefined },
+        { id: 2, parentId: 2 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(2);
+      expect(tree.map((node) => node.id)).toEqual([1, 2]);
+    });
+
+    it("should return an empty array for empty rows when orphan is drop", () => {
+      expect(TreeUtil.rowsToTree([], { orphan: "drop" })).toEqual([]);
+    });
+
+    it("should return an empty array when every row is an orphan in drop mode", () => {
+      const rows = [
+        { id: 1, parentId: 999 },
+        { id: 2, parentId: 1 },
+      ];
+      expect(TreeUtil.rowsToTree(rows, { orphan: "drop" })).toEqual([]);
+    });
+
+    it("should drop rows on a parent cycle without a root in both orphan modes", () => {
+      const rows = [
+        { id: 1, parentId: 2 },
+        { id: 2, parentId: 1 },
+      ];
+      expect(TreeUtil.rowsToTree(rows, { orphan: "promote" })).toEqual([]);
+      expect(TreeUtil.rowsToTree(rows, { orphan: "drop" })).toEqual([]);
+    });
+
+    it("should treat a duplicate id by its first occurrence when orphan is drop", () => {
+      const rows = [
+        { id: 2, parentId: 999, name: "orphan-first" },
+        { id: 1, parentId: null, name: "root" },
+        { id: 2, parentId: 1, name: "rooted-later" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children).toEqual([]);
+    });
+
+    it("should keep a rooted first occurrence when a duplicate id is an orphan when orphan is drop", () => {
+      const rows = [
+        { id: 1, parentId: null },
+        { id: 2, parentId: 1, name: "first" },
+        { id: 2, parentId: 999, name: "second" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop" });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].children).toHaveLength(1);
+      expect(tree[0].children![0]!.name).toBe("first");
+    });
+
     it("should deduplicate duplicate ids by first occurrence", () => {
       const rows = [
         { id: 1, parentId: null, name: "first" },
@@ -204,6 +330,23 @@ describe("TreeUtil", () => {
       expect(rows).toHaveLength(2);
       expect(rows[0].items).toBeUndefined();
     });
+
+    it("should ignore prune at runtime when the type is bypassed", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3, disabled: false }] }] }];
+      const options = { prune: (node: { disabled: boolean }) => node.disabled } as never;
+      const rows = TreeUtil.treeToRows(tree, options);
+
+      expect(rows.map((row) => row.id)).toEqual([1, 2, 3]);
+    });
+
+    it("should keep a custom childrenKey when a bypassed prune is stripped", () => {
+      const tree = [{ id: 1, disabled: true, items: [{ id: 2, disabled: true, items: [] }] }];
+      const options = { childrenKey: "items", prune: (node: { disabled: boolean }) => node.disabled } as never;
+      const rows = TreeUtil.treeToRows<(typeof tree)[number], "items">(tree, options);
+
+      expect(rows.map((row) => row.id)).toEqual([1, 2]);
+      expect(rows[0]!.items).toBeUndefined();
+    });
   });
 
   describe("forEach", () => {
@@ -251,6 +394,87 @@ describe("TreeUtil", () => {
       const tree = [{ id: 1, items: [{ id: 2 }] }];
       const ids: number[] = [];
       TreeUtil.forEach(tree, (node) => ids.push(node.id), { getChildrenKey: (n) => n.id === 1 ? "items" as const : "children" });
+      expect(ids).toEqual([1, 2]);
+    });
+
+    it("should skip the subtree of a pruned node in pre-order", () => {
+      const tree = [
+        {
+          id: 1,
+          disabled: false,
+          children: [
+            { id: 2, disabled: true, children: [{ id: 3, disabled: false }] },
+            { id: 4, disabled: false, children: [{ id: 5, disabled: false }] },
+          ],
+        },
+      ];
+      const ids: number[] = [];
+      TreeUtil.forEach(tree, (node) => ids.push(node.id), { prune: (node) => node.disabled });
+      expect(ids).toEqual([1, 2, 4, 5]);
+    });
+
+    it("should still visit a pruned node but skip its subtree in post-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3, disabled: false }] }] }];
+      const ids: number[] = [];
+      TreeUtil.forEach(tree, (node) => ids.push(node.id), { strategy: "post", prune: (node) => node.disabled });
+      expect(ids).toEqual([2, 1]);
+    });
+
+    it("should skip the subtree of a pruned node in breadth-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3, disabled: false }] }] }];
+      const ids: number[] = [];
+      TreeUtil.forEach(tree, (node) => ids.push(node.id), { strategy: "breadth", prune: (node) => node.disabled });
+      expect(ids).toEqual([1, 2]);
+    });
+
+    it("should pass depth and parents to prune", () => {
+      const tree = [{ id: 1, children: [{ id: 2 }] }];
+      const metas: { depth: number; parents: number[] }[] = [];
+      TreeUtil.forEach(tree, () => undefined, {
+        prune: (node, meta) => {
+          metas.push({ depth: meta.depth, parents: (meta.parents ?? []).map((parent) => parent.id) });
+
+          return node.id === 2;
+        },
+      });
+      expect(metas).toEqual([{ depth: 0, parents: [] }, { depth: 1, parents: [1] }]);
+    });
+
+    it("should pass depth and parents to prune in post-order", () => {
+      const tree = [{ id: 1, children: [{ id: 2 }] }];
+      const metas: { depth: number; parents: number[] }[] = [];
+      TreeUtil.forEach(tree, () => undefined, {
+        strategy: "post",
+        prune: (node, meta) => {
+          metas.push({ depth: meta.depth, parents: (meta.parents ?? []).map((parent) => parent.id) });
+
+          return node.id === 2;
+        },
+      });
+      expect(metas).toEqual([{ depth: 0, parents: [] }, { depth: 1, parents: [1] }]);
+    });
+
+    it("should pass depth and parents to prune in breadth-order", () => {
+      const tree = [{ id: 1, children: [{ id: 2 }] }];
+      const metas: { depth: number; parents: number[] }[] = [];
+      TreeUtil.forEach(tree, () => undefined, {
+        strategy: "breadth",
+        prune: (node, meta) => {
+          metas.push({ depth: meta.depth, parents: (meta.parents ?? []).map((parent) => parent.id) });
+
+          return node.id === 2;
+        },
+      });
+      expect(metas).toEqual([{ depth: 0, parents: [] }, { depth: 1, parents: [1] }]);
+    });
+
+    it("should skip the subtree of a pruned node with dynamic children key", () => {
+      const tree = [{ id: 1, disabled: false, items: [{ id: 2, disabled: true, kids: [{ id: 3 }] }] }];
+      const ids: number[] = [];
+      TreeUtil.forEach(tree, (node) => ids.push(node.id), {
+        getChildrenKey: (node) => node.id === 1 ? "items" as const : "kids" as const,
+        prune: (node) => node.disabled,
+      });
       expect(ids).toEqual([1, 2]);
     });
   });
@@ -304,6 +528,52 @@ describe("TreeUtil", () => {
       const found = TreeUtil.find(tree, (node) => node.id === 1, { strategy: "breadth" });
       expect(found).toBeDefined();
       expect(found!.id).toBe(1);
+    });
+
+    it("should not search the subtree of a pruned node in pre-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 3, { prune: (node) => node.disabled });
+      expect(found).toBeUndefined();
+    });
+
+    it("should still match a pruned node itself in pre-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 2, { prune: (node) => node.disabled });
+      expect(found!.id).toBe(2);
+    });
+
+    it("should not search the subtree of a pruned node in post-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 3, { strategy: "post", prune: (node) => node.disabled });
+      expect(found).toBeUndefined();
+    });
+
+    it("should still match a pruned node itself in post-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 2, { strategy: "post", prune: (node) => node.disabled });
+      expect(found!.id).toBe(2);
+    });
+
+    it("should not search the subtree of a pruned node in breadth-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 3, { strategy: "breadth", prune: (node) => node.disabled });
+      expect(found).toBeUndefined();
+    });
+
+    it("should still match a pruned node itself in breadth-order", () => {
+      const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true, children: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 2, { strategy: "breadth", prune: (node) => node.disabled });
+      expect(found!.id).toBe(2);
+    });
+
+    it("should respect prune with dynamic children key in breadth-order", () => {
+      const tree = [{ id: 1, disabled: false, items: [{ id: 2, disabled: true, kids: [{ id: 3 }] }] }];
+      const found = TreeUtil.find(tree, (node) => node.id === 3, {
+        strategy: "breadth",
+        getChildrenKey: (node) => node.id === 1 ? "items" as const : "kids" as const,
+        prune: (node) => node.disabled,
+      });
+      expect(found).toBeUndefined();
     });
   });
 

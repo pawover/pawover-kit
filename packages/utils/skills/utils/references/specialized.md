@@ -276,3 +276,36 @@ const proxy = ViteUtil.toProxy(proxyList, { timeout: 5000 });
 `options` is spread into every proxy entry after the defaults, so it can override
 `changeOrigin`, `ws`, `secure`, or `rewrite`. Do not enable `secure: false` in a
 production proxy.
+
+## Helper quick reference
+
+A few frequently needed behaviors live on the core classes; their detailed
+behavior belongs with the class references linked below.
+
+| Helper | Behavior |
+| --- | --- |
+| `NumberUtil.clamp(value, [lower, upper])` | Bounds a number to a closed interval; validates its arguments like `within` (finite value, tuple of two finite numbers) and throws when `lower > upper`. |
+| `ArrayUtil.uniqueBy(list, keyFn)` | Keeps the first item per `keyFn` result, preserves order, and accepts `readonly` input; `keyFn` receives the original input index. |
+| `TreeUtil.find` / `TreeUtil.forEach` option `prune(row, meta)` | Returning `true` skips that node's subtree; the node itself is still visited, and `find` can still match it. Keep it pure; its evaluation point depends on `strategy`. |
+| `TreeUtil.rowsToTree` option `orphan: "promote" \| "drop"` | `"promote"` (default) turns missing-parent rows into roots; `"drop"` discards them with their subtrees. Neither mode emits a parent cycle. |
+| `TreeUtil.treeToRows` options | The traversal options without `prune`. |
+
+```ts
+import { ArrayUtil, NumberUtil, TreeUtil } from "@pawover/kit-utils";
+
+NumberUtil.clamp(11, [1, 10]); // 10
+ArrayUtil.uniqueBy([{ id: 1 }, { id: 1 }], (row) => row.id); // [{ id: 1 }]
+
+const tree = [{ id: 1, disabled: false, children: [{ id: 2, disabled: true }] }];
+TreeUtil.find(tree, (row) => row.id === 2, { prune: (row) => row.disabled });
+
+const rows: { id: number; parentId: number | null }[] = [
+  { id: 1, parentId: null },
+  { id: 2, parentId: 999 },
+];
+TreeUtil.rowsToTree(rows, { orphan: "drop" }); // [{ id: 1, parentId: null, children: [] }]
+```
+
+See [array, object, and string helpers](array-object-string.md) for `uniqueBy`
+in context and [tree operations](tree.md) for `prune` and `orphan`.
+
