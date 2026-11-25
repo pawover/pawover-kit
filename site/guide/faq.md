@@ -11,12 +11,14 @@ import { useAlovaRequest } from "@pawover/kit/hooks/alova";
 
 ## 使用 Alova Hooks 报依赖错误？
 
-`alova` 是其唯一必需的 peer，需自行安装；框架包由 `createAlova({ statesHook })` 决定——React 项目装 `react`，Vue 项目装 `vue`：
+`alova` 是其唯一必需的 peer，需自行安装；框架包由 `createAlova({ statesHook })` 决定，与 `alova` 一起安装：
 
 ```bash
-npm install alova
-# React 项目另装
-npm install react
+# React 项目
+npm install react alova
+
+# Vue 项目
+npm install vue alova
 ```
 
 同样地，`MathUtil` / `CurrencyUtil.toRealValue` 需要 `mathjs`，`ViteUtil` 需要 `vite`，Zod Schema 需要 `zod`。

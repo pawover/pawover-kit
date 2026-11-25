@@ -54,7 +54,18 @@ feature you use:
 | Zod schemas | `zod` |
 
 ```sh
-pnpm add react alova mathjs vite zod
+pnpm add @pawover/kit
+
+# React + alova
+pnpm add react alova
+
+# Vue + alova
+pnpm add vue alova
+
+# Other features, only when used
+pnpm add mathjs
+pnpm add vite
+pnpm add zod
 ```
 
 ## Core patterns
