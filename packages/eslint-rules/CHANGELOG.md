@@ -1,5 +1,14 @@
 # @pawover/kit-eslint-rules
 
+## 0.2.1-alpha.3
+
+### Patch Changes
+
+- Updated dependencies [08ed137]
+- Updated dependencies [08ed137]
+- Updated dependencies [4ff4bd1]
+  - @pawover/kit-utils@1.2.0-alpha.3
+
 ## 0.2.1-alpha.2
 
 ### Patch Changes

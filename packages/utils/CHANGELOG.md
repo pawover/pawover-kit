@@ -1,5 +1,13 @@
 # @pawover/kit-utils
 
+## 1.2.0-alpha.3
+
+### Minor Changes
+
+- 08ed137: `ArrayUtil.pick` 新增类型谓词重载：`filter` 为 `(row) => row is S` 时返回 `S[]`，传 `mapper` 时其入参收窄为 `S`；`TreeUtil.forEach` / `find` / `filter` / `map` 接受 `readonly` 节点数组。
+- 08ed137: **破坏性变更（按 minor 发布）**：`CurrencyUtil.resolveSymbol` 移除位置参数 `locale`，只接受对象选项 `{ locale }`，调用方需从 `resolveSymbol(currency, "en-US")` 改为 `resolveSymbol(currency, { locale: "en-US" })`；旧的位置参数（`string` / `string[]` / `Intl.Locale`）在运行期抛错。符号解析行为与 `moneyFormat` 的符号推导不变，`moneyFormat` 的 `locale` 仍只影响数字分组与小数位。
+- 4ff4bd1: `TreeUtil.rowsToTree` 新增 `rootParentId` 选项：`parentId` 等于自定义根标记（如 `"0"` 或 `0`）的行视为根节点，即使存在同 id 的行也不挂到其下；未传时不额外识别根标记，nullish 与自引用为根，`orphan: "promote"` 下缺失父节点的行也会提升为根，默认行为不变。
+
 ## 1.2.0-alpha.2
 
 ### Minor Changes
