@@ -21,9 +21,7 @@
       "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
       "outcome": "out-of-scope",
       "reason": "Only change is packages/eslint-rules/src/core.vue.ts, an unrelated uncommitted edit by another contributor. This task does not review or document it; the eslint-preset guidance is untouched.",
-      "evidence": [
-        "packages/eslint-rules/src/core.vue.ts left untouched by this task"
-      ]
+      "evidence": ["packages/eslint-rules/src/core.vue.ts left untouched by this task"]
     },
     "skill:packages/hooks/skills/alova-hooks/SKILL.md": {
       "fingerprint": "19e8d11768d38c11d9c601942a805ca94a3d8750eef7ae274b4fcabd66fd0211",
@@ -56,9 +54,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "updated",
       "reason": "Clarified that only the /react subpath needs the optional react peer, while the sibling /alova subpath is framework-agnostic.",
-      "evidence": [
-        "packages/hooks/skills/react-hooks/SKILL.md"
-      ]
+      "evidence": ["packages/hooks/skills/react-hooks/SKILL.md"]
     },
     "skill:packages/types/skills/types/SKILL.md": {
       "fingerprint": "b4d61d3c2bc66f54305d014c6b78736ffddab8d0feea590ccdeee1c9ef3a4605",
@@ -81,12 +77,12 @@
       ]
     },
     "skill:packages/utils/skills/utils/SKILL.md": {
-      "fingerprint": "2966a583b754a14a26caad7d78f7f1272514734b4e0624b029c53e44bcecbc7e",
+      "fingerprint": "52cb93c13644e4d9ae84ffc9df4de7e00ed8d12ca229f1bdec0d8fee9a29cc8f",
       "snapshot": {
-        "packages/utils/skills/utils/SKILL.md": "7e8f8018061be7086afafc715c55d75fabfa0673f67b7a62bad4d341d459e892",
+        "packages/utils/skills/utils/SKILL.md": "ccb5b3cdd12aeec801ff0526c2769495ee953c42d93e35d9995c116ef31b3dd7",
         "packages/utils/skills/utils/references/array-object-string.md": "c1d2aaca5efd9d35536102fdb6db69b4c92d7bc698ad9ffccd6393340c956846",
-        "packages/utils/skills/utils/references/specialized.md": "90cdc2498e2f4eed9bebc6d41344a24f94738773f1044651a23dc50a8e4a1081",
-        "packages/utils/skills/utils/references/tree.md": "20bb3467b64c5ba97563eea1d0308af5820120b862ee8fe0d6cd58fc8b19b7f9",
+        "packages/utils/skills/utils/references/specialized.md": "60faa35976cef8b875ebf2d23bf9dd353cc84b42d70e06ea9ebd0d50f0c8bed5",
+        "packages/utils/skills/utils/references/tree.md": "47a4ef8c4aa3d84f46bf424334cf0efb3604aaef073d426f952130d48f819935",
         "packages/utils/src/array/arrayUtil.ts": "d3e0e4235226d05fae1f57d8123a4313ad138cadb58cf0b5ac612b85bad0aa56",
         "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
@@ -100,16 +96,16 @@
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
-        "packages/utils/src/tree/treeUtil.ts": "341134353407c3b8089521c87b930e59d8c1892ffeecd276f304f89ef3a5f702",
+        "packages/utils/src/tree/treeUtil.ts": "83b680fc90b70e33940bf0783f9901d29391c3594003176040745f4e7293bb96",
         "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
       "outcome": "updated",
-      "reason": "Documented finite interval bounds and the runtime prune strip for treeToRows in the reference files.",
+      "reason": "Corrected the root rules: without rootParentId, nullish/self-referencing parents are roots and promote also raises missing-parent rows; documented that a sentinel equal to a real id keeps those rows as roots.",
       "evidence": [
-        "pnpm test:types, pnpm check:types:packages, pnpm test (35 files / 1106 tests), pnpm test:coverage all passed",
+        "pnpm test:types, pnpm check:types:packages, pnpm test (35 files / 1115 tests), pnpm test:coverage all passed",
         "intent maintainer check: examples compile"
       ]
     },
@@ -141,15 +137,13 @@
       "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: package.json at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
-      ]
+      "evidence": ["Changed: package.json at 66f758779bf58bd094fb96b0c1e35a014cdfc736"]
     },
     "planning:_artifacts": {
-      "fingerprint": "d26cb8dd6f26fe06df46ba69fcfc071510de3693c099df988792764680af512a",
+      "fingerprint": "59a225a8a54612941f519f26c35f1813eab79594f92708aa5a8822ea9682b289",
       "snapshot": {
-        "_artifacts/domain_map.yaml": "719451375719b87f961c8e957321b491d235eca6440e756629fe084559948f60",
-        "_artifacts/skill_spec.md": "94d9899356435f1d35f5a24567931e09473fa123692ad40d32c3510cd99a6e6f",
+        "_artifacts/domain_map.yaml": "e2515eb66c396803deb22b6dae3a58202e3af5b90cf302d40d5566153fd4e7c1",
+        "_artifacts/skill_spec.md": "500e338293a0882c4139e66e282b3a2c30e72e90bb54e4b562c7c7d99e27ce58",
         "_artifacts/skill_tree.yaml": "a5fe5f242193fce6bfe388024b9256022376dca0075bab69e27c8cf99a215ffc",
         "entry/index.d.ts": "25dfa4d4a4603cba87161b177e3e3987a02bda95ff29b6eeac31c59742e3773f",
         "entry/metadata.json": "a28d4fb350e070fbde8560b42bbdfa384d4d5e72ffd0fb04a9469ddda289eaa9",
@@ -187,10 +181,10 @@
         "packages/types/src/index.ts": "095bb65ae649db21da5773c8cdb1cb1c9538ea9460013e78fafabd721b6f6acd",
         "packages/types/src/react-global.d.ts": "8eb42020b7caf561d703b98e4485e928c1b9d35b1bc822da199e7393322a0343",
         "packages/types/src/react.ts": "b9e814cf3c9e688af92b632b88bb565ec709bbb096989de54d644b84d0a5b07d",
-        "packages/utils/skills/utils/SKILL.md": "7e8f8018061be7086afafc715c55d75fabfa0673f67b7a62bad4d341d459e892",
+        "packages/utils/skills/utils/SKILL.md": "ccb5b3cdd12aeec801ff0526c2769495ee953c42d93e35d9995c116ef31b3dd7",
         "packages/utils/skills/utils/references/array-object-string.md": "c1d2aaca5efd9d35536102fdb6db69b4c92d7bc698ad9ffccd6393340c956846",
-        "packages/utils/skills/utils/references/specialized.md": "90cdc2498e2f4eed9bebc6d41344a24f94738773f1044651a23dc50a8e4a1081",
-        "packages/utils/skills/utils/references/tree.md": "20bb3467b64c5ba97563eea1d0308af5820120b862ee8fe0d6cd58fc8b19b7f9",
+        "packages/utils/skills/utils/references/specialized.md": "60faa35976cef8b875ebf2d23bf9dd353cc84b42d70e06ea9ebd0d50f0c8bed5",
+        "packages/utils/skills/utils/references/tree.md": "47a4ef8c4aa3d84f46bf424334cf0efb3604aaef073d426f952130d48f819935",
         "packages/utils/src/array/arrayUtil.ts": "d3e0e4235226d05fae1f57d8123a4313ad138cadb58cf0b5ac612b85bad0aa56",
         "packages/utils/src/currency/currencyUtil.ts": "726a7bf22adab0d867f5c4b1362d80bd619ef36e75205c13b2e284eda4c9068b",
         "packages/utils/src/dateTime/dateTimeUtil.ts": "3dfab7fb064994b61752525a3ca19e9f70689579ee3ca09b9c40c76183ecb9b2",
@@ -204,7 +198,7 @@
         "packages/utils/src/object/objectUtil.ts": "89116e79d13110398639f572bf731a8e70fbb8132bf2b8a68795d808cd233952",
         "packages/utils/src/string/stringUtil.ts": "60faa41ea3d2def95d6d3981d1bb1518888ef230942841497c90cf498d22d3c9",
         "packages/utils/src/theme/themeUtil.ts": "e9e8d4bcace5f727377762287f6f3eb3cb2f7bba0c891aa2e700987cf366d6a8",
-        "packages/utils/src/tree/treeUtil.ts": "341134353407c3b8089521c87b930e59d8c1892ffeecd276f304f89ef3a5f702",
+        "packages/utils/src/tree/treeUtil.ts": "83b680fc90b70e33940bf0783f9901d29391c3594003176040745f4e7293bb96",
         "packages/utils/src/type/typeUtil.ts": "35a62814c9146a731e334126791ae6049f9bab099f2981dda2587f5c6487a2d2",
         "packages/utils/src/validate/validateUtil.ts": "6d8205011cbed94af6c5af848980752e0702df5feccc218f6087adf66e0ee3e9",
         "packages/utils/src/vite/viteUtil.ts": "343eead87f17bdd153d552e9c7dc0973418a2a0040c4c8b60a7350f208757fcf",
@@ -216,12 +210,10 @@
         "site/guide/installation.md": "b602a655c99affcd239443ef1bddf462630fd6d0a05a2a1f57b4c9554ff7e435",
         "skills/kit/SKILL.md": "66241a878bd1aa614bc56a9b528240d774c6adc81ee9c2024989b7ff415f274e"
       },
-      "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
-      "outcome": "no-change",
-      "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: package.json at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
-      ]
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "outcome": "updated",
+      "reason": "skill_spec.md rootParentId entry now states the corrected root rules, the PropertyKey type, and the sentinel/id collision behavior.",
+      "evidence": ["_artifacts/skill_spec.md rootParentId entry"]
     },
     "source:.changeset/tanstack-intent-skills.md": {
       "fingerprint": "917489ee4b764e68132fdbbdb5e7a2edf28b22e13fb751e0c84c4f01f99af06b",
@@ -231,9 +223,7 @@
       "head": "06aff01f70a489ef5a7533e6aa6c15ca7548fb32",
       "outcome": "no-change",
       "reason": "Resolved merge conflict with origin/feature by keeping the current changeset content (root package removed from frontmatter) and the latest review-state snapshot; no guidance change.",
-      "evidence": [
-        "Changed: .changeset/tanstack-intent-skills.md at 06aff01f70a489ef5a7533e6aa6c15ca7548fb32"
-      ]
+      "evidence": ["Changed: .changeset/tanstack-intent-skills.md at 06aff01f70a489ef5a7533e6aa6c15ca7548fb32"]
     },
     "source:.changeset/pre/tanstack-intent-skills.md": {
       "fingerprint": "a44ebc03359a8b866a9d5656b98399549f649a5d060b0a993027172382a862ce",
@@ -243,9 +233,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: .changeset/pre/tanstack-intent-skills.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: .changeset/pre/tanstack-intent-skills.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:.changeset/shiny-vans-wave.md": {
       "fingerprint": "31e19f90ab412753f68adcf4d7d82c9d4f595b2148510f15e77eec2633db6f10",
@@ -255,9 +243,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Changeset entry; no skill guidance is affected.",
-      "evidence": [
-        ".changeset/shiny-vans-wave.md is release metadata"
-      ]
+      "evidence": [".changeset/shiny-vans-wave.md is release metadata"]
     },
     "source:packages/eslint-rules/CHANGELOG.md": {
       "fingerprint": "2f9f3d5f27a9e77470f028aec7faaf9953e44ee06474ed243291fac2231432e7",
@@ -267,9 +253,7 @@
       "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: packages/eslint-rules/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"]
     },
     "source:packages/hooks/CHANGELOG.md": {
       "fingerprint": "337b861e0e1c6d08b58e7150b7b62fa3a794fc8123a9fd722023fee9a1679400",
@@ -279,9 +263,7 @@
       "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: packages/hooks/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
-      ]
+      "evidence": ["Changed: packages/hooks/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"]
     },
     "source:packages/types/CHANGELOG.md": {
       "fingerprint": "b07a8fced50c636d66e6a5f162fd3fd784ec45b763e407f0c872bb41b4649898",
@@ -291,9 +273,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: packages/types/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: packages/types/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:packages/utils/CHANGELOG.md": {
       "fingerprint": "e177e51fe2ae2f5960519fb8e541a8499849cf1e5590ff23f79646be940c0b2d",
@@ -303,9 +283,7 @@
       "head": "66f758779bf58bd094fb96b0c1e35a014cdfc736",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: packages/utils/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
-      ]
+      "evidence": ["Changed: packages/utils/CHANGELOG.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"]
     },
     "source:packages/zod/CHANGELOG.md": {
       "fingerprint": "9ed0cb5a4b5e24ebd48307d02a45721f45eecad09ef15e2557692430f6c3396c",
@@ -315,9 +293,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: packages/zod/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: packages/zod/CHANGELOG.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:review-report.json": {
       "fingerprint": "de966105f0e6c046c46f683b04cdd90bc55ea6909bcf8b9820175f75469fb85a",
@@ -327,9 +303,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: review-report.json at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: review-report.json at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/eslint-rules/functions/default.md": {
       "fingerprint": "254d29680f14d0c9c5e616cca5a6b97ca27fed109c1bb7098562bfd27bdc5af7",
@@ -339,9 +313,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; reflects updated source types, no skill guidance impact.",
-      "evidence": [
-        "site/api/eslint-rules/functions/default.md regenerated from updated source"
-      ]
+      "evidence": ["site/api/eslint-rules/functions/default.md regenerated from updated source"]
     },
     "source:site/api/eslint-rules/interfaces/PawoverOptions.md": {
       "fingerprint": "328cf07402a2757e4b7de0fab5f35102da491d016b6e0b8b0de16befb89e335f",
@@ -351,9 +323,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/interfaces/ReactOptions.md": {
       "fingerprint": "17be22f54b4d1e21339a0adc8e8ce0cc92100101be3819b85e62714ec3fe846d",
@@ -363,9 +333,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/interfaces/RulesOverrideOptions.md": {
       "fingerprint": "dacd7b08ab13fbd2083e225f967201a412d06153a631efd80faf037be68fb169",
@@ -375,9 +343,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/interfaces/TypeScriptOptions.md": {
       "fingerprint": "9fd9fce3b91615a365cc56c2994891e42b13818400b7cf50c0d602185d04f499",
@@ -387,9 +353,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/ConfigLayer.md": {
       "fingerprint": "3e4b1de2a208c272dcf8c154bc1ba9a4e7ecacc7cbc03faa754f72209dabf202",
@@ -399,9 +363,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/ConfigNames.md": {
       "fingerprint": "ffe49ec84a1c2242d3c8aa818c4110402dc16ed5954b25622bc2ed0fcf311414",
@@ -411,9 +373,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/PawoverUserConfig.md": {
       "fingerprint": "fd2816282a3e1a0d3a2c0e2cdec3cbde9f039084044b97bb1d249474e4528ed4",
@@ -423,9 +383,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/ReactCompilerPreset.md": {
       "fingerprint": "c166e34fc9c73c474d36e4caee9fddadd1df19f4bcfe68c3d7ad7ead2d0c7307",
@@ -447,9 +405,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/RuleMap.md": {
       "fingerprint": "fb9219e039c30173c3c4bf940f746a718d77759ab930f9362e96a70fed469f2d",
@@ -459,9 +415,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/Severity.md": {
       "fingerprint": "8efe6c2dbff0e67c90aabea8f2bfca96a400c6d9587b9ac358db5509be72c5f3",
@@ -471,9 +425,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/SeverityLevel.md": {
       "fingerprint": "70d0ae411f361220542ff1b269c9d53320a24d7d441349cd8be5cb854ba3a61d",
@@ -483,9 +435,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/SeverityName.md": {
       "fingerprint": "1f6f07313a1560e2ac0b96aac1c084dc47422ee5f416e8b3c65f714c004dad7c",
@@ -495,9 +445,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; no skill guidance impact.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/variables/GLOB_EXCLUDE.md": {
       "fingerprint": "95692ce686a2104ca2d3732a14fe9f451a270402e51409b2d2c87ca9947f09b8",
@@ -519,9 +467,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/eslint-rules/variables/GLOB_JSX.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/eslint-rules/variables/GLOB_JSX.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/eslint-rules/variables/GLOB_SOURCE.md": {
       "fingerprint": "5467de05debe12f22af9e8207d973845642660c7699c3e04d9b2701f0ced9134",
@@ -555,9 +501,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/eslint-rules/variables/GLOB_VUE.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/eslint-rules/variables/GLOB_VUE.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/hooks/alova/functions/useAlovaPagination.md": {
       "fingerprint": "a6066c64831fb4696d6a61fa2d1c0d37fdb5a1d5e926fe4282ce82f8275b372c",
@@ -615,9 +559,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/hooks/react/functions/useLatest.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/hooks/react/functions/useLatest.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/hooks/react/functions/useMount.md": {
       "fingerprint": "2c614f5c8540e48cec1a2078db2271cf2b565339f7ae6541fee4c69702320bff",
@@ -627,9 +569,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/hooks/react/functions/useMount.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/hooks/react/functions/useMount.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/hooks/react/functions/useResponsive.md": {
       "fingerprint": "579e22763a8e9cff7edff7c98dc576fed59c73aa1987fd296c1c50093cbd533c",
@@ -651,9 +591,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/hooks/react/functions/useTitle.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/hooks/react/functions/useTitle.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/hooks/react/functions/useUnmount.md": {
       "fingerprint": "7c1bebaca7adcd7c3dab75786a16321a3bf78042b29c4ab51fbbfcd12892c1c0",
@@ -663,9 +601,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/hooks/react/functions/useUnmount.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/hooks/react/functions/useUnmount.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/hooks/react/interfaces/ResponsiveHookOptions.md": {
       "fingerprint": "62c8431d896a6ef6e441576828b1784387ac434ae2a33077365d53bb1f0bebe0",
@@ -831,9 +767,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/types/index/type-aliases/Nullish.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/types/index/type-aliases/Nullish.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/types/index/type-aliases/PlainObject.md": {
       "fingerprint": "74a5d31fe89b82da54ab1d9aaac586431f0a822f14f8f7efe5e0739a31d90d14",
@@ -867,9 +801,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/types/index/type-aliases/TreeLike.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/types/index/type-aliases/TreeLike.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/types/index/type-aliases/TreeLikeOptionalChildren.md": {
       "fingerprint": "e9e29c2e28efc4c983e225eac995baa4c596d4d0fd651483bee84cf4d36ff6aa",
@@ -891,9 +823,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/types/react/type-aliases/Props.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/types/react/type-aliases/Props.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/types/react/type-aliases/PropsWithChildren.md": {
       "fingerprint": "565bf5250afc91a067fdfccc69765be46d48ad4b0615d78811bef5749d2097da",
@@ -927,9 +857,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/ArrayUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/ArrayUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/CurrencyUtil.md": {
       "fingerprint": "956c96b23fd836579179d4f6392741c2b3eb0ea4c47d30402685ef0841d835d8",
@@ -939,9 +867,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/CurrencyUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/CurrencyUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/DateTimeUtil.md": {
       "fingerprint": "79ae9fa0070b5fbddd8190d09841159a4a0f8c47aafa52f8866b457ba310bebf",
@@ -951,9 +877,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/DateTimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/DateTimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/EnvUtil.md": {
       "fingerprint": "a9094767a9691586db76146d9eeb2b2f3f31d8f4d52da5af08b99463bc7d3206",
@@ -963,9 +887,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/EnvUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/EnvUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/FunctionUtil.md": {
       "fingerprint": "de6644674a2f5f40517f31c13d5c75395f00c54b65547adab82d68e925892ec7",
@@ -975,9 +897,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/FunctionUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/FunctionUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/I18nUtil.md": {
       "fingerprint": "9cb3b9d559487b4874216da14656e10a451f35b0443073730906a6b55b5471a7",
@@ -987,9 +907,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/I18nUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/I18nUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/MimeUtil.md": {
       "fingerprint": "c5c55e3a366b5ec3ed16ec6059b63c48f68e61e3647e8e331f59ecd7315d8f9b",
@@ -999,9 +917,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/MimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/MimeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/NumberUtil.md": {
       "fingerprint": "31f19d752e1788e8d1cd19c8eb466811ab1f2c5bd5f9a526426267194c9e9bdc",
@@ -1011,9 +927,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/NumberUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/NumberUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/ObjectUtil.md": {
       "fingerprint": "397743e7466ef1aca818bb007495996c03c9af8d9f63cfad86e59c4e21b34f56",
@@ -1023,9 +937,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/ObjectUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/ObjectUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/StringUtil.md": {
       "fingerprint": "bacfc03699bfba2d2fdee6dc043c1c2a5573664ea62eabd573ff046872ecf1df",
@@ -1035,9 +947,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/StringUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/StringUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/ThemeUtil.md": {
       "fingerprint": "33b4c1d7205ce4e8557913b405fb413c31e342873336c730a8f613fb8208e9e2",
@@ -1047,9 +957,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/ThemeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/ThemeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/TreeUtil.md": {
       "fingerprint": "fafebf0f6d6e9baaec484eb566756505c397a4ceff65e048e83698263266403a",
@@ -1059,9 +967,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/TreeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/TreeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/TypeUtil.md": {
       "fingerprint": "bf9869a9fbc0e7592a939ff2109acfee9c6fdafe0ae7ca603af205b8016c4e35",
@@ -1071,9 +977,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/TypeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/TypeUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/classes/ValidateUtil.md": {
       "fingerprint": "0ea7a53eee295a18faab3655003e926950f2beeab2bd0a209c999266d9425b0b",
@@ -1083,9 +987,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/classes/ValidateUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/classes/ValidateUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/interfaces/FormatterOptions.md": {
       "fingerprint": "15020607204edbb6b753f74bfd97237988a5798dd75dd734f08d7b0d336cea19",
@@ -1119,9 +1021,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/index/interfaces/ZipOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/index/interfaces/ZipOptions.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/index/type-aliases/CountryCode.md": {
       "fingerprint": "2ce8e8d1d2c61234a77f860b1101fdc15cbf59ab985e7c85f4ee7fdfc108a33a",
@@ -1251,9 +1151,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/math/classes/MathUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/math/classes/MathUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/utils/vite/classes/ViteUtil.md": {
       "fingerprint": "30d424324107c0f80e8c2de86f075d69a9e3e6fcda7bbad6e4a1c024366948bb",
@@ -1263,9 +1161,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/utils/vite/classes/ViteUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/utils/vite/classes/ViteUtil.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/any.md": {
       "fingerprint": "1ee972c00a2ace905b047fc05535c95f3686d1d8560e40275604ccde2e9cf32d",
@@ -1275,9 +1171,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/any.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/any.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/anyObject.md": {
       "fingerprint": "b0d8f75872d5b9ab1655ef278c475516d9d6730177f669adfd5c554a572ba80c",
@@ -1287,9 +1181,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/anyObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/anyObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/bigint.md": {
       "fingerprint": "9330ce7e6a5697fa096030ede23e01d7159a647249edd3da4f8e3bdcd1a050b5",
@@ -1299,9 +1191,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/bigint.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/bigint.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/bigintAllowEmpty.md": {
       "fingerprint": "11afd587c43aaa7246a0d404e43d049be2a2702ee5fcd08c16d1a7e2aaf0b06f",
@@ -1311,9 +1201,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/bigintAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/bigintAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/bigintNegative.md": {
       "fingerprint": "82472f86d3f32f783827e019fb5145317207af8fca26da0182c52240d0bc12d7",
@@ -1323,9 +1211,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/bigintNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/bigintNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/bigintNegativeAllowEmpty.md": {
       "fingerprint": "4fb9cba040f7cfde317a26b89372a81239c6ad6ffe8db7a843a0747fb0f34281",
@@ -1347,9 +1233,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/bigintPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/bigintPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/bigintPositiveAllowEmpty.md": {
       "fingerprint": "0d334222311c47f2a3462267bae122dfdfcf3a8d2cbf70196c7ce5e62014384d",
@@ -1371,9 +1255,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/boolean.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/boolean.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/booleanAllowEmpty.md": {
       "fingerprint": "c7c026141ac850da1cb9137bc01154bc786c9fdfacacbc8fe84d2cb9d85b1b9d",
@@ -1383,9 +1265,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/booleanAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/booleanAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/empty.md": {
       "fingerprint": "3968c86ee1724ab24b0367a546b4b5ef058856f883ae6172397503428a147df4",
@@ -1395,9 +1275,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/empty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/empty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/id.md": {
       "fingerprint": "1c54aac0881e2bd2f1d8c901b057f0ae6f45c403926ce3c25efe943768878b7b",
@@ -1407,9 +1285,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/id.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/id.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/idAllowEmpty.md": {
       "fingerprint": "a1cdba44d3a93d748dee3870b35e700a0315e6b3b9003f9a7afd788ed27f0e8e",
@@ -1419,9 +1295,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/idAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/idAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/integer.md": {
       "fingerprint": "4da14ab397d439d232d09d4b7a2f0ff457794e017aed22e69ef360054bb89012",
@@ -1431,9 +1305,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/integer.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/integer.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/integerAllowEmpty.md": {
       "fingerprint": "57062626c20411e74fb4580782c47211781bc24585747b3057620a2e6e786a1e",
@@ -1443,9 +1315,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/integerAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/integerAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/integerNegative.md": {
       "fingerprint": "73d88ba97d34aa8bacf8766238565632fc4c2beb701b6ccdffe33b0b270cc7f4",
@@ -1455,9 +1325,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/integerNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/integerNegative.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/integerNegativeAllowEmpty.md": {
       "fingerprint": "c9173542ed3ff0751961989536d6a7991026a4ca6f490d791187bb326c29a77d",
@@ -1479,9 +1347,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/integerPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/integerPositive.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/integerPositiveAllowEmpty.md": {
       "fingerprint": "318fa6c78f979e52bd2dc0dbfeaf5c0bb397d18425cb0e678babb3bc56ec9250",
@@ -1503,9 +1369,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/never.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/never.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/number.md": {
       "fingerprint": "8ec4e716595f7c545431a7c32a8ebed0f3388e12ff1a9af3f2c04d5e76147a19",
@@ -1515,9 +1379,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/number.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/number.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/numberAllowEmpty.md": {
       "fingerprint": "c33c1101c419924e03606f183f3cbc3192fafaa0bd7b610ee46b05980b5e5a33",
@@ -1527,9 +1389,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/numberAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/numberAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/plainObject.md": {
       "fingerprint": "e8d5eeddcb7ded8023ade72c4526dcfbf4db8f26501e103d9f2591aae87945a9",
@@ -1539,9 +1399,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/plainObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/plainObject.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/propertyKey.md": {
       "fingerprint": "d7af87e445e5dfd6ababaa3b229cde40aa69b851c3256faebc8a040aad0574f2",
@@ -1551,9 +1409,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/propertyKey.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/propertyKey.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/string.md": {
       "fingerprint": "7fa7e2d8421d70968bb8b9cd489266e3376f146fd53cbf8efa46218ed0eb9748",
@@ -1563,9 +1419,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/string.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/string.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/stringAllowEmpty.md": {
       "fingerprint": "44f44ecec65f6604dc623d3edbb7f6cfe04da4a527667538d18da21822de14d5",
@@ -1575,9 +1429,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/stringAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/stringAllowEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/stringEmpty.md": {
       "fingerprint": "badd67385a4dca16848d6ac8848a7c54da63f2fc89aaf1d9eca7b52cd251d8ab",
@@ -1587,9 +1439,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/stringEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/stringEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/stringNoEmpty.md": {
       "fingerprint": "29cfa01d94b44897815f03246bac1a7c73586b03d544700a8cb7048ad6c39d15",
@@ -1599,9 +1449,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/stringNoEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/stringNoEmpty.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/symbol.md": {
       "fingerprint": "1609aaa42d798cabf7ee4439500b04cab85a0328b555836e20ebb7173d7e910e",
@@ -1611,9 +1459,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/symbol.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/symbol.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:site/api/zod/variables/unknown.md": {
       "fingerprint": "050e22844966666af306467e9d23ae7e311652da1a810c8f35ba1daf4ff4a028",
@@ -1623,9 +1469,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "guidance already updated manually in previous round to reflect vue processor and extraFileExtensions changes",
-      "evidence": [
-        "Changed: site/api/zod/variables/unknown.md at c993ccd3f70eda776a13d0570a89ef052016849b"
-      ]
+      "evidence": ["Changed: site/api/zod/variables/unknown.md at c993ccd3f70eda776a13d0570a89ef052016849b"]
     },
     "source:test/unit/eslint-rules/eslintRules.test.ts": {
       "fingerprint": "cf3d283b68ade104c28564bfae6e293e9b367d8a4d96424c41531fe98a8a7b6b",
@@ -1648,9 +1492,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Changeset entry; no skill guidance is affected.",
-      "evidence": [
-        ".changeset/bump-eslint-plugins.md is release metadata, not guidance"
-      ]
+      "evidence": [".changeset/bump-eslint-plugins.md is release metadata, not guidance"]
     },
     "source:.changeset/quick-style-switches.md": {
       "fingerprint": "c09988f075d2812c4fef1411c0c5fddffff1e573f73d8d3cd1f1025c9b152ae5",
@@ -1698,9 +1540,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc index; no skill guidance impact.",
-      "evidence": [
-        "site/api/eslint-rules/index.md regenerated"
-      ]
+      "evidence": ["site/api/eslint-rules/index.md regenerated"]
     },
     "source:site/api/eslint-rules/interfaces/StylisticOptions.md": {
       "fingerprint": "dd9a2e4afe496abb7ba810bedc1ff30e69cd95f9a2c730946a565d801583f146",
@@ -1710,9 +1550,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/interfaces/VueOptions.md": {
       "fingerprint": "8fa53df3a617e8bf3a840f0200ec18974a57aac7886902417ba54fe3525eaee0",
@@ -1722,9 +1560,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/StylisticQuotes.md": {
       "fingerprint": "fabac45d635064207e58379acb6693a34c2e0e1ca4f7f6ccc5c5a6ef3e1ae3ee",
@@ -1734,9 +1570,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/api/eslint-rules/type-aliases/VueNamingCasing.md": {
       "fingerprint": "ae9a60a6654389f19d02ff703c9677356fc375a9078caf6b29b0465d5ae22bbe",
@@ -1746,9 +1580,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Auto-generated API doc; the underlying type is now source-grounded in the skill references.",
-      "evidence": [
-        "regenerated from updated source"
-      ]
+      "evidence": ["regenerated from updated source"]
     },
     "source:site/examples/eslint-config.md": {
       "fingerprint": "1b9fd4d9ce034506d4f3ca4b17bb6f5f9fe82e40e56c98fd9059e6b3b607ed3d",
@@ -1758,9 +1590,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Example doc regenerated from updated source; the skill already covers the same patterns.",
-      "evidence": [
-        "site/examples/eslint-config.md regenerated"
-      ]
+      "evidence": ["site/examples/eslint-config.md regenerated"]
     },
     "source:site/guide/introduction.md": {
       "fingerprint": "a396e7fa0e77e0a6c15d2682db1be607ec0a00178621d78d766b8eea2b8c1d48",
@@ -1770,9 +1600,7 @@
       "head": "c993ccd3f70eda776a13d0570a89ef052016849b",
       "outcome": "no-change",
       "reason": "Guide regenerated; no skill guidance impact.",
-      "evidence": [
-        "site/guide/introduction.md regenerated"
-      ]
+      "evidence": ["site/guide/introduction.md regenerated"]
     },
     "source:.changeset/pre/bump-eslint-plugins.md": {
       "fingerprint": "ba57926d5fd1571bdda21322dcc467243444d232a8941533d8ccf0529b04e482",
@@ -1873,9 +1701,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/intentReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/intentReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/releaseMerge.ts": {
       "fingerprint": "3d8cf94eb9e85c62b5125d39923dcc6a9672118b10eaf5b066667850c0e7e5d1",
@@ -1885,9 +1711,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/releaseMerge.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/releaseMerge.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncMain.ts": {
       "fingerprint": "db9065b6532a139fb0f1a3150fb5781008fd4803cd32bc7d3899cfa4e2022f35",
@@ -1897,9 +1721,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/syncMain.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/syncMain.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:.changeset/README.md": {
       "fingerprint": "7cf9d01b0cb9a2295d4c71fa27037f50c29028ca209eb11107856f977e7aeb72",
@@ -1923,9 +1745,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "T11 workflow 改动：job 名、step 名、终端输出英文文案更新（由 T11 实施，T12 文档同步配套）。不涉及 skill 内容。",
-      "evidence": [
-        "T11 实施 workflow 改动，T12 文档同步配套"
-      ]
+      "evidence": ["T11 实施 workflow 改动，T12 文档同步配套"]
     },
     "source:.github/workflows/release.yml": {
       "fingerprint": "122031733d55295b16a8ae2ce92df533a02a91e86770366cc9c292b090967ba3",
@@ -1935,9 +1755,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: .github/workflows/release.yml at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: .github/workflows/release.yml at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:docs/agents/ci-review.md": {
       "fingerprint": "36913945eae6358251cea18362a2d19d22accc783008fde659810acfbcbec25b",
@@ -1947,9 +1765,7 @@
       "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
       "reason": "CI/发布链路修复与文档同步：在 T1-A/T1-B/T1-C/T1-D 缺陷条目后添加已修复指针，指向任务流 T2/T3/T4 的实施文档与脚本。不改结论。",
-      "evidence": [
-        "Changed: docs/agents/ci-review.md at 02fe965"
-      ]
+      "evidence": ["Changed: docs/agents/ci-review.md at 02fe965"]
     },
     "source:docs/agents/intent-baseline-flow.md": {
       "fingerprint": "b408b255620e50154da33426537d978a75990805512763393cbf98f89ee84949",
@@ -1959,9 +1775,7 @@
       "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
       "reason": "T5 第 3 轮事实修正：release-app.md 修正步骤名（Merge version PR and dispatch → Wait for version PR CI, merge and trigger publish）；intent-baseline-flow.md 修正常量名（AUTO_RECORD_PATHS → RELEASE_METADATA_PATHS）并将第七节四个待确认问题标记为已确认（方案 A）。未改变任何 skill 的对外行为。",
-      "evidence": [
-        "Documentation wording fixes at T5 round 3"
-      ]
+      "evidence": ["Documentation wording fixes at T5 round 3"]
     },
     "source:docs/agents/release-app.md": {
       "fingerprint": "be704029c07048060b20688db3c7c3aef921eabbce96b555623e5457f01fcd89",
@@ -1971,9 +1785,7 @@
       "head": "b948049dc52d2305377fe1b0b42b76e988e97a44",
       "outcome": "no-change",
       "reason": "T8 第 2 轮修正：release-app.md warning 文案补充（或 RELEASE_APP_ID），与 release.yml 实际告警一致。未改变任何 skill 的对外行为。",
-      "evidence": [
-        "T8 round 2 wording fix"
-      ]
+      "evidence": ["T8 round 2 wording fix"]
     },
     "source:scripts/checkChangesets.ts": {
       "fingerprint": "18e39fc396456f12bf6839d67c45f5884c45ffa9153f88f6d62fe918e041df96",
@@ -1983,9 +1795,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/checkChangesets.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/checkChangesets.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/recordVersionReview.ts": {
       "fingerprint": "f3879555fe508f875afd9336c50365c802db85d8475e707243aad40bb10ee69e",
@@ -1995,9 +1805,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/recordVersionReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/recordVersionReview.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/verifyReleasePlan.ts": {
       "fingerprint": "e648c0d733446861d2a2d30beffcdfd27a128f17e736ee96e51e968fa335371a",
@@ -2007,9 +1815,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/verifyReleasePlan.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/verifyReleasePlan.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/wait-ci-green.sh": {
       "fingerprint": "c326eb9afcd316ad57d8c7a052c412412a17e0e8cb6798220c068ce012e528ad",
@@ -2019,9 +1825,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "T11 脚本改动：终端输出中文文案更新（由 T11 实施，T12 文档同步配套）。不涉及 skill 内容。",
-      "evidence": [
-        "T11 实施脚本改动，T12 文档同步配套"
-      ]
+      "evidence": ["T11 实施脚本改动，T12 文档同步配套"]
     },
     "source:test/unit/utils/scripts/intentReview.test.ts": {
       "fingerprint": "eeef2ab0d1578848e146a0e02338d0863bae8c25c8e000bd39dd3bbe44de017f",
@@ -2031,9 +1835,7 @@
       "head": "02fe96550587b8757ef3b1940a1f79956a2863d7",
       "outcome": "no-change",
       "reason": "CI/发布链路修复：新增 scripts/intentReview.ts 的单测（白名单过滤、注解构造）。属于测试代码，非 skill 或 planning 内容。",
-      "evidence": [
-        "Changed: test/unit/utils/scripts/intentReview.test.ts at 02fe965"
-      ]
+      "evidence": ["Changed: test/unit/utils/scripts/intentReview.test.ts at 02fe965"]
     },
     "source:.changeset/pre/close-no-unstable-context-value.md": {
       "fingerprint": "636bfa355bd5532f6896ad87c058886dc1f78f22b52cd68db853c8582e3409f8",
@@ -2055,9 +1857,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/eslint-rules-composer.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/eslint-rules-composer.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/pre/eslint-rules-list-style.md": {
       "fingerprint": "997917ba8cdae62b49cfadc65632e7103f87be88cc464255634ff6483de56352",
@@ -2067,9 +1867,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/eslint-rules-list-style.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/eslint-rules-list-style.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/pre/eslint-rules-plugin-upgrade.md": {
       "fingerprint": "846b92c940ee6ce121908a3b66474ee46b34be284e9fbfee4dbeeb3b9d644792",
@@ -2079,9 +1877,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/eslint-rules-plugin-upgrade.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/eslint-rules-plugin-upgrade.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/pre/eslint-rules-self-contained-preset.md": {
       "fingerprint": "809ef24927d666032f297eb6e2bc715b5e07d874ea81ec44c71860448ce92a6b",
@@ -2103,9 +1899,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/react-compiler-switch.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/react-compiler-switch.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/pre/strict-void-return-allow-any.md": {
       "fingerprint": "7e032e7b353937df06333bd63559575802239f83f6a4650e8fec113143dd0409",
@@ -2127,9 +1921,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/types-global-entry.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/types-global-entry.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:.changeset/pre/utils-tree-to-rows-refactor.md": {
       "fingerprint": "9e3b03ab5584fc045c0add33f7994825d8c95f456ebcf4851facb00385c786ff",
@@ -2139,9 +1931,7 @@
       "head": "782335f39aa3d7f7c43d6339420b61f46c3de0c0",
       "outcome": "no-change",
       "reason": "release-main 发布准备提交：剔除 .changeset/pre 归档、将各包 prerelease 版本号剥离为稳定版本（含根 package.json）、无发布合并改动本身；无任何源码实现、skill 内容、exports 或 planning 记录变动，guidance 无需更新。",
-      "evidence": [
-        "Changed: .changeset/pre/utils-tree-to-rows-refactor.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"
-      ]
+      "evidence": ["Changed: .changeset/pre/utils-tree-to-rows-refactor.md at 782335f39aa3d7f7c43d6339420b61f46c3de0c0"]
     },
     "source:commitlint.config.js": {
       "fingerprint": "587bcbed45d746ab1e8435078262ee1cfc510602687d647a361ac2e349e011e8",
@@ -2151,9 +1941,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: commitlint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: commitlint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:cz.config.cjs": {
       "fingerprint": "73062856dda00b1110acff2076263fc6298f872165b25f3169ed50defd85939d",
@@ -2163,9 +1951,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: cz.config.cjs at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: cz.config.cjs at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:docs/agents/architecture.md": {
       "fingerprint": "2b2e2f0bf6e8c5b07f1cde5944dcf83f3e8f009ca531c49930817031803d57e8",
@@ -2175,9 +1961,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: docs/agents/architecture.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: docs/agents/architecture.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:eslint.config.js": {
       "fingerprint": "e778c057bf4bfb6d587f1727893b0bd4f72f325bcf93d7815d0c790ad974f24b",
@@ -2187,9 +1971,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: eslint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: eslint.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/eslint-rules/src/core.antfu.ts": {
       "fingerprint": "4679e33cc713b887a5b477136a280f34df13aa6ef24771ace22ab4874fd984b8",
@@ -2199,9 +1981,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/core.antfu.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/src/core.antfu.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/eslint-rules/src/core.imports.ts": {
       "fingerprint": "e2a47e3b0f095623ff32df271d50336a3c3073719e28e06cc61c2e1632ae2b7e",
@@ -2211,9 +1991,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/core.imports.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/src/core.imports.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/eslint-rules/src/core.reactHooks.ts": {
       "fingerprint": "cf219696cba9ab3029fa99a19bc71b174c86e16321087e06745718e32a6dc906",
@@ -2223,9 +2001,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/core.reactHooks.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/src/core.reactHooks.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/eslint-rules/src/plugins.ts": {
       "fingerprint": "b3d33123c0297de44f85ac07f65a9448caa686b9e5dc9038dfe7db014ec93cec",
@@ -2235,9 +2011,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/plugins.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/src/plugins.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/eslint-rules/src/preset.ts": {
       "fingerprint": "018f1c2fdb6870df4bf516b9d1970cdedf0b5d0dbce26bbf7c8193367e3798ab",
@@ -2247,9 +2021,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/eslint-rules/src/preset.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/eslint-rules/src/preset.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/utils/src/tree/filter.ts": {
       "fingerprint": "8af67d7ec35e4c31a3b1609d0a969d82c8fe5f08ddbaac2af9207c8efb533815",
@@ -2259,9 +2031,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/utils/src/tree/filter.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/utils/src/tree/filter.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/utils/src/tree/find.ts": {
       "fingerprint": "753a2ebb484344588d4c03218d7b526c2ed39d977b7dfa3d1037f92caee87107",
@@ -2271,9 +2041,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "out-of-scope",
       "reason": "Change comes from a separate utils workstream and does not affect the alova hooks documentation task.",
-      "evidence": [
-        "packages/utils/src/tree/find.ts"
-      ]
+      "evidence": ["packages/utils/src/tree/find.ts"]
     },
     "source:packages/utils/src/tree/forEach.ts": {
       "fingerprint": "e4a049b39f0b3e0ac9a4d4aa5f8006a2110362990feb69c22c820ae242559008",
@@ -2283,9 +2051,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "out-of-scope",
       "reason": "Change comes from a separate utils workstream and does not affect the alova hooks documentation task.",
-      "evidence": [
-        "packages/utils/src/tree/forEach.ts"
-      ]
+      "evidence": ["packages/utils/src/tree/forEach.ts"]
     },
     "source:packages/utils/src/tree/map.ts": {
       "fingerprint": "e5a82d29e42d92658081d4b2860b22fd2474295044f399149de651c29e3cce7b",
@@ -2295,9 +2061,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/utils/src/tree/map.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/utils/src/tree/map.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:packages/utils/src/tree/utils.ts": {
       "fingerprint": "515270d291f73ab5cf37d391d34f0d956eb0ba0fe2ead35e0da3c27ff67f6b2b",
@@ -2307,9 +2071,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: packages/utils/src/tree/utils.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: packages/utils/src/tree/utils.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:prettier.config.js": {
       "fingerprint": "18160e0ebcec77cd5f72a470e7bc677d1c9b0f264eedfd2006bd7301ab4e5eda",
@@ -2319,9 +2081,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: prettier.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: prettier.config.js at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:scripts/bumpRoot.ts": {
       "fingerprint": "dbb37a6f3c371d27ce276e6d15553a8b220d5f7a0aa0bb5c20984de27a0a50da",
@@ -2331,9 +2091,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/bumpRoot.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/bumpRoot.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/checkPack.ts": {
       "fingerprint": "b473dac8452a678e42d1c633456e826e81580ea5fbaa738ce2f42c4e0d5117d0",
@@ -2343,9 +2101,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/checkPack.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/checkPack.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/checkPackageTypes.ts": {
       "fingerprint": "9d76d548d1c64cb1416431a7735ecf4ddb83ef875f8fe837fdfe7f26daf09a1c",
@@ -2355,9 +2111,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: scripts/checkPackageTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: scripts/checkPackageTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:scripts/packages.ts": {
       "fingerprint": "8453faaa703ebc8e9fdf87d09b97c323a25f5e0ff005ba639be160579cc48534",
@@ -2367,9 +2121,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/packages.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/packages.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncBaseline.ts": {
       "fingerprint": "da133754c795db251c8c86b2533724fe508b3d54df18772a4dd3308bf9289b20",
@@ -2379,10 +2131,7 @@
       "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
       "outcome": "no-change",
       "reason": "Script behavior changed to patch only version fields and delete the prerelease archive without merging main. No skill maps this script or describes its internals, so no guidance statement is invalidated; the release docs were updated separately.",
-      "evidence": [
-        "scripts/syncBaseline.ts header design notes",
-        "no skill source lists scripts/syncBaseline.ts"
-      ]
+      "evidence": ["scripts/syncBaseline.ts header design notes", "no skill source lists scripts/syncBaseline.ts"]
     },
     "source:site/api/eslint-rules.md": {
       "fingerprint": "5727e50171735f7c9330f7c5362b2b73d8afc9ca85b200d8b613ac845b63e792",
@@ -2392,9 +2141,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: site/api/eslint-rules.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: site/api/eslint-rules.md at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:test/scripts/globalTypes.ts": {
       "fingerprint": "18b2808ebed8473e96e18cb064becece8a5fcaf686698f394f3db3e570987408",
@@ -2404,9 +2151,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: test/scripts/globalTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: test/scripts/globalTypes.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:test/scripts/smoke.ts": {
       "fingerprint": "7e17d8480e184af58cc99f71b52f08cd6105d663a209b872b2a514492930721e",
@@ -2416,9 +2161,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: test/scripts/smoke.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: test/scripts/smoke.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:test/types/eslint-rules/eslintRulesApi.test.type.ts": {
       "fingerprint": "74881e6c18c02925a0575446c13bce677ab31f169d86e7b0b79e51b14bd14283",
@@ -2440,9 +2183,7 @@
       "head": "acbfdf17c84ec93186210a676e54e4d25efd4dcc",
       "outcome": "no-change",
       "reason": "以 PR base（main 1a2f77c）为基准审查 feature 累积差异：eslint-rules 的 React Compiler 切换、void-use-memo、incompatible-library 级别、GLOB_* 与 FlatConfigComposer 已在 eslint-preset skill 覆盖；TreeUtil rows 转换与 filter/map 语义已在 utils skill 覆盖；其余 scripts/test/config 改动为内部工具与等效格式化，不改变用户可见 guidance。",
-      "evidence": [
-        "Changed: vitest.config.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"
-      ]
+      "evidence": ["Changed: vitest.config.ts at acbfdf17c84ec93186210a676e54e4d25efd4dcc"]
     },
     "source:README.md": {
       "fingerprint": "c6859f381d5b4b4ca12d3d1eb7a52e6e4e01999f41eb38cf6d6bb25affcc97f5",
@@ -2452,9 +2193,7 @@
       "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
       "outcome": "updated",
       "reason": "The stable-baseline row now points to re-running scripts/syncBaseline.ts (version-only patch plus .changeset/pre/ removal) instead of merging origin/main, matching the implemented script.",
-      "evidence": [
-        "README.md command table stable-baseline row"
-      ]
+      "evidence": ["README.md command table stable-baseline row"]
     },
     "source:site/guide/contributing.md": {
       "fingerprint": "61d20505d97d5fbd71a0ddeb45a4a076128fa1a86e3b3cc461495ff618384ba1",
@@ -2464,9 +2203,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: site/guide/contributing.md at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: site/guide/contributing.md at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/syncEntry.ts": {
       "fingerprint": "94fd54a4d4a894aa7fa4550ea092a3cfc7fbf9ad224e7145c4d9ac1b723bac5b",
@@ -2476,9 +2213,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/syncEntry.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/syncEntry.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:scripts/verifyRelease.ts": {
       "fingerprint": "41e1cf3c250e6142ba60c60dafc3ee24683f5c8d433e2c4cfd61ca4b31f7a5d8",
@@ -2488,9 +2223,7 @@
       "head": "471868d7a729aecb6d07d5e67e4153ea48a85a67",
       "outcome": "no-change",
       "reason": "文案替换（CI 守卫→前置检查、防撞车→检查版本是否已发布、回推→同步、兜底→手动方式、发布通道→正式版发布），仅 README.md、AGENTS.md、site/guide/contributing.md 的说明性文字变更，不涉及任何 skill 引用的源码、配置或 behavior，无 documented statement 失效。",
-      "evidence": [
-        "Changed: scripts/verifyRelease.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"
-      ]
+      "evidence": ["Changed: scripts/verifyRelease.ts at 471868d7a729aecb6d07d5e67e4153ea48a85a67"]
     },
     "source:.changeset/add-currency-format-helpers.md": {
       "fingerprint": "411fa81c817af302e6d73b33605b5a8a2ad4c19c0a5e12e5d2dd088fd5e30ae1",
@@ -2500,9 +2233,7 @@
       "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: .changeset/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"
-      ]
+      "evidence": ["Changed: .changeset/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
     },
     "source:.scratch/currency-requirement-analysis.md": {
       "fingerprint": "84ca687746899c98a88bbf9adfe5ae2b06d636cb469d44c785d788e825b55b77",
@@ -2512,9 +2243,7 @@
       "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
       "outcome": "out-of-scope",
       "reason": "Temporary planning record kept outside tracked source; it is not library guidance and its conclusions are superseded by the delivered API.",
-      "evidence": [
-        ".scratch/currency-requirement-analysis.md is an untracked scratch file"
-      ]
+      "evidence": [".scratch/currency-requirement-analysis.md is an untracked scratch file"]
     },
     "source:.scratch/g11-decision.md": {
       "fingerprint": "f9bd37fdcb03f55530f994d7d0602893440cf81f7b34bba1d7b3018d8377a1e3",
@@ -2524,9 +2253,7 @@
       "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
       "outcome": "out-of-scope",
       "reason": "Temporary CRM-facing decision note in an untracked scratch directory; not part of the skill or library contract.",
-      "evidence": [
-        ".scratch/g11-decision.md is an untracked scratch file"
-      ]
+      "evidence": [".scratch/g11-decision.md is an untracked scratch file"]
     },
     "source:packages/utils/src/currency/index.type.ts": {
       "fingerprint": "e0fc5f4e6467e7809d03fa16eaedea4c47e9ce136985c13fb2b18492cf2df485",
@@ -2536,21 +2263,17 @@
       "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "updated",
       "reason": "PercentFormatOptions and PercentTextOptions gain useGrouping (default true), documented in specialized.md.",
-      "evidence": [
-        "packages/utils/src/currency/index.type.ts"
-      ]
+      "evidence": ["packages/utils/src/currency/index.type.ts"]
     },
     "source:test/types/utils/utilsApi.test.type.ts": {
-      "fingerprint": "e23478d8a97377f08b2edbf5ce407f6b393ec1229aebd741e6b8cbbd25e4a4e4",
+      "fingerprint": "c108cf3f4c84673fd0fbdc0aaf741229c8f80d7d02b08cf48db5a6e3c3b3e35f",
       "snapshot": {
-        "test/types/utils/utilsApi.test.type.ts": "1958b25831b83d18e2cb29f6d3899bef3f7d271a975c2ccc8a257bb6c8888d2d"
+        "test/types/utils/utilsApi.test.type.ts": "f3fb8ca7c16c99fcfe945b7370700abe28f8d4b1638c9593a6a90d45e9681ed4"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
       "outcome": "no-change",
-      "reason": "Only the assertion comment changed to describe the Omit source type; behavior unchanged.",
-      "evidence": [
-        "test/types/utils/utilsApi.test.type.ts treeToRows prune assertion"
-      ]
+      "reason": "Reverse assertions for the PropertyKey narrowing match the documented contract.",
+      "evidence": ["test/types/utils/utilsApi.test.type.ts rootParentId cases"]
     },
     "source:test/unit/utils/currencyUtil.test.ts": {
       "fingerprint": "c289c2d0439bf63708b3d2f45c6dc9f558320f00e967c84656eed72c64eb8a94",
@@ -2560,9 +2283,7 @@
       "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "no-change",
       "reason": "Tests assert the documented useGrouping examples (1234.6% and +12345.6%).",
-      "evidence": [
-        "pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed"
-      ]
+      "evidence": ["pnpm vitest run test/unit/utils/currencyUtil.test.ts — passed"]
     },
     "source:test/unit/utils/mathUtil.test.ts": {
       "fingerprint": "52be37fe020fb9a4945263dcf1b9d871de291e9f36f6af02fb872304eb8421e9",
@@ -2572,9 +2293,7 @@
       "head": "16b228fcd9f0ff110b566ca3876fd8ba7f1f3f34",
       "outcome": "no-change",
       "reason": "Tests assert exact scientific-notation conversion for numbers and numeric strings, matching the documented behavior.",
-      "evidence": [
-        "pnpm vitest run test/unit/utils/mathUtil.test.ts — passed"
-      ]
+      "evidence": ["pnpm vitest run test/unit/utils/mathUtil.test.ts — passed"]
     },
     "source:test/unit/utils/typeUtil.test.ts": {
       "fingerprint": "56164d2d798f4819fccef5a8523a08f7e9e73a189d13fcab9b7f1b741e2ed046",
@@ -2584,9 +2303,7 @@
       "head": "03d2633f00010910a3e50a543c8112dceebc9abe",
       "outcome": "no-change",
       "reason": "Tests cover isFiniteNumber, which SKILL.md documents as the guard before numeric formatting.",
-      "evidence": [
-        "pnpm vitest run test/unit/utils/typeUtil.test.ts — passed"
-      ]
+      "evidence": ["pnpm vitest run test/unit/utils/typeUtil.test.ts — passed"]
     },
     "source:.changeset/update-vue-define-macros-order.md": {
       "fingerprint": "5e859220a7a4edc8f62dc74298dfec96864bca88556c6fd2b638a71f27878a5e",
@@ -2596,9 +2313,7 @@
       "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: .changeset/update-vue-define-macros-order.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"
-      ]
+      "evidence": ["Changed: .changeset/update-vue-define-macros-order.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
     },
     "source:.changeset/pre/add-currency-format-helpers.md": {
       "fingerprint": "bd77ecdb729ec14d84180a071b2ade98eaacb830abb360a235ddeb9764c7770d",
@@ -2608,9 +2323,7 @@
       "head": "536dba0b5d61fd3765742a5f22e140ab9df2c784",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: .changeset/pre/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"
-      ]
+      "evidence": ["Changed: .changeset/pre/add-currency-format-helpers.md at 536dba0b5d61fd3765742a5f22e140ab9df2c784"]
     },
     "source:.changeset/pre/update-vue-define-macros-order.md": {
       "fingerprint": "dcdce998ccded9e00dc66aa8f4c9a386ebfe8942d9cebcedd355c7dbefbf54d7",
@@ -2632,9 +2345,7 @@
       "head": "2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117",
       "outcome": "no-change",
       "reason": "发版版本号 bump：changeset version 消费待发 changeset，仅版本号 / CHANGELOG / changeset 归档变更，无源码实现、skill 内容或 planning 记录变动。",
-      "evidence": [
-        "Changed: .changeset/republish-currency-formatting.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"
-      ]
+      "evidence": ["Changed: .changeset/republish-currency-formatting.md at 2ef97154e86515c1cdbb70b6ac4bc99cf4eb4117"]
     },
     "source:.changeset/pre/republish-currency-formatting.md": {
       "fingerprint": "eb8a84262e734704ffbba860c004a0e2b13a5a22656d80efbd741c1e511aa1ac",
@@ -2656,9 +2367,7 @@
       "head": "0a77e9603dc312fed104dbce2942744f7c5f4134",
       "outcome": "no-change",
       "reason": "New unit coverage for status parsing, version patching, archive cleanup and guard paths; it locks script behavior rather than documenting user-facing guidance.",
-      "evidence": [
-        "pnpm vitest run test/unit/utils/scripts/syncBaseline.test.ts — 17 passed"
-      ]
+      "evidence": ["pnpm vitest run test/unit/utils/scripts/syncBaseline.test.ts — 17 passed"]
     },
     "source:.changeset/fix-scientific-notation-and-percent-grouping.md": {
       "fingerprint": "7bfbe8c26bb028173ba24153942728bc0cd76f4a13d88e774ef258acfe5a2a88",
@@ -2685,16 +2394,14 @@
       ]
     },
     "source:packages/utils/src/tree/index.type.ts": {
-      "fingerprint": "53f669ca454b5b6a6a305cbe596dda0fa6a4d6b8d25570962ce55fa2d9ab9ab7",
+      "fingerprint": "de244ccfbec4dc452c46e50d450c7132acf81d7441ef75410923d6a536d5f37e",
       "snapshot": {
-        "packages/utils/src/tree/index.type.ts": "a9d88901219fcea550ea8a311b1c516418cc6964ad67c4b73309dc7713a055b1"
+        "packages/utils/src/tree/index.type.ts": "f8729386633011c0d1b87507c17c0c72997f2f56fcda7337dd48504a5a100249"
       },
-      "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
       "outcome": "no-change",
-      "reason": "Type-only changes: TreeToRowsOptions excludes prune and TreePruneCallback carries its own purity/timing note; skill guidance already restates both.",
-      "evidence": [
-        "TreePruneCallback and TreeToRowsOptions in packages/utils/src/tree/index.type.ts"
-      ]
+      "reason": "rootParentId narrowed to PropertyKey; guidance already describes accepted marker values.",
+      "evidence": ["RowsToTreeOptions.rootParentId"]
     },
     "source:test/unit/utils/arrayUtil.test.ts": {
       "fingerprint": "52a23f8457fa8f99cafa1ab2e3d24228bae975e169fa7f04dc12df4be937a067",
@@ -2704,9 +2411,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "no-change",
       "reason": "Index-with-duplicates assertion backs the documented keyFn index contract.",
-      "evidence": [
-        "test/unit/utils/arrayUtil.test.ts uniqueBy index case"
-      ]
+      "evidence": ["test/unit/utils/arrayUtil.test.ts uniqueBy index case"]
     },
     "source:test/unit/utils/numberUtil.test.ts": {
       "fingerprint": "9e15ff60999f45277a4875144ecbce724638069851bb1bc6a6e0ba4c7662b696",
@@ -2716,22 +2421,17 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "no-change",
       "reason": "NaN and Infinity bound cases assert the documented finite-element contract.",
-      "evidence": [
-        "test/unit/utils/numberUtil.test.ts interval bound cases"
-      ]
+      "evidence": ["test/unit/utils/numberUtil.test.ts interval bound cases"]
     },
     "source:test/unit/utils/treeUtil.test.ts": {
-      "fingerprint": "2347f63e3347138f0aeeea5465c59b82f178a52727cc94a5973be79a118e0f81",
+      "fingerprint": "64c2e26dc1e9371d22c3ed7d39429d653cb34f9cf7c4de81272feaef2cb58166",
       "snapshot": {
-        "test/unit/utils/treeUtil.test.ts": "ae7b628f702b662b0571f1845e57e88e5c13277cd475c46b05ae9ed001606f0c"
+        "test/unit/utils/treeUtil.test.ts": "ce1c8bf998fd97cf5c6b2757e71cbfa8812826a5baaa22a72680e9cb43fefdfc"
       },
-      "head": "42960c750c49442a5493dcf8b0085b5ebcb52f16",
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
       "outcome": "no-change",
-      "reason": "Tester added regression coverage for TreeUtil behavior during re-verification; no skill guidance or documented API changed.",
-      "evidence": [
-        "test/unit/utils/treeUtil.test.ts",
-        "packages/utils/skills/utils/SKILL.md unchanged"
-      ]
+      "reason": "Custom parentIdKey plus rootParentId case asserts the documented option combination.",
+      "evidence": ["test/unit/utils/treeUtil.test.ts customized parentIdKey case"]
     },
     "source:.changeset/add-clamp-unique-and-tree-options.md": {
       "fingerprint": "e6dfa5b919eb0a885edb04cafa795fa08909444388162777f44aa358e444d02c",
@@ -2753,9 +2453,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "updated",
       "reason": "Alova Hooks peer note now states alova is the required peer and the framework package follows createAlova({ statesHook }).",
-      "evidence": [
-        "site/api/hooks.md:42-43"
-      ]
+      "evidence": ["site/api/hooks.md:42-43"]
     },
     "source:site/guide/faq.md": {
       "fingerprint": "8f37caebcd7f44081c18a848bc5e477cabedc2d96d04d0df1ac162c3317f306d",
@@ -2765,9 +2463,7 @@
       "head": "a35ca29fa7a926c3105511b8f9405ae7e606daa3",
       "outcome": "updated",
       "reason": "FAQ install snippet now lists alova as the only required peer and explains the statesHook framework package separately.",
-      "evidence": [
-        "site/guide/faq.md:12-22"
-      ]
+      "evidence": ["site/guide/faq.md:12-22"]
     },
     "source:.changeset/pre/add-clamp-unique-and-tree-options.md": {
       "fingerprint": "1425d62475c8f6d7ea03baa657db76d4b4d818e6ea84ee94799453c6f7a86026",
@@ -2780,6 +2476,16 @@
       "evidence": [
         "Changed: .changeset/pre/add-clamp-unique-and-tree-options.md at 66f758779bf58bd094fb96b0c1e35a014cdfc736"
       ]
+    },
+    "source:.changeset/add-root-parent-id.md": {
+      "fingerprint": "bfc8131ddb6deb106a3a722adeb4f2a68a2d427f68347e972ad46110f3bb2261",
+      "snapshot": {
+        ".changeset/add-root-parent-id.md": "c4bcbaffa99b59aaec3d258209f434ea4f22ce4afd1ee72bdd4d0f9bd71bb947"
+      },
+      "head": "ca937ca77afd685ec410323165e1f3f49fd16bff",
+      "outcome": "out-of-scope",
+      "reason": "Changeset release note, not skill guidance.",
+      "evidence": [".changeset/add-root-parent-id.md"]
     }
   }
 }

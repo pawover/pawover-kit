@@ -239,3 +239,19 @@ The skills reuse the repository's existing tests rather than duplicating them:
   `test/types/utils/utilsApi.test.type.ts`.
 - Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`,
   `pnpm test:coverage` after implementation; `pnpm check:skills` after recording.
+
+### 2026-11-25 — `rowsToTree` `rootParentId`
+
+- Scope: `TreeUtil.rowsToTree` accepts `rootParentId` (a `PropertyKey`); a row
+  whose `parentId` equals the sentinel (for example `"0"` or `0`) is a root,
+  including in `orphan: "drop"` mode, and stays a root even when a row has that
+  id. Omitting it adds no extra root marker: nullish and self-referencing parents
+  are roots, and `orphan: "promote"` also promotes rows whose parent is missing.
+  `treeToRows` copies `parentId` as-is, and the traversal methods never read it.
+- Guidance: `references/tree.md` documents the sentinel root marker and the
+  traversal independence; `SKILL.md` and `references/specialized.md` carry short
+  mentions.
+- Source evidence: `packages/utils/src/tree/{treeUtil,index.type}.ts`,
+  `test/unit/utils/treeUtil.test.ts`, `test/types/utils/utilsApi.test.type.ts`.
+- Checks: `pnpm test:types`, `pnpm check:types:packages`, `pnpm test`,
+  `pnpm test:coverage`; `pnpm check:skills` after recording.

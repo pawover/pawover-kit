@@ -19,6 +19,8 @@ export class TreeUtil {
    * - 将平铺的数组转换为树形结构
    * - 返回的树结构与输入行无共享节点（新对象引用），输入行不会被突变
    * - 重复 id 的行只取首次出现；仅叶子/缺失父节点的 id 会作为根节点，且每个根节点只输出一次
+   * - `rootParentId` 指定自定义根标记：`parentId` 与该值相等的行视为根（如 `"0"`）；未传时不额外识别根标记，nullish 与自引用为根，`"promote"` 下缺失父节点的行也提升为根
+   * - 根标记与某行的 id 相同时，`parentId` 等于该标记的行仍作为根，不挂到该 id 下
    * - `orphan` 默认为 `"promote"`：缺失父节点的行提升为根节点
    * - `orphan` 为 `"drop"`：缺失父节点的行连同其子树整体丢弃
    * - 两种模式都不输出父链成环（无根可达）的行，差异仅在缺失父节点的行是提升为根还是连带子树丢弃
@@ -40,6 +42,12 @@ export class TreeUtil {
    * ];
    * TreeUtil.rowsToTree(orphanRows, { orphan: "promote" }); // [{ id: 1, ... }, { id: 2, ... }]
    * TreeUtil.rowsToTree(orphanRows, { orphan: "drop" }); // [{ id: 1, ... }]
+   *
+   * const menuRows = [
+   *   { id: "2", parentId: "0" },
+   *   { id: "3", parentId: "2" },
+   * ];
+   * TreeUtil.rowsToTree(menuRows, { orphan: "drop", rootParentId: "0" }); // [{ id: "2", ..., children: [{ id: "3", ... }] }]
    * ```
    */
   static rowsToTree<
@@ -52,7 +60,7 @@ export class TreeUtil {
     rows: T[],
     options?: RowsToTreeOptions<RK, PK, CK> | undefined,
   ): R[] {
-    const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children", orphan = "promote" } = options || {};
+    const { parentIdKey = "parentId", rowKey = "id", childrenKey = "children", orphan = "promote", rootParentId } = options || {};
     const result: R[] = [];
     const map = new Map<PropertyKey, T>();
     const processedIds = new Set<PropertyKey>();
@@ -66,7 +74,7 @@ export class TreeUtil {
     }
 
     const retainedIds = orphan === "drop"
-      ? collectRetainedIds(rows, map, rowKey, parentIdKey)
+      ? collectRetainedIds(rows, map, rowKey, parentIdKey, rootParentId)
       : undefined;
 
     for (const row of rows) {
@@ -89,7 +97,7 @@ export class TreeUtil {
         continue;
       }
 
-      if (isRootRow(id, parentId) || isMissingParent(map, parentId)) {
+      if (isRootRow(id, parentId, rootParentId) || isMissingParent(map, parentId)) {
         result.push(node);
 
         continue;
@@ -128,6 +136,7 @@ export class TreeUtil {
   /**
    * 树结构 转 行结构
    * - 将树形结构扁平化为数组
+   * - 不读取 `parentId`，自定义根标记值与其它字段原样保留
    *
    * @param tree 树结构数据 (单个节点或节点数组)
    * @param options 配置项（遍历选项，不含 `prune`）
@@ -294,8 +303,8 @@ export class TreeUtil {
   }
 }
 
-function isRootRow (id: PropertyKey, parentId: PropertyKey): boolean {
-  return TypeUtil.isNullish(parentId) || parentId === id;
+function isRootRow (id: PropertyKey, parentId: PropertyKey, rootParentId: PropertyKey | undefined): boolean {
+  return TypeUtil.isNullish(parentId) || parentId === rootParentId || parentId === id;
 }
 
 function isMissingParent<T> (nodeMap: Map<PropertyKey, T>, parentId: PropertyKey): boolean {
@@ -304,7 +313,7 @@ function isMissingParent<T> (nodeMap: Map<PropertyKey, T>, parentId: PropertyKey
 
 /**
  * 收集从根可达的 id 集合
- * - 根指父 id 为空或自引用的行；缺失父节点与父链成环的行都不可达，其子树随之排除
+ * - 根指父 id 为空、等于 `rootParentId` 或自引用的行；缺失父节点与父链成环的行都不可达，其子树随之排除
  * - 每个唯一 id 至多入栈一次：根集合按首次出现写入，邻接表每个 id 只对应一条父边，故遍历无需再判重
  */
 function collectRetainedIds<T extends AnyObject, RK extends string, PK extends string> (
@@ -312,6 +321,7 @@ function collectRetainedIds<T extends AnyObject, RK extends string, PK extends s
   nodeMap: Map<PropertyKey, T>,
   rowKey: RK,
   parentIdKey: PK,
+  rootParentId: PropertyKey | undefined,
 ): Set<PropertyKey> {
   const childIds = new Map<PropertyKey, PropertyKey[]>();
   const rootIds: PropertyKey[] = [];
@@ -327,7 +337,7 @@ function collectRetainedIds<T extends AnyObject, RK extends string, PK extends s
     seenIds.add(id);
     const parentId: PropertyKey = row[parentIdKey];
 
-    if (isRootRow(id, parentId)) {
+    if (isRootRow(id, parentId, rootParentId)) {
       rootIds.push(id);
 
       continue;

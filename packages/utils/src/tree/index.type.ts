@@ -41,6 +41,7 @@ export interface RowsToTreeOptions<RK extends string = RowKey, PK extends string
   parentIdKey?: PK;
   childrenKey?: CK;
   orphan?: "promote" | "drop";
+  rootParentId?: PropertyKey;
 }
 export type TreeToRowsOptions<T extends AnyObject, CK extends string = ChildrenKey> = Omit<TreeForeachOptions<T, CK>, "prune">;
 

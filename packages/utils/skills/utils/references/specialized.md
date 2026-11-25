@@ -288,7 +288,8 @@ behavior belongs with the class references linked below.
 | `ArrayUtil.uniqueBy(list, keyFn)` | Keeps the first item per `keyFn` result, preserves order, and accepts `readonly` input; `keyFn` receives the original input index. |
 | `TreeUtil.find` / `TreeUtil.forEach` option `prune(row, meta)` | Returning `true` skips that node's subtree; the node itself is still visited, and `find` can still match it. Keep it pure; its evaluation point depends on `strategy`. |
 | `TreeUtil.rowsToTree` option `orphan: "promote" \| "drop"` | `"promote"` (default) turns missing-parent rows into roots; `"drop"` discards them with their subtrees. Neither mode emits a parent cycle. |
-| `TreeUtil.treeToRows` options | The traversal options without `prune`. |
+| `TreeUtil.rowsToTree` option `rootParentId` | Treats rows whose `parentId` equals this sentinel value, such as `"0"` or `0`, as roots; this holds even when a row with that id exists. Omit it when roots are the nullish or self-referencing parent rows, or, under `orphan: "promote"`, rows with a missing parent. |
+| `TreeUtil.treeToRows` options | The traversal options without `prune`; `parentId` and other fields are copied as-is. |
 
 ```ts
 import { ArrayUtil, NumberUtil, TreeUtil } from "@pawover/kit-utils";

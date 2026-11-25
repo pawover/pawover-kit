@@ -13,6 +13,13 @@ to discard rows whose parent is missing, together with their subtrees; nullish
 and self-referencing rows stay roots in both modes. A parent cycle never reaches
 a root, so neither mode emits its rows.
 
+Pass `rootParentId` when the root marker is a sentinel value such as `"0"` or
+`0`. A row whose `parentId` equals it counts as a root, including in
+`orphan: "drop"` mode, and stays a root even when another row has that id.
+Without `rootParentId`, no extra root marker is recognised: nullish and
+self-referencing parents are roots, and the default `orphan: "promote"` also
+promotes rows whose parent is missing.
+
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
 
@@ -49,6 +56,18 @@ const tree = TreeUtil.rowsToTree(
 );
 ```
 
+Sentinel root markers:
+
+```ts
+import { TreeUtil } from "@pawover/kit-utils";
+
+const menuTree = TreeUtil.rowsToTree(
+  [{ id: "2", parentId: "0" }, { id: "3", parentId: "2" }],
+  { rootParentId: "0" },
+);
+// [{ id: "2", parentId: "0", children: [{ id: "3", parentId: "2", children: [] }] }]
+```
+
 If a parent's `children` key exists but is not an array, `rowsToTree` throws. The
 same check runs for every node before returning.
 
@@ -56,7 +75,8 @@ same check runs for every node before returning.
 
 `treeToRows` traverses the tree and returns shallow copies with `children` set to
 `undefined`. It accepts a single node or an array, plus the traversal options
-except `prune`; a `prune` passed at runtime is ignored.
+except `prune`; a `prune` passed at runtime is ignored. `parentId` and the other
+fields are copied as-is, so sentinel root values survive flattening.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
@@ -73,7 +93,8 @@ additionally accept `prune(row, meta)`: returning `true` skips that node's
 subtree, while the node itself is still visited (and still matchable by `find`).
 Keep `prune` pure: `pre` evaluates it after the node callback, while `post` and
 `breadth` evaluate it when the node is entered, so a stateful predicate makes
-results traversal-order dependent.
+results traversal-order dependent. None of them read `parentId`; traversal
+follows the children key only.
 
 | Method | Return | Reference behavior |
 | --- | --- | --- |

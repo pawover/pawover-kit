@@ -174,7 +174,7 @@ skills:
       - "NumberUtil"
       - "CurrencyUtil"
       - "CurrencyUtil formatting helpers (numberFormat / moneyFormat / resolveSymbol / integerFormat / percentFormat / percentText), moneyFormat signDisplay/minusSign, MathUtil.toPercent / fromPercent, TypeUtil.isFiniteNumber"
-      - "NumberUtil.clamp, ArrayUtil.uniqueBy, TreeUtil prune option, TreeUtil.rowsToTree orphan option"
+      - "NumberUtil.clamp, ArrayUtil.uniqueBy, TreeUtil prune option, TreeUtil.rowsToTree orphan option, TreeUtil.rowsToTree rootParentId option"
       - "DateTimeUtil"
       - "EnvUtil"
       - "FunctionUtil"

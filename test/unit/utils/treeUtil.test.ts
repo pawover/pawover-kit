@@ -149,6 +149,73 @@ describe("TreeUtil", () => {
       expect(TreeUtil.rowsToTree([], { orphan: "drop" })).toEqual([]);
     });
 
+    it("should treat the rootParentId marker as a root when orphan is drop", () => {
+      const rows = [
+        { id: "1", parentId: "0" },
+        { id: "2", parentId: "1" },
+        { id: "3", parentId: "0" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop", rootParentId: "0" });
+      expect(tree.map((node) => node.id)).toEqual(["1", "3"]);
+      expect(tree[0].children!.map((child) => child.id)).toEqual(["2"]);
+    });
+
+    it("should treat a numeric rootParentId marker as a root", () => {
+      const rows = [
+        { id: 1, parentId: 0 },
+        { id: 2, parentId: 1 },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, { orphan: "drop", rootParentId: 0 });
+      expect(tree).toHaveLength(1);
+      expect(tree[0].id).toBe(1);
+      expect(tree[0].children[0]!.id).toBe(2);
+    });
+
+    it("should keep the existing root rules when rootParentId is omitted", () => {
+      const rows = [{ id: 1, parentId: "0" }];
+      expect(TreeUtil.rowsToTree(rows, { orphan: "drop" })).toEqual([]);
+      expect(TreeUtil.rowsToTree(rows)).toEqual([{ id: 1, parentId: "0", children: [] }]);
+    });
+
+    it("should treat marker rows as roots even when a row with that id exists", () => {
+      const rows = [
+        { id: "0", parentId: null },
+        { id: "1", parentId: "0" },
+        { id: "2", parentId: "1" },
+      ];
+
+      expect(TreeUtil.rowsToTree(rows).map((node) => node.id)).toEqual(["0"]);
+
+      for (const orphan of ["promote", "drop"] as const) {
+        const tree = TreeUtil.rowsToTree(rows, { orphan, rootParentId: "0" });
+
+        expect(tree.map((node) => node.id)).toEqual(["0", "1"]);
+        expect(tree[1]!.children!.map((child) => child.id)).toEqual(["2"]);
+      }
+    });
+
+    it("should compare the root marker strictly by value", () => {
+      expect(TreeUtil.rowsToTree([{ id: 1, parentId: "0" }], { orphan: "drop", rootParentId: 0 })).toEqual([]);
+      expect(TreeUtil.rowsToTree([{ id: 1, parentId: 0 }], { orphan: "drop", rootParentId: "0" })).toEqual([]);
+    });
+
+    it("should apply rootParentId when parentIdKey is customized", () => {
+      const rows = [
+        { key: "2", pid: "0" },
+        { key: "3", pid: "2" },
+        { key: "4", pid: "999" },
+      ];
+      const tree = TreeUtil.rowsToTree(rows, {
+        rowKey: "key",
+        parentIdKey: "pid",
+        orphan: "drop",
+        rootParentId: "0",
+      });
+
+      expect(tree.map((node) => node.key)).toEqual(["2"]);
+      expect(tree[0]!.children!.map((child) => child.key)).toEqual(["3"]);
+    });
+
     it("should return an empty array when every row is an orphan in drop mode", () => {
       const rows = [
         { id: 1, parentId: 999 },
@@ -346,6 +413,14 @@ describe("TreeUtil", () => {
 
       expect(rows.map((row) => row.id)).toEqual([1, 2]);
       expect(rows[0]!.items).toBeUndefined();
+    });
+
+    it("should keep the custom root marker value in the output parentId", () => {
+      const tree = [{ id: "1", parentId: "0", children: [{ id: "2", parentId: "1" }] }];
+      const rows = TreeUtil.treeToRows(tree);
+
+      expect(rows[0]!.parentId).toBe("0");
+      expect(rows[1]!.parentId).toBe("1");
     });
   });
 
@@ -687,6 +762,20 @@ describe("TreeUtil", () => {
       const tree = [{ id: 1 }];
       const mapped = TreeUtil.map(tree, (node) => ({ ...node }));
       expect(mapped[0]).toHaveProperty("children", undefined);
+    });
+  });
+
+  describe("parentId independence", () => {
+    it("should traverse, find, filter, and map without reading parentId", () => {
+      const tree = [{ id: 1, parentId: "0", children: [{ id: 2, parentId: 1, children: [] }] }];
+      const ids: number[] = [];
+
+      TreeUtil.forEach(tree, (node) => ids.push(node.id));
+
+      expect(ids).toEqual([1, 2]);
+      expect(TreeUtil.find(tree, (node) => node.id === 2)!.id).toBe(2);
+      expect(TreeUtil.filter(tree, (node) => node.id !== 2)[0]!.children).toEqual([]);
+      expect(TreeUtil.map(tree, (node) => ({ ...node }))[0]!.id).toBe(1);
     });
   });
 });

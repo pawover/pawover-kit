@@ -248,3 +248,17 @@ TreeUtil.rowsToTree([{ id: 1 }], { orphan: "keep" });
 
 // @ts-expect-error — orphan 不接受 boolean
 TreeUtil.rowsToTree([{ id: 1 }], { orphan: true });
+
+// TreeUtil.rowsToTree rootParentId — 接受 PropertyKey 根标记值
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentId: "0" });
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentId: 0 });
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentId: Symbol("root") });
+
+// @ts-expect-error — rootParentId 只接受 PropertyKey，不接受对象
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentId: { root: true } });
+
+// @ts-expect-error — rootParentId 只接受 PropertyKey，不接受 null
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentId: null });
+
+// @ts-expect-error — rootParentId 拼写固定为 rootParentId
+TreeUtil.rowsToTree([{ id: 1 }], { rootParentID: "0" });

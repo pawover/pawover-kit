@@ -193,6 +193,8 @@ fills every node with a `children` array, and uses the first row for a duplicate
 id. Missing parents and self-referencing rows become roots. Pass
 `{ orphan: "drop" }` to discard rows with a missing parent together with their
 subtrees instead. A parent cycle never reaches a root, so neither mode emits it.
+When the root marker is a sentinel such as `"0"`, pass `{ rootParentId: "0" }`
+so those rows count as roots; traversal methods never read `parentId`.
 
 ```ts
 import { TreeUtil } from "@pawover/kit-utils";
